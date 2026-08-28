@@ -43,7 +43,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
   /* -------------------------------------------------------
-     PAGE: menu-detail.html — 별점 입력 · 평가 등록
+     PAGE: menu-detail*.html (평가전 상태) — 별점 입력 · 평가 등록
+     끼니마다 별도 페이지(중식/석식 등)를 쓰므로, 등록 후 이동할
+     "평가완료" 페이지는 rateSubmit 버튼의 data-rated-url 속성으로
+     페이지마다 지정한다(하드코딩 금지 — 끼니 오표시 버그 재발 방지).
      ------------------------------------------------------- */
   var starInput = document.getElementById('starInput');
   if(starInput){
@@ -69,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function(){
           return;
         }
         // 실제 서비스에서는 여기서 평가 등록 API를 호출한다.
-        window.location.href = 'menu-detail-rated.html';
+        window.location.href = rateSubmit.getAttribute('data-rated-url') || 'menu-detail-rated.html';
       });
     }
   }

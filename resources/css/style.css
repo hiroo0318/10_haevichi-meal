@@ -67,7 +67,12 @@ body{
   flex-direction:column;
   box-shadow: 0 0 0 1px var(--line);
 }
-@media (min-width: 560px){
+/* 아래 카드형 레이아웃은 마우스 기반 데스크톱 브라우저에서만 적용한다.
+   (hover: hover) and (pointer: fine)은 터치스크린 기기에서는 거짓이 되므로,
+   가로모드 스마트폰·태블릿·하이브리드 앱 WebView처럼 너비만 560px를
+   넘는 터치 기반 화면에서는 이 카드 스타일이 절대 발동하지 않는다.
+   즉 실제 서비스(웹·하이브리드 앱)는 항상 풀폭으로 렌더링된다. */
+@media (min-width: 560px) and (hover: hover) and (pointer: fine){
   body{ background: #E4E7EB; padding: 24px 0; }
   .page{ min-height: calc(100vh - 48px); border-radius: 22px; overflow:hidden; box-shadow: 0 20px 50px rgba(20,20,25,.14); }
 }
@@ -101,9 +106,35 @@ body{
 }
 .hd-biz svg{ width:12px; height:12px; }
 
-/* 드릴다운(상세) 화면용 헤더 — 로고 대신 뒤로가기+컨텍스트 타이틀 */
-.hd-sub{ gap:10px; justify-content:flex-start; }
-.hd-sub-title{ font-size:15px; font-weight:800; color: var(--text); }
+/* 드릴다운(상세) 화면용 헤더 — [뒤로가기] / [날짜] / [끼니 아이콘] 3분할 */
+.hd-sub{ justify-content:space-between; }
+.hd-sub-date{
+  flex:1; text-align:center;
+  font-size:15px; font-weight:800; color: var(--text);
+}
+/* 끼니 배지 — 조식/중식/석식 구분은 마크업의 modifier 클래스로 결정한다.
+   사용법: <span class="hd-sub-meal hd-sub-meal--lunch">중식</span>
+   아이콘 파일 매핑은 아래 3개 modifier에서만 관리하므로,
+   페이지에서는 클래스만 바꾸면 아이콘·의미가 함께 바뀐다. */
+.hd-sub-meal{
+  flex:0 0 auto;
+  display:inline-flex; align-items:center; gap:5px;
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--hc-blue-bg);
+  color: var(--hc-blue-deep);
+  font-size:12px; font-weight:700;
+}
+.hd-sub-meal::before{
+  content:"";
+  width:14px; height:14px;
+  background-repeat:no-repeat;
+  background-size:contain;
+  background-position:center;
+}
+.hd-sub-meal--breakfast::before{ background-image:url("../images/icon/ic-meal-breakfast.svg"); }
+.hd-sub-meal--lunch::before{ background-image:url("../images/icon/ic-meal-lunch.svg"); }
+.hd-sub-meal--dinner::before{ background-image:url("../images/icon/ic-meal-dinner.svg"); }
 
 .page-title{
   padding: 16px 18px 6px;
@@ -313,23 +344,6 @@ body{
 }
 .back-btn img{ width:16px; height:16px; }
 
-.meal-chip{
-  display:inline-flex; align-items:center; gap:5px;
-  background: var(--hc-blue-bg);
-  color: var(--hc-blue-deep);
-  font-size:12.5px; font-weight:700;
-  padding: 6px 11px;
-  border-radius: var(--radius-pill);
-}
-.meal-chip img{ width:14px; height:14px; }
-
-/* 이미지 위에 얹는 끼니 배지 (내비게이션이 아니라 콘텐츠 메타정보이므로 사진 쪽에 배치) */
-.meal-chip-overlay{
-  position:absolute; top:10px; left:10px;
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(2px);
-  box-shadow: 0 2px 8px rgba(20,20,25,.08);
-}
 .photo-ph{
   position: relative;
   height: 168px;
@@ -374,3 +388,30 @@ body{
   margin-bottom: 10px;
 }
 .my-stars .off{ color: var(--star-off); }
+
+
+/* ---------------------------------------------------------
+   3. PAGE: index.html
+   (GitHub Pages 등 배포 진입점 — 실제 서비스 화면이 아니라
+   화면별로 바로 확인할 수 있게 안내하는 목록 페이지)
+   --------------------------------------------------------- */
+.idx-desc{
+  font-size:13px; color: var(--text-sub); line-height:1.6;
+  margin: 8px 0 20px;
+}
+.idx-link{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+.idx-link-primary{
+  background: var(--hc-blue-bg);
+  border-color: transparent;
+}
+.idx-link-eyebrow{
+  font-size:11px; font-weight:700; color: var(--hc-blue-deep);
+  margin-bottom:2px;
+}
+.idx-link-title{ font-size:15px; font-weight:800; color: var(--text); }
+.idx-link-sub{ font-size:12px; color: var(--text-sub); margin-top:3px; }
+.idx-link-arrow{ font-size:20px; color: var(--text-faint); font-weight:700; }
