@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <defs>
+    <radialGradient id="bgGlow1" cx="50%" cy="35%" r="75%">
+      <stop offset="0" stop-color="#FDF8EE"/>
+      <stop offset="0.55" stop-color="#F3E9D2"/>
+      <stop offset="1" stop-color="#E9DBBC"/>
+    </radialGradient>
+    <linearGradient id="soupTop1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C89361"/>
+      <stop offset="1" stop-color="#8C5E37"/>
+    </linearGradient>
+    <linearGradient id="bowlBody1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FBFBFB"/>
+      <stop offset="1" stop-color="#DCDCDC"/>
+    </linearGradient>
+    <radialGradient id="shadow1" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#7A6644" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#7A6644" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="640" height="360" fill="url(#bgGlow1)"/>
+
+  <!-- 바닥 그림자 -->
+  <ellipse cx="320" cy="276" rx="168" ry="22" fill="url(#shadow1)"/>
+
+  <!-- 뚝배기 그릇 -->
+  <path d="M176 166 h288 a11 11 0 0 1 10.7 13 c-9.5 66-67 96-154.7 96 s-145.2-30-154.7-96 a11 11 0 0 1 10.7-13z" fill="url(#bowlBody1)" stroke="#C9C9C9" stroke-width="2.5"/>
+  <path d="M176 166 h288 a11 11 0 0 1 10.7 13 h-309.4 a11 11 0 0 1 10.7-13z" fill="#CFCFCF"/>
+  <ellipse cx="270" cy="176" rx="46" ry="6" fill="#FFFFFF" opacity=".55"/>
+
+  <!-- 국물 -->
+  <ellipse cx="320" cy="181" rx="154" ry="19" fill="url(#soupTop1)"/>
+  <ellipse cx="270" cy="175" rx="50" ry="6.5" fill="#E4B183" opacity=".45"/>
+
+  <!-- 건더기 -->
+  <circle cx="266" cy="180" r="9.5" fill="#4E6E3F"/>
+  <circle cx="266" cy="177.5" r="3" fill="#6E8F5B" opacity=".7"/>
+  <circle cx="352" cy="185" r="7.5" fill="#4E6E3F"/>
+  <rect x="298" y="173" width="22" height="13" rx="3" fill="#EFCE82" transform="rotate(12 309 179.5)"/>
+  <rect x="298" y="173" width="10" height="5" rx="2" fill="#FBE6AE" opacity=".8" transform="rotate(12 303 175.5)"/>
+  <circle cx="228" cy="187" r="6.5" fill="#C1794F"/>
+
+  <!-- 손잡이 -->
+  <rect x="146" y="195" width="28" height="11" rx="5.5" fill="#D6D6D6" stroke="#C4C4C4" stroke-width="1"/>
+  <rect x="466" y="195" width="28" height="11" rx="5.5" fill="#D6D6D6" stroke="#C4C4C4" stroke-width="1"/>
+
+  <!-- 김(스팀) -->
+  <path d="M252 138c-11-15 7-22-2-39" fill="none" stroke="#D9CBAE" stroke-width="5.5" stroke-linecap="round" opacity=".75"/>
+  <path d="M320 128c-11-15 7-24-2-41" fill="none" stroke="#D9CBAE" stroke-width="5.5" stroke-linecap="round" opacity=".8"/>
+  <path d="M388 138c-11-15 7-22-2-39" fill="none" stroke="#D9CBAE" stroke-width="5.5" stroke-linecap="round" opacity=".75"/>
+
+  <text x="320" y="330" text-anchor="middle" font-family="-apple-system,'Malgun Gothic',sans-serif" font-size="13" font-weight="600" fill="#A69477" opacity=".85">SAMPLE IMAGE · 된장국 정식</text>
+</svg>

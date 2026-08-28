@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>식단 상세 | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <header class="hd hd-sub">
+    <a class="back-btn" href="home.html" aria-label="홈으로 돌아가기">
+      <img src="resources/images/icon/ic-back.svg" alt="">
+    </a>
+    <span class="hd-sub-title">8월 19일(수) · 중식</span>
+  </header>
+
+  <main class="content has-tabbar">
+
+    <div class="photo-ph">
+      <img src="resources/images/menu/sample-jeyuk-bokkeum.svg" alt="제육볶음 정식">
+      <span class="meal-chip meal-chip-overlay">
+        <img src="resources/images/icon/ic-meal-lunch.svg" alt="">
+        중식
+      </span>
+    </div>
+
+    <h1 class="detail-title">제육볶음 정식</h1>
+
+    <section class="card info-card">
+      <dl>
+        <dt>구성</dt><dd>잡곡밥 · 제육볶음 · 계란찜 · 시금치나물 · 배추김치</dd>
+        <dt>원산지</dt><dd>돼지고기(국내산) · 쌀(국내산)</dd>
+        <dt>영양정보</dt><dd>620kcal · 나트륨 980mg</dd>
+        <dt>알레르기</dt><dd>대두, 돼지고기 함유</dd>
+      </dl>
+    </section>
+
+    <section class="card rate-card">
+      <p class="rate-q">이 메뉴는 어떠셨나요?</p>
+      <div class="star-input" id="starInput" role="radiogroup" aria-label="별점 선택">
+        <button type="button" class="star" data-n="1" aria-label="1점">★</button>
+        <button type="button" class="star" data-n="2" aria-label="2점">★</button>
+        <button type="button" class="star" data-n="3" aria-label="3점">★</button>
+        <button type="button" class="star" data-n="4" aria-label="4점">★</button>
+        <button type="button" class="star" data-n="5" aria-label="5점">★</button>
+      </div>
+      <div class="errmsg" id="starErr" hidden style="justify-content:center;margin:10px 0 0">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+        별점을 선택해주세요.
+      </div>
+    </section>
+
+    <button type="button" id="rateSubmit" class="btn btn-primary">평가 등록</button>
+
+  </main>
+
+  <nav class="tabbar">
+    <a class="tab" href="home.html">
+      <img src="resources/images/icon/ic-home.svg" alt="홈">
+      홈
+    </a>
+    <a class="tab active" href="menu-detail.html">
+      <img src="resources/images/icon/ic-menu-on.svg" alt="식단">
+      식단
+    </a>
+    <a class="tab disabled" href="#">
+      <img src="resources/images/icon/ic-voc.svg" alt="VOC">
+      VOC
+    </a>
+    <a class="tab disabled" href="#">
+      <img src="resources/images/icon/ic-notice.svg" alt="공지">
+      공지
+    </a>
+    <a class="tab disabled" href="#">
+      <img src="resources/images/icon/ic-my.svg" alt="My">
+      My
+    </a>
+  </nav>
+
+</div>
+
+<script src="resources/js/common.js"></script>
+</body>
+</html>

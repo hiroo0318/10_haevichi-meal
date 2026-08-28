@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>로그인 | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css">
+</head>
+<body>
+
+<div class="page login-page">
+
+  <main class="content login-content">
+
+    <div class="login-brand">
+      <div class="login-mark">HC</div>
+      <div class="login-biz">현대캐피탈</div>
+      <div class="login-app">급식정보</div>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="email">사내 메일 주소</label>
+        <input class="input" id="email" name="email" type="email" placeholder="name@hyundaicapital.com" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="pw">비밀번호</label>
+        <input class="input" id="pw" name="pw" type="password" placeholder="비밀번호" autocomplete="current-password" required>
+      </div>
+
+      <div class="errmsg" id="loginErr" hidden>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+        이메일 또는 비밀번호가 일치하지 않습니다.
+      </div>
+
+      <button type="submit" class="btn btn-primary">로그인</button>
+    </form>
+
+    <div class="login-links">
+      <a href="#">처음이신가요? 회원가입</a>
+      <a href="#">비밀번호를 잊으셨나요?</a>
+    </div>
+
+    <p class="login-hint">데모용: 비밀번호에 <b>0000</b>을 입력하면 실패 사례를 확인할 수 있습니다.</p>
+
+  </main>
+</div>
+
+<script src="resources/js/common.js"></script>
+</body>
+</html>

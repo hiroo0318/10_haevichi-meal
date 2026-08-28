@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>홈 | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css">
+</head>
+<body>
+
+<div class="page">
+
+  <header class="hd">
+    <div class="hd-logo"><span class="mark">HC</span>현대캐피탈 급식</div>
+    <button class="hd-biz" id="bizBtn" type="button">
+      본사
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </header>
+
+  <div class="page-title">홈</div>
+
+  <main class="content has-tabbar">
+
+    <a class="notice-bar" href="#">
+      <span class="notice-ic">📣</span>
+      <span>10/6부터 새 급식정보 앱이 오픈됩니다</span>
+      <span class="notice-arrow">›</span>
+    </a>
+
+    <div class="section-label">8월 19일(수) 오늘의 식단</div>
+
+    <a class="card meal-card" href="menu-detail-rated.html">
+      <div class="meal-row">
+        <div>
+          <div class="meal-time">조식</div>
+          <div class="meal-name">된장국 정식</div>
+          <div class="meal-sub">잡곡밥 · 계란말이 · 시금치나물</div>
+        </div>
+        <span class="badge done">평가완료</span>
+      </div>
+      <div class="meal-chips"><span class="chip">돼지고기 국내산</span></div>
+      <div class="meal-mystars">내 평점 <span class="stars-static">★★★★<span class="off">★</span></span></div>
+    </a>
+
+    <a class="card meal-card" href="menu-detail.html">
+      <div class="meal-row">
+        <div>
+          <div class="meal-time">중식</div>
+          <div class="meal-name">제육볶음 정식</div>
+          <div class="meal-sub">잡곡밥 · 계란찜 · 시금치나물 · 배추김치</div>
+        </div>
+        <span class="badge wait">평가전</span>
+      </div>
+      <div class="meal-chips">
+        <span class="chip">돼지고기 국내산</span>
+        <span class="chip">알레르기 대두·돼지고기</span>
+      </div>
+    </a>
+
+    <a class="card meal-card" href="menu-detail.html">
+      <div class="meal-row">
+        <div>
+          <div class="meal-time">석식</div>
+          <div class="meal-name">순두부찌개 정식</div>
+          <div class="meal-sub">흰쌀밥 · 계란후라이 · 어묵볶음</div>
+        </div>
+        <span class="badge wait">평가전</span>
+      </div>
+      <div class="meal-chips"><span class="chip">대두 국내산</span></div>
+    </a>
+
+  </main>
+
+  <nav class="tabbar">
+    <a class="tab active" href="home.html">
+      <img src="resources/images/icon/ic-home-on.svg" alt="홈">
+      홈
+    </a>
+    <a class="tab disabled" href="#">
+      <img src="resources/images/icon/ic-menu.svg" alt="식단">
+      식단
+    </a>
+    <a class="tab disabled" href="#">
+      <img src="resources/images/icon/ic-voc.svg" alt="VOC">
+      VOC
+    </a>
+    <a class="tab disabled" href="#">
+      <img src="resources/images/icon/ic-notice.svg" alt="공지">
+      공지
+    </a>
+    <a class="tab disabled" href="#">
+      <img src="resources/images/icon/ic-my.svg" alt="My">
+      My
+    </a>
+  </nav>
+
+</div>
+
+<script src="resources/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+/* =========================================================
+   해비치 급식 App — 서비스 스타일시트
+   근거: .codex/DESIGN.md (현대캐피탈 사이트 실측 색상·컴포넌트)
+   reset.css 다음에 불러온다. 모든 페이지가 공통으로 사용하며,
+   페이지 전용 스타일은 하단에 섹션 주석으로 구분해 같이 둔다.
+   구성: 1) 디자인 토큰  2) 공통 컴포넌트(헤더/탭바/버튼/카드/폼)
+        3) 페이지별 전용 스타일
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. 디자인 토큰
+   --------------------------------------------------------- */
+:root{
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic",
+          "Apple SD Gothic Neo", Roboto, sans-serif;
+
+  --hc-blue: #1E88E5;
+  --hc-blue-deep: #1976D2;
+  --hc-blue-light: #2A9FFD;
+  --hc-blue-bg: #EFF6FF;
+
+  --text: #222528;
+  --text-sub: #666B72;
+  --text-faint: #9AA0A8;
+  --line: #E8EAED;
+  --bg: #F4F6F8;
+  --white: #FFFFFF;
+
+  --star: #F0A93A;
+  --star-off: #E3E6EA;
+
+  --danger: #E0432B;
+  --success-bg: #E9F9EF;
+  --success-text: #1E9E5A;
+  --wait-bg: #FFF4E5;
+  --wait-text: #B26A00;
+
+  --radius-pill: 999px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+
+  --shadow-card: 0 1px 2px rgba(20,20,25,.04), 0 1px 12px rgba(20,20,25,.05);
+  --shadow-tabbar: 0 -2px 16px rgba(20,20,25,.06);
+
+  --page-max: 480px;
+  --tabbar-h: 60px;
+}
+
+body{
+  font-family:var(--font);
+  color:var(--text);
+  background:var(--bg);
+}
+
+/* 실제 서비스는 모바일 웹이므로, 데스크톱 브라우저에서 볼 때만
+   가운데 폭 제한 컨테이너로 감싸 세로형 화면처럼 보이게 한다.
+   (모바일 기기에서는 자연스럽게 풀폭.) */
+.page{
+  max-width: var(--page-max);
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--white);
+  position: relative;
+  display:flex;
+  flex-direction:column;
+  box-shadow: 0 0 0 1px var(--line);
+}
+@media (min-width: 560px){
+  body{ background: #E4E7EB; padding: 24px 0; }
+  .page{ min-height: calc(100vh - 48px); border-radius: 22px; overflow:hidden; box-shadow: 0 20px 50px rgba(20,20,25,.14); }
+}
+
+
+/* ---------------------------------------------------------
+   2. 공통 컴포넌트 — 헤더
+   --------------------------------------------------------- */
+.hd{
+  position: sticky; top:0; z-index:10;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 18px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.hd-logo{
+  display:flex; align-items:center; gap:8px;
+  font-weight:800; font-size:14.5px; letter-spacing:-.2px; color:var(--text);
+}
+.hd-logo .mark{
+  width:24px; height:24px; border-radius:7px;
+  background:linear-gradient(135deg,var(--hc-blue-light),var(--hc-blue-deep));
+  color:#fff; font-size:10px; font-weight:800;
+  display:flex; align-items:center; justify-content:center;
+}
+.hd-biz{
+  display:flex; align-items:center; gap:4px;
+  font-size:12px; font-weight:600; color:var(--text-sub);
+  border:1px solid var(--line); border-radius:var(--radius-pill);
+  padding:6px 12px 6px 12px; background:var(--white);
+}
+.hd-biz svg{ width:12px; height:12px; }
+
+/* 드릴다운(상세) 화면용 헤더 — 로고 대신 뒤로가기+컨텍스트 타이틀 */
+.hd-sub{ gap:10px; justify-content:flex-start; }
+.hd-sub-title{ font-size:15px; font-weight:800; color: var(--text); }
+
+.page-title{
+  padding: 16px 18px 6px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.content{
+  flex:1;
+  padding: 4px 18px 28px;
+}
+.content.has-tabbar{
+  padding-bottom: calc(var(--tabbar-h) + 24px + env(safe-area-inset-bottom));
+}
+
+
+/* ---------------------------------------------------------
+   2. 공통 컴포넌트 — 하단 탭바
+   --------------------------------------------------------- */
+.tabbar{
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 100%;
+  max-width: var(--page-max);
+  height: var(--tabbar-h);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: rgba(255,255,255,.96);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-top: 1px solid var(--line);
+  box-shadow: var(--shadow-tabbar);
+  display:flex;
+  z-index: 20;
+}
+.tab{
+  flex:1;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:3px;
+  color: var(--text-faint);
+  font-size: 10.5px;
+  font-weight:600;
+  position:relative;
+}
+.tab img{ width:22px; height:22px; }
+.tab.active{ color: var(--hc-blue-deep); }
+.tab.disabled{ opacity:.45; pointer-events:none; }
+.tab .dot{
+  position:absolute; top:2px; right:calc(50% - 15px);
+  width:5px; height:5px; border-radius:50%; background:var(--danger);
+  display:none;
+}
+
+
+/* ---------------------------------------------------------
+   2. 공통 컴포넌트 — 카드 / 버튼 / 폼 / 배지
+   --------------------------------------------------------- */
+.card{
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.btn{
+  width:100%;
+  border-radius: var(--radius-pill);
+  padding: 15px;
+  font-weight: 700;
+  font-size: 15px;
+  transition: transform .05s ease, opacity .15s ease;
+}
+.btn:active{ transform: scale(.99); }
+.btn-primary{
+  color:#fff;
+  background: linear-gradient(135deg, var(--hc-blue-light), var(--hc-blue-deep));
+  box-shadow: 0 8px 20px rgba(25,118,210,.28);
+}
+.btn-primary:disabled{
+  background: #C9CDD3; box-shadow:none; cursor:default;
+}
+.btn-ghost{
+  color: var(--hc-blue-deep);
+  background: var(--hc-blue-bg);
+}
+
+.field{ margin-bottom: 14px; }
+.field label{
+  display:block; font-size:12.5px; font-weight:700; color: var(--text-sub);
+  margin-bottom: 7px;
+}
+.field .input{
+  width:100%;
+  font-size: 15px;
+  padding: 13px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--line);
+  background: #FBFCFD;
+  transition: border-color .15s ease, background .15s ease;
+}
+.field .input:focus{
+  outline:none; border-color: var(--hc-blue); background: var(--white);
+}
+.field .input::placeholder{ color: var(--text-faint); }
+
+.errmsg{
+  display:flex; align-items:center; gap:6px;
+  font-size:12.5px; color: var(--danger); font-weight:600;
+  margin: -6px 0 14px;
+}
+
+.badge{
+  display:inline-flex; align-items:center;
+  font-size:11px; font-weight:700; padding:4px 10px; border-radius: var(--radius-pill);
+  white-space:nowrap;
+}
+.badge.done{ background: var(--success-bg); color: var(--success-text); }
+.badge.wait{ background: var(--wait-bg); color: var(--wait-text); }
+
+.chip{
+  display:inline-block; font-size:11px; color: var(--text-sub);
+  background: #F1F3F5; border-radius: 7px; padding:3px 9px; margin:2px 5px 0 0;
+}
+
+.stars-static{ color: var(--star); letter-spacing:2px; }
+.stars-static .off{ color: var(--star-off); }
+
+
+/* ---------------------------------------------------------
+   3. PAGE: login.html
+   --------------------------------------------------------- */
+.login-page{
+  background:
+    radial-gradient(120% 60% at 50% -10%, rgba(30,136,229,.10), transparent 60%),
+    var(--white);
+}
+.login-content{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding: 40px 28px;
+}
+.login-brand{ text-align:center; margin-bottom:34px; }
+.login-mark{
+  width:60px; height:60px; margin:0 auto 14px;
+  border-radius:18px;
+  background: linear-gradient(135deg, var(--hc-blue-light), var(--hc-blue-deep));
+  box-shadow: 0 10px 24px rgba(25,118,210,.32);
+  color:#fff; font-weight:800; font-size:21px;
+  display:flex; align-items:center; justify-content:center;
+}
+.login-biz{ font-size:13px; font-weight:700; color: var(--text-sub); }
+.login-app{ font-size:19px; font-weight:800; color: var(--text); margin-top:2px; }
+.login-links{
+  display:flex; justify-content:space-between;
+  margin-top:20px;
+  font-size:12.5px; font-weight:600; color: var(--text-sub);
+}
+.login-hint{
+  margin-top:28px;
+  font-size:11.5px; color: var(--text-faint); text-align:center; line-height:1.6;
+}
+
+
+/* ---------------------------------------------------------
+   3. PAGE: home.html
+   --------------------------------------------------------- */
+.notice-bar{
+  display:flex; align-items:center; gap:8px;
+  background: var(--hc-blue-bg);
+  color: var(--hc-blue-deep);
+  font-size: 12.5px; font-weight:700;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  margin: 10px 0 18px;
+}
+.notice-bar .notice-arrow{ margin-left:auto; font-weight:800; }
+.section-label{
+  font-size: 12.5px; font-weight:700; color: var(--text-sub);
+  margin: 4px 2px 10px;
+}
+.meal-card{
+  display:block;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.meal-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+.meal-time{ font-size:10.5px; font-weight:800; color: var(--text-faint); letter-spacing:.4px; text-transform:uppercase; }
+.meal-name{ font-size:15.5px; font-weight:800; color: var(--text); margin: 4px 0 5px; }
+.meal-sub{ font-size:12px; color: var(--text-sub); line-height:1.5; }
+.meal-chips{ margin-top:10px; }
+.meal-mystars{ margin-top:10px; font-size:12px; color:var(--text-sub); }
+.meal-mystars .stars-static{ font-size:13px; margin-left:4px; }
+
+
+/* ---------------------------------------------------------
+   3. PAGE: menu-detail.html / menu-detail-rated.html
+   (같은 화면의 평가전·평가완료 상태 변형이라 스타일을 공유한다)
+   --------------------------------------------------------- */
+.back-btn{
+  width:34px; height:34px; flex:0 0 auto;
+  border-radius: 50%;
+  background: #F1F3F5;
+  display:flex; align-items:center; justify-content:center;
+}
+.back-btn img{ width:16px; height:16px; }
+
+.meal-chip{
+  display:inline-flex; align-items:center; gap:5px;
+  background: var(--hc-blue-bg);
+  color: var(--hc-blue-deep);
+  font-size:12.5px; font-weight:700;
+  padding: 6px 11px;
+  border-radius: var(--radius-pill);
+}
+.meal-chip img{ width:14px; height:14px; }
+
+/* 이미지 위에 얹는 끼니 배지 (내비게이션이 아니라 콘텐츠 메타정보이므로 사진 쪽에 배치) */
+.meal-chip-overlay{
+  position:absolute; top:10px; left:10px;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 8px rgba(20,20,25,.08);
+}
+.photo-ph{
+  position: relative;
+  height: 168px;
+  border-radius: var(--radius-lg);
+  margin: 10px 0 16px;
+  overflow: hidden;
+}
+.photo-ph img{
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.detail-title{
+  font-size: 19px; font-weight:800; color: var(--text);
+  margin: 0 0 12px;
+}
+.info-card{ padding:16px; margin-bottom:14px; }
+.info-card dl{ display:grid; grid-template-columns:64px 1fr; row-gap:10px; column-gap:10px; }
+.info-card dt{ font-size:12px; font-weight:700; color: var(--text); }
+.info-card dd{ font-size:12.5px; color: var(--text-sub); line-height:1.55; }
+.rate-card{
+  padding: 24px 16px;
+  text-align:center;
+  margin-bottom: 16px;
+}
+.rate-q{ margin:0 0 14px; font-size:13.5px; font-weight:700; color: var(--text-sub); }
+
+/* 평가전: 별점 입력 위젯 */
+.star-input{ display:inline-flex; gap:6px; }
+.star-input .star{
+  font-size: 34px; line-height:1;
+  color: var(--star-off);
+  transition: transform .1s ease, color .1s ease;
+}
+.star-input .star.on{ color: var(--star); }
+.star-input .star:active{ transform: scale(1.15); }
+
+/* 평가완료: 등록된 별점(읽기 전용) 표시 */
+.my-stars{
+  font-size: 30px;
+  letter-spacing: 5px;
+  color: var(--star);
+  margin-bottom: 10px;
+}
+.my-stars .off{ color: var(--star-off); }
