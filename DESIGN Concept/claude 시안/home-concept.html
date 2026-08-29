@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>해비치 급식 — 홈 디자인 시안 (Claude)</title>
+<link rel="stylesheet" href="home-concept.css">
+</head>
+<body>
+<!--
+  홈 화면 디자인 검토용 독립 시안입니다 (Claude 제안).
+  PUBLISH 폴더의 구조·스타일·스크립트에는 영향을 주지 않습니다.
+  제육볶음·순두부찌개 사진은 codex 2번 시안의 실사 샘플을 그대로 가져왔고,
+  된장국은 실사 샘플이 없어 일러스트로 대체했습니다.
+-->
+
+<!-- 시안 확인용 상태 스위처. 실제 화면에는 없는 개발/검토 전용 UI.
+     기본은 접힌 상태이며, 토글 버튼을 눌러야 펼쳐진다. -->
+<div class="state-switcher is-collapsed" id="stateSwitcher">
+  <button type="button" class="state-toggle" id="stateToggle">
+    <span>상태 미리보기 (검토용)</span>
+    <span class="state-toggle-caret">▾</span>
+  </button>
+  <div class="state-buttons">
+    <button type="button" data-state="before-breakfast">조식전</button>
+    <button type="button" data-state="breakfast-serving">조식중</button>
+    <button type="button" data-state="before-lunch">조식완료+중식전</button>
+    <button type="button" data-state="lunch-serving" class="is-active">중식중</button>
+    <button type="button" data-state="before-dinner">중식완료+석식전</button>
+    <button type="button" data-state="dinner-serving">석식중</button>
+    <button type="button" data-state="day-closed">석식후</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="현대캐피탈 급식 홈">
+      <span class="brand-mark">HC</span>
+      <span>현대캐피탈 <b>급식</b></span>
+    </a>
+    <button class="place-switch" type="button">
+      본사 식당
+      <svg viewBox="0 0 20 20"><path d="m5.5 7.5 4.5 4.5 4.5-4.5"/></svg>
+    </button>
+  </header>
+
+  <main>
+
+    <a class="notice" href="#">
+      <span class="notice-dot"></span>
+      10월 6일부터 새 급식정보 서비스가 시작됩니다
+      <span class="notice-arrow">→</span>
+    </a>
+
+    <!-- 오늘의 스포트라이트: NOW SERVING / NEXT UP / DAY CLOSED 3가지 모드 -->
+    <section class="spotlight" id="spotlight" aria-label="오늘의 식사 안내">
+      <div class="spotlight-photo">
+        <img id="spotlightPhoto" src="" alt="">
+      </div>
+      <div class="spotlight-copy">
+        <span class="spotlight-eyebrow" id="spotlightEyebrow"></span>
+        <span class="spotlight-time" id="spotlightTime"></span>
+        <h1 id="spotlightTitle"></h1>
+        <p id="spotlightDesc"></p>
+        <div class="spotlight-foot" id="spotlightTags"></div>
+      </div>
+      <a class="spotlight-link" id="spotlightLink" href="menu-detail-concept.html">
+        <span id="spotlightLinkText">식단 상세·별점 남기기</span>
+        <span>→</span>
+      </a>
+    </section>
+
+    <!-- 오늘 식사가 모두 종료된 경우에만 노출 -->
+    <section class="day-closed-card" id="dayClosedCard" hidden>
+      <span class="closed-icon">✓</span>
+      <div>
+        <strong>오늘의 식사가 모두 종료되었습니다</strong>
+        <p>내일의 식단을 기대해 주세요.</p>
+      </div>
+    </section>
+
+    <!-- 하루 흐름: 조식→중식→석식을 얇은 리스트로, 상태에 따라 강조가 이동 -->
+    <section class="timeline" aria-label="오늘의 전체 식단">
+      <div class="timeline-head">
+        <h2>오늘의 식단</h2>
+        <span>총 3끼</span>
+      </div>
+
+      <a class="timeline-row" data-row="breakfast" href="menu-detail-concept.html">
+        <span class="row-thumb"><img src="images/doenjangguk-photo.png" alt=""></span>
+        <span class="row-body">
+          <span class="row-time">조식 · 07:30–09:00</span>
+          <strong>된장국 정식</strong>
+        </span>
+        <span class="row-side" data-side="breakfast"></span>
+      </a>
+
+      <a class="timeline-row" data-row="lunch" href="menu-detail-concept.html">
+        <span class="row-thumb"><img src="images/jeyuk-bokkeum-photo.png" alt=""></span>
+        <span class="row-body">
+          <span class="row-time">중식 · 11:30–13:30</span>
+          <strong>제육볶음 정식</strong>
+        </span>
+        <span class="row-side" data-side="lunch"></span>
+      </a>
+
+      <a class="timeline-row" data-row="dinner" href="#">
+        <span class="row-thumb"><img src="images/sundubu-jjigae-photo.png" alt=""></span>
+        <span class="row-body">
+          <span class="row-time">석식 · 17:30–19:00</span>
+          <strong>순두부찌개 정식</strong>
+        </span>
+        <span class="row-side" data-side="dinner"></span>
+      </a>
+    </section>
+
+  </main>
+
+  <nav class="tabbar">
+    <a class="active" href="#"><span class="ic ic-home"></span>홈</a>
+    <a href="#"><span class="ic ic-menu"></span>식단</a>
+    <a href="#"><span class="ic ic-voc"></span>의견</a>
+    <a href="#"><span class="ic ic-bell"></span>공지</a>
+    <a href="#"><span class="ic ic-my"></span>MY</a>
+  </nav>
+
+</div>
+<script src="home-concept.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>제육볶음 정식 — 상세 디자인 시안 (Claude)</title>
+<link rel="stylesheet" href="menu-detail-concept.css">
+</head>
+<body>
+<!--
+  식단상세·별점 화면 디자인 검토용 독립 시안입니다 (Claude 제안).
+-->
+<div class="page">
+
+  <header class="hd">
+    <a class="back-btn" href="home-concept.html">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <span class="hd-date">8월 19일(수)</span>
+    <span class="hd-meal">중식</span>
+  </header>
+
+  <main>
+
+    <div class="hero">
+      <img src="images/jeyuk-bokkeum-photo.png" alt="제육볶음 정식">
+      <span class="hero-time">11:30–13:30 제공</span>
+    </div>
+
+    <div class="sheet">
+
+      <span class="kicker">LUNCH MENU</span>
+      <h1>제육볶음 정식</h1>
+
+      <div class="tag-row">
+        <span class="tag">돼지고기 국내산</span>
+        <span class="tag">쌀 국내산</span>
+      </div>
+
+      <section class="composition">
+        <div class="row"><span>주식</span><b>잡곡밥</b></div>
+        <div class="row"><span>메인</span><b>제육볶음</b></div>
+        <div class="row"><span>반찬</span><b>계란찜 · 시금치나물 · 배추김치</b></div>
+        <div class="row"><span>국</span><b>된장국</b></div>
+      </section>
+
+      <section class="nutrition">
+        <div class="nutri-cell">
+          <span class="nutri-label">열량</span>
+          <span class="nutri-value">620<small>kcal</small></span>
+        </div>
+        <div class="nutri-div"></div>
+        <div class="nutri-cell">
+          <span class="nutri-label">나트륨</span>
+          <span class="nutri-value">980<small>mg</small></span>
+        </div>
+      </section>
+      <div class="allergy-line"><b>알레르기</b> 대두, 돼지고기 함유</div>
+
+      <section class="rate">
+        <span class="kicker">MENU RATING</span>
+        <h2>이 메뉴는 어떠셨나요?</h2>
+        <div class="stars" id="stars">
+          <button type="button" data-n="1">★</button>
+          <button type="button" data-n="2">★</button>
+          <button type="button" data-n="3">★</button>
+          <button type="button" data-n="4">★</button>
+          <button type="button" data-n="5">★</button>
+        </div>
+        <p class="rate-hint" id="rateHint">별점을 선택해 주세요</p>
+        <button type="button" id="submitBtn" class="cta" disabled>평가 등록</button>
+      </section>
+
+    </div>
+
+  </main>
+
+  <nav class="tabbar">
+    <a href="home-concept.html"><span class="ic ic-home"></span>홈</a>
+    <a class="active" href="#"><span class="ic ic-menu"></span>식단</a>
+    <a href="#"><span class="ic ic-voc"></span>의견</a>
+    <a href="#"><span class="ic ic-bell"></span>공지</a>
+    <a href="#"><span class="ic ic-my"></span>MY</a>
+  </nav>
+
+</div>
+<script src="menu-detail-concept.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>제육볶음 정식 | 현대캐피탈 급식</title>
+  <link rel="stylesheet" href="home-concept.css">
+  <link rel="stylesheet" href="menu-detail-concept.css">
+</head>
+<body>
+  <!-- 홈 디자인 시안과 분리된 중식 상세 디자인 검토용 화면입니다. -->
+  <div class="concept-page detail-page">
+    <header class="detail-topbar">
+      <a class="back-link" href="home-concept.html" aria-label="홈으로 돌아가기">‹</a>
+      <div><p>8월 19일 수요일</p><strong>오늘의 중식</strong></div>
+      <span class="header-spacer" aria-hidden="true"></span>
+    </header>
+
+    <main class="detail-main">
+      <section class="detail-hero" aria-labelledby="meal-title">
+        <img src="images/jeyuk-bokkeum-photo-sample.png" alt="제육볶음 정식 샘플 이미지">
+        <span class="hero-badge">11:30 – 13:30 제공</span>
+      </section>
+
+      <section class="title-block">
+        <p class="section-kicker"><span></span> LUNCH MENU</p>
+        <h1 id="meal-title">제육볶음 정식</h1>
+        <p>매콤한 제육볶음과 곁들임 반찬으로 구성한 오늘의 중식입니다.</p>
+        <div class="origin-tags"><span>돼지고기 국내산</span><span>쌀 국내산</span></div>
+      </section>
+
+      <section class="menu-info" aria-label="식단 구성과 영양 정보">
+        <div class="info-heading"><h2>식단 구성</h2><span>총 6가지</span></div>
+        <ul class="menu-composition">
+          <li><b>주식</b><span>잡곡밥</span></li>
+          <li><b>메인</b><span>제육볶음</span></li>
+          <li><b>반찬</b><span>계란찜 · 시금치나물 · 배추김치</span></li>
+          <li><b>국</b><span>된장국</span></li>
+        </ul>
+      </section>
+
+      <section class="nutrition-card" aria-label="영양 정보와 알레르기 정보">
+        <div class="nutrition-item"><span class="nutrition-icon flame" aria-hidden="true"></span><div><small>열량</small><strong>620 <em>kcal</em></strong></div></div>
+        <div class="nutrition-item"><span class="nutrition-icon salt" aria-hidden="true"></span><div><small>나트륨</small><strong>980 <em>mg</em></strong></div></div>
+        <div class="allergen-note"><b>알레르기</b><span>대두, 돼지고기 함유</span></div>
+      </section>
+
+      <section class="rating-card" aria-labelledby="rating-title">
+        <div class="rating-sample-heading"><p class="section-kicker"><span></span> MENU RATING</p><h2 id="rating-title">메뉴 평가</h2><p>디자인 검토용으로 두 상태를 함께 표시합니다.</p></div>
+        <div class="rating-variants">
+          <!-- 실제 화면에서는 아직 평가하지 않은 사용자에게만 노출 -->
+          <article class="rating-variant before">
+            <span class="variant-label">평가 전</span>
+            <h3>오늘의 식사는 어떠셨나요?</h3>
+            <div class="rating-control" id="ratingControl" role="radiogroup" aria-label="별점 선택">
+              <button type="button" data-score="1" aria-label="1점">★</button><button type="button" data-score="2" aria-label="2점">★</button><button type="button" data-score="3" aria-label="3점">★</button><button type="button" data-score="4" aria-label="4점">★</button><button type="button" data-score="5" aria-label="5점">★</button>
+            </div>
+            <p class="rating-feedback" id="ratingFeedback" aria-live="polite">별점을 선택해 주세요</p>
+            <button class="rating-submit" id="ratingSubmit" type="button" disabled>평가 등록</button>
+          </article>
+          <!-- 실제 화면에서는 이미 평가한 사용자에게만 노출 -->
+          <article class="rating-variant after">
+            <span class="variant-label">평가 후</span>
+            <h3>내가 남긴 평가</h3>
+            <div class="rating-complete">
+              <div class="saved-stars" aria-label="5점 중 4점">★★★★<span>★</span></div>
+              <div><strong>맛있어요</strong><span>4점 · 평가 완료</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="주요 메뉴">
+      <a href="home-concept.html"><span class="nav-icon home"></span>홈</a>
+      <a class="active" href="#"><span class="nav-icon menu"></span>식단</a>
+      <a href="#"><span class="nav-icon talk"></span>의견</a>
+      <a href="#"><span class="nav-icon bell"></span>공지</a>
+      <a href="#"><span class="nav-icon user"></span>MY</a>
+    </nav>
+  </div>
+  <script src="menu-detail-concept.js"></script>
+</body>
+</html>

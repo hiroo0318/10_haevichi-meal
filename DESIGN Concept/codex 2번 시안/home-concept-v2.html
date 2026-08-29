@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>현대캐피탈 급식 | 홈 시안 2</title>
+  <link rel="stylesheet" href="home-concept-v2.css">
+</head>
+<body>
+  <!-- 시안 검토용 상태 전환 UI. 실제 서비스 화면에는 포함하지 않는다. -->
+  <div class="state-switcher is-collapsed" id="stateSwitcher">
+    <button type="button" class="state-toggle" id="stateToggle"><span>상태 미리보기 (검토용)</span><span class="state-toggle-caret">▾</span></button>
+    <div class="state-buttons">
+      <button type="button" data-state="before-breakfast">조식전</button><button type="button" data-state="breakfast-in">조식중</button><button type="button" data-state="before-lunch">조식완료+중식전</button><button type="button" data-state="lunch-in">중식중</button><button type="button" data-state="before-dinner" class="is-active">중식완료+석식전</button><button type="button" data-state="dinner-in">석식중</button><button type="button" data-state="after-dinner">석식후</button>
+    </div>
+  </div>
+  <!--
+    Codex 2번 홈 시안: 1번의 대표 카드 방식 대신, 시간 흐름을 중심으로 오늘의 세 끼를 빠르게 훑는 구조.
+    실제 로고와 메뉴 데이터는 확정 후 교체한다.
+  -->
+  <div class="v2-page">
+    <header class="v2-header">
+      <a class="v2-brand" href="#" aria-label="현대캐피탈 급식 홈"><span class="v2-mark"><i></i><i></i><i></i></span><span>현대캐피탈 <b>급식</b></span></a>
+      <button class="site-button" type="button">본사 식당 <span>⌄</span></button>
+    </header>
+
+    <main>
+      <section class="date-panel" aria-label="식단 날짜 선택">
+        <button class="date-arrow" id="previousDate" type="button" aria-label="이전 날짜">‹</button>
+        <div class="selected-date"><p>오늘의 식단</p><div><strong id="selectedDate">8월 19일 <span>수요일</span></strong><button class="today-return" id="todayReturn" type="button" hidden>오늘로</button></div></div>
+        <button class="date-arrow" id="nextDate" type="button" aria-label="다음 날짜">›</button>
+      </section>
+
+      <a class="announcement" href="#"><span class="announcement-dot"></span><span>새 급식정보 서비스 오픈 안내</span><b>›</b></a>
+
+      <section class="meal-board" aria-labelledby="meal-board-title">
+        <!--
+          디자인 검토용 상태값. 아래 값만 바꾸면 상단 제목·시간을 즉시 확인할 수 있다.
+          before-breakfast | breakfast-in | before-lunch | lunch-in | before-dinner | dinner-in | after-dinner | auto
+          실제 퍼블리싱/개발에서는 data-preview-state="auto" 또는 속성 제거 후 운영시간 기준으로 처리한다.
+        -->
+        <div class="board-heading" data-preview-state="lunch-in"><div><p id="mealState">NEXT MEAL</p><h1 id="meal-board-title">석식을 준비하고 있어요</h1></div><span class="board-time" id="boardTime">17:30부터</span></div>
+
+        <!-- 조식 → 중식 → 석식의 순서는 항상 유지한다. 현재/다음 식사만 JS로 강조한다. -->
+        <div class="meal-timeline">
+          <a class="timeline-meal" data-meal="breakfast" href="#">
+            <span class="timeline-time">07:30<br>09:00</span>
+            <span class="timeline-line" aria-hidden="true"><i></i></span>
+            <div class="timeline-copy"><span class="meal-kind">조식</span><strong>된장국 정식</strong><small>잡곡밥 · 계란말이 · 시금치나물</small></div>
+            <span class="past-rate">★ 4.0</span>
+            <!-- 조식이 다음/현재 식사일 때만 카드 안에서 펼쳐진다. -->
+            <div class="timeline-focus-detail breakfast-detail">
+              <div><p>잡곡밥 · 계란말이<br>시금치나물 · 배추김치</p><span class="meal-action">식단 상세 보기 <b>→</b></span></div>
+              <div class="timeline-photo"><img src="images/doenjang-guk-photo-sample.png" alt="된장국 정식 샘플 이미지"></div>
+            </div>
+            <span class="meal-state-badge breakfast-badge" hidden>07:30부터</span>
+          </a>
+
+          <a class="timeline-meal is-focus" data-meal="lunch" href="menu-detail-v2.html">
+            <span class="timeline-time">11:30<br>13:30</span>
+            <span class="timeline-line" aria-hidden="true"><i></i></span>
+            <div class="timeline-copy"><span class="meal-kind">중식</span><strong>제육볶음 정식</strong><small>잡곡밥 · 계란찜 · 시금치나물 · 배추김치</small><span class="meal-action">식단 상세 보기 <b>→</b></span></div>
+            <div class="timeline-photo"><img src="images/jeyuk-bokkeum-photo-sample.png" alt="제육볶음 정식 샘플 이미지"></div>
+            <span class="meal-state-badge">제공 중</span>
+          </a>
+
+          <a class="timeline-meal" data-meal="dinner" href="#">
+            <span class="timeline-time">17:30<br>19:00</span>
+            <span class="timeline-line" aria-hidden="true"><i></i></span>
+            <div class="timeline-copy"><span class="meal-kind">석식</span><strong>순두부찌개 정식</strong><small>흰쌀밥 · 계란후라이 · 어묵볶음</small></div>
+            <span class="future-time">17:30부터</span>
+            <!-- 석식이 다음/현재 식사일 때만 카드 안에서 펼쳐진다. -->
+            <div class="timeline-focus-detail dinner-detail">
+              <div><p>흰쌀밥 · 계란후라이<br>어묵볶음 · 배추김치</p><span class="meal-action">식단 상세 보기 <b>→</b></span></div>
+              <div class="timeline-photo"><img src="images/sundubu-jjigae-photo-sample.png" alt="순두부찌개 정식 샘플 이미지"></div>
+            </div>
+            <span class="meal-state-badge dinner-badge" hidden>17:30부터</span>
+          </a>
+        </div>
+
+        <aside class="closed-message" id="closedMessage" hidden><span>✓</span><div><strong>오늘의 식사가 종료되었습니다</strong><p>내일의 식단을 기대해 주세요.</p></div></aside>
+      </section>
+
+      <section class="guide-grid" aria-label="급식 안내">
+        <a href="#"><span class="guide-icon allergen">!</span><div><strong>알레르기 안내</strong><small>식단별 정보 확인</small></div><b>›</b></a>
+        <a href="#"><span class="guide-icon voice">◌</span><div><strong>급식 의견 남기기</strong><small>더 나은 식단을 위해</small></div><b>›</b></a>
+      </section>
+    </main>
+
+    <nav class="v2-tabbar" aria-label="주요 메뉴">
+      <a class="active" href="#"><span class="v2-icon home"></span>홈</a><a href="#"><span class="v2-icon menu"></span>식단</a><a href="#"><span class="v2-icon voice"></span>의견</a><a href="#"><span class="v2-icon bell"></span>공지</a><a href="#"><span class="v2-icon user"></span>MY</a>
+    </nav>
+  </div>
+  <script src="home-concept-v2.js"></script>
+</body>
+</html>
