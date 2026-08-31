@@ -102,6 +102,7 @@ h2 { margin: 0; font-size: 18px; letter-spacing: -0.045em; }.service-time { padd
 
 /* 앱 프레임: 헤더·본문 스크롤·하단 탭을 하나의 세로 레이아웃으로 고정한다. */
 .concept-page { height:100dvh; min-height:0; padding-bottom:0; display:flex; flex-direction:column; overflow-x:hidden; }
+.concept-page > header { flex:0 0 auto; }
 .concept-page main { width:100%; min-width:0; min-height:0; flex:1 1 auto; overflow-x:hidden; overflow-y:auto; overscroll-behavior-y:contain; overscroll-behavior-x:none; }
 .app-footer { flex:0 0 auto; }
 .bottom-nav { position:static; transform:none; width:100%; max-width:none; height:74px; padding:7px 4px calc(7px + env(safe-area-inset-bottom)); background:#fff; backdrop-filter:none; }
