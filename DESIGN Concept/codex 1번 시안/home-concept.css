@@ -179,6 +179,13 @@ h2 { margin: 0; font-size: 18px; letter-spacing: -0.045em; }.service-time { padd
   .nav-icon { width:24px; height:24px; }
 }
 
+/* 건강·알레르기 정보는 카드의 보조 캡션이 아닌 읽을 수 있는 정보 영역으로 다룬다. */
+@media (max-width:549px) {
+  .corner-card .featured-meta { min-height:44px; align-items:center; border-radius:10px; font-size:11px; line-height:1.35; }
+  .corner-card .featured-meta .allergy { padding-left:12px; }
+  .corner-indicator { padding-top:11px; padding-bottom:2px; }
+}
+
 /* 검토용 상태 바도 화면 높이에 포함한다. 접힌 상태에서는 맥 미리보기와 실기기 모두 탭바가 잘리지 않는다. */
 :root { --review-switcher-height:40px; }
 .state-switcher.is-collapsed + .concept-page { height:calc(100dvh - var(--review-switcher-height)); }

@@ -61,3 +61,16 @@
   .rating-feedback { font-size:11px; }
   .rating-submit { min-height:44px; padding:12px; font-size:14px; }
 }
+
+/* 상세 정보·전환 카드·평가 영역은 실제 모바일에서 읽고 누르기 쉬운 밀도로 보강한다. */
+@media (max-width:549px) {
+  .same-time-corner { min-height:76px; border-radius:16px; }
+  .same-time-corner b, .same-time-corner small { font-size:11px; }
+  .nutrition-item small, .nutrition-item em { font-size:11px; }
+  .allergen-note { min-height:48px; align-items:center; gap:12px; font-size:12px; line-height:1.45; background:#f1f7fb; }
+  .rating-variant { border-radius:18px; }
+  .rating-control button:not(.selected) { color:rgba(255,255,255,.48); }
+  .rating-submit:disabled { color:#527b9e; background:rgba(255,255,255,.82); }
+  .rating-complete strong { font-size:14px; }
+  .rating-complete div:last-child span { font-size:11px; }
+}
