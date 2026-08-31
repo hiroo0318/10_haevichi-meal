@@ -4,15 +4,14 @@
 */
 (function () {
   const states = {
-    'before-breakfast': { label: 'NEXT MEAL', focus: 'breakfast', completed: [], status: '다음 식사' },
-    'breakfast-in': { label: 'NOW SERVING', focus: 'breakfast', completed: [], status: '제공 중' },
-    'before-lunch': { label: 'NEXT MEAL', focus: 'lunch', completed: ['breakfast'], status: '다음 식사' },
-    'lunch-in': { label: 'NOW SERVING', focus: 'lunch', completed: ['breakfast'], status: '제공 중' },
-    'before-dinner': { label: 'NEXT MEAL', focus: 'dinner', completed: ['breakfast', 'lunch'], status: '다음 식사' },
-    'dinner-in': { label: 'NOW SERVING', focus: 'dinner', completed: ['breakfast', 'lunch'], status: '제공 중' },
-    'after-dinner': { label: 'TODAY CLOSED', focus: null, completed: ['breakfast', 'lunch', 'dinner'], status: null, closed: true }
+    'before-breakfast': { focus: 'breakfast', completed: [], status: '다음 식사' },
+    'breakfast-in': { focus: 'breakfast', completed: [], status: '제공 중' },
+    'before-lunch': { focus: 'lunch', completed: ['breakfast'], status: '다음 식사' },
+    'lunch-in': { focus: 'lunch', completed: ['breakfast'], status: '제공 중' },
+    'before-dinner': { focus: 'dinner', completed: ['breakfast', 'lunch'], status: '다음 식사' },
+    'dinner-in': { focus: 'dinner', completed: ['breakfast', 'lunch'], status: '제공 중' },
+    'after-dinner': { focus: null, completed: ['breakfast', 'lunch', 'dinner'], status: null, closed: true }
   };
-  const stateLabel = document.getElementById('meal-state');
   const closed = document.getElementById('dayClosed');
   const buttons = document.querySelectorAll('.state-buttons button');
   const cornerCarousels = [];
@@ -84,7 +83,6 @@
   const renderState = (key) => {
     const state = states[key];
     if (!state) return;
-    stateLabel.innerHTML = `<span></span> ${state.label}`;
     closed.hidden = !state.closed;
     document.querySelectorAll('[data-meal]').forEach((element) => {
       const meal = element.dataset.meal;
