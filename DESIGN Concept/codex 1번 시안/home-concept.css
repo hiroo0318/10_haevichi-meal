@@ -79,11 +79,20 @@ h2 { margin: 0; font-size: 18px; letter-spacing: -0.045em; }.service-time { padd
 .meal-summary .meal-title-compact, .corner-summary, .compact-corner-count { display:none; }
 .expandable-meal:not(.is-featured) .meal-title-featured { display:none; }
 .expandable-meal:not(.is-featured) .meal-title-compact { display:block; }
+.expandable-meal:not(.is-featured) .meal-title-compact span { display:block; font-size:14px; line-height:1.45; font-weight:700; }
 .expandable-meal:not(.is-featured) .corner-summary { display:block; margin-top:4px; overflow:hidden; color:#7b8996; font-size:9px; font-weight:650; text-overflow:ellipsis; white-space:nowrap; }
 .expandable-meal:not(.is-featured) .meal-side-stack { display:flex; flex-direction:column; align-items:flex-end; gap:4px; }
 .expandable-meal:not(.is-featured) .compact-corner-count { display:block; color:#55718a; font-size:8.5px; font-weight:800; }
+/* 복수 코너 행은 2~5개 코너 수에 따라 내용만큼 세로로 확장한다. */
+.has-multiple-corners:not(.is-featured) { min-height:0; padding-top:12px; padding-bottom:12px; align-items:start; }
+.has-multiple-corners:not(.is-featured) .meal-dot { margin-top:7px; }
+.has-multiple-corners:not(.is-featured) .meal-title-compact { overflow:visible; white-space:normal; }
+.has-multiple-corners:not(.is-featured) .meal-title-compact span { min-height:16px; line-height:1.5; white-space:normal; }
+.has-multiple-corners:not(.is-featured) .meal-side-stack { align-self:start; margin-top:1px; }
+.has-multiple-corners:not(.is-featured) .chevron { align-self:start; margin-top:3px; }
 .meal-item.expandable-meal.is-featured { display: block; min-height: 0; padding: 16px 15px 0; }
 .expandable-meal.is-featured .featured-top { display: grid; grid-template-columns: 9px minmax(0, 1fr) auto 12px; column-gap: 10px; align-items: center; position: relative; z-index: 1; }
+.has-multiple-corners.is-featured .meal-title-featured { display:none; }
 .expandable-meal.is-featured .featured-top .meal-dot { margin-top: 0; }.expandable-meal.is-featured .featured-top .meal-summary { min-width: 0; }.expandable-meal.is-featured .featured-top .meal-side, .expandable-meal.is-featured .featured-top .meal-side-stack { align-self: center; }.expandable-meal.is-featured .featured-top .meal-side-stack { position:relative; z-index:1; }.expandable-meal.is-featured .featured-top .chevron { align-self: center; }
 .expandable-meal.is-featured .featured-detail { grid-column: auto; grid-template-columns: minmax(0, 1fr) 112px; gap: 14px; align-items: center; margin-top: 15px; }.expandable-meal.is-featured .featured-detail .food-photo { margin: 0 -8px 0 0; }.expandable-meal.is-featured .featured-detail .featured-meta { margin: 6px -15px 0; }
 @media (max-width: 355px) { .expandable-meal.is-featured .featured-detail { grid-template-columns: minmax(0, 1fr) 96px; gap: 9px; }.expandable-meal.is-featured .featured-detail .food-photo { margin-right: -4px; } }
@@ -103,7 +112,7 @@ h2 { margin: 0; font-size: 18px; letter-spacing: -0.045em; }.service-time { padd
 .corner-carousel { min-width:0; }
 .corner-track { display:flex; overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:none; scroll-snap-type:x mandatory; scroll-behavior:smooth; }
 .corner-track::-webkit-scrollbar { display:none; }
-.corner-card { flex:0 0 100%; width:100%; max-width:100%; display:grid; grid-template-columns:minmax(0,1fr) 112px; column-gap:14px; align-items:center; scroll-snap-align:start; scroll-snap-stop:always; color:inherit; }
+.corner-card { flex:0 0 100%; width:100%; max-width:100%; padding-right:12px; display:grid; grid-template-columns:minmax(0,1fr) 112px; column-gap:14px; align-items:center; scroll-snap-align:start; scroll-snap-stop:always; color:inherit; }
 .corner-copy { min-width:0; }
 .corner-name { display:block; margin-bottom:5px; color:rgba(255,255,255,.72); font-size:9px; font-weight:800; letter-spacing:.04em; }
 .corner-card h3 { margin:0 0 8px; color:#fff; font-size:15px; letter-spacing:-.045em; }

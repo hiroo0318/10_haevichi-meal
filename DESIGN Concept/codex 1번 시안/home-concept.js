@@ -16,6 +16,19 @@
   const closed = document.getElementById('dayClosed');
   const buttons = document.querySelectorAll('.state-buttons button');
   const cornerCarousels = [];
+  const contentScroller = document.querySelector('.concept-page main');
+
+  /*
+    Safari는 내부 가로 스크롤의 관성을 상위 스크롤 영역에 전달하는 경우가 있다.
+    본문은 세로 전용 영역이므로, 가로 위치가 생기면 즉시 0으로 복구한다.
+  */
+  const lockContentHorizontalScroll = () => {
+    if (contentScroller && contentScroller.scrollLeft !== 0) contentScroller.scrollLeft = 0;
+  };
+  if (contentScroller) {
+    contentScroller.addEventListener('scroll', lockContentHorizontalScroll, { passive: true });
+    contentScroller.addEventListener('touchend', lockContentHorizontalScroll, { passive: true });
+  }
 
   /*
     코너 영역은 브라우저의 기본 가로 스크롤과 CSS scroll-snap을 사용한다.
@@ -27,15 +40,32 @@
       const cards = Array.from(track.querySelectorAll('.corner-card'));
       const count = carousel.querySelector('.corner-count');
       const dots = Array.from(carousel.querySelectorAll('.corner-dots i'));
+      let snapTimer;
       carousel.dataset.corners = cards.length;
 
       const updateIndicator = () => {
-        const index = Math.max(0, Math.min(cards.length - 1, Math.round(track.scrollLeft / track.clientWidth)));
+        const index = cards.reduce((nearestIndex, card, cardIndex) => (
+          Math.abs(card.offsetLeft - track.scrollLeft) < Math.abs(cards[nearestIndex].offsetLeft - track.scrollLeft)
+            ? cardIndex : nearestIndex
+        ), 0);
         if (count) count.textContent = `${index + 1} / ${cards.length}`;
         dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === index));
       };
 
-      track.addEventListener('scroll', updateIndicator, { passive: true });
+      /* 사파리에서 관성 스크롤이 중간에 멈춰도 가장 가까운 카드 시작점으로 정렬한다. */
+      const settleToNearestCard = () => {
+        const nearest = cards.reduce((nearestCard, card) => (
+          Math.abs(card.offsetLeft - track.scrollLeft) < Math.abs(nearestCard.offsetLeft - track.scrollLeft)
+            ? card : nearestCard
+        ), cards[0]);
+        if (Math.abs(nearest.offsetLeft - track.scrollLeft) > 1) track.scrollTo({ left: nearest.offsetLeft, behavior: 'smooth' });
+      };
+
+      track.addEventListener('scroll', () => {
+        updateIndicator();
+        window.clearTimeout(snapTimer);
+        snapTimer = window.setTimeout(settleToNearestCard, 100);
+      }, { passive: true });
       window.addEventListener('resize', updateIndicator);
       updateIndicator();
       cornerCarousels.push({ carousel, track, updateIndicator });

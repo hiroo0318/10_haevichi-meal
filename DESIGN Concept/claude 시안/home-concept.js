@@ -21,7 +21,7 @@
       label: '조식', time: '07:30–09:00',
       corners: [
         {
-          id: 'a', name: '된장국 정식',
+          id: 'a', type: '한식', name: '된장국 정식',
           desc: '잡곡밥 · 계란말이 · 시금치나물',
           tags: ['된장 국내산'],
           photo: 'images/doenjangguk-photo.png',
@@ -33,14 +33,14 @@
       label: '중식', time: '11:30–13:30',
       corners: [
         {
-          id: 'a', name: '제육볶음 정식',
+          id: 'a', type: '한식', name: '제육볶음 정식',
           desc: '잡곡밥 · 계란찜 · 시금치나물 · 배추김치 · 된장국',
           tags: ['돼지고기 국내산', '알레르기 대두·돼지고기'],
           photo: 'images/jeyuk-bokkeum-photo.png',
           rated: false
         },
         {
-          id: 'b', name: '비빔밥 코너',
+          id: 'b', type: '한식', name: '비빔밥 코너',
           desc: '흰쌀밥 · 나물 5종 · 계란후라이 · 고추장',
           tags: ['쌀 국내산', '알레르기 대두·계란'],
           photo: 'images/bibimbap.svg',
@@ -52,7 +52,7 @@
       label: '석식', time: '17:30–19:00',
       corners: [
         {
-          id: 'a', name: '순두부찌개 정식',
+          id: 'a', type: '한식', name: '순두부찌개 정식',
           desc: '흰쌀밥 · 계란후라이 · 어묵볶음',
           tags: ['대두 국내산'],
           photo: 'images/sundubu-jjigae-photo.png',
@@ -155,7 +155,7 @@
       renderTags(corner.tags);
 
       var url = 'menu-detail-concept.html?meal=' + state.meal + '&corner=' + corner.id;
-      elLinkText.textContent = state.mode === 'now' ? '식단 상세·별점 남기기' : '메뉴 미리 보기';
+      elLinkText.textContent = state.mode === 'now' ? '자세히' : '미리보기';
       elLink.setAttribute('href', url);
     }
 
@@ -189,55 +189,48 @@
       var isPastMeal = state.mode === 'closed' || (currentIndex > -1 && idx < currentIndex);
       var rowMode = isCurrentMeal ? state.mode : (isPastMeal ? 'past' : 'upcoming');
 
-      if(meal.corners.length < 2){
-        // 코너 1개: 기존과 동일하게 한 줄로 표시
-        var corner = meal.corners[0];
+      // 코너 개수와 상관없이 항상 "끼니 그룹 헤더 + 코너 줄" 구조로 통일한다.
+      // 코너가 1개뿐이어도 "코너 A(한식)"처럼 코드를 always 노출한다 —
+      // 지금은 하나뿐이라도 그게 어떤 코너인지 구분할 수 있어야 하기 때문이다.
+      var group = document.createElement('div');
+      group.className = 'timeline-group';
+      var header = document.createElement('div');
+      header.className = 'timeline-group-head';
+      header.textContent = meal.label + ' · ' + meal.time + (meal.corners.length > 1 ? ' · 코너 ' + meal.corners.length + '개' : '');
+      group.appendChild(header);
+
+      meal.corners.forEach(function(corner){
         var row = document.createElement('a');
-        row.className = 'timeline-row';
+        row.className = 'timeline-row' + (meal.corners.length > 1 ? ' is-corner-row' : '');
         if(rowMode === 'now') row.classList.add('is-now');
         if(rowMode === 'next') row.classList.add('is-next');
         if(rowMode === 'past') row.classList.add('is-done');
         row.href = 'menu-detail-concept.html?meal=' + mealKey + '&corner=' + corner.id;
+        var cornerLabel = '코너 ' + corner.id.toUpperCase() + (corner.type ? '(' + corner.type + ')' : '');
         row.innerHTML =
           '<span class="row-thumb"><img src="' + corner.photo + '" alt=""></span>' +
           '<span class="row-body">' +
-            '<span class="row-time">' + meal.label + ' · ' + meal.time + '</span>' +
+            '<span class="row-time">' + cornerLabel + '</span>' +
             '<strong>' + corner.name + '</strong>' +
           '</span>' +
           '<span class="row-side">' + cornerStateBadge(rowMode === 'now' ? 'now' : rowMode === 'next' ? 'next' : 'past', corner) + '</span>';
-        timelineBody.appendChild(row);
-      } else {
-        // 코너 2개 이상: 끼니 그룹 헤더 + 코너별 줄
-        var group = document.createElement('div');
-        group.className = 'timeline-group';
-        var header = document.createElement('div');
-        header.className = 'timeline-group-head';
-        header.textContent = meal.label + ' · ' + meal.time + ' · 코너 ' + meal.corners.length + '개';
-        group.appendChild(header);
+        group.appendChild(row);
+      });
 
-        meal.corners.forEach(function(corner){
-          var row = document.createElement('a');
-          row.className = 'timeline-row is-corner-row';
-          if(rowMode === 'now') row.classList.add('is-now');
-          if(rowMode === 'next') row.classList.add('is-next');
-          if(rowMode === 'past') row.classList.add('is-done');
-          row.href = 'menu-detail-concept.html?meal=' + mealKey + '&corner=' + corner.id;
-          row.innerHTML =
-            '<span class="row-thumb"><img src="' + corner.photo + '" alt=""></span>' +
-            '<span class="row-body">' +
-              '<span class="row-time">코너 ' + corner.id.toUpperCase() + '</span>' +
-              '<strong>' + corner.name + '</strong>' +
-            '</span>' +
-            '<span class="row-side">' + cornerStateBadge(rowMode === 'now' ? 'now' : rowMode === 'next' ? 'next' : 'past', corner) + '</span>';
-          group.appendChild(row);
-        });
-
-        timelineBody.appendChild(group);
-      }
+      timelineBody.appendChild(group);
     });
 
     timelineCount.textContent = '총 ' + MEAL_ORDER.length + '끼 · 코너 ' + totalCorners + '개';
   }
+
+  // 카드 전체를 탭 대상으로 만든다. 우측 하단의 "자세히" 표시는
+  // 이동 가능하다는 걸 은은하게 알려주는 보조 힌트일 뿐이고,
+  // 코너 탭(.corner-tab) 클릭은 카드 이동으로 이어지면 안 되므로 걸러낸다.
+  spotlight.addEventListener('click', function(e){
+    if(e.target.closest('.corner-tab')) return;
+    if(e.target.closest('.spotlight-link')) return; // <a>가 알아서 이동하므로 중복 이동 방지
+    window.location.href = elLink.getAttribute('href');
+  });
 
   var stateSwitcher = document.getElementById('stateSwitcher');
   var stateToggle = document.getElementById('stateToggle');

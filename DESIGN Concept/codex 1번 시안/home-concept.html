@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>해비치 급식 — 홈 디자인 시안</title>
-  <link rel="stylesheet" href="home-concept.css">
+  <link rel="stylesheet" href="home-concept.css?v=corner-layout-2">
 </head>
 <body>
   <!-- 시안 검토용 상태 전환 UI. 실제 서비스 화면에는 포함하지 않는다. -->
@@ -55,7 +55,8 @@
               <span class="meal-dot" aria-hidden="true"></span>
               <div class="meal-summary">
                 <span class="meal-period">조식 <small>07:30 – 09:00</small></span>
-                <strong>된장국 정식</strong>
+                <strong class="meal-title-featured">된장국 정식</strong>
+                <strong class="meal-title-compact">한식: 된장국 정식</strong>
                 <span class="rating-note"><b>★</b> 4.0 · 평가 완료</span>
               </div>
               <span class="meal-side availability">예정</span>
@@ -75,15 +76,14 @@
             </div>
           </article>
 
-          <article class="meal-item expandable-meal lunch-item is-featured" data-meal="lunch">
+          <article class="meal-item expandable-meal lunch-item has-multiple-corners is-featured" data-meal="lunch">
             <!-- 상단: 식사 구분·메뉴명·상태를 하나의 행으로 정렬한다. -->
             <div class="featured-top">
               <span class="meal-dot" aria-hidden="true"></span>
               <div class="meal-summary">
                 <span class="meal-period">중식 <small>11:30 – 13:30</small></span>
                 <strong class="meal-title-featured">제육볶음 정식</strong>
-                <strong class="meal-title-compact">제육볶음 정식 외 1</strong>
-                <span class="corner-summary">한식 · 일품 코너</span>
+                <strong class="meal-title-compact"><span>한식: 제육볶음 정식</span><span>일품: 순두부찌개 정식</span></strong>
               </div>
               <div class="meal-side-stack"><span class="compact-corner-count">2개 코너</span><span class="meal-side availability">제공 중</span></div>
               <span class="chevron" aria-hidden="true">›</span>
@@ -108,14 +108,13 @@
             </div>
           </article>
 
-          <article class="meal-item expandable-meal" data-meal="dinner">
+          <article class="meal-item expandable-meal has-multiple-corners" data-meal="dinner">
             <div class="featured-top">
               <span class="meal-dot" aria-hidden="true"></span>
               <div class="meal-summary">
                 <span class="meal-period">석식 <small>17:30 – 19:00</small></span>
                 <strong class="meal-title-featured">순두부찌개 정식</strong>
-                <strong class="meal-title-compact">순두부찌개 정식 외 1</strong>
-                <span class="corner-summary">한식 · 일품 코너</span>
+                <strong class="meal-title-compact"><span>한식: 순두부찌개 정식</span><span>일품: 제육볶음 정식</span></strong>
               </div>
               <div class="meal-side-stack"><span class="compact-corner-count">2개 코너</span><span class="meal-side availability">예정</span></div>
               <span class="chevron" aria-hidden="true">›</span>
@@ -156,6 +155,6 @@
       </nav>
     </footer>
   </div>
-  <script src="home-concept.js"></script>
+  <script src="home-concept.js?v=corner-layout-2"></script>
 </body>
 </html>

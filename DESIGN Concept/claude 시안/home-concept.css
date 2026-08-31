@@ -79,7 +79,9 @@ img{ display:block; max-width:100%; }
   position:relative;
   border-radius:24px; overflow:hidden;
   box-shadow:0 18px 40px rgba(20,25,30,.16);
+  cursor:pointer; /* 카드 전체가 탭 대상 — 코너 탭 버튼만 예외 */
 }
+.spotlight .corner-tab{ cursor:pointer; }
 .spotlight-photo{ aspect-ratio:4/3; position:relative; }
 .spotlight-photo img{ width:100%; height:100%; object-fit:cover; }
 .spotlight-photo::after{
@@ -88,7 +90,7 @@ img{ display:block; max-width:100%; }
   background:linear-gradient(180deg, rgba(8,12,18,.05) 0%, rgba(8,12,18,.55) 30%, rgba(8,12,18,.88) 68%, rgba(8,12,18,.94) 100%);
 }
 .spotlight-copy{
-  position:absolute; left:0; right:0; bottom:56px;
+  position:absolute; left:0; right:0; bottom:18px;
   padding:0 22px; color:#fff;
 }
 .spotlight-eyebrow{
@@ -141,20 +143,19 @@ img{ display:block; max-width:100%; }
   background:rgba(255,255,255,.16); color:#fff;
 }
 .spotlight-tag.warn{ background:rgba(255,255,255,.16); }
+/* 카드 전체가 탭 대상이라, 링크 자체는 "여기 누르면 이동한다"는 걸
+   은은하게만 알려주는 보조 표시로 축소한다 — 우측 하단에 작은 딤 처리. */
 .spotlight-link{
-  position:absolute; left:0; right:0; bottom:0; height:56px;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 22px;
-  background:linear-gradient(135deg,var(--blue-light),var(--blue-deep));
-  color:#fff; font-size:13.5px; font-weight:800;
+  position:absolute; right:14px; bottom:14px;
+  display:flex; align-items:center; gap:4px;
+  padding:6px 12px; border-radius:999px;
+  background:rgba(20,24,28,.42); backdrop-filter:blur(6px);
+  color:rgba(255,255,255,.92); font-size:11.5px; font-weight:700;
 }
 
 /* NEXT UP 모드: 아직 제공 전이라는 걸 채도를 낮춰 표현 */
 .spotlight.is-next .spotlight-photo img{ filter:saturate(.35) brightness(.9); }
 .spotlight.is-next .spotlight-time{ background:rgba(255,255,255,.14); }
-.spotlight.is-next .spotlight-link{
-  background:rgba(30,38,46,.88);
-}
 
 /* DAY CLOSED 모드: 히어로 대신 담백한 안내 카드 */
 .day-closed-card{
