@@ -163,17 +163,19 @@
   }
 
   function cornerStateBadge(mode, corner){
+    // 기획 변경: "평가완료"/"평가 전" 같은 개인 평가 상태 표시는 홈에서 없앤다.
+    // 제공 상태(제공 중/곧 시작)만 유지하고, 지나간 끼니는 평균 별점이
+    // 있을 때만 그 숫자를 보여준다(개인 평가 여부와는 무관한 집계 정보).
     if(mode === 'now'){
       return '<span class="row-badge">제공 중</span>';
     }
     if(mode === 'next'){
       return '<span class="row-state muted">곧 시작</span>';
     }
-    // closed 또는 지나간 끼니
     if(corner.rated){
-      return '<span class="row-rating">★ ' + corner.ratingValue.toFixed(1) + '</span><span class="row-state">평가완료</span>';
+      return '<span class="row-rating">★ ' + corner.ratingValue.toFixed(1) + '</span>';
     }
-    return '<span class="row-state muted">평가 전</span>';
+    return '';
   }
 
   function renderTimeline(state){

@@ -1,6 +1,8 @@
 /* 홈 화면 디자인 시안 (Claude 제안). 다른 시안 폴더와 독립적입니다.
-   폰트·아이콘 크기는 실제 아이폰 실기기 캡처 확인 후 한 단계 키운 스케일이다
-   (프리뷰 창 기준으로 튜닝했더니 실기기에서는 작게 느껴졌음). */
+   폰트·아이콘 크기는 실제 아이폰 실기기 캡처 확인 후 한 단계 키운 스케일이고,
+   이후 실서비스 검토 의견을 반영해 굵기 체계를 Regular/Medium/Bold 3단계로
+   단순화했다 — 메뉴명·화면 제목처럼 꼭 필요한 곳만 Bold(800)를 쓰고,
+   시간/코너명/상태 배지 같은 보조 정보는 Medium(600) 이하로 낮췄다. */
 
 :root{
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
@@ -36,7 +38,7 @@ img{ display:block; max-width:100%; }
 .page{
   max-width:460px; margin:0 auto; min-height:100vh;
   background:var(--paper); position:relative;
-  padding-bottom:104px;
+  padding-bottom:120px; /* 목록 마지막 줄과 하단 탭바 사이 여백 확보 */
 }
 @media (min-width:560px){
   body{ background:#dfe3e8; padding:28px 0; }
@@ -53,14 +55,14 @@ img{ display:block; max-width:100%; }
 .brand-mark{
   width:32px; height:32px; border-radius:10px;
   background:linear-gradient(145deg,var(--blue-light),var(--blue-deep));
-  color:#fff; font-size:12px; font-weight:800;
+  color:#fff; font-size:12px; font-weight:700;
   display:flex; align-items:center; justify-content:center;
   box-shadow:0 6px 14px rgba(25,118,210,.28);
 }
 .place-switch{
   display:flex; align-items:center; gap:5px;
   padding:9px 14px; border:1px solid var(--line); border-radius:999px;
-  color:var(--sub); font-size:14px; font-weight:700; background:#fff;
+  color:var(--sub); font-size:14px; font-weight:600; background:#fff;
 }
 .place-switch svg{ width:15px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 
@@ -70,10 +72,10 @@ img{ display:block; max-width:100%; }
   display:flex; align-items:center; gap:9px;
   padding:13px 15px; border-radius:14px;
   background:#EAF3FC; color:var(--blue-deep);
-  font-size:14px; font-weight:700;
+  font-size:14px; font-weight:600;
 }
 .notice-dot{ width:6px; height:6px; border-radius:50%; background:var(--blue-deep); flex:0 0 auto; }
-.notice-arrow{ margin-left:auto; font-weight:800; }
+.notice-arrow{ margin-left:auto; font-weight:700; }
 
 /* ---- 스포트라이트(사진 히어로 오버레이 카드) ---- */
 .spotlight{
@@ -89,20 +91,21 @@ img{ display:block; max-width:100%; }
 .spotlight-photo::after{
   content:"";
   position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(8,12,18,.05) 0%, rgba(8,12,18,.55) 30%, rgba(8,12,18,.88) 68%, rgba(8,12,18,.94) 100%);
+  /* 오버레이 농도를 낮춰 사진이 덜 답답해 보이게 조정 */
+  background:linear-gradient(180deg, rgba(8,12,18,.02) 0%, rgba(8,12,18,.42) 34%, rgba(8,12,18,.78) 70%, rgba(8,12,18,.86) 100%);
 }
 .spotlight-copy{
-  position:absolute; left:0; right:0; bottom:20px;
+  position:absolute; left:0; right:0; bottom:22px;
   padding:0 22px; color:#fff;
 }
 .spotlight-eyebrow{
-  display:block; font-size:13px; font-weight:700;
-  color:rgba(255,255,255,.85); margin-bottom:7px;
+  display:block; font-size:13px; font-weight:600;
+  color:rgba(255,255,255,.85); margin-bottom:8px;
   text-shadow:0 1px 6px rgba(0,0,0,.35);
 }
 .spotlight-top-row{
   display:flex; align-items:center; gap:8px;
-  margin-bottom:10px;
+  margin-bottom:12px;
   min-width:0; /* 자식의 가로 스크롤이 부모 폭을 밀어내지 않게 */
 }
 .spotlight-time{
@@ -110,11 +113,12 @@ img{ display:block; max-width:100%; }
   display:inline-block;
   padding:5px 12px; border-radius:999px;
   background:rgba(255,255,255,.22); backdrop-filter:blur(6px);
-  font-size:13px; font-weight:800; white-space:nowrap;
+  font-size:13px; font-weight:600; white-space:nowrap;
 }
 /* 코너 전환 탭 (스포트라이트 A안) — 코너가 2개 이상일 때만 노출.
    개수가 몇 개든(최대 5개+) 안 깨지도록 균등폭 탭이 아니라
-   가로 스크롤 칩 리스트로 만든다. 폭은 내용만큼만 차지한다. */
+   가로 스크롤 칩 리스트로 만든다. 폭은 내용만큼만 차지한다.
+   높이는 최소 36px 이상 되도록 세로 패딩을 넉넉히 준다. */
 .corner-tabs{
   flex:1 1 auto; min-width:0;
   display:flex; gap:7px;
@@ -125,34 +129,37 @@ img{ display:block; max-width:100%; }
 .corner-tabs::-webkit-scrollbar{ display:none; }
 .corner-tab{
   flex:0 0 auto;
-  border:0; padding:5px 12px; border-radius:999px;
+  border:0; padding:10px 14px; border-radius:999px;
   background:rgba(255,255,255,.16); color:rgba(255,255,255,.85);
-  font-size:12.5px; font-weight:800; white-space:nowrap;
+  font-size:12.5px; font-weight:600; white-space:nowrap;
+  min-height:38px;
 }
-.corner-tab.is-active{ background:#fff; color:var(--blue-deep); }
+.corner-tab.is-active{ background:#fff; color:var(--blue-deep); font-weight:700; }
 .spotlight-copy h1{
-  margin:0 0 9px; font-size:30px; font-weight:800; letter-spacing:-.02em;
+  margin:0 0 10px; font-size:30px; font-weight:800; letter-spacing:-.02em;
   text-shadow:0 2px 10px rgba(0,0,0,.35);
 }
 .spotlight-copy p{
-  margin:0; font-size:14.5px; line-height:1.6;
-  color:rgba(255,255,255,.92);
+  margin:0; font-size:14.5px; font-weight:400; line-height:1.6;
+  color:rgba(255,255,255,.9);
   text-shadow:0 1px 6px rgba(0,0,0,.3);
 }
-.spotlight-foot{ margin-top:13px; display:flex; gap:7px; flex-wrap:wrap; }
+.spotlight-foot{ margin-top:16px; display:flex; gap:7px; flex-wrap:wrap; }
 .spotlight-tag{
-  padding:5px 11px; border-radius:9px; font-size:12.5px; font-weight:700;
+  padding:5px 11px; border-radius:9px; font-size:12.5px; font-weight:500;
   background:rgba(255,255,255,.16); color:#fff;
 }
 .spotlight-tag.warn{ background:rgba(255,255,255,.16); }
 /* 카드 전체가 탭 대상이라, 링크 자체는 "여기 누르면 이동한다"는 걸
-   은은하게만 알려주는 보조 표시로 축소한다 — 우측 하단에 작은 딤 처리. */
+   은은하게만 알려주는 보조 표시로 축소한다 — 우측 하단에 작은 딤 처리.
+   터치 영역은 최소 40px 높이를 확보한다. */
 .spotlight-link{
   position:absolute; right:16px; bottom:16px;
   display:flex; align-items:center; gap:5px;
-  padding:7px 14px; border-radius:999px;
+  padding:10px 16px; border-radius:999px;
   background:rgba(20,24,28,.42); backdrop-filter:blur(6px);
-  color:rgba(255,255,255,.92); font-size:13px; font-weight:700;
+  color:rgba(255,255,255,.92); font-size:13px; font-weight:600;
+  min-height:40px;
 }
 
 /* NEXT UP 모드: 아직 제공 전이라는 걸 채도를 낮춰 표현 */
@@ -170,10 +177,10 @@ img{ display:block; max-width:100%; }
   width:40px; height:40px; flex:0 0 auto; border-radius:50%;
   background:#EEF1F3; color:var(--sub);
   display:flex; align-items:center; justify-content:center;
-  font-size:17px; font-weight:800;
+  font-size:17px; font-weight:700;
 }
 .day-closed-card strong{ display:block; font-size:16.5px; font-weight:800; }
-.day-closed-card p{ margin:5px 0 0; font-size:14px; color:var(--sub); }
+.day-closed-card p{ margin:5px 0 0; font-size:14px; font-weight:400; color:var(--sub); }
 
 /* ---- 타임라인 리스트 ---- */
 .timeline{ padding:0 20px; }
@@ -182,7 +189,7 @@ img{ display:block; max-width:100%; }
   margin-bottom:12px;
 }
 .timeline-head h2{ margin:0; font-size:19px; font-weight:800; }
-.timeline-head span{ font-size:13px; color:var(--faint); font-weight:700; }
+.timeline-head span{ font-size:13px; color:var(--faint); font-weight:600; }
 
 .timeline-row{
   display:flex; align-items:center; gap:14px;
@@ -194,10 +201,12 @@ img{ display:block; max-width:100%; }
   border-bottom:0;
 }
 
-/* 끼니 그룹 헤더 + 코너별 줄 (코너가 여러 개면 살짝 들여쓰기) */
+/* 끼니 그룹 헤더 + 코너별 줄 — 그룹 사이 여백을 넉넉히 둬서
+   "이 헤더가 어느 줄들을 묶는지" 한눈에 구분되게 한다. */
+.timeline-group{ margin-bottom:6px; }
 .timeline-group-head{
-  padding:16px 4px 7px;
-  font-size:13px; font-weight:800; color:var(--sub);
+  padding:18px 4px 9px;
+  font-size:13px; font-weight:600; color:var(--sub);
 }
 .timeline-row.is-corner-row{
   padding-left:17px;
@@ -215,13 +224,13 @@ img{ display:block; max-width:100%; }
 }
 .row-thumb img{ width:100%; height:100%; object-fit:cover; }
 .row-body{ min-width:0; flex:1; }
-.row-time{ display:block; font-size:12.5px; color:var(--sub); font-weight:700; margin-bottom:4px; }
-.row-body strong{ font-size:17px; font-weight:800; letter-spacing:-.01em; }
+.row-time{ display:block; font-size:12.5px; color:var(--sub); font-weight:600; margin-bottom:4px; }
+.row-body strong{ font-size:17px; font-weight:700; letter-spacing:-.01em; }
 .row-side{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
-.row-rating{ font-size:13.5px; font-weight:800; color:var(--amber); }
-.row-state{ font-size:12px; font-weight:700; color:var(--success); padding:4px 9px; border-radius:999px; background:var(--success-bg); }
+.row-rating{ font-size:13.5px; font-weight:700; color:var(--amber); }
+.row-state{ font-size:12px; font-weight:600; color:var(--success); padding:4px 9px; border-radius:999px; background:var(--success-bg); }
 .row-state.muted{ color:var(--sub); background:#F1F3F5; }
-.row-badge{ font-size:12px; font-weight:800; color:#fff; padding:5px 11px; border-radius:999px; background:var(--blue-deep); }
+.row-badge{ font-size:12px; font-weight:700; color:#fff; padding:5px 11px; border-radius:999px; background:var(--blue-deep); }
 
 .timeline-row.is-done{ opacity:.72; }
 .timeline-row.is-now .row-body strong{ color:var(--blue-deep); }
@@ -239,9 +248,9 @@ img{ display:block; max-width:100%; }
 }
 .tabbar a{
   flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
-  color:var(--faint); font-size:12px; font-weight:700;
+  color:var(--faint); font-size:12px; font-weight:600;
 }
-.tabbar a.active{ color:var(--blue-deep); }
+.tabbar a.active{ color:var(--blue-deep); font-weight:700; }
 .ic{ width:25px; height:25px; position:relative; }
 .ic::before,.ic::after{ content:""; position:absolute; box-sizing:border-box; }
 .ic-home::before{ inset:7px 5px 4px; border:2px solid currentColor; border-top:0; border-radius:2px; }
@@ -257,7 +266,7 @@ img{ display:block; max-width:100%; }
 
 @media (max-width:360px){
   .spotlight-copy h1{ font-size:25px; }
-  .spotlight-copy{ bottom:56px; }
+  .spotlight-copy{ bottom:58px; }
 }
 
 /* ---- 상태 스위처 (검토용, 실제 화면에는 없음) ---- */
@@ -271,7 +280,7 @@ img{ display:block; max-width:100%; }
 .state-toggle{
   width:100%; padding:13px 0;
   display:flex; align-items:center; justify-content:space-between;
-  color:#fff; font-size:13px; font-weight:700;
+  color:#fff; font-size:13px; font-weight:600;
 }
 .state-toggle-caret{ transition:transform .15s ease; opacity:.7; }
 .state-switcher.is-collapsed .state-toggle-caret{ transform:rotate(-90deg); }
@@ -280,6 +289,6 @@ img{ display:block; max-width:100%; }
 .state-buttons{ display:flex; flex-wrap:wrap; gap:7px; padding-bottom:13px; }
 .state-buttons button{
   padding:7px 11px; border-radius:999px; background:rgba(255,255,255,.12);
-  color:#fff; font-size:12.5px; font-weight:700;
+  color:#fff; font-size:12.5px; font-weight:600;
 }
-.state-buttons button.is-active{ background:var(--blue-deep); }
+.state-buttons button.is-active{ background:var(--blue-deep); font-weight:700; }
