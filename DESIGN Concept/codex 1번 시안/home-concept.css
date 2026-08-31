@@ -76,7 +76,7 @@ h2 { margin: 0; font-size: 18px; letter-spacing: -0.045em; }.service-time { padd
 .today-meals .section-heading.compact { min-height: 16px; margin-bottom: 10px; }.today-meals .section-heading.compact .section-kicker { margin: 0; }
 /* 강조되지 않은 식사는 일반 식사 행과 같은 그리드를 사용한다. */
 .expandable-meal:not(.is-featured) .featured-top { display: contents; }
-.meal-title-compact, .corner-summary, .compact-corner-count { display:none; }
+.meal-summary .meal-title-compact, .corner-summary, .compact-corner-count { display:none; }
 .expandable-meal:not(.is-featured) .meal-title-featured { display:none; }
 .expandable-meal:not(.is-featured) .meal-title-compact { display:block; }
 .expandable-meal:not(.is-featured) .corner-summary { display:block; margin-top:4px; overflow:hidden; color:#7b8996; font-size:9px; font-weight:650; text-overflow:ellipsis; white-space:nowrap; }
