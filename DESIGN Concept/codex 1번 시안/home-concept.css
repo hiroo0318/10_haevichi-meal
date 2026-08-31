@@ -128,3 +128,60 @@ h2 { margin: 0; font-size: 18px; letter-spacing: -0.045em; }.service-time { padd
 .corner-carousel[data-corners="1"] .corner-indicator { display:none; }
 .meal-item.is-next .corner-name { color:#638099; }.meal-item.is-next .corner-card h3 { color:var(--ink); }.meal-item.is-next .corner-indicator { color:#668298; }.meal-item.is-next .corner-dots i { background:#b6d2e9; }.meal-item.is-next .corner-dots i.is-active { background:var(--blue); }
 @media (max-width:355px) { .corner-card { grid-template-columns:minmax(0,1fr) 96px; gap:9px; }.corner-card .food-photo { width:96px; height:96px; margin:0; }.corner-card .featured-meta { padding-left:9px; padding-right:9px; font-size:7.8px; }.corner-card .featured-meta .allergy { padding-left:7px; } }
+
+/* 실제 모바일 기기 기준: 보조 정보도 무리 없이 읽히고, 조작 요소는 44px 안팎의 터치 영역을 확보한다. */
+@media (max-width:549px) {
+  .topbar { height:72px; padding:0 20px; }
+  .brand { gap:9px; font-size:18px; }
+  .brand-mark { width:32px; height:32px; }
+  .place-switch { min-height:42px; padding:0 13px; font-size:14px; }
+  .place-switch svg { width:18px; height:18px; }
+  .intro { padding:32px 20px 28px; }
+  .eyebrow { font-size:14px; }
+  .intro h1 { font-size:31px; line-height:1.29; }
+  .notice { min-height:56px; padding:11px 14px; font-size:14px; }
+  .notice-icon { width:24px; height:24px; font-size:12px; }
+  .notice-arrow { font-size:20px; }
+  .today-meals { padding:30px 20px 0; }
+  .section-kicker { font-size:12px; }
+  .meal-item { min-height:86px; grid-template-columns:10px minmax(0,1fr) auto 16px; column-gap:11px; }
+  .meal-dot { width:9px; height:9px; }
+  .meal-period { font-size:12px; }
+  .meal-period small { font-size:10.5px; }
+  .meal-summary strong,
+  .expandable-meal:not(.is-featured) .meal-title-compact span { font-size:16px; }
+  .expandable-meal:not(.is-featured) .corner-summary { margin-top:5px; font-size:11px; }
+  .expandable-meal:not(.is-featured) .compact-corner-count { font-size:10px; }
+  .availability { padding:7px 9px; font-size:11px; }
+  .meal-item .chevron { font-size:25px; }
+  .has-multiple-corners:not(.is-featured) { padding-top:14px; padding-bottom:14px; }
+  .meal-item.is-featured { border-radius:20px; }
+  .expandable-meal.is-featured { padding:18px 16px 0; }
+  .expandable-meal.is-featured .featured-top { grid-template-columns:10px minmax(0,1fr) auto 16px; column-gap:11px; }
+  .meal-item.is-featured .meal-summary strong { font-size:20px; }
+  .corner-card { grid-template-columns:minmax(0,1fr) 118px; column-gap:14px; padding-right:10px; }
+  .corner-name { font-size:11px; }
+  .corner-card h3 { font-size:18px; }
+  .featured-detail p { font-size:12.5px; line-height:1.55; }
+  .featured-detail .detail-link { font-size:13px; }
+  .corner-card .food-photo { width:118px; height:118px; }
+  .corner-card .featured-meta { margin-top:8px; padding:10px 12px; font-size:10px; }
+  .corner-indicator { min-height:23px; padding-top:9px; font-size:11px; }
+  .corner-dots i { width:5px; height:5px; }
+  .corner-dots i.is-active { width:16px; }
+  .day-closed { padding:17px; }
+  .day-closed strong { font-size:14px; }
+  .day-closed p { font-size:12px; }
+  .state-toggle { min-height:48px; padding:13px 0; font-size:13px; }
+  .state-buttons button { min-height:34px; padding:7px 11px; font-size:11px; }
+  .bottom-nav { height:84px; padding:9px 4px calc(9px + env(safe-area-inset-bottom)); }
+  .bottom-nav a { min-height:58px; font-size:11px; }
+  .nav-icon { width:24px; height:24px; }
+}
+
+/* 검토용 상태 바도 화면 높이에 포함한다. 접힌 상태에서는 맥 미리보기와 실기기 모두 탭바가 잘리지 않는다. */
+:root { --review-switcher-height:40px; }
+.state-switcher.is-collapsed + .concept-page { height:calc(100dvh - var(--review-switcher-height)); }
+@media (max-width:549px) {
+  :root { --review-switcher-height:48px; }
+}

@@ -13,3 +13,51 @@
 .same-time-section { padding:20px 2px 2px; border-bottom:1px solid var(--line); }.same-time-heading { margin-bottom:11px; display:flex; align-items:end; justify-content:space-between; }.same-time-heading p { margin:0 0 4px; color:var(--blue); font-size:9px; font-weight:850; letter-spacing:.09em; }.same-time-heading h2 { margin:0; font-size:16px; letter-spacing:-.045em; }.same-time-heading > span { padding:4px 6px; border-radius:5px; color:#6c8091; background:#f0f5f8; font-size:9px; font-weight:750; }.same-time-corners { display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; scrollbar-width:none; scroll-snap-type:x mandatory; }.same-time-corners::-webkit-scrollbar { display:none; }.same-time-corner { min-width:178px; padding:8px; display:grid; grid-template-columns:44px minmax(0,1fr); gap:8px; align-items:center; overflow:hidden; border:1px solid #dfe8ef; border-radius:12px; color:#43576a; background:#fff; text-align:left; scroll-snap-align:start; }.same-time-corner.is-active { border-color:#a9d4f6; background:#f2f9ff; }.same-time-corner img { width:44px; height:44px; display:block; border-radius:8px; object-fit:cover; }.same-time-corner span { min-width:0; }.same-time-corner b,.same-time-corner strong,.same-time-corner small { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }.same-time-corner b { margin-bottom:3px; color:#5e7a91; font-size:8.5px; font-weight:800; }.same-time-corner strong { color:#263c4d; font-size:11px; letter-spacing:-.04em; }.same-time-corner small { margin-top:3px; color:#8493a0; font-size:8.5px; }.same-time-corner.is-active small { color:var(--blue); font-weight:750; }
 .detail-page { padding-bottom:0; }
 @media (max-width: 355px) { .detail-main { padding-left: 17px; padding-right: 17px; }.detail-hero { height: 205px; }.nutrition-item { padding: 12px 9px; gap: 7px; }.rating-control button { width: 34px; } }
+
+/* 실제 아이폰 기준으로 제목·보조 문구·버튼을 한 단계 키운 상세 화면 스케일 */
+@media (max-width:549px) {
+  .detail-topbar { height:74px; padding:0 20px; grid-template-columns:44px 1fr 44px; }
+  .back-link { width:40px; height:40px; font-size:34px; }
+  .detail-topbar p { margin-bottom:3px; font-size:11px; }
+  .detail-topbar strong { font-size:15px; }
+  .header-spacer { width:40px; height:40px; }
+  .detail-main { padding:24px 20px 0; }
+  .detail-hero { height:250px; border-radius:22px; }
+  .hero-badge { left:14px; bottom:14px; padding:7px 11px; font-size:12px; }
+  .title-block { padding:25px 3px; }
+  .title-block h1 { margin-bottom:10px; font-size:30px; }
+  .title-block > p:not(.section-kicker) { font-size:14px; line-height:1.6; }
+  .origin-tags { gap:8px; margin-top:15px; }
+  .origin-tags span { padding:7px 10px; border-radius:8px; font-size:11px; }
+  .same-time-section { padding-top:24px; }
+  .same-time-heading { margin-bottom:13px; }
+  .same-time-heading p { font-size:10px; }
+  .same-time-heading h2 { font-size:19px; }
+  .same-time-heading > span { padding:6px 8px; font-size:10px; }
+  .same-time-corners { gap:10px; padding-bottom:6px; }
+  .same-time-corner { min-width:202px; padding:10px; grid-template-columns:54px minmax(0,1fr); gap:10px; border-radius:14px; }
+  .same-time-corner img { width:54px; height:54px; border-radius:10px; }
+  .same-time-corner b { font-size:10px; }
+  .same-time-corner strong { font-size:13px; }
+  .same-time-corner small { font-size:10px; }
+  .menu-info { padding-top:26px; }
+  .info-heading { margin-bottom:11px; }
+  .info-heading h2, .rating-card h2 { font-size:19px; }
+  .info-heading span { font-size:11px; }
+  .menu-composition li { min-height:44px; grid-template-columns:48px 1fr; font-size:14px; }
+  .menu-composition b { font-size:11px; }
+  .nutrition-card { margin-top:21px; border-radius:16px; }
+  .nutrition-item { min-height:82px; padding:16px; gap:11px; }
+  .nutrition-icon { width:30px; height:30px; }
+  .nutrition-item small { font-size:10px; }
+  .nutrition-item strong { font-size:16px; }
+  .nutrition-item em { font-size:10px; }
+  .allergen-note { padding:12px 16px; font-size:11px; }
+  .rating-sample-heading > p:last-child { font-size:12px; }
+  .rating-variant { padding:18px; }
+  .variant-label { padding:5px 8px; font-size:10px; }
+  .rating-variant h3 { font-size:17px; }
+  .rating-control button { width:44px; height:40px; font-size:29px; }
+  .rating-feedback { font-size:11px; }
+  .rating-submit { min-height:44px; padding:12px; font-size:14px; }
+}
