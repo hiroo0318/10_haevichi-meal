@@ -18,20 +18,35 @@
 
     <main class="detail-main">
       <section class="detail-hero" aria-labelledby="meal-title">
-        <img src="images/jeyuk-bokkeum-photo-sample.png" alt="제육볶음 정식 샘플 이미지">
-        <span class="hero-badge">11:30 – 13:30 제공</span>
+        <img id="mealHeroImage" src="images/jeyuk-bokkeum-photo-sample.png" alt="제육볶음 정식 샘플 이미지">
+        <span class="hero-badge" id="heroBadge">11:30 – 13:30 제공</span>
       </section>
 
       <section class="title-block">
         <p class="section-kicker"><span></span> LUNCH MENU</p>
         <h1 id="meal-title">제육볶음 정식</h1>
-        <p>매콤한 제육볶음과 곁들임 반찬으로 구성한 오늘의 중식입니다.</p>
-        <div class="origin-tags"><span>돼지고기 국내산</span><span>쌀 국내산</span></div>
+        <p id="mealDescription">매콤한 제육볶음과 곁들임 반찬으로 구성한 오늘의 중식입니다.</p>
+        <div class="origin-tags" id="originTags"><span>돼지고기 국내산</span><span>쌀 국내산</span></div>
+      </section>
+
+      <section class="same-time-section" aria-labelledby="same-time-title">
+        <div class="same-time-heading"><div><p>OTHER CORNERS</p><h2 id="same-time-title">같은 시간대 다른 코너</h2></div><span>중식 · 2개</span></div>
+        <!-- 코너 수가 늘면 같은 크기의 버튼이 가로 스크롤로 이어진다. -->
+        <div class="same-time-corners" role="tablist" aria-label="중식 코너 선택">
+          <button class="same-time-corner is-active" type="button" data-corner="korean" role="tab" aria-selected="true">
+            <img src="images/jeyuk-bokkeum-photo-sample.png" alt="">
+            <span><b>한식 코너</b><strong>제육볶음 정식</strong><small>현재 보고 있는 식단</small></span>
+          </button>
+          <button class="same-time-corner" type="button" data-corner="special" role="tab" aria-selected="false">
+            <img src="images/sundubu-jjigae-photo-sample.png" alt="">
+            <span><b>일품 코너</b><strong>순두부찌개 정식</strong><small>식단 보기 →</small></span>
+          </button>
+        </div>
       </section>
 
       <section class="menu-info" aria-label="식단 구성과 영양 정보">
-        <div class="info-heading"><h2>식단 구성</h2><span>총 6가지</span></div>
-        <ul class="menu-composition">
+        <div class="info-heading"><h2>식단 구성</h2><span id="menuTotal">총 6가지</span></div>
+        <ul class="menu-composition" id="menuComposition">
           <li><b>주식</b><span>잡곡밥</span></li>
           <li><b>메인</b><span>제육볶음</span></li>
           <li><b>반찬</b><span>계란찜 · 시금치나물 · 배추김치</span></li>
@@ -40,9 +55,9 @@
       </section>
 
       <section class="nutrition-card" aria-label="영양 정보와 알레르기 정보">
-        <div class="nutrition-item"><span class="nutrition-icon flame" aria-hidden="true"></span><div><small>열량</small><strong>620 <em>kcal</em></strong></div></div>
-        <div class="nutrition-item"><span class="nutrition-icon salt" aria-hidden="true"></span><div><small>나트륨</small><strong>980 <em>mg</em></strong></div></div>
-        <div class="allergen-note"><b>알레르기</b><span>대두, 돼지고기 함유</span></div>
+        <div class="nutrition-item"><span class="nutrition-icon flame" aria-hidden="true"></span><div><small>열량</small><strong id="calories">620 <em>kcal</em></strong></div></div>
+        <div class="nutrition-item"><span class="nutrition-icon salt" aria-hidden="true"></span><div><small>나트륨</small><strong id="sodium">980 <em>mg</em></strong></div></div>
+        <div class="allergen-note"><b>알레르기</b><span id="allergenText">대두, 돼지고기 함유</span></div>
       </section>
 
       <section class="rating-card" aria-labelledby="rating-title">
@@ -71,13 +86,15 @@
       </section>
     </main>
 
-    <nav class="bottom-nav" aria-label="주요 메뉴">
-      <a href="home-concept.html"><span class="nav-icon home"></span>홈</a>
-      <a class="active" href="#"><span class="nav-icon menu"></span>식단</a>
-      <a href="#"><span class="nav-icon talk"></span>의견</a>
-      <a href="#"><span class="nav-icon bell"></span>공지</a>
-      <a href="#"><span class="nav-icon user"></span>MY</a>
-    </nav>
+    <footer class="app-footer">
+      <nav class="bottom-nav" aria-label="주요 메뉴">
+        <a href="home-concept.html"><span class="nav-icon home"></span>홈</a>
+        <a class="active" href="#"><span class="nav-icon menu"></span>식단</a>
+        <a href="#"><span class="nav-icon talk"></span>의견</a>
+        <a href="#"><span class="nav-icon bell"></span>공지</a>
+        <a href="#"><span class="nav-icon user"></span>MY</a>
+      </nav>
+    </footer>
   </div>
   <script src="menu-detail-concept.js"></script>
 </body>

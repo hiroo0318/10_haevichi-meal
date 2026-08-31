@@ -8,6 +8,7 @@
   --amber:#E8A33C; --amber-off:#E4E7EA;
 }
 *{ box-sizing:border-box; }
+[hidden]{ display:none !important; }
 html,body{ height:100%; }
 body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font); letter-spacing:-.01em; }
 a{ color:inherit; text-decoration:none; }
@@ -29,6 +30,27 @@ img{ display:block; max-width:100%; }
 .back-btn svg{ width:16px; fill:none; stroke:var(--ink); stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
 .hd-date{ flex:1; text-align:center; font-size:14.5px; font-weight:800; }
 .hd-meal{ padding:5px 10px; border-radius:999px; background:#EAF3FC; color:var(--blue-deep); font-size:11.5px; font-weight:800; }
+
+/* 코너 전환 탭: 헤더 바로 아래, 코너가 2개 이상인 끼니에서만 노출.
+   코너 수가 늘어나도(최대 5개+) 안 깨지도록 균등폭 탭이 아니라
+   가로 스크롤 칩 리스트로 만든다. */
+.corner-switch{
+  display:flex; gap:8px;
+  padding:12px 18px; background:#fff;
+  border-bottom:1px solid var(--line);
+  overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none;
+  -webkit-overflow-scrolling:touch;
+}
+.corner-switch::-webkit-scrollbar{ display:none; }
+.corner-switch-tab{
+  flex:0 0 auto;
+  border:1.5px solid var(--line); background:#fff;
+  padding:9px 16px; border-radius:10px;
+  font-size:13px; font-weight:800; color:var(--sub); white-space:nowrap;
+}
+.corner-switch-tab.is-active{
+  border-color:var(--blue-deep); color:var(--blue-deep); background:#EAF3FC;
+}
 
 /* 히어로 이미지: 헤더 바로 아래 풀블리드 */
 .hero{ position:relative; aspect-ratio:16/10; }

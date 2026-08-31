@@ -50,7 +50,7 @@
         </div>
 
         <div class="meal-sequence" id="mealSequence">
-          <a class="meal-item expandable-meal" data-meal="breakfast" href="#">
+          <article class="meal-item expandable-meal" data-meal="breakfast">
             <div class="featured-top">
               <span class="meal-dot" aria-hidden="true"></span>
               <div class="meal-summary">
@@ -62,71 +62,82 @@
               <span class="chevron" aria-hidden="true">›</span>
             </div>
             <div class="featured-detail">
-              <div>
-                <p>잡곡밥 · 계란말이 · 시금치나물<br>배추김치 · 된장국</p>
-                <span class="detail-link">식단 자세히 보기 <b>→</b></span>
-              </div>
-              <div class="food-photo">
-                <img src="images/doenjang-guk-photo-sample.png" alt="된장국 정식 샘플 이미지">
-              </div>
-              <div class="featured-meta">
-                <span>원산지 <b>쌀 국내산</b></span>
-                <span class="allergy">알레르기 <b>대두 · 계란</b></span>
+              <div class="corner-carousel" data-corner-carousel data-corners="1" aria-label="조식 코너 식단">
+                <div class="corner-track" tabindex="0">
+                  <a class="corner-card" href="menu-detail-concept.html">
+                    <div class="corner-copy"><span class="corner-name">한식 코너</span><h3>된장국 정식</h3><p>잡곡밥 · 계란말이 · 시금치나물<br>배추김치 · 된장국</p><span class="detail-link">식단 자세히 보기 <b>→</b></span></div>
+                    <div class="food-photo"><img src="images/doenjang-guk-photo-sample.png" alt="된장국 정식 샘플 이미지"></div>
+                    <div class="featured-meta"><span>원산지 <b>쌀 국내산</b></span><span class="allergy">알레르기 <b>대두 · 계란</b></span></div>
+                  </a>
+                </div>
+                <div class="corner-indicator" aria-live="polite"><span class="corner-count">1 / 1</span><span class="corner-dots" aria-hidden="true"><i class="is-active"></i></span></div>
               </div>
             </div>
-          </a>
+          </article>
 
-          <a class="meal-item expandable-meal lunch-item is-featured" data-meal="lunch" href="menu-detail-concept.html">
+          <article class="meal-item expandable-meal lunch-item is-featured" data-meal="lunch">
             <!-- 상단: 식사 구분·메뉴명·상태를 하나의 행으로 정렬한다. -->
             <div class="featured-top">
               <span class="meal-dot" aria-hidden="true"></span>
               <div class="meal-summary">
                 <span class="meal-period">중식 <small>11:30 – 13:30</small></span>
-                <strong>제육볶음 정식</strong>
+                <strong class="meal-title-featured">제육볶음 정식</strong>
+                <strong class="meal-title-compact">제육볶음 정식 외 1</strong>
+                <span class="corner-summary">한식 · 일품 코너</span>
               </div>
-              <span class="meal-side availability">제공 중</span>
+              <div class="meal-side-stack"><span class="compact-corner-count">2개 코너</span><span class="meal-side availability">제공 중</span></div>
               <span class="chevron" aria-hidden="true">›</span>
             </div>
-            <!-- 하단: 식단 내용·상세 링크와 썸네일을 같은 행에서 정렬한다. -->
+            <!-- 하단: 코너별 식단을 같은 규격의 스와이프 카드로 보여 준다. -->
             <div class="featured-detail">
-              <div>
-                <p>잡곡밥 · 계란찜 · 시금치나물<br>배추김치 · 된장국</p>
-                <span class="detail-link">식단 자세히 보기 <b>→</b></span>
-              </div>
-              <div class="food-photo">
-                <img src="images/jeyuk-bokkeum-photo-sample.png" alt="제육볶음 정식 샘플 이미지">
-              </div>
-              <div class="featured-meta">
-                <span>원산지 <b>돼지고기 국내산</b></span>
-                <span class="allergy">알레르기 <b>대두 · 돼지고기</b></span>
+              <div class="corner-carousel" data-corner-carousel data-corners="2" aria-label="중식 코너 식단">
+                <div class="corner-track" tabindex="0">
+                  <a class="corner-card" href="menu-detail-concept.html">
+                    <div class="corner-copy"><span class="corner-name">한식 코너</span><h3>제육볶음 정식</h3><p>잡곡밥 · 계란찜 · 시금치나물<br>배추김치 · 된장국</p><span class="detail-link">식단 자세히 보기 <b>→</b></span></div>
+                    <div class="food-photo"><img src="images/jeyuk-bokkeum-photo-sample.png" alt="제육볶음 정식 샘플 이미지"></div>
+                    <div class="featured-meta"><span>원산지 <b>돼지고기 국내산</b></span><span class="allergy">알레르기 <b>대두 · 돼지고기</b></span></div>
+                  </a>
+                  <a class="corner-card" href="menu-detail-concept.html">
+                    <div class="corner-copy"><span class="corner-name">일품 코너</span><h3>순두부찌개 정식</h3><p>흰쌀밥 · 계란후라이 · 어묵볶음<br>배추김치 · 순두부찌개</p><span class="detail-link">식단 자세히 보기 <b>→</b></span></div>
+                    <div class="food-photo"><img src="images/sundubu-jjigae-photo-sample.png" alt="순두부찌개 정식 샘플 이미지"></div>
+                    <div class="featured-meta"><span>원산지 <b>쌀 국내산</b></span><span class="allergy">알레르기 <b>대두 · 계란</b></span></div>
+                  </a>
+                </div>
+                <div class="corner-indicator" aria-live="polite"><span class="corner-count">1 / 2</span><span class="corner-dots" aria-hidden="true"><i class="is-active"></i><i></i></span></div>
               </div>
             </div>
-          </a>
+          </article>
 
-          <a class="meal-item expandable-meal" data-meal="dinner" href="#">
+          <article class="meal-item expandable-meal" data-meal="dinner">
             <div class="featured-top">
               <span class="meal-dot" aria-hidden="true"></span>
               <div class="meal-summary">
                 <span class="meal-period">석식 <small>17:30 – 19:00</small></span>
-                <strong>순두부찌개 정식</strong>
+                <strong class="meal-title-featured">순두부찌개 정식</strong>
+                <strong class="meal-title-compact">순두부찌개 정식 외 1</strong>
+                <span class="corner-summary">한식 · 일품 코너</span>
               </div>
-              <span class="meal-side availability">예정</span>
+              <div class="meal-side-stack"><span class="compact-corner-count">2개 코너</span><span class="meal-side availability">예정</span></div>
               <span class="chevron" aria-hidden="true">›</span>
             </div>
             <div class="featured-detail">
-              <div>
-                <p>흰쌀밥 · 계란후라이 · 어묵볶음<br>배추김치 · 순두부찌개</p>
-                <span class="detail-link">식단 자세히 보기 <b>→</b></span>
-              </div>
-              <div class="food-photo">
-                <img src="images/sundubu-jjigae-photo-sample.png" alt="순두부찌개 정식 샘플 이미지">
-              </div>
-              <div class="featured-meta">
-                <span>원산지 <b>쌀 국내산</b></span>
-                <span class="allergy">알레르기 <b>대두 · 계란</b></span>
+              <div class="corner-carousel" data-corner-carousel data-corners="2" aria-label="석식 코너 식단">
+                <div class="corner-track" tabindex="0">
+                  <a class="corner-card" href="menu-detail-concept.html">
+                    <div class="corner-copy"><span class="corner-name">한식 코너</span><h3>순두부찌개 정식</h3><p>흰쌀밥 · 계란후라이 · 어묵볶음<br>배추김치 · 순두부찌개</p><span class="detail-link">식단 자세히 보기 <b>→</b></span></div>
+                    <div class="food-photo"><img src="images/sundubu-jjigae-photo-sample.png" alt="순두부찌개 정식 샘플 이미지"></div>
+                    <div class="featured-meta"><span>원산지 <b>쌀 국내산</b></span><span class="allergy">알레르기 <b>대두 · 계란</b></span></div>
+                  </a>
+                  <a class="corner-card" href="menu-detail-concept.html">
+                    <div class="corner-copy"><span class="corner-name">일품 코너</span><h3>제육볶음 정식</h3><p>잡곡밥 · 계란찜 · 시금치나물<br>배추김치 · 된장국</p><span class="detail-link">식단 자세히 보기 <b>→</b></span></div>
+                    <div class="food-photo"><img src="images/jeyuk-bokkeum-photo-sample.png" alt="제육볶음 정식 샘플 이미지"></div>
+                    <div class="featured-meta"><span>원산지 <b>돼지고기 국내산</b></span><span class="allergy">알레르기 <b>대두 · 돼지고기</b></span></div>
+                  </a>
+                </div>
+                <div class="corner-indicator" aria-live="polite"><span class="corner-count">1 / 2</span><span class="corner-dots" aria-hidden="true"><i class="is-active"></i><i></i></span></div>
               </div>
             </div>
-          </a>
+          </article>
         </div>
         <aside class="day-closed" id="dayClosed" hidden>
           <span class="closed-icon" aria-hidden="true">✓</span>
@@ -135,13 +146,15 @@
       </section>
     </main>
 
-    <nav class="bottom-nav" aria-label="주요 메뉴">
-      <a class="active" href="#"><span class="nav-icon home"></span>홈</a>
-      <a href="#"><span class="nav-icon menu"></span>식단</a>
-      <a href="#"><span class="nav-icon talk"></span>의견</a>
-      <a href="#"><span class="nav-icon bell"></span>공지</a>
-      <a href="#"><span class="nav-icon user"></span>MY</a>
-    </nav>
+    <footer class="app-footer">
+      <nav class="bottom-nav" aria-label="주요 메뉴">
+        <a class="active" href="#"><span class="nav-icon home"></span>홈</a>
+        <a href="#"><span class="nav-icon menu"></span>식단</a>
+        <a href="#"><span class="nav-icon talk"></span>의견</a>
+        <a href="#"><span class="nav-icon bell"></span>공지</a>
+        <a href="#"><span class="nav-icon user"></span>MY</a>
+      </nav>
+    </footer>
   </div>
   <script src="home-concept.js"></script>
 </body>

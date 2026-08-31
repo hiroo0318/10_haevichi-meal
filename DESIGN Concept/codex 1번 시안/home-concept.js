@@ -15,6 +15,41 @@
   const stateLabel = document.getElementById('meal-state');
   const closed = document.getElementById('dayClosed');
   const buttons = document.querySelectorAll('.state-buttons button');
+  const cornerCarousels = [];
+
+  /*
+    코너 영역은 브라우저의 기본 가로 스크롤과 CSS scroll-snap을 사용한다.
+    별도 터치 제스처를 가로채지 않아, 카드 위에서 위·아래로 움직이면 본문 스크롤이 유지된다.
+  */
+  const setupCornerCarousels = () => {
+    document.querySelectorAll('[data-corner-carousel]').forEach((carousel) => {
+      const track = carousel.querySelector('.corner-track');
+      const cards = Array.from(track.querySelectorAll('.corner-card'));
+      const count = carousel.querySelector('.corner-count');
+      const dots = Array.from(carousel.querySelectorAll('.corner-dots i'));
+      carousel.dataset.corners = cards.length;
+
+      const updateIndicator = () => {
+        const index = Math.max(0, Math.min(cards.length - 1, Math.round(track.scrollLeft / track.clientWidth)));
+        if (count) count.textContent = `${index + 1} / ${cards.length}`;
+        dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === index));
+      };
+
+      track.addEventListener('scroll', updateIndicator, { passive: true });
+      window.addEventListener('resize', updateIndicator);
+      updateIndicator();
+      cornerCarousels.push({ carousel, track, updateIndicator });
+    });
+  };
+
+  const resetMealCarousel = (meal) => {
+    const item = document.querySelector(`[data-meal="${meal}"]`);
+    const carousel = item && item.querySelector('[data-corner-carousel]');
+    const saved = cornerCarousels.find((entry) => entry.carousel === carousel);
+    if (!saved) return;
+    saved.track.scrollLeft = 0;
+    saved.updateIndicator();
+  };
 
   const renderState = (key) => {
     const state = states[key];
@@ -30,6 +65,7 @@
       element.classList.toggle('is-past', state.completed.includes(meal));
       if (side) side.textContent = meal === state.focus ? state.status : '예정';
     });
+    if (state.focus) resetMealCarousel(state.focus);
     buttons.forEach((button) => button.classList.toggle('is-active', button.dataset.state === key));
   };
 
@@ -37,5 +73,6 @@
     document.getElementById('stateSwitcher').classList.toggle('is-collapsed');
   });
   buttons.forEach((button) => button.addEventListener('click', () => renderState(button.dataset.state)));
+  setupCornerCarousels();
   renderState('lunch-in');
 }());

@@ -3,12 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>제육볶음 정식 — 상세 디자인 시안 (Claude)</title>
+<title>식단 상세 — 상세 디자인 시안 (Claude)</title>
 <link rel="stylesheet" href="menu-detail-concept.css">
 </head>
 <body>
 <!--
   식단상세·별점 화면 디자인 검토용 독립 시안입니다 (Claude 제안).
+  끼니 하나에 코너(코너 A/코너 B 등)가 여러 개일 수 있어, 헤더 바로 아래
+  코너 전환 탭을 두고 탭에 따라 사진·정보·별점 상태가 전부 바뀐다.
+  URL에 ?meal=lunch&corner=b 를 붙이면 해당 코너로 바로 진입한다(기본값: 중식·코너 A).
 -->
 <div class="page">
 
@@ -17,45 +20,40 @@
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </a>
     <span class="hd-date">8월 19일(수)</span>
-    <span class="hd-meal">중식</span>
+    <span class="hd-meal" id="hdMeal">중식</span>
   </header>
+
+  <!-- 코너 전환 탭: 코너가 2개 이상인 끼니에서만 노출 -->
+  <div class="corner-switch" id="cornerSwitch" hidden></div>
 
   <main>
 
     <div class="hero">
-      <img src="images/jeyuk-bokkeum-photo.png" alt="제육볶음 정식">
-      <span class="hero-time">11:30–13:30 제공</span>
+      <img id="heroPhoto" src="" alt="">
+      <span class="hero-time" id="heroTime"></span>
     </div>
 
     <div class="sheet">
 
-      <span class="kicker">LUNCH MENU</span>
-      <h1>제육볶음 정식</h1>
+      <span class="kicker" id="kicker">LUNCH MENU</span>
+      <h1 id="menuName"></h1>
 
-      <div class="tag-row">
-        <span class="tag">돼지고기 국내산</span>
-        <span class="tag">쌀 국내산</span>
-      </div>
+      <div class="tag-row" id="tagRow"></div>
 
-      <section class="composition">
-        <div class="row"><span>주식</span><b>잡곡밥</b></div>
-        <div class="row"><span>메인</span><b>제육볶음</b></div>
-        <div class="row"><span>반찬</span><b>계란찜 · 시금치나물 · 배추김치</b></div>
-        <div class="row"><span>국</span><b>된장국</b></div>
-      </section>
+      <section class="composition" id="composition"></section>
 
       <section class="nutrition">
         <div class="nutri-cell">
           <span class="nutri-label">열량</span>
-          <span class="nutri-value">620<small>kcal</small></span>
+          <span class="nutri-value" id="nutriKcal">–<small>kcal</small></span>
         </div>
         <div class="nutri-div"></div>
         <div class="nutri-cell">
           <span class="nutri-label">나트륨</span>
-          <span class="nutri-value">980<small>mg</small></span>
+          <span class="nutri-value" id="nutriSodium">–<small>mg</small></span>
         </div>
       </section>
-      <div class="allergy-line"><b>알레르기</b> 대두, 돼지고기 함유</div>
+      <div class="allergy-line"><b>알레르기</b> <span id="allergyText"></span></div>
 
       <section class="rate">
         <span class="kicker">MENU RATING</span>

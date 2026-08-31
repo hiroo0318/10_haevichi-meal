@@ -96,12 +96,36 @@ img{ display:block; max-width:100%; }
   color:rgba(255,255,255,.85); margin-bottom:6px;
   text-shadow:0 1px 6px rgba(0,0,0,.35);
 }
+.spotlight-top-row{
+  display:flex; align-items:center; gap:8px;
+  margin-bottom:8px;
+  min-width:0; /* 자식의 가로 스크롤이 부모 폭을 밀어내지 않게 */
+}
 .spotlight-time{
-  display:inline-block; margin-bottom:8px;
+  flex:0 0 auto;
+  display:inline-block;
   padding:4px 10px; border-radius:999px;
   background:rgba(255,255,255,.22); backdrop-filter:blur(6px);
-  font-size:11px; font-weight:800;
+  font-size:11px; font-weight:800; white-space:nowrap;
 }
+/* 코너 전환 탭 (스포트라이트 A안) — 코너가 2개 이상일 때만 노출.
+   개수가 몇 개든(최대 5개+) 안 깨지도록 균등폭 탭이 아니라
+   가로 스크롤 칩 리스트로 만든다. 폭은 내용만큼만 차지한다. */
+.corner-tabs{
+  flex:1 1 auto; min-width:0;
+  display:flex; gap:6px;
+  overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none;
+  -webkit-overflow-scrolling:touch;
+  mask-image:linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+}
+.corner-tabs::-webkit-scrollbar{ display:none; }
+.corner-tab{
+  flex:0 0 auto;
+  border:0; padding:4px 10px; border-radius:999px;
+  background:rgba(255,255,255,.16); color:rgba(255,255,255,.85);
+  font-size:10.5px; font-weight:800; white-space:nowrap;
+}
+.corner-tab.is-active{ background:#fff; color:var(--blue-deep); }
 .spotlight-copy h1{
   margin:0 0 8px; font-size:26px; font-weight:800; letter-spacing:-.02em;
   text-shadow:0 2px 10px rgba(0,0,0,.35);
@@ -162,7 +186,26 @@ img{ display:block; max-width:100%; }
   padding:14px 4px;
   border-bottom:1px solid var(--line);
 }
-.timeline-row:last-child{ border-bottom:0; }
+#timelineBody > .timeline-row:last-child,
+#timelineBody > .timeline-group:last-child .timeline-row:last-child{
+  border-bottom:0;
+}
+
+/* 코너 2개 이상인 끼니: 그룹 헤더 + 코너별 줄(살짝 들여쓰기) */
+.timeline-group-head{
+  padding:14px 4px 6px;
+  font-size:11.5px; font-weight:800; color:var(--sub);
+}
+.timeline-row.is-corner-row{
+  padding-left:16px;
+  position:relative;
+}
+.timeline-row.is-corner-row::before{
+  content:"";
+  position:absolute; left:2px; top:50%; transform:translateY(-50%);
+  width:5px; height:5px; border-radius:50%; background:var(--line);
+}
+.timeline-row.is-corner-row.is-now::before{ background:var(--blue-deep); }
 .row-thumb{
   width:52px; height:52px; border-radius:14px; overflow:hidden;
   flex:0 0 auto; box-shadow:0 4px 10px rgba(20,25,30,.1);

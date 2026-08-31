@@ -60,7 +60,10 @@
       </div>
       <div class="spotlight-copy">
         <span class="spotlight-eyebrow" id="spotlightEyebrow"></span>
-        <span class="spotlight-time" id="spotlightTime"></span>
+        <div class="spotlight-top-row">
+          <span class="spotlight-time" id="spotlightTime"></span>
+          <div class="corner-tabs" id="spotlightCornerTabs" hidden></div>
+        </div>
         <h1 id="spotlightTitle"></h1>
         <p id="spotlightDesc"></p>
         <div class="spotlight-foot" id="spotlightTags"></div>
@@ -80,39 +83,15 @@
       </div>
     </section>
 
-    <!-- 하루 흐름: 조식→중식→석식을 얇은 리스트로, 상태에 따라 강조가 이동 -->
+    <!-- 하루 흐름: 조식→중식→석식을 얇은 리스트로, 상태에 따라 강조가 이동.
+         코너가 2개 이상인 끼니는 끼니 헤더 아래 코너별 줄로 분리되고,
+         코너가 1개면 지금까지처럼 한 줄로 표시된다. (목록은 JS가 그린다) -->
     <section class="timeline" aria-label="오늘의 전체 식단">
       <div class="timeline-head">
         <h2>오늘의 식단</h2>
-        <span>총 3끼</span>
+        <span id="timelineCount">총 3끼</span>
       </div>
-
-      <a class="timeline-row" data-row="breakfast" href="menu-detail-concept.html">
-        <span class="row-thumb"><img src="images/doenjangguk-photo.png" alt=""></span>
-        <span class="row-body">
-          <span class="row-time">조식 · 07:30–09:00</span>
-          <strong>된장국 정식</strong>
-        </span>
-        <span class="row-side" data-side="breakfast"></span>
-      </a>
-
-      <a class="timeline-row" data-row="lunch" href="menu-detail-concept.html">
-        <span class="row-thumb"><img src="images/jeyuk-bokkeum-photo.png" alt=""></span>
-        <span class="row-body">
-          <span class="row-time">중식 · 11:30–13:30</span>
-          <strong>제육볶음 정식</strong>
-        </span>
-        <span class="row-side" data-side="lunch"></span>
-      </a>
-
-      <a class="timeline-row" data-row="dinner" href="#">
-        <span class="row-thumb"><img src="images/sundubu-jjigae-photo.png" alt=""></span>
-        <span class="row-body">
-          <span class="row-time">석식 · 17:30–19:00</span>
-          <strong>순두부찌개 정식</strong>
-        </span>
-        <span class="row-side" data-side="dinner"></span>
-      </a>
+      <div id="timelineBody"></div>
     </section>
 
   </main>
