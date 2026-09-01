@@ -7,6 +7,7 @@
 | 항목 | 결정 | 비고 |
 | --- | --- | --- |
 | 로그인 디자인 | 반영 | 새 레이아웃(브랜드 영역, 필드 배치) |
+| 회원가입 | 반영 | 사내 메일 확인 → 메일 인증 → 비밀번호 등록의 3단계 UI. 실제 도메인 조회·메일 발송은 개발 연동 대상 |
 | 자동로그인 | 유지 | 기존 확정 기능(U-01), 요건서의 "간편 로그인"과는 별개 |
 | 간편 로그인(네이버/카카오) | 제외 | 개발일정상 추가요건 미구현 |
 | 홈 화면 메뉴 통합 | 반영 | 주간 날짜 스트립 + 조식/중식/석식 탭으로 "식단" 탭을 완전히 흡수 |
@@ -30,7 +31,7 @@
 
 ```
 해비치 요건 반영 시안/
-├─ login.html / home.html / menu-detail.html / voc.html / voc-list.html
+├─ login.html / signup.html / home.html / menu-detail.html / voc.html / voc-list.html / notice.html
 └─ resources/
    ├─ css/reset.css · style.css · theme-hyundaicapital.css · theme-haevichi.css
    ├─ js/common.js       (페이지별 블록을 주석으로 구분, MEALS 데이터 포함)

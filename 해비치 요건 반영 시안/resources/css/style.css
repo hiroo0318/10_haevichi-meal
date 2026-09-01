@@ -266,6 +266,32 @@ body{
 .login-hint{ margin-top:26px; font-size:11.5px; color:var(--faint); text-align:center; line-height:1.6; }
 
 /* ---------------------------------------------------------
+   PAGE: signup.html — 회원가입 3단계
+   --------------------------------------------------------- */
+.signup-content{ padding:42px 28px 32px; }
+.signup-brand{ display:flex; flex-direction:column; align-items:center; margin:0 0 36px; color:var(--ink); font-size:22px; font-weight:800; letter-spacing:-.02em; }
+.signup-brand span{ margin-top:2px; color:var(--sub); font-size:11px; font-weight:600; letter-spacing:0; }
+.signup-progress{ display:flex; align-items:center; gap:8px; margin-bottom:34px; }
+.signup-progress span{ width:24px; height:24px; display:grid; place-items:center; border-radius:50%; background:#EEF0F2; color:var(--faint); font-size:11px; font-weight:800; }
+.signup-progress span.is-active{ background:var(--brand-primary); color:#fff; }
+.signup-progress i{ height:1px; flex:1; background:var(--line); }
+.signup-step-count{ margin:0 0 10px; color:var(--brand-primary); font-size:12px; font-weight:800; }
+.signup-step h1{ margin:0; color:var(--ink); font-size:25px; line-height:1.35; font-weight:800; letter-spacing:-.045em; }
+.signup-description{ min-height:42px; margin:12px 0 30px; color:var(--sub); font-size:13.5px; line-height:1.55; }
+.signup-description b{ color:var(--ink); font-weight:700; overflow-wrap:anywhere; }
+.signup-field{ margin-bottom:22px; }
+.signup-field > label{ display:block; margin:0 0 8px; color:var(--ink); font-size:13px; font-weight:700; }
+.signup-field .input{ background:#fff; }
+.verify-field{ display:flex; gap:8px; }
+.verify-field .input{ min-width:0; flex:1; }
+.btn-resend{ flex:0 0 auto; min-width:72px; padding:0 10px; border:1px solid var(--line); border-radius:10px; background:#F7F8FA; color:var(--sub); font-size:12px; font-weight:700; }
+.form-message{ margin:8px 0 0; color:var(--faint); font-size:11.5px; line-height:1.45; }
+.form-message.is-error{ color:var(--danger); font-weight:600; }
+.signup-step-back{ display:flex; align-items:center; justify-content:center; gap:6px; width:100%; min-height:42px; margin-top:18px; color:var(--sub); font-size:13px; font-weight:700; }
+.signup-step-back > span:first-child{ color:var(--ink); font-size:18px; line-height:1; }
+.signup-step-back:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
+
+/* ---------------------------------------------------------
    공통 버튼
    --------------------------------------------------------- */
 .btn{
