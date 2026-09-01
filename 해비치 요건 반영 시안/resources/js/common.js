@@ -376,4 +376,40 @@ document.addEventListener('DOMContentLoaded', function(){
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !imageModal.hidden) closeImageModal(); });
   }
 
+  /* PAGE: notice.html — 목록 / 상세 화면 전환 */
+  var noticeListView = document.getElementById('noticeListView');
+  if(noticeListView){
+    var noticeDetailView = document.getElementById('noticeDetailView');
+    var noticeDetailTitle = document.getElementById('noticeDetailTitle');
+    var noticeDetailDate = document.getElementById('noticeDetailDate');
+    var noticeDetailBody = document.getElementById('noticeDetailBody');
+    var noticeDetailTag = document.getElementById('noticeDetailTag');
+    var noticeBack = document.getElementById('noticeBack');
+    var noticeBrandHeader = document.getElementById('noticeBrandHeader');
+    var noticeDetailHeader = document.getElementById('noticeDetailHeader');
+    var noticeHeaderBack = document.getElementById('noticeHeaderBack');
+    var showNoticeList = function(){
+      noticeDetailView.hidden = true;
+      noticeListView.hidden = false;
+      noticeDetailHeader.hidden = true;
+      noticeBrandHeader.hidden = false;
+    };
+    noticeListView.querySelectorAll('[data-notice-title]').forEach(function(item){
+      item.addEventListener('click', function(){
+        noticeDetailTitle.textContent = item.dataset.noticeTitle;
+        noticeDetailDate.textContent = item.dataset.noticeDate;
+        noticeDetailDate.dateTime = item.dataset.noticeDate.replace(/\./g, '-');
+        noticeDetailBody.textContent = item.dataset.noticeContent;
+        noticeDetailTag.hidden = item.dataset.noticePinned !== 'true';
+        noticeListView.hidden = true;
+        noticeDetailView.hidden = false;
+        noticeBrandHeader.hidden = true;
+        noticeDetailHeader.hidden = false;
+        document.querySelector('.notice-content').scrollTop = 0;
+      });
+    });
+    noticeBack.addEventListener('click', showNoticeList);
+    noticeHeaderBack.addEventListener('click', showNoticeList);
+  }
+
 });

@@ -400,6 +400,32 @@ body{
 .voc-submit-wrap{ width:100%; padding-top:2px; }
 .voc-submit-wrap p{ margin:0 0 10px; color:var(--faint); font-size:12px; text-align:center; }
 
+/* PAGE: notice.html — 공지 목록 / 상세 */
+.notice-content{ background:#fff; }
+.notice-list-view{ padding:24px 20px 32px; }
+.notice-page-intro{ display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:26px; }
+.notice-page-intro h1{ margin:0; color:var(--ink); font-size:20px; font-weight:800; letter-spacing:-.025em; }
+.notice-page-intro span{ flex:0 0 auto; color:var(--faint); font-size:12px; }
+.notice-section-label{ display:flex; align-items:center; gap:9px; margin:0 0 10px; color:var(--sub); font-size:12px; font-weight:700; }
+.notice-section-label::after{ content:""; flex:1; height:1px; background:var(--line); }
+.notice-section-label--all{ margin-top:26px; }
+.notice-item{ width:100%; display:flex; align-items:center; gap:11px; padding:17px 15px; border:1px solid var(--line); border-radius:var(--radius-md); background:#fff; color:var(--ink); text-align:left; }
+.notice-item + .notice-item{ margin-top:9px; }
+.notice-item--pinned{ border-color:color-mix(in srgb, var(--brand-primary), white 62%); background:linear-gradient(135deg, var(--brand-primary-bg), #fff); }
+.notice-item-tag{ flex:0 0 auto; display:inline-flex; align-items:center; min-height:24px; padding:0 8px; border-radius:var(--radius-pill); background:var(--brand-primary); color:#fff; font-size:11px; font-weight:800; }
+.notice-item-copy{ min-width:0; flex:1; display:flex; flex-direction:column; gap:6px; }
+.notice-item-copy strong{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; font-weight:700; line-height:1.4; }
+.notice-item-copy time{ color:var(--faint); font-size:12px; }
+.notice-item-chevron{ flex:0 0 auto; color:var(--faint); font-size:22px; line-height:1; }
+.notice-item:focus-visible,.notice-back:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
+.notice-detail-view{ padding:18px 20px 36px; }
+.notice-back{ display:inline-flex; align-items:center; gap:7px; min-height:40px; margin:0 0 20px; padding:0 10px 0 2px; color:var(--sub); font-size:13px; font-weight:700; }
+.notice-back span{ color:var(--ink); font-size:19px; }
+.notice-detail-heading{ padding:0 0 22px; border-bottom:1px solid var(--line); }
+.notice-detail-heading h2{ margin:11px 0 9px; font-size:21px; line-height:1.42; letter-spacing:-.025em; }
+.notice-detail-heading time{ color:var(--faint); font-size:12px; }
+.notice-detail-body{ padding:24px 0; color:#4C5661; font-size:14px; line-height:1.8; white-space:pre-line; }
+
 /* ---------------------------------------------------------
    상태 스위처 (검토용, 실제 화면에는 없음)
    --------------------------------------------------------- */

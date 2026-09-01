@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>공지사항 | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/theme-hyundaicapital.css" id="themeLink">
+</head>
+<body>
+<!-- HVM-MO-09-00 공지사항: 목록과 상세를 한 화면 안에서 전환 -->
+<div class="page">
+  <!-- 1뎁스 공지 목록: 홈과 같은 고정 브랜드 헤더 -->
+  <header class="topbar" id="noticeBrandHeader"><div class="brand">FX<span>By Haevichi</span></div></header>
+  <!-- 2뎁스 공지 상세: 브랜드 헤더 대신 뒤로가기와 화면명 노출 -->
+  <header class="hd-sub" id="noticeDetailHeader" hidden>
+    <button class="back-btn" id="noticeHeaderBack" type="button" aria-label="공지 목록으로 돌아가기"><img src="resources/images/icon/ic-back.svg" alt=""></button>
+    <span class="hd-sub-date">공지 상세</span>
+    <span style="width:44px"></span>
+  </header>
+  <main class="content notice-content">
+    <section class="notice-list-view" id="noticeListView" aria-label="공지사항 목록">
+      <div class="notice-page-intro"><h1>공지사항</h1><span>전체 3건</span></div>
+      <div class="notice-section-label"><span>중요 공지</span></div>
+      <button class="notice-item notice-item--pinned" type="button"
+        data-notice-title="[안내] 10월 6일부터 새 급식정보 서비스가 시작됩니다"
+        data-notice-date="2026.09.01"
+        data-notice-pinned="true"
+        data-notice-content="10월 6일부터 기존 급식정보 제공 서비스가 종료되고, 새로운 급식정보 서비스가 시작됩니다.&#10;&#10;새 서비스에서는 날짜와 식사 구분을 선택해 오늘의 식단을 빠르게 확인할 수 있습니다.&#10;&#10;가입은 사내 메일 주소 인증만으로 가능하며, 별도의 사번 등록 절차는 없습니다. 이용에 참고 부탁드립니다.">
+        <span class="notice-item-tag">필독</span>
+        <span class="notice-item-copy"><strong>10월 6일부터 새 급식정보 서비스가 시작됩니다</strong><time datetime="2026-09-01">2026.09.01</time></span>
+        <span class="notice-item-chevron" aria-hidden="true">›</span>
+      </button>
+      <div class="notice-section-label notice-section-label--all"><span>전체 공지</span></div>
+      <div class="notice-item-list">
+        <button class="notice-item" type="button"
+          data-notice-title="로그인 방식 변경 안내"
+          data-notice-date="2026.08.24"
+          data-notice-content="보다 간편하고 안전한 서비스 이용을 위해 로그인 방식이 사내 메일 주소 인증 방식으로 변경됩니다.&#10;&#10;이용 중인 사내 메일 주소로 인증을 완료한 뒤 서비스를 이용해 주세요.">
+          <span class="notice-item-copy"><strong>로그인 방식 변경 안내</strong><time datetime="2026-08-24">2026.08.24</time></span><span class="notice-item-chevron" aria-hidden="true">›</span>
+        </button>
+        <button class="notice-item" type="button"
+          data-notice-title="8월 여름철 위생점검 결과 공유"
+          data-notice-date="2026.08.05"
+          data-notice-content="8월 여름철 위생점검을 완료했습니다.&#10;&#10;식당 내 위생 관리와 식재료 보관 상태를 점검했으며, 앞으로도 안전한 식사를 제공할 수 있도록 지속적으로 관리하겠습니다.">
+          <span class="notice-item-copy"><strong>8월 여름철 위생점검 결과 공유</strong><time datetime="2026-08-05">2026.08.05</time></span><span class="notice-item-chevron" aria-hidden="true">›</span>
+        </button>
+      </div>
+    </section>
+    <article class="notice-detail-view" id="noticeDetailView" hidden aria-live="polite">
+      <button class="notice-back" id="noticeBack" type="button"><span aria-hidden="true">←</span> 목록으로</button>
+      <div class="notice-detail-heading"><span class="notice-item-tag" id="noticeDetailTag" hidden>필독</span><h2 id="noticeDetailTitle"></h2><time id="noticeDetailDate"></time></div>
+      <div class="notice-detail-body" id="noticeDetailBody"></div>
+    </article>
+  </main>
+  <nav class="tabbar">
+    <a href="home.html"><span class="icon" style="--icon:url(../images/icon/ic-home.svg)" aria-hidden="true"></span>홈</a>
+    <a href="voc.html"><span class="icon" style="--icon:url(../images/icon/ic-voc.svg)" aria-hidden="true"></span>나의 의견</a>
+    <a class="active" aria-current="page" href="notice.html"><span class="icon" style="--icon:url(../images/icon/ic-notice.svg)" aria-hidden="true"></span>공지</a>
+    <a href="#"><span class="icon" style="--icon:url(../images/icon/ic-my.svg)" aria-hidden="true"></span>My</a>
+  </nav>
+</div>
+<script src="resources/js/common.js"></script>
+</body>
+</html>
