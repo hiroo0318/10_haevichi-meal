@@ -1,5 +1,7 @@
 # 해비치 요건 반영 시안
 
+개발 전달 시에는 [DEVELOPMENT_HANDOFF.md](DEVELOPMENT_HANDOFF.md)를 함께 확인한다.
+
 `SB/01 해비치 요구사항/1. APP_추가기능, 수정사항.pdf` 회신을 반영한 화면입니다. `Structure` 폴더와 동일한 퍼블리싱 관례(리소스 폴더 구조, reset+style 분리, 코너별 flat html)를 따르되, 개발팀과 협의한 **flex 레이아웃**(하단 탭바 `position:fixed` 폐지)을 여기서 처음 적용했습니다.
 
 ## 반영/제외 결정
@@ -31,7 +33,7 @@
 
 ```
 해비치 요건 반영 시안/
-├─ login.html / signup.html / home.html / menu-detail.html / voc.html / voc-list.html / notice.html / my.html / my-password.html / my-policy.html / terms.html / privacy.html / withdraw.html
+├─ login.html / signup.html / home.html / menu-detail.html / voc.html / voc-list.html / notice.html / my.html / my-password.html / my-policy.html / terms.html / privacy.html / withdraw.html / app-version.html
 └─ resources/
    ├─ css/reset.css · style.css · theme-hyundaicapital.css · theme-haevichi.css
    ├─ js/common.js       (페이지별 블록을 주석으로 구분, MEALS 데이터 포함)

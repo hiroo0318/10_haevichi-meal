@@ -357,6 +357,19 @@ body{
 .btn-danger{ margin-top:16px; background:var(--danger); color:#fff; }
 
 /* ---------------------------------------------------------
+   PAGE: app-version.html — 앱 버전 및 오픈소스 라이선스
+   --------------------------------------------------------- */
+.app-version-content{ padding:28px 20px 42px; }
+.version-card{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:18px; border:1px solid var(--line); border-radius:var(--radius-lg); background:linear-gradient(135deg, var(--brand-primary-bg), #fff); }
+.version-card strong{ color:var(--ink); font-size:14px; font-weight:800; }
+.version-card span{ color:var(--sub); font-size:13px; font-weight:700; white-space:nowrap; }
+.version-card em{ margin-left:5px; color:var(--brand-primary); font-size:11px; font-style:normal; }
+.open-source-section{ margin-top:28px; }
+.open-source-section h2{ margin:0; color:var(--ink); font-size:16px; font-weight:800; }
+.open-source-section > p{ margin:8px 0 14px; color:var(--sub); font-size:12.5px; line-height:1.55; }
+.open-source-empty{ padding:16px; border:1px solid var(--line); border-radius:var(--radius-md); background:#FAFBFC; color:var(--faint); font-size:12px; line-height:1.6; }
+
+/* ---------------------------------------------------------
    공통 버튼
    --------------------------------------------------------- */
 .btn{
