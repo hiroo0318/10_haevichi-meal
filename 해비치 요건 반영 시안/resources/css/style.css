@@ -291,6 +291,9 @@ body{
 }
 .back-btn{ width:44px; height:44px; border-radius:50%; background:#F1F3F5; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
 .back-btn img{ width:16px; height:16px; }
+.hd-sub-spacer,.hd-sub-close{ width:44px; height:44px; flex:0 0 auto; }
+.hd-sub-close{ display:grid; place-items:center; border-radius:50%; background:#F1F3F5; color:var(--ink); font-size:24px; font-weight:400; line-height:1; cursor:pointer; }
+.hd-sub-close:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
 .hd-sub-date{ flex:1; text-align:center; font-size:15px; font-weight:700; }
 .hd-sub-meal{ padding:5px 10px; border-radius:var(--radius-pill); background:var(--brand-primary-bg); color:var(--brand-primary); font-size:12px; font-weight:700; }
 
@@ -342,6 +345,8 @@ body{
    --------------------------------------------------------- */
 .voc-content{ justify-content:flex-start; }
 .voc-body{ padding:20px 20px 28px; }
+.page-title{ margin-bottom:20px; }
+.page-title h1{ margin:0; color:var(--ink); font-size:22px; font-weight:800; letter-spacing:-.04em; }
 .voc-tabs{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:24px; }
 .voc-tab{ min-height:44px; padding:13px 0; border-radius:var(--radius-sm); background:#F5F6F8; color:var(--sub); font-size:14px; font-weight:600; text-align:center; }
 .voc-tab.is-active{ background:var(--brand-primary); color:#fff; font-weight:700; }
@@ -417,10 +422,8 @@ body{
 .notice-item-copy strong{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; font-weight:700; line-height:1.4; }
 .notice-item-copy time{ color:var(--faint); font-size:12px; }
 .notice-item-chevron{ flex:0 0 auto; color:var(--faint); font-size:22px; line-height:1; }
-.notice-item:focus-visible,.notice-back:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
+.notice-item:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
 .notice-detail-view{ padding:18px 20px 36px; }
-.notice-back{ display:inline-flex; align-items:center; gap:7px; min-height:40px; margin:0 0 20px; padding:0 10px 0 2px; color:var(--sub); font-size:13px; font-weight:700; }
-.notice-back span{ color:var(--ink); font-size:19px; }
 .notice-detail-heading{ padding:0 0 22px; border-bottom:1px solid var(--line); }
 .notice-detail-heading h2{ margin:11px 0 9px; font-size:21px; line-height:1.42; letter-spacing:-.025em; }
 .notice-detail-heading time{ color:var(--faint); font-size:12px; }

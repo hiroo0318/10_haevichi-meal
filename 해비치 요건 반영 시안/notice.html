@@ -13,15 +13,15 @@
 <div class="page">
   <!-- 1뎁스 공지 목록: 홈과 같은 고정 브랜드 헤더 -->
   <header class="topbar" id="noticeBrandHeader"><div class="brand">FX<span>By Haevichi</span></div></header>
-  <!-- 2뎁스 공지 상세: 브랜드 헤더 대신 뒤로가기와 화면명 노출 -->
+  <!-- 2뎁스 공지 상세: 목록 위에 열리는 레이어이므로 닫기 버튼으로 복귀 -->
   <header class="hd-sub" id="noticeDetailHeader" hidden>
-    <button class="back-btn" id="noticeHeaderBack" type="button" aria-label="공지 목록으로 돌아가기"><img src="resources/images/icon/ic-back.svg" alt=""></button>
+    <span class="hd-sub-spacer" aria-hidden="true"></span>
     <span class="hd-sub-date">공지 상세</span>
-    <span style="width:44px"></span>
+    <button class="hd-sub-close" id="noticeDetailClose" type="button" aria-label="공지 상세 닫기" title="닫기">×</button>
   </header>
   <main class="content notice-content">
     <section class="notice-list-view" id="noticeListView" aria-label="공지사항 목록">
-      <div class="notice-page-intro"><h1>공지사항</h1><span>전체 3건</span></div>
+      <div class="notice-page-intro"><h1>새로운 소식을 확인하세요</h1><span>전체 3건</span></div>
       <div class="notice-section-label"><span>중요 공지</span></div>
       <button class="notice-item notice-item--pinned" type="button"
         data-notice-title="[안내] 10월 6일부터 새 급식정보 서비스가 시작됩니다"
@@ -49,7 +49,6 @@
       </div>
     </section>
     <article class="notice-detail-view" id="noticeDetailView" hidden aria-live="polite">
-      <button class="notice-back" id="noticeBack" type="button"><span aria-hidden="true">←</span> 목록으로</button>
       <div class="notice-detail-heading"><span class="notice-item-tag" id="noticeDetailTag" hidden>필독</span><h2 id="noticeDetailTitle"></h2><time id="noticeDetailDate"></time></div>
       <div class="notice-detail-body" id="noticeDetailBody"></div>
     </article>

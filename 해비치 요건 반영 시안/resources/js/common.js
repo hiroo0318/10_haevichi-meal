@@ -384,10 +384,9 @@ document.addEventListener('DOMContentLoaded', function(){
     var noticeDetailDate = document.getElementById('noticeDetailDate');
     var noticeDetailBody = document.getElementById('noticeDetailBody');
     var noticeDetailTag = document.getElementById('noticeDetailTag');
-    var noticeBack = document.getElementById('noticeBack');
     var noticeBrandHeader = document.getElementById('noticeBrandHeader');
     var noticeDetailHeader = document.getElementById('noticeDetailHeader');
-    var noticeHeaderBack = document.getElementById('noticeHeaderBack');
+    var noticeDetailClose = document.getElementById('noticeDetailClose');
     var showNoticeList = function(){
       noticeDetailView.hidden = true;
       noticeListView.hidden = false;
@@ -408,8 +407,7 @@ document.addEventListener('DOMContentLoaded', function(){
         document.querySelector('.notice-content').scrollTop = 0;
       });
     });
-    noticeBack.addEventListener('click', showNoticeList);
-    noticeHeaderBack.addEventListener('click', showNoticeList);
+    noticeDetailClose.addEventListener('click', showNoticeList);
   }
 
 });
