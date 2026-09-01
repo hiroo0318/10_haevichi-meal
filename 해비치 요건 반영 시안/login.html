@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>로그인 | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/theme-hyundaicapital.css" id="themeLink">
+</head>
+<body>
+<!--
+  해비치 요건 반영 시안 (2P 로그인 페이지).
+  적용: 새 레이아웃(브랜드 영역, 필드 배치), 자동로그인(기존 확정 기능 U-01)
+  제외: 간편 로그인(네이버/카카오) — 요건 회신 기준 미구현
+-->
+<div class="page">
+  <main class="content login-content">
+
+    <div class="login-brand">
+      <div class="login-logo">FX<span>By Haevichi</span></div>
+      <p class="login-tagline">해비치와 함께하는<br>기분 좋은 식사 경험</p>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <input class="input" id="email" type="email" placeholder="사내 메일 주소" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <input class="input" id="pw" type="password" placeholder="비밀번호" autocomplete="current-password" required>
+      </div>
+
+      <div class="errmsg" id="loginErr" hidden>이메일 또는 비밀번호가 일치하지 않습니다.</div>
+
+      <div class="login-row">
+        <label class="checkbox">
+          <input type="checkbox" id="autoLogin" checked>
+          <span>자동로그인</span>
+        </label>
+        <a class="find-link" href="#">아이디/비밀번호 찾기</a>
+      </div>
+
+      <button type="submit" class="btn btn-dark">로그인</button>
+    </form>
+
+    <div class="login-footer">
+      <a href="#">처음이신가요? 회원가입</a>
+    </div>
+
+    <p class="login-hint">데모용: 비밀번호에 <b>0000</b>을 입력하면 실패 사례를 확인할 수 있습니다.</p>
+
+  </main>
+</div>
+<script src="resources/js/common.js"></script>
+</body>
+</html>

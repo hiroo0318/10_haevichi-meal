@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>식단 상세 | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/theme-hyundaicapital.css" id="themeLink">
+</head>
+<body>
+<!--
+  해비치 요건 반영 시안 (3P 메뉴 상세 화면).
+  적용: 상세 레이아웃(반찬별 칼로리 + 탄단지 요약 — 어드민이 등록한 값을
+        표시만 하는 구조, 3-1 확인 반영), 평균 별점 표기
+  제외: 찜하기(하트), "영양 기록" 저장 버튼, 상세 화면 내 코너 전환(코너별로 홈에서 바로 진입), 의견 쓰기 링크(상세에서 제거)
+  URL 쿼리로 특정 끼니·코너에 바로 진입 가능: ?meal=lunch&corner=b (기본값: 중식·코너A)
+-->
+<div class="page">
+
+  <header class="hd-sub">
+    <a class="back-btn" href="home.html" aria-label="홈으로 돌아가기">
+      <img src="resources/images/icon/ic-back.svg" alt="">
+    </a>
+    <span class="hd-sub-date">8월 19일(수)</span>
+    <span class="hd-sub-meal" id="hdMeal">중식</span>
+  </header>
+
+  <main class="content">
+
+    <div class="hero">
+      <img id="heroPhoto" src="" alt="">
+    </div>
+
+    <div class="sheet" id="detailSheet">
+
+      <div class="detail-top">
+        <h1 class="detail-name" id="detailName"></h1>
+        <span class="avg-rating" id="avgRating"></span>
+      </div>
+
+      <!-- 반찬별 칼로리 — 어드민이 식단 등록 시 입력한 값을 표시만 함 -->
+      <section class="nutrition-detail" id="nutritionItems"></section>
+
+      <!-- 탄단지 + 나트륨 합계 — 위와 동일하게 표시 전용 -->
+      <div class="macro-summary" id="macroSummary"></div>
+
+      <div class="allergy-line"><b>알레르기</b> <span id="allergyText"></span></div>
+
+      <section class="rate">
+        <h2>이 메뉴는 어떠셨나요?</h2>
+        <div class="stars" id="stars">
+          <button type="button" data-n="1">★</button>
+          <button type="button" data-n="2">★</button>
+          <button type="button" data-n="3">★</button>
+          <button type="button" data-n="4">★</button>
+          <button type="button" data-n="5">★</button>
+        </div>
+        <p class="rate-hint" id="rateHint">별점을 선택해 주세요</p>
+        <button type="button" id="submitBtn" class="btn btn-primary" disabled>평가 등록</button>
+      </section>
+
+    </div>
+
+  </main>
+
+  <nav class="tabbar">
+    <a href="home.html"><span class="icon" style="--icon:url(../images/icon/ic-home.svg)" aria-hidden="true"></span>홈</a>
+    <a href="voc.html"><span class="icon" style="--icon:url(../images/icon/ic-voc.svg)" aria-hidden="true"></span>나의 의견</a>
+    <a href="#"><span class="icon" style="--icon:url(../images/icon/ic-notice.svg)" aria-hidden="true"></span>공지</a>
+    <a href="#"><span class="icon" style="--icon:url(../images/icon/ic-my.svg)" aria-hidden="true"></span>My</a>
+  </nav>
+
+</div>
+<script src="resources/js/common.js"></script>
+</body>
+</html>

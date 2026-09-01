@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>나의 의견 내역 | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/theme-hyundaicapital.css" id="themeLink">
+</head>
+<body>
+<!-- HVM-MO-08-00 나의 의견 내역 -->
+<div class="page">
+  <header class="hd-sub">
+    <a class="back-btn" href="home.html" aria-label="홈으로 돌아가기"><img src="resources/images/icon/ic-back.svg" alt=""></a>
+    <span class="hd-sub-date">나의 의견</span>
+    <span style="width:34px"></span>
+  </header>
+  <main class="content voc-content">
+    <div class="voc-body">
+      <nav class="voc-tabs" aria-label="나의 의견 메뉴">
+        <a class="voc-tab" href="voc.html">접수</a>
+        <a class="voc-tab is-active" aria-current="page" href="voc-list.html">내역</a>
+      </nav>
+      <section class="voc-history">
+        <div class="voc-history-head"><div><strong>나의 의견 내역</strong><span>전체 2건 · 답변 대기 1건</span></div></div>
+        <article class="voc-history-card"><div><span class="voc-history-type">맛/메뉴</span><span class="voc-status is-waiting">답변 대기</span></div><p>중식 메뉴 구성이 조금 더 다양하면 좋겠습니다.</p><div class="voc-attachments"><button type="button" class="voc-attachment-thumb" aria-label="첨부한 중식 제육볶음 사진 확대 보기" data-image-preview="resources/images/menu/jeyuk-bokkeum-photo.png" data-image-alt="첨부한 중식 제육볶음 사진"><img src="resources/images/menu/jeyuk-bokkeum-photo.png" alt=""></button></div><div class="voc-card-dates"><time datetime="2026-09-01">접수 2026.09.01</time></div></article>
+        <article class="voc-history-card is-complete"><div><span class="voc-history-type">서비스</span><span class="voc-status is-complete">답변 완료</span></div><p>식당 혼잡 시간 안내가 있으면 좋겠습니다.</p><div class="voc-answer"><b>운영팀 답변</b><span>혼잡 시간 안내 방안을 검토하겠습니다.</span><time datetime="2026-08-29">답변 2026.08.29</time></div><div class="voc-card-dates"><time datetime="2026-08-28">접수 2026.08.28</time></div></article>
+      </section>
+    </div>
+  </main>
+  <div class="image-modal" id="imageModal" hidden role="dialog" aria-modal="true" aria-label="첨부 사진 미리보기">
+    <div class="image-modal-frame">
+      <img id="imageModalPhoto" src="" alt="">
+      <button class="image-modal-close" type="button" aria-label="미리보기 닫기">×</button>
+    </div>
+  </div>
+  <nav class="tabbar">
+    <a href="home.html"><span class="icon" style="--icon:url(../images/icon/ic-home.svg)" aria-hidden="true"></span>홈</a>
+    <a class="active" href="voc.html"><span class="icon" style="--icon:url(../images/icon/ic-voc.svg)" aria-hidden="true"></span>나의 의견</a>
+    <a href="#"><span class="icon" style="--icon:url(../images/icon/ic-notice.svg)" aria-hidden="true"></span>공지</a>
+    <a href="#"><span class="icon" style="--icon:url(../images/icon/ic-my.svg)" aria-hidden="true"></span>My</a>
+  </nav>
+</div>
+<script src="resources/js/common.js"></script>
+</body>
+</html>

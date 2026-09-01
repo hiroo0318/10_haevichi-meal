@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>홈(9/1 시안 · 코너 1개씩) | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/theme-hyundaicapital.css" id="themeLink">
+</head>
+<body>
+<!--
+  해비치 요건 반영 시안 (3P 홈 화면).
+  적용: 홈 화면 메뉴 통합(주간 날짜 스트립 + 끼니 탭으로 "식단" 탭 완전 흡수),
+        홈 UI/UX 레이아웃
+  제외: 알림섹션 온오프(배너 항상 고정 노출), 찜하기(하트 요소 없음)
+  하단 탭: 홈 / VOC / 공지 / My (4개, "식단" 탭 삭제)
+  날짜 스트립은 8/30~9/12 고정 마크업이며, 오늘 날짜 자동 선택 로직은 퍼블리싱 범위에서 제외했다
+  (실제 개발 시 서버/클라이언트 날짜 기준 스크립트 적용 필요).
+
+  [코너 카드 레이아웃 비교용 임시 장치]
+  날짜 스트립에서 9/1을 선택하면 코너 카드 1개씩(기존 구조), 9/2를 선택하면 해비치 의견 반영안인
+  한 줄 2개 구조(corner-list--grid2)로 바뀐다. 실제 서비스에서 날짜별로 카드 레이아웃이 달라지는
+  기능이 아니라, 두 시안을 한 파일에서 비교해 보기 위한 데모용 분기다 — 방향이 정해지면 정리한다.
+-->
+<div class="page">
+
+  <header class="topbar">
+    <div class="brand">FX<span>By Haevichi</span></div>
+  </header>
+
+  <div class="greeting">
+    <p>오늘 뭐 드실래요?</p>
+  </div>
+
+  <a class="notice" href="#">
+    <span class="notice-dot"></span>
+    10월 6일부터 새 급식정보 서비스가 시작됩니다
+    <span class="notice-arrow">→</span>
+  </a>
+
+  <!-- 날짜 스트립 — 8/30~9/12 고정 14일 (가로 스크롤, 한 화면 7일). 오늘 날짜 자동 선택은 개발 단계에서 스크립트로 적용
+       data-md는 날짜 선택 시 아래 코너 카드 레이아웃 비교(9/1→1개씩, 9/2→한 줄 2개)를 위한 데모용 값 -->
+  <div class="week-strip" id="weekStrip">
+    <div class="week-day" data-md="8-30"><span class="dow">일</span><span class="dom">30</span></div>
+    <div class="week-day" data-md="8-31"><span class="dow">월</span><span class="dom">31</span></div>
+    <div class="week-day" data-md="9-1"><span class="dow">화</span><span class="dom">1</span></div>
+    <div class="week-day is-selected" data-md="9-2"><span class="dow">수</span><span class="dom">2</span></div>
+    <div class="week-day" data-md="9-3"><span class="dow">목</span><span class="dom">3</span></div>
+    <div class="week-day" data-md="9-4"><span class="dow">금</span><span class="dom">4</span></div>
+    <div class="week-day" data-md="9-5"><span class="dow">토</span><span class="dom">5</span></div>
+    <div class="week-day" data-md="9-6"><span class="dow">일</span><span class="dom">6</span></div>
+    <div class="week-day" data-md="9-7"><span class="dow">월</span><span class="dom">7</span></div>
+    <div class="week-day" data-md="9-8"><span class="dow">화</span><span class="dom">8</span></div>
+    <div class="week-day" data-md="9-9"><span class="dow">수</span><span class="dom">9</span></div>
+    <div class="week-day" data-md="9-10"><span class="dow">목</span><span class="dom">10</span></div>
+    <div class="week-day" data-md="9-11"><span class="dow">금</span><span class="dom">11</span></div>
+    <div class="week-day" data-md="9-12"><span class="dow">토</span><span class="dom">12</span></div>
+  </div>
+
+  <main class="content">
+    <div class="home-body">
+      <!-- 끼니 탭: 조식/중식/석식 전환 -->
+      <div class="meal-tabs" id="mealTabs"></div>
+
+      <!-- 선택된 끼니의 코너 카드 목록 (찜하기 없음). 기본 9/2 선택 상태라 한 줄 2개로 시작 -->
+      <div class="corner-list corner-list--grid2" id="cornerList"></div>
+    </div>
+  </main>
+
+  <nav class="tabbar">
+    <a class="active" href="home.html"><span class="icon" style="--icon:url(../images/icon/ic-home.svg)" aria-hidden="true"></span>홈</a>
+    <a href="voc.html"><span class="icon" style="--icon:url(../images/icon/ic-voc.svg)" aria-hidden="true"></span>나의 의견</a>
+    <a href="#"><span class="icon" style="--icon:url(../images/icon/ic-notice.svg)" aria-hidden="true"></span>공지</a>
+    <a href="#"><span class="icon" style="--icon:url(../images/icon/ic-my.svg)" aria-hidden="true"></span>My</a>
+  </nav>
+
+</div>
+<script src="resources/js/common.js"></script>
+</body>
+</html>
