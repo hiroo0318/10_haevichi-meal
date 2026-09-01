@@ -83,6 +83,17 @@ var DATE_MEAL_STATUS = {
 document.addEventListener('DOMContentLoaded', function(){
 
   /* -------------------------------------------------------
+     PAGE: home.html — 상단 공지 닫기
+     ------------------------------------------------------- */
+  var homeNotice = document.getElementById('homeNotice');
+  if(homeNotice){
+    var noticeClose = homeNotice.querySelector('.notice-close');
+    noticeClose.addEventListener('click', function(){
+      homeNotice.hidden = true;
+    });
+  }
+
+  /* -------------------------------------------------------
      PAGE: login.html
      ------------------------------------------------------- */
   var loginForm = document.getElementById('loginForm');

@@ -13,7 +13,7 @@
   해비치 요건 반영 시안 (3P 홈 화면).
   적용: 홈 화면 메뉴 통합(주간 날짜 스트립 + 끼니 탭으로 "식단" 탭 완전 흡수),
         홈 UI/UX 레이아웃
-  제외: 알림섹션 온오프(배너 항상 고정 노출), 찜하기(하트 요소 없음)
+  반영: 상단 공지 클릭/닫기, 찜하기(하트 요소 없음)
   하단 탭: 홈 / VOC / 공지 / My (4개, "식단" 탭 삭제)
   날짜 스트립은 8/30~9/12 고정 마크업이며, 오늘 날짜 자동 선택 로직은 퍼블리싱 범위에서 제외했다
   (실제 개발 시 서버/클라이언트 날짜 기준 스크립트 적용 필요).
@@ -31,11 +31,13 @@
     <p>오늘 뭐 드실래요?</p>
   </div>
 
-  <a class="notice" href="#">
-    <span class="notice-dot"></span>
-    10월 6일부터 새 급식정보 서비스가 시작됩니다
-    <span class="notice-arrow">→</span>
-  </a>
+  <div class="notice" id="homeNotice">
+    <a class="notice-link" href="#" aria-label="공지사항: 10월 6일부터 새 급식정보 서비스가 시작됩니다">
+      <span class="notice-dot" aria-hidden="true"></span>
+      <span class="notice-text">10월 6일부터 새 급식정보 서비스가 시작됩니다</span>
+    </a>
+    <button class="notice-close" type="button" aria-label="공지 닫기"><span aria-hidden="true">×</span></button>
+  </div>
 
   <!-- 날짜 스트립 — 8/30~9/12 고정 14일 (가로 스크롤, 한 화면 7일). 오늘 날짜 자동 선택은 개발 단계에서 스크립트로 적용 -->
   <div class="week-strip" id="weekStrip">

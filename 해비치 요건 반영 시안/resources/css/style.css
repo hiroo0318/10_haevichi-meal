@@ -96,13 +96,36 @@ body{
 .notice{
   flex:0 0 auto;
   margin:0 20px 18px;
-  display:flex; align-items:center; gap:9px;
-  padding:13px 15px; border-radius:var(--radius-md);
+  display:flex; align-items:center;
+  border-radius:var(--radius-md); overflow:hidden;
   background:var(--brand-primary-bg); color:var(--brand-primary);
   font-size:14px; font-weight:600;
 }
+.notice-link{
+  min-width:0; flex:1;
+  display:flex; align-items:center; gap:9px;
+  padding:13px 2px 13px 15px;
+  color:inherit;
+}
 .notice-dot{ width:6px; height:6px; border-radius:50%; background:var(--brand-primary); flex:0 0 auto; }
-.notice-arrow{ margin-left:auto; font-weight:700; }
+.notice-text{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.notice-close{
+  position:relative;
+  width:48px; height:44px; flex:0 0 auto;
+  display:grid; place-items:center;
+  border:0; background:transparent; color:var(--brand-primary);
+  font-size:19px; line-height:1; cursor:pointer;
+}
+.notice-close::before{
+  content:""; position:absolute; left:0; top:10px;
+  width:1px; height:24px; background:color-mix(in srgb, var(--brand-primary), transparent 72%);
+}
+.notice-close span{
+  width:26px; height:26px; border-radius:50%;
+  display:grid; place-items:center;
+  background:color-mix(in srgb, var(--brand-primary), white 84%);
+}
+.notice-close:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:-3px; }
 
 /* 날짜 스트립 — 이번주 일요일~다음주 토요일(14일)을 가로 스크롤로 넘겨 확인한다 */
 .week-strip{
