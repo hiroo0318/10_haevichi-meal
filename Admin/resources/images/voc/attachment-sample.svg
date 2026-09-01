@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480">
+  <rect width="640" height="480" fill="#eef2f5"/>
+  <rect x="24" y="24" width="592" height="432" rx="8" fill="#ffffff" stroke="#d7dde3" stroke-width="2"/>
+  <g fill="none" stroke="#9aa5b1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="220" y="170" width="200" height="150" rx="10"/>
+    <circle cx="270" cy="220" r="18"/>
+    <path d="M220 300 L280 250 L330 285 L380 235 L420 300"/>
+  </g>
+  <text x="320" y="360" font-family="-apple-system,'Malgun Gothic',sans-serif" font-size="18" fill="#7f8a97" text-anchor="middle">첨부 이미지 예시 (임직원 업로드 사진)</text>
+</svg>

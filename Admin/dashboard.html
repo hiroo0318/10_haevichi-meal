@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>해비치 급식 App 관리자 - 대시보드</title>
+  <link rel="stylesheet" href="resources/css/reset.css">
+  <link rel="stylesheet" href="resources/css/admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="dashboard.html"><span class="brand-mark">H</span>해비치 급식 App <em>관리자</em></a>
+    <div class="profile"><span>현대캐피탈 · 본사</span><span class="avatar">정H</span><strong>정혜림 관리자</strong></div>
+  </header>
+
+  <aside class="sidenav" aria-label="관리자 메뉴">
+    <nav>
+      <div class="nav-section">
+        <span class="nav-label">운영</span>
+        <a class="nav-link active" href="dashboard.html"><span class="nav-icon">▦</span>대시보드</a>
+        <a class="nav-link" href="menu.html"><span class="nav-icon">▤</span>식단 관리</a>
+        <a class="nav-link" href="rating.html"><span class="nav-icon">★</span>별점 통계</a>
+        <a class="nav-link" href="voc.html"><span class="nav-icon">◉</span>고객의견</a>
+        <a class="nav-link" href="notice.html"><span class="nav-icon">▣</span>공지 관리</a>
+      </div>
+      <div class="nav-section">
+        <span class="nav-label">환경 설정</span>
+        <a class="nav-link" href="#" data-demo="인증 도메인 설정 화면은 다음 작업에서 연결합니다."><span class="nav-icon">@</span>인증 도메인 설정</a>
+        <a class="nav-link" href="#" data-demo="계정 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">◌</span>계정 관리</a>
+        <a class="nav-link" href="#" data-demo="사업장·테마 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">◇</span>사업장·테마 관리</a>
+        <a class="nav-link" href="#" data-demo="관리자 계정·권한 화면은 다음 작업에서 연결합니다."><span class="nav-icon">♙</span>관리자 계정·권한</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="admin-shell">
+    <div class="content">
+      <section class="page-head"><div><h1>대시보드</h1></div></section>
+
+      <div class="filters" aria-label="조회 조건">
+        <select class="field" aria-label="기업 선택"><option>현대캐피탈</option></select>
+        <select class="field" aria-label="사업장 선택"><option>본사</option><option>여의도</option><option>홍대</option></select>
+        <select class="field" aria-label="기간 선택"><option>최근 7일</option><option>이번 달</option><option>직접 선택</option></select>
+        <button class="btn primary" type="button" data-demo="대시보드를 최신 조건으로 조회했습니다.">조회</button>
+      </div>
+
+      <section class="metric-grid" aria-label="주요 운영 지표">
+        <article class="metric"><span class="metric-symbol">◉</span><p class="metric-label">고객의견 미처리</p><p class="metric-value">12<span aria-hidden="true">건</span></p><p class="metric-meta up">어제보다 3건 감소</p></article>
+        <article class="metric"><span class="metric-symbol">★</span><p class="metric-label">평균 별점</p><p class="metric-value">4.2<span aria-hidden="true"> / 5</span></p><p class="metric-meta">최근 7일 · 286개 평가</p></article>
+        <article class="metric"><span class="metric-symbol">◌</span><p class="metric-label">누적 가입자 수</p><p class="metric-value">1,248<span aria-hidden="true">명</span></p><p class="metric-meta">정상 계정 기준</p></article>
+        <article class="metric"><span class="metric-symbol">＋</span><p class="metric-label">신규 가입자 수</p><p class="metric-value">12<span aria-hidden="true">명</span></p><p class="metric-meta">집계 기간 기준 TBD</p></article>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="panel quick">
+          <div class="panel-head"><div><h2 class="panel-title">바로가기</h2><p class="panel-sub">자주 사용하는 운영 메뉴로 바로 이동합니다.</p></div></div>
+          <div class="quick-list">
+            <a class="quick-item" href="menu.html"><span class="quick-icon">↑</span>이번 주 식단 업로드</a>
+            <a class="quick-item" href="voc.html"><span class="quick-icon">◉</span>답변대기 고객의견</a>
+            <a class="quick-item" href="notice.html"><span class="quick-icon">＋</span>공지 등록</a>
+            <a class="quick-item" href="#" data-demo="인증 도메인 설정은 다음 작업에서 연결합니다."><span class="quick-icon">@</span>인증 도메인 확인</a>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+  <div class="toast" role="status">✓ <span></span></div>
+  <script src="resources/js/admin-common.js"></script>
+</body>
+</html>

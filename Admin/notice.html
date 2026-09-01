@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>해비치 급식 App 관리자 - 공지 관리</title>
+  <link rel="stylesheet" href="resources/css/reset.css">
+  <link rel="stylesheet" href="resources/css/admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="dashboard.html"><span class="brand-mark">H</span>해비치 급식 App <em>관리자</em></a>
+    <div class="profile"><span>현대캐피탈 · 본사</span><span class="avatar">정H</span><strong>정혜림 관리자</strong></div>
+  </header>
+  <aside class="sidenav" aria-label="관리자 메뉴"><nav>
+    <div class="nav-section"><span class="nav-label">운영</span>
+      <a class="nav-link" href="dashboard.html"><span class="nav-icon">▦</span>대시보드</a>
+      <div class="nav-parent"><span class="nav-icon">▤</span>식단 관리</div>
+      <div class="nav-sub">
+        <a class="nav-sub-link" href="menu.html">주간 식단 등록</a>
+        <a class="nav-sub-link" href="menu-corners.html">코너 관리</a>
+      </div>
+      <a class="nav-link" href="rating.html"><span class="nav-icon">★</span>별점 통계</a>
+      <a class="nav-link" href="voc.html"><span class="nav-icon">◉</span>고객의견</a>
+      <a class="nav-link active" href="notice.html"><span class="nav-icon">▣</span>공지 관리</a>
+    </div>
+    <div class="nav-section"><span class="nav-label">환경 설정</span>
+      <a class="nav-link" href="#" data-demo="인증 도메인 설정 화면은 다음 작업에서 연결합니다."><span class="nav-icon">@</span>인증 도메인 설정</a>
+      <a class="nav-link" href="#" data-demo="계정 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">◌</span>계정 관리</a>
+      <a class="nav-link" href="#" data-demo="사업장·테마 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">◇</span>사업장·테마 관리</a>
+      <a class="nav-link" href="#" data-demo="관리자 계정·권한 화면은 다음 작업에서 연결합니다."><span class="nav-icon">♙</span>관리자 계정·권한</a>
+    </div>
+  </nav></aside>
+  <main class="admin-shell"><div class="content">
+    <section class="page-head"><div><h1>공지 관리</h1></div></section>
+    <div class="menu-toolbar">
+      <div class="filters" aria-label="공지 조회 조건">
+        <select class="field" aria-label="기업 선택"><option>현대캐피탈</option></select>
+        <select class="field" aria-label="사업장 선택"><option>본사</option><option>여의도</option><option>홍대</option></select>
+        <select class="field" aria-label="상태 선택"><option>전체 상태</option><option>노출중</option><option>종료</option></select>
+        <button class="btn primary" type="button" data-demo="선택한 조건으로 공지를 조회했습니다.">조회</button>
+      </div>
+      <div class="upload-actions">
+        <button class="action-button primary" type="button" id="notice-new">＋ 공지 등록</button>
+      </div>
+    </div>
+    <section class="panel">
+      <div class="panel-head"><div><h2 class="panel-title">공지 <span class="accent">5건</span></h2><p class="panel-sub">행을 클릭하면 내용을 확인하고 수정할 수 있습니다.</p></div></div>
+      <div class="table-wrap"><table class="table notice-table"><thead><tr><th>제목</th><th>노출기간</th><th>상단고정</th><th>팝업노출</th><th>상태</th></tr></thead><tbody>
+        <tr class="notice-row" data-page="1"
+            data-title="[안내] 10/6부터 새 급식정보 앱이 오픈됩니다"
+            data-content="기존 급식정보 앱은 10/6부터 신규 해비치 급식 App으로 전면 교체됩니다. 기존 앱은 순차적으로 서비스가 종료되니, 사내 메일로 새 앱에 재가입 부탁드립니다."
+            data-start="2026-08-18" data-end="2026-10-06" data-pinned="true"
+            data-popup="true" data-popup-start="2026-08-18" data-popup-end="2026-08-25" tabindex="0">
+          <td class="notice-title">[안내] 10/6부터 새 급식정보 앱이 오픈됩니다</td><td>08.18 ~ 10.06</td><td>Y</td><td>Y</td><td><span class="badge done">노출중</span></td>
+        </tr>
+        <tr class="notice-row" data-page="1"
+            data-title="로그인 방식 변경 안내(사내 메일 인증)"
+            data-content="보안 강화를 위해 로그인 방식이 사내 메일 인증으로 변경됩니다. 기존 비밀번호 로그인은 09/30 이후 지원이 종료되니 참고 부탁드립니다."
+            data-start="2026-08-24" data-end="2026-09-30" data-pinned="false"
+            data-popup="false" data-popup-start="" data-popup-end="" tabindex="0">
+          <td class="notice-title">로그인 방식 변경 안내(사내 메일 인증)</td><td>08.24 ~ 09.30</td><td>N</td><td>N</td><td><span class="badge done">노출중</span></td>
+        </tr>
+        <tr class="notice-row" data-page="1"
+            data-title="추석 연휴 급식 운영 일정 안내"
+            data-content="추석 연휴 기간(09.14~09.18) 중 본사 구내식당은 09.14, 09.18 이틀만 정상 운영하며, 나머지 기간은 휴무입니다. 이용에 참고 부탁드립니다."
+            data-start="2026-09-01" data-end="2026-09-18" data-pinned="false"
+            data-popup="true" data-popup-start="2026-09-01" data-popup-end="2026-09-05" tabindex="0">
+          <td class="notice-title">추석 연휴 급식 운영 일정 안내</td><td>09.01 ~ 09.18</td><td>N</td><td>Y</td><td><span class="badge done">노출중</span></td>
+        </tr>
+        <tr class="notice-row" data-page="2"
+            data-title="8월 여름철 위생점검 결과 공유"
+            data-content="8월 진행한 여름철 위생 특별점검 결과, 전 사업장 모두 적합 판정을 받았습니다. 앞으로도 위생 관리에 만전을 기하겠습니다."
+            data-start="2026-08-05" data-end="2026-08-19" data-pinned="false"
+            data-popup="false" data-popup-start="" data-popup-end="" tabindex="0">
+          <td class="notice-title">8월 여름철 위생점검 결과 공유</td><td>08.05 ~ 08.19</td><td>N</td><td>N</td><td><span class="badge muted">종료</span></td>
+        </tr>
+        <tr class="notice-row" data-page="2"
+            data-title="여의도 사업장 오픈 안내"
+            data-content="8월 1일부로 여의도 사업장이 신규 오픈했습니다. 앱 상단 사업장 선택에서 '여의도'를 선택하시면 여의도 사업장 식단을 확인하실 수 있습니다."
+            data-start="2026-07-28" data-end="2026-08-10" data-pinned="false"
+            data-popup="false" data-popup-start="" data-popup-end="" tabindex="0">
+          <td class="notice-title">여의도 사업장 오픈 안내</td><td>07.28 ~ 08.10</td><td>N</td><td>N</td><td><span class="badge muted">종료</span></td>
+        </tr>
+      </tbody></table></div>
+      <nav class="pagination" id="noticePagination" aria-label="공지 목록 페이지"></nav>
+    </section>
+  </div></main>
+
+  <div class="voc-modal" id="noticeModal" aria-hidden="true">
+    <div class="voc-modal-backdrop" data-notice-modal-close></div>
+    <div class="voc-modal-body" role="dialog" aria-modal="true">
+      <button type="button" class="lightbox-close" data-notice-modal-close aria-label="닫기">✕</button>
+      <h3 class="voc-modal-answer-title" id="noticeModalTitle" style="margin-bottom:16px">공지 등록</h3>
+      <div class="notice-form">
+        <label class="notice-field">제목
+          <input class="field" type="text" id="noticeTitleInput" placeholder="공지 제목을 입력해주세요">
+        </label>
+        <label class="notice-field">내용
+          <textarea class="field voc-answer-input" id="noticeContentInput" rows="4" placeholder="공지 내용을 입력해주세요" style="min-height:100px"></textarea>
+        </label>
+        <div class="notice-field">
+          <span class="notice-field-label">노출기간</span>
+          <span class="date-range">
+            <input class="field" type="date" id="noticeStartInput" aria-label="노출 시작일">
+            <span aria-hidden="true">~</span>
+            <input class="field" type="date" id="noticeEndInput" aria-label="노출 종료일">
+          </span>
+        </div>
+        <div class="notice-checkbox-row">
+          <label class="notice-checkbox"><input type="checkbox" id="noticePinnedInput"> 상단 고정</label>
+          <label class="notice-checkbox"><input type="checkbox" id="noticePopupInput" data-toggle-checkbox="#noticePopupRange"> 팝업 노출</label>
+        </div>
+        <div class="notice-field" id="noticePopupRange" hidden>
+          <span class="notice-field-label">팝업 노출기간</span>
+          <span class="date-range">
+            <input class="field" type="date" id="noticePopupStartInput" aria-label="팝업 노출 시작일">
+            <span aria-hidden="true">~</span>
+            <input class="field" type="date" id="noticePopupEndInput" aria-label="팝업 노출 종료일">
+          </span>
+        </div>
+      </div>
+      <div class="notice-modal-actions">
+        <button class="btn outline" type="button" id="noticeDeleteBtn" hidden>삭제</button>
+        <button class="btn primary" type="button" id="noticeSubmitBtn">등록</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" role="status">✓ <span></span></div>
+  <script src="resources/js/admin-common.js"></script>
+  <script src="resources/js/notice.js"></script>
+</body>
+</html>

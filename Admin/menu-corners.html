@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>해비치 급식 App 관리자 - 코너 관리</title>
+  <link rel="stylesheet" href="resources/css/reset.css">
+  <link rel="stylesheet" href="resources/css/admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="dashboard.html"><span class="brand-mark">H</span>해비치 급식 App <em>관리자</em></a>
+    <div class="profile"><span>현대캐피탈 · 본사</span><span class="avatar">정H</span><strong>정혜림 관리자</strong></div>
+  </header>
+  <aside class="sidenav" aria-label="관리자 메뉴"><nav>
+    <div class="nav-section"><span class="nav-label">운영</span>
+      <a class="nav-link" href="dashboard.html"><span class="nav-icon">▦</span>대시보드</a>
+      <div class="nav-parent"><span class="nav-icon">▤</span>식단 관리</div>
+      <div class="nav-sub">
+        <a class="nav-sub-link" href="menu.html">주간 식단 등록</a>
+        <a class="nav-sub-link active" href="menu-corners.html">코너 관리</a>
+      </div>
+      <a class="nav-link" href="rating.html"><span class="nav-icon">★</span>별점 통계</a>
+      <a class="nav-link" href="voc.html"><span class="nav-icon">◉</span>고객의견</a>
+      <a class="nav-link" href="notice.html"><span class="nav-icon">▣</span>공지 관리</a>
+    </div>
+    <div class="nav-section"><span class="nav-label">환경 설정</span>
+      <a class="nav-link" href="#" data-demo="인증 도메인 설정 화면은 다음 작업에서 연결합니다."><span class="nav-icon">@</span>인증 도메인 설정</a>
+      <a class="nav-link" href="#" data-demo="계정 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">◌</span>계정 관리</a>
+      <a class="nav-link" href="#" data-demo="사업장·테마 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">◇</span>사업장·테마 관리</a>
+      <a class="nav-link" href="#" data-demo="관리자 계정·권한 화면은 다음 작업에서 연결합니다."><span class="nav-icon">♙</span>관리자 계정·권한</a>
+    </div>
+  </nav></aside>
+  <main class="admin-shell"><div class="content">
+    <section class="page-head"><div><h1>코너 관리</h1></div></section>
+    <div class="menu-toolbar">
+      <div class="filters" aria-label="코너 조회 조건">
+        <select class="field" aria-label="기업 선택"><option>현대캐피탈</option></select>
+        <select class="field" aria-label="사업장 선택"><option>본사</option><option>여의도</option><option>홍대</option></select>
+        <button class="btn primary" type="button" data-demo="선택한 사업장의 코너 목록을 조회했습니다.">조회</button>
+      </div>
+    </div>
+    <div class="notice-box"><span aria-hidden="true">ⓘ</span><span>코너는 사업장별로 <b>최대 5개</b>까지 등록할 수 있습니다. 등록한 코너명은 주간 식단 등록의 엑셀 업로드 검증 기준으로 사용되며, 별도의 활성/비활성 설정은 제공하지 않습니다.</span></div>
+    <section class="panel">
+      <div class="panel-head"><div><h2 class="panel-title">본사 코너 <span class="accent">3</span>/5</h2><p class="panel-sub">코너명을 수정한 뒤 저장을 눌러주세요.</p></div></div>
+      <div class="table-wrap"><table class="table corner-table"><thead><tr><th>순서</th><th>코너명</th><th>최근 수정일</th><th>관리</th></tr></thead><tbody>
+        <tr data-corner-row>
+          <td>1</td>
+          <td><input class="field corner-input" type="text" value="코너A" maxlength="10" aria-label="코너 1 이름"></td>
+          <td>2026.08.28</td>
+          <td><button class="link-btn" type="button" data-clear-corner>비우기</button></td>
+        </tr>
+        <tr data-corner-row>
+          <td>2</td>
+          <td><input class="field corner-input" type="text" value="코너B" maxlength="10" aria-label="코너 2 이름"></td>
+          <td>2026.08.28</td>
+          <td><button class="link-btn" type="button" data-clear-corner>비우기</button></td>
+        </tr>
+        <tr data-corner-row>
+          <td>3</td>
+          <td><input class="field corner-input" type="text" value="코너C" maxlength="10" aria-label="코너 3 이름"></td>
+          <td>-</td>
+          <td><button class="link-btn" type="button" data-clear-corner>비우기</button></td>
+        </tr>
+        <tr data-corner-row>
+          <td>4</td>
+          <td><input class="field corner-input" type="text" value="" placeholder="코너명 입력" maxlength="10" aria-label="코너 4 이름"></td>
+          <td>-</td>
+          <td><button class="link-btn" type="button" data-clear-corner>비우기</button></td>
+        </tr>
+        <tr data-corner-row>
+          <td>5</td>
+          <td><input class="field corner-input" type="text" value="" placeholder="코너명 입력" maxlength="10" aria-label="코너 5 이름"></td>
+          <td>-</td>
+          <td><button class="link-btn" type="button" data-clear-corner>비우기</button></td>
+        </tr>
+      </tbody></table></div>
+      <div class="corner-actions">
+        <button class="action-button" type="button" id="corner-add">＋ 코너 추가</button>
+        <button class="action-button primary" type="button" id="corner-save">저장</button>
+      </div>
+    </section>
+  </div></main>
+  <div class="toast" role="status">✓ <span></span></div>
+  <script src="resources/js/admin-common.js"></script>
+  <script src="resources/js/menu-corners.js"></script>
+</body>
+</html>

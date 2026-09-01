@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>해비치 급식 App 관리자 - 고객의견</title>
+  <link rel="stylesheet" href="resources/css/reset.css">
+  <link rel="stylesheet" href="resources/css/admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="dashboard.html"><span class="brand-mark">H</span>해비치 급식 App <em>관리자</em></a>
+    <div class="profile"><span>현대캐피탈 · 본사</span><span class="avatar">정H</span><strong>정혜림 관리자</strong></div>
+  </header>
+  <aside class="sidenav" aria-label="관리자 메뉴"><nav>
+    <div class="nav-section"><span class="nav-label">운영</span>
+      <a class="nav-link" href="dashboard.html"><span class="nav-icon">▦</span>대시보드</a>
+      <div class="nav-parent"><span class="nav-icon">▤</span>식단 관리</div>
+      <div class="nav-sub">
+        <a class="nav-sub-link" href="menu.html">주간 식단 등록</a>
+        <a class="nav-sub-link" href="menu-corners.html">코너 관리</a>
+      </div>
+      <a class="nav-link" href="rating.html"><span class="nav-icon">★</span>별점 통계</a>
+      <a class="nav-link active" href="voc.html"><span class="nav-icon">◉</span>고객의견</a>
+      <a class="nav-link" href="notice.html"><span class="nav-icon">▣</span>공지 관리</a>
+    </div>
+    <div class="nav-section"><span class="nav-label">환경 설정</span>
+      <a class="nav-link" href="#" data-demo="인증 도메인 설정 화면은 다음 작업에서 연결합니다."><span class="nav-icon">@</span>인증 도메인 설정</a>
+      <a class="nav-link" href="#" data-demo="계정 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">◌</span>계정 관리</a>
+      <a class="nav-link" href="#" data-demo="사업장·테마 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">◇</span>사업장·테마 관리</a>
+      <a class="nav-link" href="#" data-demo="관리자 계정·권한 화면은 다음 작업에서 연결합니다."><span class="nav-icon">♙</span>관리자 계정·권한</a>
+    </div>
+  </nav></aside>
+  <main class="admin-shell"><div class="content">
+    <section class="page-head"><div><h1>고객의견</h1></div></section>
+    <div class="menu-toolbar">
+      <div class="filters" aria-label="고객의견 조회 조건">
+        <select class="field" aria-label="기업 선택"><option>현대캐피탈</option></select>
+        <select class="field" aria-label="사업장 선택"><option>본사</option><option>여의도</option><option>홍대</option></select>
+        <select class="field" aria-label="상태 선택"><option>전체 상태</option><option>답변대기</option><option>답변완료</option></select>
+        <select class="field" aria-label="유형 선택"><option>전체 유형</option><option>맛/메뉴</option><option>위생</option><option>서비스/친절도</option><option>APP 사용 경험</option><option>기타</option></select>
+        <button class="btn primary" type="button" data-demo="선택한 조건으로 고객의견을 조회했습니다.">조회</button>
+      </div>
+    </div>
+    <section class="panel">
+      <div class="panel-head"><div><h2 class="panel-title">고객의견 <span class="accent">11건</span></h2><p class="panel-sub">행을 클릭하면 접수 내용과 답변을 확인할 수 있습니다.</p></div><div class="panel-head-right"><button type="button" class="filter-chip" id="filter-waiting-voc" aria-pressed="false"><span class="chip-icon" aria-hidden="true"></span>답변대기 <b>7건</b></button></div></div>
+      <div class="table-wrap"><table class="table voc-table"><thead><tr><th>접수일</th><th>작성자</th><th>유형</th><th>내용</th><th>첨부</th><th>상태</th></tr></thead><tbody>
+        <tr class="voc-row" data-page="1" data-status="답변대기"
+            data-date="2026.09.10" data-writer="hon***@hyundaicapital.com" data-type="APP 사용 경험"
+            data-content="식단 상세에서 이전 날짜로 이동하기 어려워요. 홈 화면에서 오늘 식단만 바로 보이고, 어제나 그제 먹었던 메뉴를 다시 확인하려면 몇 번을 눌러야 하는지 헷갈립니다. 특히 점심시간에 동료들과 어제 뭐 먹었는지 이야기하다가 앱으로 바로 찾아보려고 했는데, 뒤로가기를 여러 번 눌러도 원하는 날짜로 잘 안 넘어가서 결국 포기하고 말았습니다. 캘린더 아이콘이나 날짜 선택 UI가 따로 있으면 훨씬 편할 것 같고, 최근 일주일 정도는 스와이프로 넘겨볼 수 있게 해주시면 좋겠습니다. 사소해 보일 수 있지만 매일 쓰는 기능이라 개선해주시면 체감이 클 것 같습니다. 그리고 상세 화면에서 뒤로가기를 눌렀을 때 스크롤 위치가 초기화되는 것도 함께 불편한 부분입니다. 목록 중간쯤 보고 있다가 상세로 들어갔다 나오면 다시 맨 위로 올라가 있어서 어디까지 봤는지 매번 다시 찾아야 합니다. 이 부분도 같이 확인해주시면 감사하겠습니다. 확인 부탁드립니다." data-attachments="[]" tabindex="0">
+          <td>2026.09.10</td><td>hon***@hyundaicapital.com</td><td>APP 사용 경험</td><td class="voc-content">식단 상세에서 이전 날짜로 이동하기 어려워요. 홈 화면에서 오늘 식단만 바로 보이고, 어제나 그제 먹었던 메뉴를 다시 확인하려면 몇 번을 눌러야 하는지 헷갈립니다. 특히 점심시간에 동료들과 어제 뭐 먹었는지 이야기하다가 앱으로 바로 찾아보려고 했는데, 뒤로가기를 여러 번 눌러도 원하는 날짜로 잘 안 넘어가서 결국 포기하고 말았습니다. 캘린더 아이콘이나 날짜 선택 UI가 따로 있으면 훨씬 편할 것 같고, 최근 일주일 정도는 스와이프로 넘겨볼 수 있게 해주시면 좋겠습니다. 사소해 보일 수 있지만 매일 쓰는 기능이라 개선해주시면 체감이 클 것 같습니다. 그리고 상세 화면에서 뒤로가기를 눌렀을 때 스크롤 위치가 초기화되는 것도 함께 불편한 부분입니다. 목록 중간쯤 보고 있다가 상세로 들어갔다 나오면 다시 맨 위로 올라가 있어서 어디까지 봤는지 매번 다시 찾아야 합니다. 이 부분도 같이 확인해주시면 감사하겠습니다. 확인 부탁드립니다.</td><td>-</td><td><span class="badge wait">답변대기</span></td>
+        </tr>
+        <tr class="voc-row" data-page="1" data-status="답변대기"
+            data-date="2026.09.09" data-writer="par***@hyundaicapital.com" data-type="맛/메뉴"
+            data-content="중식 메뉴의 원산지 정보를 더 쉽게 보고 싶습니다." data-attachments="[]" tabindex="0">
+          <td>2026.09.09</td><td>par***@hyundaicapital.com</td><td>맛/메뉴</td><td class="voc-content">중식 메뉴의 원산지 정보를 더 쉽게 보고 싶습니다.</td><td>-</td><td><span class="badge wait">답변대기</span></td>
+        </tr>
+        <tr class="voc-row" data-page="1" data-status="답변대기"
+            data-date="2026.09.08" data-writer="lee***@hyundaicapital.com" data-type="위생"
+            data-content="배식대 근처 바닥이 미끄러워요. 특히 비 오는 날은 더 위험합니다."
+            data-attachments='[{"src":"resources/images/voc/attachment-sample.svg","name":"첨부 사진 1 · 위생 · 2026.09.08"},{"src":"resources/images/voc/attachment-sample.svg","name":"첨부 사진 2 · 위생 · 2026.09.08"}]' tabindex="0">
+          <td>2026.09.08</td><td>lee***@hyundaicapital.com</td><td>위생</td><td class="voc-content">배식대 근처 바닥이 미끄러워요. 특히 비 오는 날은 더 위험합니다.</td><td><button class="attach-thumb" type="button" data-voc-attach>📎 2장</button></td><td><span class="badge wait">답변대기</span></td>
+        </tr>
+        <tr class="voc-row" data-page="1" data-status="답변완료"
+            data-date="2026.09.05" data-writer="kim***@hyundaicapital.com" data-type="서비스/친절도"
+            data-content="배식 직원분이 친절하게 응대해주셔서 좋았습니다." data-attachments="[]"
+            data-answer="따뜻한 말씀 남겨주셔서 감사합니다. 말씀해주신 내용은 해당 배식 직원분께 그대로 전달드렸고, 팀 전체 회의 시간에도 좋은 사례로 공유했습니다. 임직원분들이 편안하게 식사하실 수 있도록 서비스 품질을 유지하는 것이 저희의 가장 중요한 목표 중 하나인데, 이렇게 직접 의견을 남겨주시니 큰 힘이 됩니다. 혹시 이용하시면서 불편했던 점이나 더 개선했으면 하는 부분이 있으시면 언제든지 편하게 다시 남겨주시기 바랍니다. 앞으로도 임직원 여러분께 만족스러운 식사 경험을 드릴 수 있도록 배식 현장 교육과 서비스 개선을 꾸준히 이어가겠습니다. 항상 이용해주셔서 감사드립니다." tabindex="0">
+          <td>2026.09.05</td><td>kim***@hyundaicapital.com</td><td>서비스/친절도</td><td class="voc-content">배식 직원분이 친절하게 응대해주셔서 좋았습니다.</td><td>-</td><td><span class="badge done">답변완료</span></td>
+        </tr>
+        <tr class="voc-row" data-page="1" data-status="답변완료"
+            data-date="2026.09.03" data-writer="jung***@hyundaicapital.com" data-type="기타"
+            data-content="구내식당 좌석이 부족합니다." data-attachments="[]"
+            data-answer="좌석 부족 의견 감사합니다. 다음 달 리뉴얼 시 좌석 배치를 조정할 예정입니다." tabindex="0">
+          <td>2026.09.03</td><td>jung***@hyundaicapital.com</td><td>기타</td><td class="voc-content">구내식당 좌석이 부족합니다.</td><td>-</td><td><span class="badge done">답변완료</span></td>
+        </tr>
+        <tr class="voc-row" data-page="2" data-status="답변대기"
+            data-date="2026.09.02" data-writer="choi***@hyundaicapital.com" data-type="맛/메뉴"
+            data-content="국이 너무 짜요." data-attachments="[]" tabindex="0">
+          <td>2026.09.02</td><td>choi***@hyundaicapital.com</td><td>맛/메뉴</td><td class="voc-content">국이 너무 짜요.</td><td>-</td><td><span class="badge wait">답변대기</span></td>
+        </tr>
+        <tr class="voc-row" data-page="2" data-status="답변대기"
+            data-date="2026.09.01" data-writer="song***@hyundaicapital.com" data-type="위생"
+            data-content="수저통이 자주 비어있어요."
+            data-attachments='[{"src":"resources/images/voc/attachment-sample.svg","name":"첨부 사진 · 위생 · 2026.09.01"}]' tabindex="0">
+          <td>2026.09.01</td><td>song***@hyundaicapital.com</td><td>위생</td><td class="voc-content">수저통이 자주 비어있어요.</td><td><button class="attach-thumb" type="button" data-voc-attach>📎 1장</button></td><td><span class="badge wait">답변대기</span></td>
+        </tr>
+        <tr class="voc-row" data-page="2" data-status="답변완료"
+            data-date="2026.08.29" data-writer="yoon***@hyundaicapital.com" data-type="APP 사용 경험"
+            data-content="푸시 알림이 안 와요." data-attachments="[]"
+            data-answer="푸시 알림 기능은 이번 오픈 범위에는 포함되어 있지 않습니다. 확인 감사합니다." tabindex="0">
+          <td>2026.08.29</td><td>yoon***@hyundaicapital.com</td><td>APP 사용 경험</td><td class="voc-content">푸시 알림이 안 와요.</td><td>-</td><td><span class="badge done">답변완료</span></td>
+        </tr>
+        <tr class="voc-row" data-page="2" data-status="답변완료"
+            data-date="2026.08.27" data-writer="han***@hyundaicapital.com" data-type="서비스/친절도"
+            data-content="배식 속도가 빨라서 좋아요." data-attachments="[]"
+            data-answer="좋은 의견 감사합니다. 앞으로도 신속한 배식을 위해 노력하겠습니다." tabindex="0">
+          <td>2026.08.27</td><td>han***@hyundaicapital.com</td><td>서비스/친절도</td><td class="voc-content">배식 속도가 빨라서 좋아요.</td><td>-</td><td><span class="badge done">답변완료</span></td>
+        </tr>
+        <tr class="voc-row" data-page="2" data-status="답변대기"
+            data-date="2026.08.25" data-writer="oh***@hyundaicapital.com" data-type="기타"
+            data-content="메뉴 다양성이 부족한 것 같아요." data-attachments="[]" tabindex="0">
+          <td>2026.08.25</td><td>oh***@hyundaicapital.com</td><td>기타</td><td class="voc-content">메뉴 다양성이 부족한 것 같아요.</td><td>-</td><td><span class="badge wait">답변대기</span></td>
+        </tr>
+        <tr class="voc-row" data-page="3" data-status="답변대기"
+            data-date="2026.08.22" data-writer="seo***@hyundaicapital.com" data-type="맛/메뉴"
+            data-content="채소 반찬이 더 많았으면 좋겠습니다." data-attachments="[]" tabindex="0">
+          <td>2026.08.22</td><td>seo***@hyundaicapital.com</td><td>맛/메뉴</td><td class="voc-content">채소 반찬이 더 많았으면 좋겠습니다.</td><td>-</td><td><span class="badge wait">답변대기</span></td>
+        </tr>
+      </tbody></table></div>
+      <nav class="pagination" id="vocPagination" aria-label="고객의견 목록 페이지"></nav>
+    </section>
+  </div></main>
+
+  <div class="voc-modal" id="vocModal" aria-hidden="true">
+    <div class="voc-modal-backdrop" data-voc-modal-close></div>
+    <div class="voc-modal-body" role="dialog" aria-modal="true">
+      <button type="button" class="lightbox-close" data-voc-modal-close aria-label="닫기">✕</button>
+      <div class="voc-modal-meta">
+        <span id="vmDate"></span>
+        <span id="vmWriter"></span>
+        <span class="badge" id="vmType"></span>
+        <span class="badge" id="vmStatus"></span>
+      </div>
+      <p class="voc-modal-content" id="vmContent"></p>
+      <div class="voc-modal-attachments" id="vmAttachments"></div>
+      <div class="voc-modal-answer">
+        <h3 class="voc-modal-answer-title" id="vmAnswerTitle">답변 작성</h3>
+        <textarea class="field voc-answer-input" id="vmAnswerInput" rows="4" placeholder="답변을 입력해주세요"></textarea>
+        <button class="btn primary" type="button" id="vmAnswerSubmit">답변 등록</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="photoLightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <div class="lightbox-body" role="dialog" aria-modal="true">
+      <button type="button" class="lightbox-close" data-lightbox-close aria-label="미리보기 닫기">✕</button>
+      <img id="lightboxImg" src="" alt="">
+      <p id="lightboxCaption"></p>
+    </div>
+  </div>
+  <div class="toast" role="status">✓ <span></span></div>
+  <script src="resources/js/admin-common.js"></script>
+  <script src="resources/js/voc.js"></script>
+</body>
+</html>
