@@ -349,7 +349,7 @@ body{
 .voc-intro-icon{ width:34px; height:34px; flex:0 0 auto; display:grid; place-items:center; border-radius:11px; background:var(--brand-primary); color:#fff; font-size:16px; }
 .voc-intro strong{ display:block; color:var(--ink); font-size:14px; font-weight:800; }
 .voc-intro p{ margin:4px 0 0; color:var(--sub); font-size:12px; line-height:1.45; }
-.voc-form{ display:flex; flex-direction:column; gap:26px; }
+.voc-form{ display:flex; flex-direction:column; gap:16px; }
 .voc-field{ display:flex; flex-direction:column; align-items:flex-start; gap:9px; }
 .voc-field > label,.voc-field legend{ padding:0; color:var(--ink); font-size:14px; font-weight:700; line-height:1.4; }
 .voc-field > label span{ color:var(--faint); font-size:12px; font-weight:500; }
@@ -362,7 +362,7 @@ body{
 .voc-category{ width:100%; border:0; margin:0; }
 .voc-category-list{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
 .voc-category-chip{ min-height:38px; padding:0 13px; border:1px solid var(--line); border-radius:999px; background:#fff; color:var(--sub); font-size:13px; font-weight:600; }
-.voc-category-chip.is-active{ border-color:var(--brand-primary); background:var(--brand-primary-bg); color:var(--brand-primary); font-weight:700; }
+.voc-category-chip.is-active{ border-color:var(--brand-primary); background:var(--brand-primary-bg); color:var(--brand-primary); }
 .voc-field-meta{ width:100%; display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
 .voc-field-meta span{ flex:0 0 auto; color:var(--faint); font-size:11px; }
 .voc-upload-list{ display:flex; flex-wrap:wrap; gap:9px; width:100%; }
