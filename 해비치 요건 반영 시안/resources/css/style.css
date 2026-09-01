@@ -292,6 +292,23 @@ body{
 .signup-step-back:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
 
 /* ---------------------------------------------------------
+   PAGE: my.html — 계정 정보 및 관리 메뉴
+   --------------------------------------------------------- */
+.my-body{ padding:20px 20px 32px; }
+.my-profile{ padding:18px; border:1px solid var(--line); border-radius:var(--radius-lg); background:linear-gradient(135deg, var(--brand-primary-bg), #fff); }
+.my-profile strong,.my-profile span{ display:block; }
+.my-profile strong{ color:var(--ink); font-size:14px; font-weight:800; overflow-wrap:anywhere; }
+.my-profile span{ margin-top:5px; color:var(--sub); font-size:12.5px; }
+.my-menu-group{ margin-top:22px; overflow:hidden; border:1px solid var(--line); border-radius:var(--radius-md); }
+.my-menu-group--account{ margin-top:14px; }
+.my-menu-item{ width:100%; min-height:56px; display:flex; align-items:center; justify-content:space-between; gap:14px; padding:0 16px; border-bottom:1px solid var(--line); background:#fff; color:var(--ink); font-size:14px; font-weight:700; text-align:left; }
+.my-menu-item:last-child{ border-bottom:0; }
+.my-menu-item b{ color:var(--faint); font-size:22px; line-height:1; font-weight:400; }
+.my-menu-item--danger{ color:var(--danger); }
+.my-menu-item:active{ background:#F7F8FA; }
+.my-menu-item:focus-visible{ position:relative; outline:2px solid var(--brand-primary); outline-offset:-2px; }
+
+/* ---------------------------------------------------------
    공통 버튼
    --------------------------------------------------------- */
 .btn{
