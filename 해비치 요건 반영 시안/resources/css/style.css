@@ -304,9 +304,57 @@ body{
 .my-menu-item{ width:100%; min-height:56px; display:flex; align-items:center; justify-content:space-between; gap:14px; padding:0 16px; border-bottom:1px solid var(--line); background:#fff; color:var(--ink); font-size:14px; font-weight:700; text-align:left; }
 .my-menu-item:last-child{ border-bottom:0; }
 .my-menu-item b{ color:var(--faint); font-size:22px; line-height:1; font-weight:400; }
+.my-menu-item small{ color:var(--faint); font-size:12px; font-weight:600; }
 .my-menu-item--danger{ color:var(--danger); }
 .my-menu-item:active{ background:#F7F8FA; }
 .my-menu-item:focus-visible{ position:relative; outline:2px solid var(--brand-primary); outline-offset:-2px; }
+
+/* ---------------------------------------------------------
+   PAGE: my-password.html — 비밀번호 변경 2단계
+   --------------------------------------------------------- */
+.password-content{ padding:34px 28px; }
+.password-step-count{ margin:0 0 10px; color:var(--brand-primary); font-size:12px; font-weight:800; }
+.password-step h1{ margin:0; color:var(--ink); font-size:25px; line-height:1.35; font-weight:800; letter-spacing:-.045em; }
+.password-description{ min-height:42px; margin:12px 0 30px; color:var(--sub); font-size:13.5px; line-height:1.55; }
+.password-step-back{ display:flex; align-items:center; justify-content:center; gap:6px; width:100%; min-height:42px; margin-top:18px; color:var(--sub); font-size:13px; font-weight:700; }
+.password-step-back span{ color:var(--ink); font-size:18px; line-height:1; }
+.password-step-back:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
+
+/* ---------------------------------------------------------
+   PAGE: my-policy.html — 약관 및 개인정보처리방침
+   --------------------------------------------------------- */
+.policy-body{ padding:22px 20px 32px; }
+.policy-description{ margin:0 0 22px; color:var(--sub); font-size:13px; line-height:1.55; }
+
+/* ---------------------------------------------------------
+   PAGE: terms.html / privacy.html — 법정 고지 상세
+   --------------------------------------------------------- */
+.legal-content{ padding:28px 20px 42px; }
+.legal-body h1{ margin:0; color:var(--ink); font-size:23px; font-weight:800; letter-spacing:-.04em; }
+.privacy-version-picker{ margin:18px 0 20px; }
+.privacy-version-picker label{ display:block; margin:0 0 8px; color:var(--ink); font-size:12px; font-weight:700; }
+.privacy-version-select{ width:100%; min-height:46px; padding:0 13px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); font-family:var(--font); font-size:13px; font-weight:600; }
+.privacy-version-select:focus{ outline:2px solid var(--brand-primary); outline-offset:2px; }
+.legal-date{ margin:8px 0 28px; color:var(--faint); font-size:12px; }
+.legal-body section{ padding:20px 0; border-top:1px solid var(--line); }
+.legal-body h2{ margin:0 0 10px; color:var(--ink); font-size:15px; line-height:1.45; font-weight:800; letter-spacing:-.02em; }
+.legal-body section p{ margin:0; color:var(--sub); font-size:13px; line-height:1.75; word-break:keep-all; }
+
+/* ---------------------------------------------------------
+   PAGE: withdraw.html — 회원 탈퇴 확인
+   --------------------------------------------------------- */
+.withdraw-content{ padding:28px 20px 42px; }
+.withdraw-description{ margin:0 0 22px; color:var(--sub); font-size:13px; line-height:1.55; }
+.withdraw-notice{ margin:0 0 24px; padding:16px; border-radius:var(--radius-md); background:#FFF5F3; color:var(--sub); }
+.withdraw-notice strong{ display:block; color:var(--danger); font-size:13px; font-weight:800; }
+.withdraw-notice ul{ margin:9px 0 0; padding-left:17px; font-size:12px; line-height:1.65; }
+.field-optional{ color:var(--faint); font-size:12px; font-weight:500; }
+.withdraw-select{ width:100%; min-height:48px; padding:0 13px; border:1.5px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); font-family:var(--font); font-size:14px; }
+.withdraw-select:focus{ outline:none; border-color:var(--brand-primary); }
+.withdraw-other{ min-height:94px; margin-top:8px; }
+.withdraw-agree{ display:flex; align-items:flex-start; gap:9px; margin:4px 0 16px; color:var(--sub); font-size:12.5px; line-height:1.5; }
+.withdraw-agree input{ width:17px; height:17px; margin:1px 0 0; flex:0 0 auto; accent-color:var(--brand-primary); }
+.btn-danger{ margin-top:16px; background:var(--danger); color:#fff; }
 
 /* ---------------------------------------------------------
    공통 버튼

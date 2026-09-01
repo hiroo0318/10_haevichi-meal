@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>회원 탈퇴 | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/theme-hyundaicapital.css" id="themeLink">
+</head>
+<body>
+<!-- HVM-MO-13-00 회원 탈퇴 확인: 비밀번호 확인 + 사유 선택 -->
+<div class="page">
+  <header class="hd-sub">
+    <a class="back-btn" href="my.html" aria-label="My로 돌아가기"><img src="resources/images/icon/ic-back.svg" alt=""></a>
+    <span class="hd-sub-date">회원 탈퇴</span>
+    <span class="hd-sub-spacer" aria-hidden="true"></span>
+  </header>
+  <main class="content withdraw-content">
+    <form class="withdraw-body" id="withdrawForm" novalidate>
+      <div class="page-title"><h1>정말 탈퇴하시겠어요?</h1></div>
+      <p class="withdraw-description">탈퇴하면 계정과 서비스 이용 기록을 복구할 수 없어요.</p>
+
+      <section class="withdraw-notice" aria-label="탈퇴 시 유의사항">
+        <strong>탈퇴 전 확인해주세요</strong>
+        <ul>
+          <li>작성한 의견과 서비스 이용 기록이 삭제됩니다.</li>
+          <li>동일한 메일 주소로 재가입 가능 여부는 운영 정책에 따라 달라질 수 있습니다.</li>
+        </ul>
+      </section>
+
+      <div class="field signup-field">
+        <label for="withdrawPassword">비밀번호 확인</label>
+        <input class="input" id="withdrawPassword" type="password" placeholder="비밀번호 입력" autocomplete="current-password" required>
+        <p class="form-message is-error" id="withdrawPasswordError" hidden>비밀번호를 입력해주세요.</p>
+      </div>
+      <div class="field signup-field">
+        <label for="withdrawReason">탈퇴 사유 <span class="field-optional">선택</span></label>
+        <select class="withdraw-select" id="withdrawReason">
+          <option value="">탈퇴 사유를 선택해주세요</option>
+          <option value="low-use">이용 빈도가 낮아요</option>
+          <option value="menu-info">메뉴 정보가 부족해요</option>
+          <option value="inconvenience">서비스가 불편해요</option>
+          <option value="other">기타</option>
+        </select>
+        <textarea class="voc-textarea withdraw-other" id="withdrawOther" placeholder="탈퇴 사유를 입력해주세요" maxlength="300" hidden></textarea>
+      </div>
+      <label class="withdraw-agree"><input type="checkbox" id="withdrawAgree"><span>탈퇴 시 계정과 이용 기록이 삭제되며 복구할 수 없음을 확인했습니다.</span></label>
+      <p class="form-message is-error" id="withdrawAgreeError" hidden>탈퇴 유의사항을 확인해주세요.</p>
+      <button class="btn btn-danger" type="submit">회원 탈퇴</button>
+    </form>
+  </main>
+</div>
+<script src="resources/js/common.js"></script>
+</body>
+</html>

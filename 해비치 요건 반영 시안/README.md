@@ -31,7 +31,7 @@
 
 ```
 해비치 요건 반영 시안/
-├─ login.html / signup.html / home.html / menu-detail.html / voc.html / voc-list.html / notice.html / my.html
+├─ login.html / signup.html / home.html / menu-detail.html / voc.html / voc-list.html / notice.html / my.html / my-password.html / my-policy.html / terms.html / privacy.html / withdraw.html
 └─ resources/
    ├─ css/reset.css · style.css · theme-hyundaicapital.css · theme-haevichi.css
    ├─ js/common.js       (페이지별 블록을 주석으로 구분, MEALS 데이터 포함)

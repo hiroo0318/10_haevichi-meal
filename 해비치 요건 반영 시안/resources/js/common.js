@@ -177,6 +177,78 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   /* -------------------------------------------------------
+     PAGE: my-password.html — 현재 비밀번호 확인 후 변경
+     실제 현재 비밀번호 대조와 저장은 서버 연동 대상이다.
+     ------------------------------------------------------- */
+  var passwordChangeForm = document.getElementById('passwordChangeForm');
+  if(passwordChangeForm){
+    var currentPassword = document.getElementById('currentPassword');
+    var currentPasswordError = document.getElementById('currentPasswordError');
+    var newPassword = document.getElementById('newPassword');
+    var newPasswordConfirm = document.getElementById('newPasswordConfirm');
+    var newPasswordLengthError = document.getElementById('newPasswordLengthError');
+    var newPasswordError = document.getElementById('newPasswordError');
+    var passwordStepBack = document.getElementById('passwordStepBack');
+    var changePasswordStep = function(step){
+      passwordChangeForm.querySelectorAll('[data-password-step]').forEach(function(panel){
+        panel.hidden = Number(panel.dataset.passwordStep) !== step;
+      });
+    };
+    document.getElementById('passwordVerify').addEventListener('click', function(){
+      var isEntered = currentPassword.value.length > 0;
+      currentPasswordError.hidden = isEntered;
+      if(!isEntered){ currentPassword.focus(); return; }
+      changePasswordStep(2);
+      newPassword.focus();
+    });
+    passwordStepBack.addEventListener('click', function(){ changePasswordStep(1); });
+    passwordChangeForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var hasValidLength = newPassword.value.length >= 8;
+      var isMatching = hasValidLength && newPassword.value === newPasswordConfirm.value;
+      newPasswordLengthError.hidden = hasValidLength;
+      newPasswordError.hidden = isMatching;
+      if(!hasValidLength){ newPassword.focus(); return; }
+      if(!isMatching){ newPasswordConfirm.focus(); return; }
+      window.location.href = 'my.html';
+    });
+  }
+
+  /* PAGE: privacy.html — 현재/이전 개인정보처리방침 버전 열람 */
+  var privacyVersion = document.getElementById('privacyVersion');
+  if(privacyVersion){
+    privacyVersion.addEventListener('change', function(){
+      document.querySelectorAll('[data-privacy-version]').forEach(function(version){
+        version.hidden = version.dataset.privacyVersion !== privacyVersion.value;
+      });
+    });
+  }
+
+  /* PAGE: withdraw.html — 탈퇴 사유 및 최종 확인 (삭제 API는 개발 연동 대상) */
+  var withdrawForm = document.getElementById('withdrawForm');
+  if(withdrawForm){
+    var withdrawPassword = document.getElementById('withdrawPassword');
+    var withdrawPasswordError = document.getElementById('withdrawPasswordError');
+    var withdrawReason = document.getElementById('withdrawReason');
+    var withdrawOther = document.getElementById('withdrawOther');
+    var withdrawAgree = document.getElementById('withdrawAgree');
+    var withdrawAgreeError = document.getElementById('withdrawAgreeError');
+    withdrawReason.addEventListener('change', function(){
+      withdrawOther.hidden = withdrawReason.value !== 'other';
+      if(withdrawOther.hidden) withdrawOther.value = '';
+    });
+    withdrawForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var hasPassword = withdrawPassword.value.length > 0;
+      withdrawPasswordError.hidden = hasPassword;
+      withdrawAgreeError.hidden = withdrawAgree.checked;
+      if(!hasPassword){ withdrawPassword.focus(); return; }
+      if(!withdrawAgree.checked){ withdrawAgree.focus(); return; }
+      window.location.href = 'login.html';
+    });
+  }
+
+  /* -------------------------------------------------------
      PAGE: home.html — 주간 날짜 스트립 + 끼니 탭 + 코너 카드
      "식단" 탭 없이 홈 하나로 메뉴 열람이 끝나도록 통합했다.
      ------------------------------------------------------- */
