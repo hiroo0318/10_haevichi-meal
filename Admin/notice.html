@@ -10,7 +10,10 @@
 <body>
   <header class="topbar">
     <a class="brand" href="dashboard.html"><span class="brand-mark">H</span>해비치 급식 App <em>관리자</em></a>
-    <div class="profile"><span>현대캐피탈 · 본사</span><span class="avatar">정H</span><strong>정혜림 관리자</strong></div>
+    <div class="profile">
+      <button type="button" class="scope-trigger" id="scopeTrigger" aria-haspopup="dialog"><span id="scopeLabel">현대캐피탈 · 본사</span><span class="scope-caret" aria-hidden="true">▾</span></button>
+      <span class="avatar">정H</span><strong>정혜림 관리자</strong>
+    </div>
   </header>
   <aside class="sidenav" aria-label="관리자 메뉴"><nav>
     <div class="nav-section"><span class="nav-label">운영</span>
@@ -35,8 +38,6 @@
     <section class="page-head"><div><h1>공지 관리</h1></div></section>
     <div class="menu-toolbar">
       <div class="filters" aria-label="공지 조회 조건">
-        <select class="field" aria-label="기업 선택"><option>현대캐피탈</option></select>
-        <select class="field" aria-label="사업장 선택"><option>본사</option><option>여의도</option><option>홍대</option></select>
         <select class="field" aria-label="상태 선택"><option>전체 상태</option><option>노출중</option><option>종료</option></select>
         <button class="btn primary" type="button" data-demo="선택한 조건으로 공지를 조회했습니다.">조회</button>
       </div>
@@ -127,6 +128,20 @@
     </div>
   </div>
 
+  <div class="scope-modal" id="scopeModal" aria-hidden="true">
+    <div class="scope-modal-backdrop" data-scope-close></div>
+    <div class="scope-modal-body" role="dialog" aria-modal="true" aria-label="조회 사업장 변경">
+      <h2 class="scope-modal-title">조회 범위 변경</h2>
+      <label class="scope-modal-label" for="scopeCompany">기업</label>
+      <select class="field scope-modal-field" id="scopeCompany"><option value="현대캐피탈">현대캐피탈</option></select>
+      <span class="scope-modal-label">사업장</span>
+      <div class="scope-modal-list" id="scopeSiteList" role="radiogroup" aria-label="사업장 선택"></div>
+      <div class="scope-modal-actions">
+        <button type="button" class="btn outline" data-scope-close>취소</button>
+        <button type="button" class="btn primary" id="scopeConfirm">변경</button>
+      </div>
+    </div>
+  </div>
   <div class="toast" role="status">✓ <span></span></div>
   <script src="resources/js/admin-common.js"></script>
   <script src="resources/js/notice.js"></script>

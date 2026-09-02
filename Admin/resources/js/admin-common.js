@@ -1,6 +1,65 @@
 document.addEventListener('DOMContentLoaded', () => {
   const toast = document.querySelector('.toast');
   let timer;
+  const showToast = (message) => {
+    if (!toast) return;
+    toast.querySelector('span').textContent = message;
+    toast.classList.add('show');
+    clearTimeout(timer);
+    timer = setTimeout(() => toast.classList.remove('show'), 2600);
+  };
+
+  // 전역 조회 범위 전환 — 기업 선택 > 사업장 선택 순으로 캐스케이딩(해비치/시스템 등급 데모: 기업도 전환 가능).
+  const SCOPE_DATA = {
+    '현대캐피탈': ['본사', '여의도', '홍대'],
+  };
+  const scopeTrigger = document.getElementById('scopeTrigger');
+  const scopeModal = document.getElementById('scopeModal');
+  const scopeLabel = document.getElementById('scopeLabel');
+  const scopeCompany = document.getElementById('scopeCompany');
+  const scopeSiteList = document.getElementById('scopeSiteList');
+  const scopeConfirm = document.getElementById('scopeConfirm');
+  if (scopeTrigger && scopeModal && scopeLabel && scopeCompany && scopeSiteList) {
+    const renderSites = (company, selectedSite) => {
+      const sites = SCOPE_DATA[company] || [];
+      scopeSiteList.innerHTML = sites.map((site) => {
+        const checked = site === selectedSite ? ' checked' : '';
+        return '<label class="scope-option"><input type="radio" name="scopeSite" value="' + site + '"' + checked + '><span>' + site + '</span></label>';
+      }).join('');
+      if (!scopeSiteList.querySelector('input:checked') && sites.length) {
+        scopeSiteList.querySelector('input').checked = true;
+      }
+    };
+    const syncFromLabel = () => {
+      const [company, site] = scopeLabel.textContent.split('·').map((s) => s.trim());
+      scopeCompany.value = SCOPE_DATA[company] ? company : Object.keys(SCOPE_DATA)[0];
+      renderSites(scopeCompany.value, site);
+    };
+    const openScopeModal = () => {
+      syncFromLabel();
+      scopeModal.classList.add('show');
+      scopeModal.setAttribute('aria-hidden', 'false');
+    };
+    const closeScopeModal = () => {
+      scopeModal.classList.remove('show');
+      scopeModal.setAttribute('aria-hidden', 'true');
+    };
+    scopeTrigger.addEventListener('click', openScopeModal);
+    scopeCompany.addEventListener('change', () => renderSites(scopeCompany.value));
+    scopeModal.querySelectorAll('[data-scope-close]').forEach((el) => el.addEventListener('click', closeScopeModal));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeScopeModal();
+    });
+    if (scopeConfirm) {
+      scopeConfirm.addEventListener('click', () => {
+        const picked = scopeSiteList.querySelector('input[name="scopeSite"]:checked');
+        const company = scopeCompany.value;
+        if (picked) scopeLabel.textContent = company + ' · ' + picked.value;
+        closeScopeModal();
+        if (picked) showToast(company + ' · ' + picked.value + '(으)로 조회 범위가 변경되었습니다.');
+      });
+    }
+  }
   document.querySelectorAll('[data-demo]').forEach((button) => {
     button.addEventListener('click', (event) => {
       if (button.tagName === 'A') event.preventDefault();

@@ -10,7 +10,10 @@
 <body>
   <header class="topbar">
     <a class="brand" href="dashboard.html"><span class="brand-mark">H</span>해비치 급식 App <em>관리자</em></a>
-    <div class="profile"><span>현대캐피탈 · 본사</span><span class="avatar">정H</span><strong>정혜림 관리자</strong></div>
+    <div class="profile">
+      <button type="button" class="scope-trigger" id="scopeTrigger" aria-haspopup="dialog"><span id="scopeLabel">현대캐피탈 · 본사</span><span class="scope-caret" aria-hidden="true">▾</span></button>
+      <span class="avatar">정H</span><strong>정혜림 관리자</strong>
+    </div>
   </header>
   <aside class="sidenav" aria-label="관리자 메뉴"><nav>
     <div class="nav-section"><span class="nav-label">운영</span>
@@ -34,53 +37,59 @@
   <main class="admin-shell"><div class="content">
     <section class="page-head"><div><h1>코너 관리</h1></div></section>
     <div class="menu-toolbar">
-      <div class="filters" aria-label="코너 조회 조건">
-        <select class="field" aria-label="기업 선택"><option>현대캐피탈</option></select>
-        <select class="field" aria-label="사업장 선택"><option>본사</option><option>여의도</option><option>홍대</option></select>
-        <button class="btn primary" type="button" data-demo="선택한 사업장의 코너 목록을 조회했습니다.">조회</button>
-      </div>
+      <label class="switch-row">
+        <span class="switch"><input type="checkbox" id="corner-use-toggle" checked><span class="switch-track" aria-hidden="true"></span></span>
+        코너 사용
+      </label>
     </div>
-    <div class="notice-box"><span aria-hidden="true">ⓘ</span><span>코너는 사업장별로 <b>최대 5개</b>까지 등록할 수 있습니다. 등록한 코너명은 주간 식단 등록의 엑셀 업로드 검증 기준으로 사용되며, 별도의 활성/비활성 설정은 제공하지 않습니다.</span></div>
     <section class="panel">
-      <div class="panel-head"><div><h2 class="panel-title">본사 코너 <span class="accent">3</span>/5</h2><p class="panel-sub">코너명을 수정한 뒤 저장을 눌러주세요.</p></div></div>
-      <div class="table-wrap"><table class="table corner-table"><thead><tr><th>순서</th><th>코너명</th><th>최근 수정일</th><th>관리</th></tr></thead><tbody>
+      <div class="panel-head"><div><h2 class="panel-title">코너 목록</h2><p class="panel-sub">사업장별로 5개 슬롯(코너A~코너E)이 기본 제공되며, 코너명을 수정한 뒤 저장을 눌러주세요.</p></div></div>
+      <div class="table-wrap"><table class="table corner-table"><thead><tr><th>순서</th><th>코너명</th><th>최근 수정일</th></tr></thead><tbody>
         <tr data-corner-row>
           <td>1</td>
           <td><input class="field corner-input" type="text" value="코너A" maxlength="10" aria-label="코너 1 이름"></td>
           <td>2026.08.28</td>
-          <td><button class="link-btn" type="button" data-clear-corner>비우기</button></td>
         </tr>
         <tr data-corner-row>
           <td>2</td>
           <td><input class="field corner-input" type="text" value="코너B" maxlength="10" aria-label="코너 2 이름"></td>
           <td>2026.08.28</td>
-          <td><button class="link-btn" type="button" data-clear-corner>비우기</button></td>
         </tr>
         <tr data-corner-row>
           <td>3</td>
           <td><input class="field corner-input" type="text" value="코너C" maxlength="10" aria-label="코너 3 이름"></td>
           <td>-</td>
-          <td><button class="link-btn" type="button" data-clear-corner>비우기</button></td>
         </tr>
         <tr data-corner-row>
           <td>4</td>
-          <td><input class="field corner-input" type="text" value="" placeholder="코너명 입력" maxlength="10" aria-label="코너 4 이름"></td>
+          <td><input class="field corner-input" type="text" value="코너D" maxlength="10" aria-label="코너 4 이름"></td>
           <td>-</td>
-          <td><button class="link-btn" type="button" data-clear-corner>비우기</button></td>
         </tr>
         <tr data-corner-row>
           <td>5</td>
-          <td><input class="field corner-input" type="text" value="" placeholder="코너명 입력" maxlength="10" aria-label="코너 5 이름"></td>
+          <td><input class="field corner-input" type="text" value="코너E" maxlength="10" aria-label="코너 5 이름"></td>
           <td>-</td>
-          <td><button class="link-btn" type="button" data-clear-corner>비우기</button></td>
         </tr>
       </tbody></table></div>
       <div class="corner-actions">
-        <button class="action-button" type="button" id="corner-add">＋ 코너 추가</button>
         <button class="action-button primary" type="button" id="corner-save">저장</button>
       </div>
     </section>
   </div></main>
+  <div class="scope-modal" id="scopeModal" aria-hidden="true">
+    <div class="scope-modal-backdrop" data-scope-close></div>
+    <div class="scope-modal-body" role="dialog" aria-modal="true" aria-label="조회 사업장 변경">
+      <h2 class="scope-modal-title">조회 범위 변경</h2>
+      <label class="scope-modal-label" for="scopeCompany">기업</label>
+      <select class="field scope-modal-field" id="scopeCompany"><option value="현대캐피탈">현대캐피탈</option></select>
+      <span class="scope-modal-label">사업장</span>
+      <div class="scope-modal-list" id="scopeSiteList" role="radiogroup" aria-label="사업장 선택"></div>
+      <div class="scope-modal-actions">
+        <button type="button" class="btn outline" data-scope-close>취소</button>
+        <button type="button" class="btn primary" id="scopeConfirm">변경</button>
+      </div>
+    </div>
+  </div>
   <div class="toast" role="status">✓ <span></span></div>
   <script src="resources/js/admin-common.js"></script>
   <script src="resources/js/menu-corners.js"></script>
