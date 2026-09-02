@@ -58,7 +58,9 @@
 - 회사별 관리 값은 `--brand-primary` 1개다.
 - 실제 값은 `resources/css/theme-*.css`에서 설정한다.
 - 컴포넌트는 `--brand-primary`, `--brand-primary-light`, `--brand-primary-bg` 토큰만 사용한다.
-- `?theme=haevichi`는 퍼블리싱 비교용 임시 테마 전환이다. 서비스에서는 로그인한 사용자의 회사 기준으로 테마 값을 적용한다.
+- 로그인·회원가입은 회사 테마를 적용하지 않는 공통 화면이며, `reset.css`와 `style.css`만 로드한다.
+- 로그인 성공 후 세션의 `companyId` / `businessId` / 테마 값을 조회하고, 홈부터 모든 로그인 후 화면에 동일한 `theme-*.css`를 적용한다. 하위 URL 직접 진입 시에도 세션 기준 테마를 적용한다.
+- `?theme=haevichi`는 로그인 후 화면의 퍼블리싱 비교용 임시 전환이다.
 
 ## 4. 페이지별 개발 인수 기준
 

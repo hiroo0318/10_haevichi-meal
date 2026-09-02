@@ -67,9 +67,9 @@ var DATE_MEAL_STATUS = {
 
 /* -------------------------------------------------------
    테마 전환 (데모용) — ?theme=haevichi 쿼리로 회사별 테마를 미리볼 수 있다.
-   실제 서비스에서는 어드민이 설정한 회사 값에 따라 서버가 테마 링크를
-   내려주면 되고, 이 스위처는 하나의 화면 세트로 여러 테마를 검증하기
-   위한 임시 장치다.
+   로그인·회원가입에는 themeLink가 없으므로 적용되지 않는다. 실제 서비스에서는
+   로그인 후 세션의 회사 값에 따라 서버 또는 앱 셸이 테마 링크를 적용한다.
+   이 스위처는 로그인 후 화면 세트로 여러 테마를 검증하기 위한 임시 장치다.
    ------------------------------------------------------- */
 (function(){
   var themeLink = document.getElementById('themeLink');
@@ -310,7 +310,13 @@ document.addEventListener('DOMContentLoaded', function(){
     function renderHome(){
       var availableMeals = availableMealsForDate(selectedDate);
       var isDayEmpty = availableMeals.length === 0;
-      mealTabs.hidden = isDayEmpty;
+      // 전체 미등록일에도 탭 영역을 유지해, 한 끼 미등록 상태와 빈 안내 영역의
+      // 시작 위치 및 크기가 같도록 한다. 이때 세 탭은 모두 선택·이동할 수 없다.
+      order.forEach(function(key){
+        var tab = document.getElementById('mealTab-' + key);
+        tab.disabled = isDayEmpty;
+        tab.classList.toggle('is-active', !isDayEmpty && key === selectedMeal);
+      });
       if(isDayEmpty){
         cornerList.innerHTML =
           '<div class="meal-empty"><span class="meal-empty-icon" aria-hidden="true"><img src="resources/images/icon/ill-empty-meal.svg" alt=""></span>' +
@@ -318,9 +324,6 @@ document.addEventListener('DOMContentLoaded', function(){
           '<p>다른 날짜의 식단을 확인해 주세요.</p></div>';
         return;
       }
-      order.forEach(function(key){
-        document.getElementById('mealTab-' + key).classList.toggle('is-active', key === selectedMeal);
-      });
       renderCorners(selectedMeal, availableMeals.indexOf(selectedMeal) !== -1);
     }
 

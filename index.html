@@ -78,8 +78,8 @@
     <span class="eyebrow">HAEVICHI MEAL APP · 작업 허브</span>
     <h1>해비치 급식 App</h1>
     <p>
-      임직원 채널 화면의 디자인 시안과 퍼블리싱 구조를 함께 검토하는 작업 공간입니다.
-      아래에서 원하는 시안이나 구조로 바로 이동해 확인할 수 있습니다.
+      디자인 시안, 관리자 UI 기준 시안, 실제 퍼블리싱 작업물을 구분해 확인하는 작업 공간입니다.
+      아래에서 필요한 영역으로 바로 이동할 수 있습니다.
     </p>
     <a class="readme-link" href="README.md">📄 전체 구조 설명 (README.md) 보기 →</a>
   </header>
@@ -125,41 +125,46 @@
   </section>
 
   <section class="section">
-    <h2>퍼블리싱 구조</h2>
-    <p class="section-sub">디자인이 아니라 코드 구조(파일 구성·리소스 관리 방식) 검증용. 개발팀 리뷰가 진행 중입니다.</p>
+    <h2>퍼블리싱 시안</h2>
+    <p class="section-sub">관리자 화면의 공통 레이아웃과 UI 규칙을 확인하기 위한 기준 시안입니다.</p>
 
     <div class="grid">
-      <a class="card structure-card" href="Admin/dashboard.html" style="text-decoration:none">
+      <div class="card structure-card">
         <span class="card-tag">ADMIN UI</span>
         <div class="card-title">관리자 UI 기준 시안</div>
         <p class="card-desc">PC 운영 도구의 공통 레이아웃·테이블·상태 배지·필터 규칙을 검토하기 위한 대시보드 시안입니다.</p>
         <div class="card-links">
-          <span class="primary" style="font-size:11.5px;font-weight:700;padding:6px 10px;border-radius:8px;">대시보드 보기 →</span>
+          <a class="primary" href="Admin/dashboard.html">대시보드 보기 →</a>
           <a href="Admin/README.md">작업 안내</a>
         </div>
-      </a>
+      </div>
+    </div>
+  </section>
 
-      <a class="card structure-card" href="Structure/login.html" style="text-decoration:none">
-        <span class="card-tag">STRUCTURE</span>
-        <div class="card-title">퍼블리싱 구조 초안</div>
-        <p class="card-desc">로그인 → 홈 → 식단상세(평가전/완료)까지, 실제 서비스 흐름대로 이동하며 코드 구조를 확인합니다.</p>
+  <section class="section">
+    <h2>퍼블리싱 작업</h2>
+    <p class="section-sub">개발 전달을 위해 실제 화면 흐름과 공통 리소스를 반영한 퍼블리싱 작업물입니다.</p>
+
+    <div class="grid">
+      <div class="card structure-card">
+        <span class="card-tag">FRONT PUBLISHING</span>
+        <div class="card-title">해비치 요건 반영 Front 퍼블리싱</div>
+        <p class="card-desc">해비치 추가요건과 개발팀 협의사항을 반영한 임직원 채널 퍼블리싱입니다. 로그인부터 홈·식단·나의 의견·공지·My 화면까지 포함합니다.</p>
         <div class="card-links">
-          <span class="primary" style="font-size:11.5px;font-weight:700;padding:6px 10px;border-radius:8px;">로그인부터 시작 →</span>
+          <a href="해비치 요건 반영 시안/index.html">인덱스 →</a>
+          <a class="primary" href="해비치 요건 반영 시안/login.html">로그인부터 시작 →</a>
+          <a class="doc" href="해비치 요건 반영 시안/README.md">작업 안내</a>
         </div>
-      </a>
+      </div>
 
-      <a class="card structure-card" href="해비치 요건 반영 시안/login.html" style="text-decoration:none">
-        <span class="card-tag">최신 · 개발팀 협의 구조</span>
-        <div class="card-title">해비치 요건 반영 시안</div>
-        <p class="card-desc">해비치 추가요건 회신 반영(브랜드 FX, 홈-식단 통합, 찜하기 제외 등) + 개발팀과 합의한 flex 레이아웃(하단 탭바 fixed 폐지) 적용. 기본 퍼블 구조가 될 가능성이 높은 버전입니다.</p>
+      <div class="card structure-card">
+        <span class="card-tag">ADMIN PUBLISHING</span>
+        <div class="card-title">Admin</div>
+        <p class="card-desc">급식 운영과 환경 설정을 관리하는 관리자 화면 퍼블리싱입니다. 대시보드, 식단 관리 및 운영 메뉴를 포함합니다.</p>
         <div class="card-links">
-          <span class="primary" style="font-size:11.5px;font-weight:700;padding:6px 10px;border-radius:8px;">로그인부터 시작 →</span>
-          <a class="doc" href="해비치 요건 반영 시안/README.md">반영/제외 결정표</a>
+          <a class="primary" href="Admin/dashboard.html">대시보드 보기 →</a>
+          <a class="doc" href="Admin/README.md">작업 안내</a>
         </div>
-      </a>
-
-      <div class="card future-card">
-        추후 실제 작업물이 완성되면<br>이 자리에 폴더가 추가됩니다
       </div>
     </div>
   </section>

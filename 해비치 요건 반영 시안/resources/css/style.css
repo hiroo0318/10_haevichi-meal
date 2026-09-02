@@ -15,9 +15,8 @@
 :root{
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
 
-  /* 회사별 대표 브랜드 컬러 — 어드민이 관리하는 단일 색상.
-     실제 값은 resources/css/theme-*.css 에서 :root { --brand-primary: ... } 로 덮어쓴다.
-     여기 값은 theme.css가 로드되지 않았을 때를 대비한 기본값(현대캐피탈 블루)이다. */
+  /* 로그인 전 공통 서비스 컬러. 로그인 후 화면에서는 회사별 theme-*.css가
+     --brand-primary만 덮어써 해당 회사의 대표 컬러를 적용한다. */
   --brand-primary: #1976D2;
   --brand-primary-light: color-mix(in srgb, var(--brand-primary), white 22%);
   --brand-primary-bg: color-mix(in srgb, var(--brand-primary), white 90%);
@@ -154,6 +153,7 @@ body{
   background:#F5F6F8; color:var(--sub); font-size:14px; font-weight:600;
 }
 .meal-tab.is-active{ background:var(--brand-primary); color:#fff; font-weight:700; }
+.meal-tab:disabled{ background:#F5F6F8; color:var(--faint); cursor:default; }
 
 /* 코너 카드 목록 — 찜하기(하트) 요소 없음 */
 .corner-list{ display:flex; flex-direction:column; gap:14px; }
@@ -380,7 +380,7 @@ body{
 .btn-primary{
   color:#fff;
   background:linear-gradient(135deg, var(--brand-primary-light), var(--brand-primary));
-  box-shadow:0 8px 20px rgba(25,118,210,.28);
+  box-shadow:0 8px 20px color-mix(in srgb, var(--brand-primary), transparent 72%);
 }
 .btn-ghost{ color:var(--brand-primary); background:var(--brand-primary-bg); }
 .btn:disabled{ background:#C9CDD3; box-shadow:none; color:#fff; }
