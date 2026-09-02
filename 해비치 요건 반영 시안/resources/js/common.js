@@ -83,6 +83,15 @@ var DATE_MEAL_STATUS = {
 document.addEventListener('DOMContentLoaded', function(){
 
   /* -------------------------------------------------------
+     PAGE: splash.html — 앱 실행 후 기본 진입
+     실제 앱에서는 여기서 자동 로그인 세션을 확인해 유효하면 홈으로,
+     아니면 로그인으로 전환한다. 퍼블리싱은 비로그인 기본 흐름만 재현한다.
+     ------------------------------------------------------- */
+  if(document.getElementById('splashScreen')){
+    window.setTimeout(function(){ window.location.replace('login.html'); }, 1500);
+  }
+
+  /* -------------------------------------------------------
      PAGE: home.html — 상단 공지 닫기
      ------------------------------------------------------- */
   var homeNotice = document.getElementById('homeNotice');
@@ -91,6 +100,13 @@ document.addEventListener('DOMContentLoaded', function(){
     noticeClose.addEventListener('click', function(){
       homeNotice.hidden = true;
     });
+  }
+
+  /* PAGE: notice-popup.html — 전체 공지 팝업 (퍼블리싱 UI 전용, 저장 처리 없음) */
+  var homeNoticePopup = document.getElementById('homeNoticePopup');
+  if(homeNoticePopup){
+    var closeHomeNoticePopup = function(){ homeNoticePopup.hidden = true; };
+    homeNoticePopup.querySelector('.home-notice-popup-confirm').addEventListener('click', closeHomeNoticePopup);
   }
 
   /* -------------------------------------------------------

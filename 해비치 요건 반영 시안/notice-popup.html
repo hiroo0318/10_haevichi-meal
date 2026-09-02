@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>전체 공지 팝업 | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/theme-hyundaicapital.css" id="themeLink">
+</head>
+<body>
+<!--
+  로그인 후 홈 진입 시 노출되는 전체 공지 팝업의 독립 퍼블리싱 화면.
+  실제 개발에서는 이 dialog를 홈 화면에 오버레이하고, 공지 노출 대상·기간 및
+  오늘 하루 미노출 상태를 API/저장소로 제어한다.
+-->
+<div class="page notice-popup-page">
+  <section class="home-notice-popup" id="homeNoticePopup" role="dialog" aria-modal="true" aria-labelledby="homeNoticePopupTitle">
+    <div class="home-notice-popup-card">
+      <span class="home-notice-popup-label">전체 공지</span>
+      <h1 id="homeNoticePopupTitle">10월 6일부터 새 급식정보 서비스가 시작됩니다</h1>
+      <p>
+        더욱 편리한 급식정보 서비스를 위해 앱이 새롭게 변경됩니다.<br>
+        로그인 후 오늘의 식단과 다양한 소식을 확인해 보세요.
+      </p>
+      <a class="home-notice-popup-detail" href="notice.html">공지 자세히 보기 <span aria-hidden="true">›</span></a>
+      <label class="home-notice-popup-today"><input type="checkbox" id="homeNoticePopupToday"> <span>오늘 하루 보지 않기</span></label>
+      <div class="home-notice-popup-actions">
+        <button class="home-notice-popup-confirm" type="button">확인</button>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="resources/js/common.js"></script>
+</body>
+</html>

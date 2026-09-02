@@ -76,6 +76,21 @@ body{
 }
 
 /* ---------------------------------------------------------
+   스플래시 — HVM-MO-00-00
+   해비치 제공 이미지가 확정되면 .splash-wordmark를 이미지로 교체한다.
+   --------------------------------------------------------- */
+.splash-content{
+  display:flex; align-items:center; justify-content:center;
+  min-height:0; overflow:hidden;
+  background:linear-gradient(180deg, #fff 0%, #F3F7FF 100%);
+}
+.splash-wordmark{ text-align:center; animation:splash-in .38s ease-out both; }
+.splash-wordmark strong{ display:block; color:#1554B3; font-size:30px; font-weight:900; letter-spacing:0; }
+.splash-wordmark span{ display:block; margin-top:6px; color:#64748B; font-size:11px; font-weight:600; letter-spacing:.02em; }
+@keyframes splash-in{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:translateY(0); } }
+@media (prefers-reduced-motion:reduce){ .splash-wordmark{ animation:none; } }
+
+/* ---------------------------------------------------------
    공통 헤더 (홈 상단 브랜드 바)
    --------------------------------------------------------- */
 .topbar{
@@ -125,6 +140,32 @@ body{
   background:color-mix(in srgb, var(--brand-primary), white 84%);
 }
 .notice-close:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:-3px; }
+
+/* 홈 최초 진입 전체 공지 팝업 — 노출 대상/기간과 오늘 하루 미노출은 개발 데이터로 제어 */
+.home-notice-popup{
+  position:absolute; z-index:20; inset:0; display:flex; align-items:center; justify-content:center;
+  padding:24px; background:rgba(27,33,38,.48);
+}
+.home-notice-popup[hidden]{ display:none; }
+.home-notice-popup-card{
+  position:relative; width:100%; max-width:360px; overflow:hidden;
+  border-radius:var(--radius-lg); background:#fff; box-shadow:0 18px 40px rgba(18,23,28,.22);
+}
+.home-notice-popup-label{
+  display:inline-flex; align-items:center; min-height:24px; margin:26px 24px 12px; padding:0 8px;
+  border-radius:var(--radius-pill); background:var(--brand-primary-bg); color:var(--brand-primary); font-size:11px; font-weight:800;
+}
+.home-notice-popup h1{ margin:0 24px 12px; color:var(--ink); font-size:19px; line-height:1.42; letter-spacing:-.025em; }
+.home-notice-popup p{ margin:0; padding:0 24px 24px; color:var(--sub); font-size:13px; line-height:1.65; }
+.home-notice-popup-detail{ display:flex; align-items:center; justify-content:space-between; margin:0 24px 20px; color:var(--brand-primary); font-size:13px; font-weight:700; }
+.home-notice-popup-detail span{ font-size:20px; line-height:1; }
+.home-notice-popup-today{ display:flex; align-items:center; gap:7px; margin:0 24px 18px; color:var(--sub); font-size:12px; font-weight:600; cursor:pointer; }
+.home-notice-popup-today input{ width:17px; height:17px; margin:0; accent-color:var(--brand-primary); }
+.home-notice-popup-actions{ padding:0 24px 24px; }
+.home-notice-popup-confirm{ width:100%; min-height:50px; border-radius:var(--radius-sm); background:var(--brand-primary); color:#fff; font-size:14px; font-weight:700; cursor:pointer; }
+.home-notice-popup a:focus-visible,.home-notice-popup-actions button:focus-visible,.home-notice-popup-today:focus-within{ outline:2px solid var(--brand-primary); outline-offset:2px; }
+.notice-popup-page{ background:var(--bg); }
+.notice-popup-page .home-notice-popup{ position:static; flex:1; padding:24px; background:transparent; }
 
 /* 날짜 스트립 — 이번주 일요일~다음주 토요일(14일)을 가로 스크롤로 넘겨 확인한다 */
 .week-strip{
