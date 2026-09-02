@@ -11,7 +11,6 @@ var MEALS = {
       {
         id: 'a', type: '한식', name: '된장국 정식', photo: 'resources/images/menu/doenjangguk-photo.png',
         desc: '잡곡밥 · 계란말이 · 시금치나물',
-        avgRating: 4.0, ratingCount: 12,
         composition: [['주식','잡곡밥'], ['국','된장국'], ['반찬','계란말이 · 시금치나물']],
         items: [['잡곡밥',300], ['된장국',120], ['계란말이',150], ['시금치나물',40]],
         macro: { carb:180, protein:70, fat:40, sodium:1050, total:540 },
@@ -25,7 +24,6 @@ var MEALS = {
       {
         id: 'a', type: '한식', name: '제육볶음 정식', photo: 'resources/images/menu/jeyuk-bokkeum-photo.png',
         desc: '잡곡밥 · 계란찜 · 시금치나물 · 배추김치 · 된장국',
-        avgRating: 4.3, ratingCount: 187,
         composition: [['주식','잡곡밥'], ['메인','제육볶음'], ['반찬','계란찜 · 시금치나물 · 배추김치'], ['국','된장국']],
         items: [['잡곡밥',300], ['제육볶음',280], ['계란찜',120], ['시금치나물',40], ['배추김치',30], ['된장국',120]],
         macro: { carb:210, protein:120, fat:90, sodium:1480, total:890 },
@@ -34,7 +32,6 @@ var MEALS = {
       {
         id: 'b', type: '한식', name: '비빔밥 코너', photo: 'resources/images/menu/bibimbap-photo.png',
         desc: '흰쌀밥 · 나물 5종 · 계란후라이 · 고추장',
-        avgRating: 4.1, ratingCount: 96,
         composition: [['주식','흰쌀밥'], ['메인','나물 비빔 5종'], ['반찬','계란후라이 · 고추장']],
         items: [['흰쌀밥',300], ['나물 5종',150], ['계란후라이',110], ['고추장',30]],
         macro: { carb:195, protein:85, fat:75, sodium:1290, total:790 },
@@ -48,7 +45,6 @@ var MEALS = {
       {
         id: 'a', type: '한식', name: '순두부찌개 정식', photo: 'resources/images/menu/sundubu-jjigae-photo.png',
         desc: '흰쌀밥 · 계란후라이 · 어묵볶음',
-        avgRating: 3.9, ratingCount: 54,
         composition: [['주식','흰쌀밥'], ['메인','순두부찌개'], ['반찬','계란후라이 · 어묵볶음']],
         items: [['흰쌀밥',300], ['순두부찌개',210], ['계란후라이',110], ['어묵볶음',90]],
         macro: { carb:185, protein:95, fat:80, sodium:1390, total:710 },
@@ -268,13 +264,12 @@ document.addEventListener('DOMContentLoaded', function(){
      PAGE: home.html — 주간 날짜 스트립 + 끼니 탭 + 코너 카드
      "식단" 탭 없이 홈 하나로 메뉴 열람이 끝나도록 통합했다.
      ------------------------------------------------------- */
-  // 날짜 스트립(8/30~9/12, 14일)은 home.html에 고정 마크업으로 들어있다.
-  // 오늘 날짜 자동 선택·스크롤 로직은 퍼블리싱 단계에서 다루지 않고, 실제 개발 시 서버/클라이언트 날짜 기준으로 구현한다.
+  // 전주/금주/차주 3주 데이터는 퍼블리싱 검토용 고정 마크업이며,
+  // 기본 위치는 금주의 선택 날짜가 보이는 지점이다.
   var weekStrip = document.getElementById('weekStrip');
   if(weekStrip){
     var mealTabs = document.getElementById('mealTabs');
     var cornerList = document.getElementById('cornerList');
-
     var selectedDate = '9-2';
     var selectedMeal = 'lunch';
     var order = ['breakfast', 'lunch', 'dinner'];
@@ -303,17 +298,18 @@ document.addEventListener('DOMContentLoaded', function(){
       }
       var meal = MEALS[mealKey];
       meal.corners.forEach(function(corner){
-        var card = document.createElement('a');
+        var card = document.createElement('article');
         card.className = 'corner-card';
-        card.href = 'menu-detail.html?meal=' + mealKey + '&corner=' + corner.id;
         card.innerHTML =
-          '<div class="corner-photo"><img src="' + corner.photo + '" alt=""></div>' +
-          '<div class="corner-cardbody">' +
-            (meal.corners.length > 1 ? '<div class="corner-label">코너 ' + corner.id.toUpperCase() + '(' + corner.type + ')</div>' : '') +
-            '<div class="corner-name">' + corner.name + '</div>' +
-            '<div class="corner-desc">' + corner.desc + '</div>' +
-            '<div class="corner-rating">★ ' + corner.avgRating.toFixed(1) + '<span class="count">(' + corner.ratingCount + ')</span></div>' +
-          '</div>';
+          '<a class="corner-detail-link" href="menu-detail.html?meal=' + mealKey + '&corner=' + corner.id + '">' +
+            '<div class="corner-photo"><img src="' + corner.photo + '" alt="' + corner.name + '"></div>' +
+            '<div class="corner-cardbody">' +
+              (meal.corners.length > 1 ? '<div class="corner-label">코너 ' + corner.id.toUpperCase() + '(' + corner.type + ')</div>' : '') +
+              '<div class="corner-name">' + corner.name + '</div>' +
+              '<div class="corner-desc">' + corner.desc + '</div>' +
+            '</div>' +
+          '</a>' +
+          '<a class="corner-voc-link" href="voc.html?meal=' + mealKey + '&corner=' + corner.id + '">의견 쓰기</a>';
         cornerList.appendChild(card);
       });
     }
@@ -353,6 +349,11 @@ document.addEventListener('DOMContentLoaded', function(){
       mealTabs.appendChild(btn);
     });
 
+    window.requestAnimationFrame(function(){
+      var selectedDay = weekStrip.querySelector('.week-day.is-selected');
+      // 전주 마지막·차주 첫 날짜가 양 끝에 반 칸가량 보이도록 기준 위치를 보정한다.
+      weekStrip.scrollLeft = Math.max(0, selectedDay.offsetLeft - weekStrip.clientWidth / 2 + selectedDay.offsetWidth / 2 + 16);
+    });
     renderHome();
   }
 
@@ -373,18 +374,13 @@ document.addEventListener('DOMContentLoaded', function(){
     var requestedCorner = getQueryParam('corner', meal.corners[0].id);
     var activeCornerId = meal.corners.some(function(c){ return c.id === requestedCorner; }) ? requestedCorner : meal.corners[0].id;
 
-    var rating = 0;
-
     var elHdMeal = document.getElementById('hdMeal');
     var elHero = document.getElementById('heroPhoto');
+    var elCorner = document.getElementById('detailCorner');
     var elName = document.getElementById('detailName');
-    var elAvgRating = document.getElementById('avgRating');
     var elItems = document.getElementById('nutritionItems');
     var elMacro = document.getElementById('macroSummary');
-    var elAllergy = document.getElementById('allergyText');
-    var elStars = document.querySelectorAll('#stars button');
-    var elRateHint = document.getElementById('rateHint');
-    var elSubmit = document.getElementById('submitBtn');
+    var elVocLink = document.getElementById('detailVocLink');
 
     function render(){
       var corner = meal.corners.filter(function(c){ return c.id === activeCornerId; })[0];
@@ -393,8 +389,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
       elHero.src = corner.photo;
       elHero.alt = corner.name;
+      elCorner.textContent = '코너 ' + corner.id.toUpperCase() + ' · ' + corner.type;
       elName.textContent = corner.name;
-      elAvgRating.innerHTML = '★ ' + corner.avgRating.toFixed(1) + '<span class="count">(' + corner.ratingCount + ')</span>';
+      elVocLink.href = 'voc.html?meal=' + mealKey + '&corner=' + corner.id;
 
       elItems.innerHTML = '';
       corner.items.forEach(function(item){
@@ -408,33 +405,9 @@ document.addEventListener('DOMContentLoaded', function(){
         '<div class="macro-cell"><span class="macro-label">탄수화물</span><span class="macro-value">' + corner.macro.carb + '<small>g</small></span></div>' +
         '<div class="macro-cell"><span class="macro-label">단백질</span><span class="macro-value">' + corner.macro.protein + '<small>g</small></span></div>' +
         '<div class="macro-cell"><span class="macro-label">지방</span><span class="macro-value">' + corner.macro.fat + '<small>g</small></span></div>' +
-        '<div class="macro-cell"><span class="macro-label">나트륨</span><span class="macro-value">' + corner.macro.sodium + '<small>mg</small></span></div>';
-
-      elAllergy.textContent = corner.allergy;
-
-      renderRatingUI();
+        '<div class="macro-cell"><span class="macro-label">나트륨</span><span class="macro-value">' + corner.macro.sodium + '<small>mg</small></span></div>' +
+        '<div class="macro-cell macro-total"><span class="macro-label">총 칼로리</span><span class="macro-value">' + corner.macro.total + '<small>kcal</small></span></div>';
     }
-
-    function renderRatingUI(){
-      elStars.forEach(function(btn){
-        btn.classList.toggle('on', parseInt(btn.getAttribute('data-n'), 10) <= rating);
-      });
-      elRateHint.textContent = rating ? rating + '점을 선택하셨어요' : '별점을 선택해 주세요';
-      elSubmit.disabled = rating < 1;
-      elSubmit.textContent = '평가 등록';
-    }
-
-    elStars.forEach(function(btn){
-      btn.addEventListener('click', function(){
-        rating = parseInt(btn.getAttribute('data-n'), 10);
-        renderRatingUI();
-      });
-    });
-    elSubmit.addEventListener('click', function(){
-      if(!rating) return;
-      elSubmit.textContent = '평가 완료';
-      elSubmit.disabled = true;
-    });
 
     render();
   }
