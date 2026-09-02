@@ -54,6 +54,10 @@
   }
   .card-links a.doc{ color:var(--sub); background:#F1F3F5; }
 
+  /* 디자인 시안 3개 카드는 설명 길이와 무관하게 같은 높이·동일한 링크 기준선을 유지한다. */
+  .concept-grid > .card{ min-height:206px; display:flex; flex-direction:column; }
+  .concept-grid .card-links{ margin-top:auto; }
+
   .structure-card{
     background:linear-gradient(135deg,#1B2126,#2A333B);
     color:#fff; border:0;
@@ -88,37 +92,37 @@
     <h2>디자인 시안 (3벌)</h2>
     <p class="section-sub">홈 · 식단상세 화면의 시각적 방향 비교. 각 카드의 "컨셉 문서"에 원칙과 상태별 동작 규칙이 정리돼 있습니다.</p>
 
-    <div class="grid">
+    <div class="grid concept-grid">
       <div class="card">
         <span class="card-tag">CONCEPT 1</span>
-        <div class="card-title">codex 1번 시안</div>
+        <div class="card-title">시안 1번</div>
         <p class="card-desc">오늘의 식사를 카드 우선순위로 안내하는 홈. 조식·중식·석식 고정 순서 안에서 현재/다음 식사만 확장 카드로 강조.</p>
         <div class="card-links">
-          <a href="DESIGN Concept/codex 1번 시안/home-concept.html">홈 화면 →</a>
-          <a href="DESIGN Concept/codex 1번 시안/menu-detail-concept.html">상세 화면 →</a>
-          <a class="doc" href="DESIGN Concept/codex 1번 시안/DESIGN_CONCEPT.md">컨셉 문서</a>
+          <a href="DESIGN Concept/시안 1번/home-concept.html">홈 화면 →</a>
+          <a href="DESIGN Concept/시안 1번/menu-detail-concept.html">상세 화면 →</a>
+          <a class="doc" href="DESIGN Concept/시안 1번/DESIGN_CONCEPT.md">컨셉 문서</a>
         </div>
       </div>
 
       <div class="card">
         <span class="card-tag">CONCEPT 2</span>
-        <div class="card-title">codex 2번 시안</div>
+        <div class="card-title">시안 2번</div>
         <p class="card-desc">시간 흐름을 한눈에 보여주는 식단 보드. 날짜 이동 + 세로 타임라인으로 진행 위치를 명확히 전달.</p>
         <div class="card-links">
-          <a href="DESIGN Concept/codex 2번 시안/home-concept-v2.html">홈 화면 →</a>
-          <a href="DESIGN Concept/codex 2번 시안/menu-detail-v2.html">상세 화면 →</a>
-          <a class="doc" href="DESIGN Concept/codex 2번 시안/DESIGN_CONCEPT.md">컨셉 문서</a>
+          <a href="DESIGN Concept/시안 2번/home-concept-v2.html">홈 화면 →</a>
+          <a href="DESIGN Concept/시안 2번/menu-detail-v2.html">상세 화면 →</a>
+          <a class="doc" href="DESIGN Concept/시안 2번/DESIGN_CONCEPT.md">컨셉 문서</a>
         </div>
       </div>
 
       <div class="card">
         <span class="card-tag">CONCEPT 3</span>
-        <div class="card-title">claude 시안</div>
+        <div class="card-title">시안 3번</div>
         <p class="card-desc">사진 중심의 오늘의 한 끼 안내. 현재/다음 식사를 큰 이미지 위 매거진형 히어로 카드로 강조.</p>
         <div class="card-links">
-          <a href="DESIGN Concept/claude 시안/home-concept.html">홈 화면 →</a>
-          <a href="DESIGN Concept/claude 시안/menu-detail-concept.html">상세 화면 →</a>
-          <a class="doc" href="DESIGN Concept/claude 시안/DESIGN_CONCEPT.md">컨셉 문서</a>
+          <a href="DESIGN Concept/시안 3번/home-concept.html">홈 화면 →</a>
+          <a href="DESIGN Concept/시안 3번/menu-detail-concept.html">상세 화면 →</a>
+          <a class="doc" href="DESIGN Concept/시안 3번/DESIGN_CONCEPT.md">컨셉 문서</a>
         </div>
       </div>
     </div>
@@ -148,12 +152,12 @@
     <div class="grid">
       <div class="card structure-card">
         <span class="card-tag">FRONT PUBLISHING</span>
-        <div class="card-title">해비치 요건 반영 Front 퍼블리싱</div>
+        <div class="card-title">Front</div>
         <p class="card-desc">해비치 추가요건과 개발팀 협의사항을 반영한 임직원 채널 퍼블리싱입니다. 로그인부터 홈·식단·나의 의견·공지·My 화면까지 포함합니다.</p>
         <div class="card-links">
-          <a href="해비치 요건 반영 시안/index.html">인덱스 →</a>
-          <a class="primary" href="해비치 요건 반영 시안/login.html">로그인부터 시작 →</a>
-          <a class="doc" href="해비치 요건 반영 시안/README.md">작업 안내</a>
+          <a href="Front/index.html">인덱스 →</a>
+          <a class="primary" href="Front/login.html">로그인부터 시작 →</a>
+          <a class="doc" href="Front/README.md">작업 안내</a>
         </div>
       </div>
 

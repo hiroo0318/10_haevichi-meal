@@ -26,7 +26,7 @@ home.html
 ## 파일 구조
 
 ```text
-해비치 요건 반영 시안/
+Front/
 ├─ splash.html                앱 시작 스플래시
 ├─ login.html                 로그인
 ├─ signup.html                회원가입 3단계
