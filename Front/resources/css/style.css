@@ -390,6 +390,14 @@ body.is-splash-leaving .splash-content{ animation:splash-page-out .36s cubic-bez
 .password-step-back span{ color:var(--ink); font-size:18px; line-height:1; }
 .password-step-back:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
 
+/* PAGE: password-reset.html — 로그인 전 비밀번호 재설정 2단계 */
+.password-reset-content{ padding:42px 28px 32px; }
+.password-reset-brand{ display:flex; flex-direction:column; align-items:center; margin:0 0 36px; color:var(--ink); font-size:22px; font-weight:800; letter-spacing:-.02em; }
+.password-reset-brand span{ margin-top:2px; color:var(--sub); font-size:11px; font-weight:600; letter-spacing:0; }
+.password-reset-step h1{ margin:0; color:var(--ink); font-size:25px; line-height:1.35; font-weight:800; letter-spacing:-.045em; }
+.password-reset-back{ display:flex; align-items:center; justify-content:center; gap:6px; width:100%; min-height:42px; margin-top:18px; color:var(--sub); font-size:13px; font-weight:700; }
+.password-reset-back:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
+
 /* ---------------------------------------------------------
    PAGE: my-policy.html — 약관 및 개인정보처리방침
    --------------------------------------------------------- */

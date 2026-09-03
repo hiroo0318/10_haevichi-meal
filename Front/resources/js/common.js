@@ -78,8 +78,17 @@ var DATE_MEAL_STATUS = {
 
 document.addEventListener('DOMContentLoaded', function(){
 
-  if(document.body.dataset.authVersion === 'v3' && new URLSearchParams(window.location.search).has('from')){
-    document.body.classList.add('is-v3-route-enter');
+  var unifiedV3Auth = document.querySelector('.v3-unified-auth');
+  if(unifiedV3Auth){
+    var defaultV3Copy = unifiedV3Auth.querySelector('.v3-auth-hero-copy');
+    defaultV3Copy.querySelector('p').textContent = 'FOOD SERVICE';
+    defaultV3Copy.querySelector('h1').innerHTML = '오늘의 식사를<br>더 편리하게';
+    defaultV3Copy.querySelector('span').textContent = '식사 정보와 소통을 한곳에서 확인해 보세요.';
+    window.setTimeout(function(){ unifiedV3Auth.classList.add('is-v3-login-revealed'); }, 1500);
+    unifiedV3Auth.addEventListener('click', function(event){
+      if(event.target.closest('input, button, a, label')) return;
+      unifiedV3Auth.classList.add('is-v3-login-revealed');
+    });
   }
 
   /* -------------------------------------------------------
@@ -97,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function(){
   };
   moveFromSplash('splashScreen', 'login.html', 1500);
   moveFromSplash('splashScreenV2', 'login-v2.html', 1500);
-  moveFromSplash('splashScreenV3', 'login-v3.html', 1800);
 
   /* -------------------------------------------------------
      PAGE: home.html — 상단 공지 닫기
@@ -134,12 +142,20 @@ document.addEventListener('DOMContentLoaded', function(){
       syncV3LoginState();
       loginEmail.addEventListener('input', syncV3LoginState);
       loginPassword.addEventListener('input', syncV3LoginState);
-      var v3SignupLink = document.querySelector('.v3-card-footer a[href="signup-v3.html"]');
+      var v3SignupLink = document.querySelector('.v3-card-footer a');
       if(v3SignupLink){
+        v3SignupLink.href = '#signup';
         v3SignupLink.addEventListener('click', function(event){
           event.preventDefault();
-          document.body.classList.add('is-v3-route-leaving');
-          window.setTimeout(function(){ window.location.href = 'signup-v3.html?from=login'; }, 340);
+          var v3UnifiedAuth = loginForm.closest('.v3-unified-auth');
+          if(v3UnifiedAuth){
+            v3UnifiedAuth.classList.add('is-v3-signup-revealed');
+            var v3Copy = v3UnifiedAuth.querySelector('.v3-auth-hero-copy');
+            v3Copy.querySelector('p').textContent = 'JOIN FOOD SERVICE';
+            v3Copy.querySelector('h1').innerHTML = '서비스 이용을 위한<br>간단한 가입 절차';
+            v3Copy.querySelector('span').textContent = '사내 메일 인증 후 바로 이용할 수 있어요.';
+            return;
+          }
         });
       }
     }
@@ -194,9 +210,15 @@ document.addEventListener('DOMContentLoaded', function(){
       if(signupStep === 1){
         var signupVersion = signupForm.dataset.signupVersion;
         if(signupVersion === 'v3'){
-          document.body.classList.add('is-v3-route-leaving');
-          window.setTimeout(function(){ window.location.href = 'login-v3.html?from=signup'; }, 340);
-          return;
+          var unifiedAuth = signupForm.closest('.v3-unified-auth');
+          if(unifiedAuth){
+            unifiedAuth.classList.remove('is-v3-signup-revealed');
+            var unifiedCopy = unifiedAuth.querySelector('.v3-auth-hero-copy');
+            unifiedCopy.querySelector('p').textContent = 'FOOD SERVICE';
+            unifiedCopy.querySelector('h1').innerHTML = '오늘의 식사를<br>더 편리하게';
+            unifiedCopy.querySelector('span').textContent = '식사 정보와 소통을 한곳에서 확인해 보세요.';
+            return;
+          }
         }
         window.location.href = signupVersion ? 'login-' + signupVersion + '.html' : 'login.html';
         return;
@@ -272,6 +294,71 @@ document.addEventListener('DOMContentLoaded', function(){
       if(!hasValidLength){ newPassword.focus(); return; }
       if(!isMatching){ newPasswordConfirm.focus(); return; }
       window.location.href = 'my.html';
+    });
+  }
+
+  /* -------------------------------------------------------
+     PAGE: password-reset*.html — 사내 메일 인증 후 비밀번호 재설정
+     메일 발송·인증번호 검증·비밀번호 저장은 개발 연동 대상이며,
+     퍼블리싱에서는 단계 전환과 유효성 상태를 확인할 수 있게만 구성한다.
+     ------------------------------------------------------- */
+  var passwordResetForm = document.getElementById('passwordResetForm');
+  if(passwordResetForm){
+    var resetEmail = document.getElementById('resetEmail');
+    var resetEmailError = document.getElementById('resetEmailError');
+    var resetEmailDisplay = document.getElementById('resetEmailDisplay');
+    var resetCode = document.getElementById('resetCode');
+    var resetCodeError = document.getElementById('resetCodeError');
+    var resetResend = document.getElementById('resetResend');
+    var resetPassword = document.getElementById('resetPassword');
+    var resetPasswordConfirm = document.getElementById('resetPasswordConfirm');
+    var resetPasswordLengthError = document.getElementById('resetPasswordLengthError');
+    var resetPasswordError = document.getElementById('resetPasswordError');
+    var resetBack = document.getElementById('passwordResetBack');
+    var resetStep = 1;
+    var changeResetStep = function(step){
+      resetStep = step;
+      passwordResetForm.querySelectorAll('[data-password-reset-step]').forEach(function(panel){
+        panel.hidden = Number(panel.dataset.passwordResetStep) !== step;
+      });
+    };
+    passwordResetForm.querySelector('[data-password-reset-next="email"]').addEventListener('click', function(){
+      var email = resetEmail.value.trim();
+      var isAllowed = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && !/^test/i.test(email) && !/@(gmail|naver|daum)\./i.test(email);
+      resetEmailError.hidden = isAllowed;
+      if(!isAllowed){ resetEmail.focus(); return; }
+      resetEmailDisplay.textContent = email;
+      changeResetStep(2);
+      resetCode.focus();
+    });
+    resetResend.addEventListener('click', function(){
+      resetCode.value = '';
+      resetCodeError.hidden = true;
+      resetResend.textContent = '발송 완료';
+      window.setTimeout(function(){ resetResend.textContent = '재발송'; }, 1800);
+    });
+    passwordResetForm.querySelector('[data-password-reset-next="verify"]').addEventListener('click', function(){
+      var isValidCode = /^\d{6}$/.test(resetCode.value.trim());
+      resetCodeError.hidden = isValidCode;
+      if(!isValidCode){ resetCode.focus(); return; }
+      changeResetStep(3);
+      resetPassword.focus();
+    });
+    resetBack.addEventListener('click', function(event){
+      if(resetStep === 1) return;
+      event.preventDefault();
+      changeResetStep(resetStep - 1);
+    });
+    passwordResetForm.addEventListener('submit', function(event){
+      event.preventDefault();
+      var hasValidLength = resetPassword.value.length >= 8;
+      var isMatching = hasValidLength && resetPassword.value === resetPasswordConfirm.value;
+      resetPasswordLengthError.hidden = hasValidLength;
+      resetPasswordError.hidden = isMatching;
+      if(!hasValidLength){ resetPassword.focus(); return; }
+      if(!isMatching){ resetPasswordConfirm.focus(); return; }
+      var version = passwordResetForm.dataset.passwordResetVersion;
+      window.location.href = version === 'v3' ? 'splash-v3.html' : (version === 'v2' ? 'login-v2.html' : 'login.html');
     });
   }
 

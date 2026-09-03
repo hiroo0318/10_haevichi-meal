@@ -84,5 +84,14 @@ button.auth-v2-primary{ border:0; cursor:pointer; }
 .auth-v2-message.is-error{ color:#C34D42; font-weight:700; }
 .auth-v2-back{ display:flex; align-items:center; justify-content:center; gap:6px; width:100%; margin-top:18px; color:var(--auth-sub); font-size:13px; font-weight:700; }
 .auth-v2-back span:first-child{ color:var(--auth-ink); font-size:18px; line-height:1; }
+
+/* password reset */
+.password-reset-v2-hero{ min-height:252px; padding-bottom:104px; }
+.password-reset-v2-hero h1{ margin-top:24px; font-size:24px; }
+.password-reset-v2-card{ margin-top:-74px; }
+.password-reset-v2-count{ margin:0 0 8px; color:var(--auth-green); font-size:12px; font-weight:800; }
+.password-reset-v2-step h2{ font-size:22px; line-height:1.35; }
+.password-reset-v2-description{ min-height:40px; margin:10px 0 24px !important; }
+.password-reset-v2-description b{ color:var(--auth-ink); font-weight:800; overflow-wrap:anywhere; }
 @media (prefers-reduced-motion:reduce){ .splash-v2-loading span{ animation:none; transform:translateX(0); } }
 @media (min-width:560px) and (hover:hover) and (pointer:fine){ .auth-v2-page{ min-height:calc(100dvh - 48px); border-radius:22px; box-shadow:0 20px 50px rgba(20,20,25,.14); } }
