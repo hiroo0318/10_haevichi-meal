@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>로그인 | 인증 화면 V2</title>
+<link rel="stylesheet" href="resources/css/reset.css"><link rel="stylesheet" href="resources/css/auth-v2.css">
+</head><body data-auth-version="v2">
+<div class="auth-v2-page"><main class="auth-v2-content">
+  <section class="auth-v2-hero"><div class="auth-v2-brand"><b>FX</b><span>By Haevichi</span></div><p class="auth-v2-kicker">MEAL EXPERIENCE</p><h1>오늘의 식사를<br>확인해 보세요</h1><p>사내 메일 주소로 간편하게 로그인하세요.</p></section>
+  <section class="auth-v2-card"><h2>로그인</h2><p>해비치 급식정보 서비스를 이용하려면 로그인해 주세요.</p>
+    <form id="loginForm" novalidate>
+      <div class="auth-v2-field"><label for="email">사내 메일 주소</label><input class="auth-v2-input" id="email" type="email" placeholder="name@company.com" autocomplete="username" required></div>
+      <div class="auth-v2-field"><label for="pw">비밀번호</label><input class="auth-v2-input" id="pw" type="password" placeholder="비밀번호를 입력해주세요" autocomplete="current-password" required></div>
+      <div class="auth-v2-error" id="loginErr" hidden>이메일 또는 비밀번호가 일치하지 않습니다.</div>
+      <div class="auth-v2-login-row"><label class="auth-v2-check"><input type="checkbox" id="autoLogin" checked><span>자동로그인</span></label><a class="auth-v2-link" href="#">아이디/비밀번호 찾기</a></div>
+      <button type="submit" class="auth-v2-primary">로그인</button>
+    </form>
+    <p class="auth-v2-card-footer">처음 이용하시나요?<a href="signup-v2.html">회원가입</a></p>
+    <p class="auth-v2-hint">데모용: 비밀번호에 <b>0000</b>을 입력하면 실패 사례를 확인할 수 있습니다.</p>
+  </section>
+</main></div><script src="resources/js/common.js"></script>
+</body></html>

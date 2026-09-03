@@ -155,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
     filterChipSelector: '#filter-missing-photo',
     filterPredicate: (row) => row.dataset.photo === 'missing',
   });
-  initPagedTable({ tableSelector: '.rating-table', paginationSelector: '#ratingPagination' });
   const vocPager = initPagedTable({
     tableSelector: '.voc-table',
     paginationSelector: '#vocPagination',

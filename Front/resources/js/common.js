@@ -83,9 +83,17 @@ document.addEventListener('DOMContentLoaded', function(){
      실제 앱에서는 여기서 자동 로그인 세션을 확인해 유효하면 홈으로,
      아니면 로그인으로 전환한다. 퍼블리싱은 비로그인 기본 흐름만 재현한다.
      ------------------------------------------------------- */
-  if(document.getElementById('splashScreen')){
-    window.setTimeout(function(){ window.location.replace('login.html'); }, 1500);
-  }
+  var moveFromSplash = function(splashId, loginUrl, stayDuration){
+    var splash = document.getElementById(splashId);
+    if(!splash) return;
+    window.setTimeout(function(){
+      document.body.classList.add('is-splash-leaving');
+      window.setTimeout(function(){ window.location.replace(loginUrl); }, 360);
+    }, stayDuration);
+  };
+  moveFromSplash('splashScreen', 'login.html', 1500);
+  moveFromSplash('splashScreenV2', 'login-v2.html', 1500);
+  moveFromSplash('splashScreenV3', 'login-v3.html', 1800);
 
   /* -------------------------------------------------------
      PAGE: home.html — 상단 공지 닫기
@@ -151,7 +159,11 @@ document.addEventListener('DOMContentLoaded', function(){
       signupBackLabel.textContent = step === 1 ? '로그인으로 돌아가기' : '이전 단계로 돌아가기';
     };
     signupBack.addEventListener('click', function(){
-      if(signupStep === 1){ window.location.href = 'login.html'; return; }
+      if(signupStep === 1){
+        var signupVersion = signupForm.dataset.signupVersion;
+        window.location.href = signupVersion ? 'login-' + signupVersion + '.html' : 'login.html';
+        return;
+      }
       changeSignupStep(signupStep - 1);
     });
     signupForm.querySelector('[data-signup-next="email"]').addEventListener('click', function(){
