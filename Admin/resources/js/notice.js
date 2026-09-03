@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const endInput = document.getElementById('noticeEndInput');
   const pinnedInput = document.getElementById('noticePinnedInput');
   const popupInput = document.getElementById('noticePopupInput');
-  const popupRange = document.getElementById('noticePopupRange');
   const popupStartInput = document.getElementById('noticePopupStartInput');
   const popupEndInput = document.getElementById('noticePopupEndInput');
   const deleteBtn = document.getElementById('noticeDeleteBtn');
@@ -43,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     endInput.value = '';
     pinnedInput.checked = false;
     popupInput.checked = false;
-    popupRange.hidden = true;
+    popupInput.dispatchEvent(new Event('change'));
     popupStartInput.value = '';
     popupEndInput.value = '';
     deleteBtn.hidden = true;
@@ -61,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     endInput.value = row.dataset.end;
     pinnedInput.checked = row.dataset.pinned === 'true';
     popupInput.checked = row.dataset.popup === 'true';
-    popupRange.hidden = !popupInput.checked;
+    popupInput.dispatchEvent(new Event('change'));
     popupStartInput.value = row.dataset.popupStart || '';
     popupEndInput.value = row.dataset.popupEnd || '';
     deleteBtn.hidden = false;

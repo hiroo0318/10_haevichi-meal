@@ -66,6 +66,25 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .corner-input{width:160px;height:34px}
 .corner-input:disabled{background:#f5f5f5;color:#b0b0b0;border-color:var(--line);cursor:not-allowed}
 .corner-table.is-disabled tbody{opacity:.6}
+.is-disabled{opacity:.55}
+.login-shell{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:24px}
+.login-card{width:100%;max-width:360px;padding:36px 32px 32px;background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 20px 48px rgb(15 23 42 / .08)}
+.login-brand{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:28px;text-align:center}
+.login-brand .brand-mark{width:40px;height:40px;border-radius:8px;font-size:17px}
+.login-brand h1{margin:0;color:var(--heading);font-size:17px;font-weight:700;letter-spacing:-.02em}
+.login-brand span{color:var(--sub);font-size:12px}
+.login-form{display:flex;flex-direction:column;gap:12px}
+.login-form label{display:flex;flex-direction:column;gap:6px;font-size:12.5px;font-weight:600;color:var(--heading)}
+.login-form .field{width:100%;height:42px}
+.login-form .btn.primary{width:100%;height:42px;margin-top:6px;font-size:13px}
+.warning-box{display:flex;flex-direction:column;gap:8px;margin:20px 0;padding:14px 16px;border:1px solid #f0d9ad;border-radius:4px;background:#fff8ec;color:#7a5717;font-size:12px;line-height:1.6}
+.warning-box b{color:#5c4212}
+.warning-box ol{margin:0;padding-left:18px}
+.warning-box li{margin-bottom:4px}
+.warning-box li:last-child{margin-bottom:0}
+.field.error{border-color:var(--red)}
+.field-error{color:var(--red);font-size:11px;font-weight:600}
+.field-error[hidden]{display:none}
 .corner-actions{display:flex;justify-content:flex-end;gap:8px;padding:16px 20px}
 .corner-table td{vertical-align:middle}
 .date-range{display:flex;align-items:center;gap:8px}.date-range[hidden]{display:none}
@@ -92,7 +111,6 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .notice-field{display:flex;flex-direction:column;gap:6px;font-size:12.5px;font-weight:600;color:var(--heading)}.notice-field[hidden]{display:none}
 .notice-field-label{font-size:12.5px;font-weight:600;color:var(--heading)}
 .notice-field > .field{width:100%}
-.notice-checkbox-row{display:flex;align-items:center;gap:24px}
 .notice-checkbox{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--heading);cursor:pointer}
 .notice-checkbox input{width:15px;height:15px;accent-color:var(--admin-blue)}
 .switch-row{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;color:var(--heading);cursor:pointer}
@@ -102,6 +120,19 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .switch-track::before{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;box-shadow:0 1px 2px rgb(15 23 42 / .25);transition:transform .15s}
 .switch input:checked + .switch-track{background:var(--admin-blue)}
 .switch input:checked + .switch-track::before{transform:translateX(18px)}
+.switch input:disabled{cursor:not-allowed}
+.switch:has(input:disabled){opacity:.55;cursor:not-allowed}
+.switch.sm{width:32px;height:18px}
+.switch.sm .switch-track::before{top:2px;left:2px;width:14px;height:14px}
+.switch.sm input:checked + .switch-track::before{transform:translateX(14px)}
+.switch.labeled{position:relative;width:64px;height:22px}
+.switch.labeled .switch-track::before{z-index:1}
+.switch.labeled input:checked + .switch-track::before{transform:translateX(42px)}
+.switch-track-label{position:absolute;top:50%;transform:translateY(-50%);font-size:9.5px;font-weight:700;pointer-events:none;white-space:nowrap}
+.switch-track-label.on{left:7px;color:#fff}
+.switch-track-label.off{right:6px;color:#6b7280}
+.switch.labeled input:checked ~ .switch-track-label.off{display:none}
+.switch.labeled input:not(:checked) ~ .switch-track-label.on{display:none}
 .notice-modal-actions{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid var(--line);padding-top:16px}
 .pagination{display:flex;align-items:center;justify-content:center;gap:6px;padding:16px 20px;border-top:1px solid var(--line)}
 .page-btn{min-width:30px;height:30px;padding:0 8px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--body);font-size:12px;font-weight:600}

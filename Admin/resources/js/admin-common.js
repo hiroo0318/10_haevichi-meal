@@ -85,6 +85,18 @@ document.addEventListener('DOMContentLoaded', () => {
     checkbox.addEventListener('change', sync);
     sync();
   });
+  // 토글 끄면 영역을 숨기지 않고 하위 입력만 비활성화한다(코너 관리의 코너명 입력칸과 동일한 상호작용).
+  document.querySelectorAll('[data-toggle-disable]').forEach((checkbox) => {
+    const target = document.querySelector(checkbox.dataset.toggleDisable);
+    if (!target) return;
+    const sync = () => {
+      const enabled = checkbox.checked;
+      target.querySelectorAll('input, textarea, select').forEach((el) => { el.disabled = !enabled; });
+      target.classList.toggle('is-disabled', !enabled);
+    };
+    checkbox.addEventListener('change', sync);
+    sync();
+  });
   document.querySelectorAll('[data-file-input]').forEach((input) => {
     input.addEventListener('change', () => {
       const name = input.files[0] ? input.files[0].name : '선택된 파일 없음';
@@ -264,6 +276,10 @@ document.addEventListener('DOMContentLoaded', () => {
       nutriRow.dataset.photo = 'ok';
       nutriRow.classList.remove('row-highlight');
     }
+
+    // 이미지 등록 전에는 게시상태를 노출로 바꿀 수 없도록 토글을 잠가뒀다가, 등록되면 조작 가능하게 푼다.
+    const publishToggle = row.querySelector('[data-publish-toggle]');
+    if (publishToggle) publishToggle.disabled = false;
 
     updateMissingPhotoCount();
     if (toast) {
