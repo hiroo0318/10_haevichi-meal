@@ -74,8 +74,15 @@ body[data-auth-version="v3"] .auth-v3-content:not(.v3-splash){ animation:auth-v3
 
 /* password reset */
 .password-reset-v3-content .v3-auth-hero{ min-height:252px!important; }
+.password-reset-v3-content{ animation:v3-auth-page-soft-in .24s ease both!important; }
+.is-v3-returning .v3-unified-auth{ animation:v3-auth-page-soft-in .24s ease both!important; }
+@keyframes v3-auth-page-soft-in{ from{ opacity:0; } to{ opacity:1; } }
 .password-reset-v3-content .v3-auth-card{ margin-top:-52px; }
 .password-reset-v3-content .v3-auth-hero-copy{ margin-top:52px; }
+.password-reset-v3-content .auth-v3-brand{ display:flex; flex-direction:column; align-items:flex-start; gap:2px; }
+.password-reset-v3-content .auth-v3-brand b{ font-size:25px; letter-spacing:-.06em; }
+.password-reset-v3-content .auth-v3-brand i{ color:rgba(255,255,255,.94); font-size:10px; font-style:normal; font-weight:800; letter-spacing:.14em; }
+.password-reset-v3-content .auth-v3-brand span{ color:rgba(255,255,255,.72); font-size:9px; font-weight:700; letter-spacing:.08em; }
 .password-reset-v3-step h2{ font-size:22px; line-height:1.35; }
 .password-reset-v3-step .v3-description{ min-height:40px; }
 .password-reset-v3-step .v3-description b{ color:var(--v3-ink); font-weight:800; overflow-wrap:anywhere; }

@@ -102,7 +102,12 @@ document.addEventListener('DOMContentLoaded', function(){
       }, 160);
     };
     changeV3HeroCopy('FOOD SERVICE', '오늘의 식사를<br>더 편리하게', '식사 정보와 소통을 한곳에서 확인해 보세요.');
-    window.setTimeout(function(){ unifiedV3Auth.classList.add('is-v3-login-revealed'); }, 1500);
+    if(new URLSearchParams(window.location.search).get('from') === 'reset'){
+      document.body.classList.add('is-v3-returning');
+      unifiedV3Auth.classList.add('is-v3-login-revealed');
+    }else{
+      window.setTimeout(function(){ unifiedV3Auth.classList.add('is-v3-login-revealed'); }, 1500);
+    }
     unifiedV3Auth.addEventListener('click', function(event){
       if(event.target.closest('input, button, a, label')) return;
       unifiedV3Auth.classList.add('is-v3-login-revealed');
