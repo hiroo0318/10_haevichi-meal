@@ -46,8 +46,12 @@
     <div class="menu-toolbar">
       <div class="filters" aria-label="고객의견 조회 조건">
         <select class="field" aria-label="사업장 선택"><option>전체</option><option>본사</option><option>여의도</option><option>홍대</option></select>
+        <input class="field" type="date" aria-label="접수 시작일" value="2026-08-25">
+        <span aria-hidden="true">~</span>
+        <input class="field" type="date" aria-label="접수 종료일" value="2026-09-10">
         <select class="field" aria-label="상태 선택"><option>전체 상태</option><option>답변대기</option><option>답변완료</option></select>
         <select class="field" aria-label="유형 선택"><option>전체 유형</option><option>맛/메뉴</option><option>위생</option><option>서비스/친절도</option><option>APP 사용 경험</option><option>기타</option></select>
+        <input class="field" type="text" placeholder="작성자 ID 검색" aria-label="작성자 ID 검색">
         <button class="btn primary" type="button" data-demo="선택한 조건으로 고객의견을 조회했습니다.">조회</button>
       </div>
     </div>
