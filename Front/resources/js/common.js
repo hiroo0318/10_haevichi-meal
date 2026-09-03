@@ -78,6 +78,10 @@ var DATE_MEAL_STATUS = {
 
 document.addEventListener('DOMContentLoaded', function(){
 
+  if(document.body.dataset.authVersion === 'v3' && new URLSearchParams(window.location.search).has('from')){
+    document.body.classList.add('is-v3-route-enter');
+  }
+
   /* -------------------------------------------------------
      PAGE: splash.html — 앱 실행 후 기본 진입
      실제 앱에서는 여기서 자동 로그인 세션을 확인해 유효하면 홈으로,
@@ -118,6 +122,27 @@ document.addEventListener('DOMContentLoaded', function(){
      ------------------------------------------------------- */
   var loginForm = document.getElementById('loginForm');
   if(loginForm){
+    if(document.body.dataset.authVersion === 'v3'){
+      var loginEmail = document.getElementById('email');
+      var loginPassword = document.getElementById('pw');
+      var loginSubmit = loginForm.querySelector('[type="submit"]');
+      var syncV3LoginState = function(){
+        var ready = loginEmail.value.trim().length > 0 && loginPassword.value.length > 0;
+        loginSubmit.disabled = !ready;
+        loginSubmit.classList.toggle('is-ready', ready);
+      };
+      syncV3LoginState();
+      loginEmail.addEventListener('input', syncV3LoginState);
+      loginPassword.addEventListener('input', syncV3LoginState);
+      var v3SignupLink = document.querySelector('.v3-card-footer a[href="signup-v3.html"]');
+      if(v3SignupLink){
+        v3SignupLink.addEventListener('click', function(event){
+          event.preventDefault();
+          document.body.classList.add('is-v3-route-leaving');
+          window.setTimeout(function(){ window.location.href = 'signup-v3.html?from=login'; }, 340);
+        });
+      }
+    }
     loginForm.addEventListener('submit', function(e){
       e.preventDefault();
       var pw = document.getElementById('pw').value;
@@ -157,10 +182,22 @@ document.addEventListener('DOMContentLoaded', function(){
         marker.classList.toggle('is-active', Number(marker.dataset.signupProgress) <= step);
       });
       signupBackLabel.textContent = step === 1 ? '로그인으로 돌아가기' : '이전 단계로 돌아가기';
+      if(signupForm.dataset.signupVersion === 'v3'){
+        var activeV3Step = signupForm.querySelector('[data-signup-step]:not([hidden])');
+        if(activeV3Step){
+          activeV3Step.classList.remove('is-v3-step-enter');
+          window.setTimeout(function(){ activeV3Step.classList.add('is-v3-step-enter'); }, 0);
+        }
+      }
     };
     signupBack.addEventListener('click', function(){
       if(signupStep === 1){
         var signupVersion = signupForm.dataset.signupVersion;
+        if(signupVersion === 'v3'){
+          document.body.classList.add('is-v3-route-leaving');
+          window.setTimeout(function(){ window.location.href = 'login-v3.html?from=signup'; }, 340);
+          return;
+        }
         window.location.href = signupVersion ? 'login-' + signupVersion + '.html' : 'login.html';
         return;
       }
