@@ -78,12 +78,30 @@ var DATE_MEAL_STATUS = {
 
 document.addEventListener('DOMContentLoaded', function(){
 
+  var animateV3SheetHeight = function(sheet, startHeight, endHeight){
+    if(!sheet) return;
+    sheet.style.minHeight = '0px';
+    sheet.style.height = startHeight + 'px';
+    window.requestAnimationFrame(function(){ sheet.style.height = endHeight + 'px'; });
+    window.setTimeout(function(){
+      sheet.style.height = '';
+      sheet.style.minHeight = '';
+    }, 650);
+  };
+
   var unifiedV3Auth = document.querySelector('.v3-unified-auth');
   if(unifiedV3Auth){
     var defaultV3Copy = unifiedV3Auth.querySelector('.v3-auth-hero-copy');
-    defaultV3Copy.querySelector('p').textContent = 'FOOD SERVICE';
-    defaultV3Copy.querySelector('h1').innerHTML = '오늘의 식사를<br>더 편리하게';
-    defaultV3Copy.querySelector('span').textContent = '식사 정보와 소통을 한곳에서 확인해 보세요.';
+    var changeV3HeroCopy = function(kicker, title, description){
+      defaultV3Copy.classList.add('is-v3-copy-changing');
+      window.setTimeout(function(){
+        defaultV3Copy.querySelector('p').textContent = kicker;
+        defaultV3Copy.querySelector('h1').innerHTML = title;
+        defaultV3Copy.querySelector('span').textContent = description;
+        defaultV3Copy.classList.remove('is-v3-copy-changing');
+      }, 160);
+    };
+    changeV3HeroCopy('FOOD SERVICE', '오늘의 식사를<br>더 편리하게', '식사 정보와 소통을 한곳에서 확인해 보세요.');
     window.setTimeout(function(){ unifiedV3Auth.classList.add('is-v3-login-revealed'); }, 1500);
     unifiedV3Auth.addEventListener('click', function(event){
       if(event.target.closest('input, button, a, label')) return;
@@ -149,11 +167,13 @@ document.addEventListener('DOMContentLoaded', function(){
           event.preventDefault();
           var v3UnifiedAuth = loginForm.closest('.v3-unified-auth');
           if(v3UnifiedAuth){
+            var v3LoginSheet = v3UnifiedAuth.querySelector('.v3-login-sheet');
+            var v3SignupSheet = v3UnifiedAuth.querySelector('.v3-signup-sheet');
+            animateV3SheetHeight(v3SignupSheet, v3LoginSheet.getBoundingClientRect().height, v3SignupSheet.scrollHeight);
             v3UnifiedAuth.classList.add('is-v3-signup-revealed');
-            var v3Copy = v3UnifiedAuth.querySelector('.v3-auth-hero-copy');
-            v3Copy.querySelector('p').textContent = 'JOIN FOOD SERVICE';
-            v3Copy.querySelector('h1').innerHTML = '서비스 이용을 위한<br>간단한 가입 절차';
-            v3Copy.querySelector('span').textContent = '사내 메일 인증 후 바로 이용할 수 있어요.';
+            v3UnifiedAuth.classList.add('is-v3-signup-entering');
+            window.setTimeout(function(){ v3UnifiedAuth.classList.remove('is-v3-signup-entering'); }, 720);
+            changeV3HeroCopy('JOIN FOOD SERVICE', '서비스 이용을 위한<br>간단한 가입 절차', '사내 메일 인증 후 바로 이용할 수 있어요.');
             return;
           }
         });
@@ -212,11 +232,13 @@ document.addEventListener('DOMContentLoaded', function(){
         if(signupVersion === 'v3'){
           var unifiedAuth = signupForm.closest('.v3-unified-auth');
           if(unifiedAuth){
+            var signupSheet = unifiedAuth.querySelector('.v3-signup-sheet');
+            var loginSheet = unifiedAuth.querySelector('.v3-login-sheet');
+            animateV3SheetHeight(loginSheet, signupSheet.getBoundingClientRect().height, loginSheet.scrollHeight);
             unifiedAuth.classList.remove('is-v3-signup-revealed');
-            var unifiedCopy = unifiedAuth.querySelector('.v3-auth-hero-copy');
-            unifiedCopy.querySelector('p').textContent = 'FOOD SERVICE';
-            unifiedCopy.querySelector('h1').innerHTML = '오늘의 식사를<br>더 편리하게';
-            unifiedCopy.querySelector('span').textContent = '식사 정보와 소통을 한곳에서 확인해 보세요.';
+            unifiedAuth.classList.add('is-v3-login-entering');
+            window.setTimeout(function(){ unifiedAuth.classList.remove('is-v3-login-entering'); }, 720);
+            changeV3HeroCopy('FOOD SERVICE', '오늘의 식사를<br>더 편리하게', '식사 정보와 소통을 한곳에서 확인해 보세요.');
             return;
           }
         }

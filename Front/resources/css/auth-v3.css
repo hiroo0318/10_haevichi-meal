@@ -18,20 +18,39 @@ body[data-auth-version="v3"] .auth-v3-content:not(.v3-splash){ animation:auth-v3
 .v3-unified-auth .v3-auth-hero-copy h1{ font-size:34px; }
 .v3-unified-auth .v3-auth-hero-copy span{ max-width:250px; }
 .v3-login-sheet{ position:absolute; right:16px; bottom:-500px; left:16px; z-index:3; flex:none; min-height:0; margin:0; padding-top:18px; transition:bottom 1.1s cubic-bezier(.22,1,.36,1),box-shadow .8s ease; }
-.v3-unified-auth .v3-login-sheet{ position:absolute; right:16px; bottom:-500px; left:16px; z-index:3; flex:none; min-height:0; margin:0; padding-top:18px; border:1px solid rgba(255,255,255,.66); border-radius:28px; background:rgba(255,255,255,.86); box-shadow:0 28px 68px rgba(5,25,13,.38),0 2px 0 rgba(255,255,255,.32) inset; backdrop-filter:blur(20px) saturate(1.12); -webkit-backdrop-filter:blur(20px) saturate(1.12); }
+.v3-unified-auth .v3-login-sheet{ position:absolute; right:16px; bottom:-500px; left:16px; z-index:3; flex:none; min-height:0; margin:0; padding-top:18px; border:1px solid rgba(255,255,255,.66); border-radius:28px; background:rgba(255,255,255,.86); box-shadow:0 28px 68px rgba(5,25,13,.38),0 2px 0 rgba(255,255,255,.32) inset; filter:blur(0); backdrop-filter:blur(20px) saturate(1.12); -webkit-backdrop-filter:blur(20px) saturate(1.12); transition:bottom 1.1s cubic-bezier(.22,1,.36,1),height .58s cubic-bezier(.22,1,.36,1),opacity .58s cubic-bezier(.22,1,.36,1),filter .42s ease,box-shadow .8s ease; }
 .v3-sheet-handle{ width:38px; height:4px; margin:0 auto 18px; border-radius:99px; background:#D5DDD5; }
 .v3-unified-auth .v3-login-sheet > h2,.v3-unified-auth .v3-login-sheet > h2 + p{ display:none; }
 .v3-unified-auth.is-v3-login-revealed .v3-login-sheet{ bottom:16px; box-shadow:0 28px 68px rgba(5,25,13,.38),0 2px 0 rgba(255,255,255,.32) inset; }
 .v3-unified-auth.is-v3-login-revealed .v3-login-sheet{ animation:v3-sheet-rise 1.08s cubic-bezier(.22,1,.36,1) both; }
 .v3-signup-sheet{ position:absolute; right:16px; bottom:-640px; left:16px; z-index:4; opacity:0; pointer-events:none; transition:bottom .72s cubic-bezier(.22,1,.36,1),opacity .35s ease; }
-.v3-unified-auth .v3-signup-sheet{ position:absolute; right:16px; bottom:-640px; left:16px; z-index:4; margin:0; padding-top:18px; border:1px solid rgba(255,255,255,.66); border-radius:28px; background:rgba(255,255,255,.86); box-shadow:0 28px 68px rgba(5,25,13,.38),0 2px 0 rgba(255,255,255,.32) inset; backdrop-filter:blur(20px) saturate(1.12); -webkit-backdrop-filter:blur(20px) saturate(1.12); }
-.v3-unified-auth.is-v3-signup-revealed .v3-login-sheet{ bottom:-500px; opacity:0; pointer-events:none; transform:translateY(24px) scale(.98); }
-.v3-unified-auth.is-v3-signup-revealed .v3-signup-sheet{ bottom:16px; opacity:1; pointer-events:auto; animation:v3-signup-sheet-in .72s cubic-bezier(.22,1,.36,1) both; }
+.v3-unified-auth .v3-signup-sheet{ position:absolute; right:16px; bottom:16px; left:16px; z-index:4; display:flex; flex-direction:column; min-height:568px; margin:0; padding-top:18px; border:1px solid rgba(255,255,255,.66); border-radius:28px; background:rgba(255,255,255,.86); box-shadow:0 28px 68px rgba(5,25,13,.38),0 2px 0 rgba(255,255,255,.32) inset; filter:blur(2px); opacity:0; pointer-events:none; transition:height .58s cubic-bezier(.22,1,.36,1),opacity .58s cubic-bezier(.22,1,.36,1),filter .42s ease; backdrop-filter:blur(20px) saturate(1.12); -webkit-backdrop-filter:blur(20px) saturate(1.12); }
+.v3-unified-auth .v3-signup-sheet form{ flex:1 1 auto; }
+.v3-unified-auth .v3-signup-sheet .v3-back{ margin-top:auto; }
+.v3-unified-auth.is-v3-signup-revealed .v3-login-sheet{ bottom:16px; filter:blur(2px); opacity:0; pointer-events:none; transform:none; }
+.v3-unified-auth.is-v3-signup-revealed .v3-signup-sheet{ bottom:16px; filter:blur(0); opacity:1; pointer-events:auto; transform:none; animation:none; }
 @keyframes v3-signup-sheet-in{ from{ opacity:0; transform:translateY(52px) scale(.98); } to{ opacity:1; transform:translateY(0) scale(1); } }
 .v3-unified-auth.is-v3-login-revealed .v3-auth-hero-copy{ top:112px; bottom:auto; transform:scale(.78); transform-origin:left top; }
 .v3-unified-auth.is-v3-login-revealed .auth-v3-brand{ top:34px; left:28px; transform:scale(.52); }
 .v3-unified-auth.is-v3-login-revealed .v3-auth-hero-copy{ opacity:1; transition:top .95s cubic-bezier(.22,1,.36,1),bottom .95s cubic-bezier(.22,1,.36,1),transform .95s cubic-bezier(.22,1,.36,1),opacity .55s ease .28s; }
 .v3-unified-auth.is-v3-login-revealed .v3-auth-hero-copy p{ margin-bottom:8px; }
+.v3-unified-auth .v3-auth-hero-copy.is-v3-copy-changing{ opacity:0; transition:opacity .2s ease; }
+@keyframes v3-form-content-rise{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:translateY(0); } }
+.v3-unified-auth.is-v3-signup-entering .v3-signup-sheet .v3-progress{ animation:v3-form-content-rise .42s cubic-bezier(.22,1,.36,1) both; }
+.v3-unified-auth.is-v3-signup-entering .v3-signup-sheet [data-signup-step]:not([hidden]) > *{ animation:v3-form-content-rise .46s cubic-bezier(.22,1,.36,1) both; }
+.v3-unified-auth.is-v3-signup-entering .v3-signup-sheet [data-signup-step]:not([hidden]) > :nth-child(1){ animation-delay:.06s; }
+.v3-unified-auth.is-v3-signup-entering .v3-signup-sheet [data-signup-step]:not([hidden]) > :nth-child(2){ animation-delay:.11s; }
+.v3-unified-auth.is-v3-signup-entering .v3-signup-sheet [data-signup-step]:not([hidden]) > :nth-child(3){ animation-delay:.16s; }
+.v3-unified-auth.is-v3-signup-entering .v3-signup-sheet [data-signup-step]:not([hidden]) > :nth-child(4){ animation-delay:.21s; }
+.v3-unified-auth.is-v3-signup-entering .v3-signup-sheet [data-signup-step]:not([hidden]) > :nth-child(5){ animation-delay:.26s; }
+.v3-unified-auth.is-v3-signup-entering .v3-signup-sheet .v3-back{ animation:v3-form-content-rise .42s cubic-bezier(.22,1,.36,1) .3s both; }
+.v3-unified-auth.is-v3-login-entering .v3-login-sheet form > *{ animation:v3-form-content-rise .44s cubic-bezier(.22,1,.36,1) both; }
+.v3-unified-auth.is-v3-login-entering .v3-login-sheet form > :nth-child(1){ animation-delay:.05s; }
+.v3-unified-auth.is-v3-login-entering .v3-login-sheet form > :nth-child(2){ animation-delay:.1s; }
+.v3-unified-auth.is-v3-login-entering .v3-login-sheet form > :nth-child(3){ animation-delay:.15s; }
+.v3-unified-auth.is-v3-login-entering .v3-login-sheet form > :nth-child(4){ animation-delay:.2s; }
+.v3-unified-auth.is-v3-login-entering .v3-login-sheet form > :nth-child(5){ animation-delay:.25s; }
+.v3-unified-auth.is-v3-login-entering .v3-login-sheet .v3-card-footer{ animation:v3-form-content-rise .44s cubic-bezier(.22,1,.36,1) .3s both; }
 @keyframes v3-sheet-rise{ from{ opacity:0; transform:translateY(72px) scale(.975); } to{ opacity:1; transform:translateY(0) scale(1); } }
 .v3-unified-auth::before{ content:""; position:absolute; z-index:2; width:74%; height:130px; right:13%; bottom:66px; border-radius:50%; background:rgba(11,29,18,.34); filter:blur(25px); transform:scale(.75); opacity:0; transition:transform .7s cubic-bezier(.22,1,.36,1),opacity .45s ease; pointer-events:none; }
 .v3-unified-auth.is-v3-login-revealed::before{ opacity:1; transform:scale(1); }
@@ -46,8 +65,8 @@ body[data-auth-version="v3"] .auth-v3-content:not(.v3-splash){ animation:auth-v3
 .v3-primary:active{ transform:scale(.98); }
 .v3-primary:disabled{ background:#B6C6B7; box-shadow:none; cursor:default; }
 .v3-primary.is-ready{ background:var(--v3-green); }
-.v3-step.is-v3-step-enter{ animation:v3-step-in .36s cubic-bezier(.22,1,.36,1) both; }
-@keyframes v3-step-in{ from{ opacity:0; transform:translateX(22px); } to{ opacity:1; transform:translateX(0); } }
+.v3-step.is-v3-step-enter{ animation:v3-step-in .32s ease both; }
+@keyframes v3-step-in{ from{ opacity:0; } to{ opacity:1; } }
 @media(prefers-reduced-motion:reduce){.v3-splash .auth-v3-photo,.v3-auth-hero > .auth-v3-photo,.v3-step.is-v3-step-enter{animation:none!important}}
 .v3-auth-hero{ min-height:330px !important; }
 .v3-signup-hero{ min-height:330px !important; }
