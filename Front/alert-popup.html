@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>일반 알럿 팝업 | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/theme-haevichi.css" id="themeLink">
+</head>
+<body>
+<!-- 개발 인계용 일반 알럿: 기본은 단일 확인형, ?type=double은 선택형을 노출한다. -->
+<div class="page alert-popup-page" id="alertPopupPage">
+  <header class="brand-topbar"><a class="brand-mark" href="home.html" aria-label="홈으로 이동"><b>FX</b><span>By Haevichi</span></a></header>
+  <main class="content alert-popup-backdrop" aria-hidden="true"></main>
+
+  <section class="app-alert" id="singleAlert" role="dialog" aria-modal="true" aria-labelledby="singleAlertTitle" hidden>
+    <div class="app-alert-card app-alert-card--success">
+      <span class="app-alert-symbol" aria-hidden="true">✓</span>
+      <h2 id="singleAlertTitle">의견이 접수되었습니다</h2>
+      <p>더 나은 식사 경험을 제공할 수 있도록 하겠습니다.</p>
+      <div class="app-alert-actions app-alert-actions--single">
+        <button type="button" class="app-alert-confirm" data-alert-close>확인</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="app-alert" id="doubleAlert" role="dialog" aria-modal="true" aria-labelledby="doubleAlertTitle" hidden>
+    <div class="app-alert-card">
+      <h2 id="doubleAlertTitle">작성 중인 내용이 있어요</h2>
+      <p>이전 화면으로 이동하면 작성한 의견이 저장되지 않습니다.</p>
+      <div class="app-alert-actions">
+        <button type="button" class="app-alert-cancel" data-alert-close>계속 작성</button>
+        <button type="button" class="app-alert-confirm" data-alert-close>나가기</button>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="resources/js/common.js"></script>
+</body>
+</html>

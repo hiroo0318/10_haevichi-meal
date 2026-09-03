@@ -167,16 +167,36 @@ body{
 .notice-popup-page{ background:var(--bg); }
 .notice-popup-page .home-notice-popup{ position:static; flex:1; padding:24px; background:transparent; }
 
-/* 주간 식단 — 전주/금주/차주 3주를 하나의 가로 스크롤로 이어서 탐색한다. */
-.week-strip{
-  flex:0 0 auto;
-  display:flex; gap:8px; padding:0 20px 20px;
-  overflow-x:auto; scroll-snap-type:x proximity; scrollbar-width:none; -ms-overflow-style:none;
+/* 공통 일반 알럿 — 완료 안내(버튼 1개)와 사용자 선택(버튼 2개) 모두 동일한 카드 구조를 사용한다. */
+.app-alert{ position:absolute; z-index:30; inset:0; display:flex; align-items:center; justify-content:center; padding:24px; background:rgba(24,30,35,.48); }
+.app-alert[hidden]{ display:none; }
+.app-alert-card{ width:100%; max-width:340px; padding:28px 24px 24px; border-radius:18px; background:#fff; box-shadow:0 18px 40px rgba(18,23,28,.22); text-align:center; }
+.app-alert-symbol{ display:grid; place-items:center; width:44px; height:44px; margin:0 auto 14px; border-radius:50%; background:var(--brand-primary-bg); color:var(--brand-primary); font-size:24px; font-weight:800; }
+.app-alert-card h2{ margin:0; color:var(--ink); font-size:19px; font-weight:800; letter-spacing:-.03em; }
+.app-alert-card p{ margin:10px 0 24px; color:var(--sub); font-size:13px; line-height:1.55; }
+.app-alert-actions{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.app-alert-actions--single{ grid-template-columns:1fr; }
+.app-alert-actions button{ min-height:48px; border-radius:10px; font-size:14px; font-weight:800; }
+.app-alert-cancel{ background:#F3F4F5; color:var(--sub); }
+.app-alert-confirm{ background:var(--brand-primary); color:#fff; }
+.app-alert-actions button:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
+.alert-popup-page{ background:#fff; }
+.alert-popup-backdrop{ background:#F5F6F7; }
+
+/* 주간 식단 — 전주/이번 주/차주를 먼저 선택하고 해당 주의 7일만 노출한다. */
+.week-navigation{ display:grid; grid-template-columns:repeat(3,1fr); gap:3px; margin:0 20px 10px; padding:3px; border-radius:var(--radius-sm); background:#F3F5F4; }
+.week-navigation-button{
+  min-height:30px; border-radius:8px; background:transparent; color:var(--faint);
+  font-size:12px; font-weight:700;
 }
-.week-strip::-webkit-scrollbar{ display:none; }
-.week-group{ display:contents; }
+.week-navigation-button.is-active{ background:#fff; color:var(--brand-primary); box-shadow:0 1px 3px rgba(20,25,30,.08); }
+.week-strip{
+  flex:0 0 auto; padding:0 20px 20px;
+}
+.week-group{ display:none; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; }
+.week-group.is-active{ display:grid; }
 .week-day{
-  flex:0 0 48px; padding:10px 0; scroll-snap-align:center;
+  min-width:0; padding:10px 0;
   display:flex; flex-direction:column; align-items:center; gap:5px;
   border-radius:var(--radius-md); background:#F5F6F8; color:var(--sub);
 }
@@ -497,10 +517,6 @@ body{
 .voc-tabs{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:24px; }
 .voc-tab{ min-height:44px; padding:13px 0; border-radius:var(--radius-sm); background:#F5F6F8; color:var(--sub); font-size:14px; font-weight:600; text-align:center; }
 .voc-tab.is-active{ background:var(--brand-primary); color:#fff; font-weight:700; }
-.voc-intro{ display:flex; align-items:center; gap:12px; padding:15px; margin-bottom:24px; border-radius:14px; background:var(--brand-primary-bg); }
-.voc-intro-icon{ width:34px; height:34px; flex:0 0 auto; display:grid; place-items:center; border-radius:11px; background:var(--brand-primary); color:#fff; font-size:16px; }
-.voc-intro strong{ display:block; color:var(--ink); font-size:14px; font-weight:800; }
-.voc-intro p{ margin:4px 0 0; color:var(--sub); font-size:12px; line-height:1.45; }
 .voc-form{ display:flex; flex-direction:column; gap:16px; }
 .voc-field{ display:flex; flex-direction:column; align-items:flex-start; gap:9px; }
 .voc-field > label,.voc-field legend{ padding:0; color:var(--ink); font-size:14px; font-weight:700; line-height:1.4; }
@@ -572,7 +588,7 @@ body{
 .notice-item:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
 .notice-detail-view{ padding:18px 20px 36px; }
 .notice-detail-heading{ padding:0 0 22px; border-bottom:1px solid var(--line); }
-.notice-detail-heading h2{ margin:11px 0 9px; font-size:21px; line-height:1.42; letter-spacing:-.025em; }
+.notice-detail-heading h1{ margin:11px 0 9px; font-size:21px; line-height:1.42; letter-spacing:-.025em; }
 .notice-detail-heading time{ color:var(--faint); font-size:12px; }
 .notice-detail-body{ padding:24px 0; color:#4C5661; font-size:14px; line-height:1.8; white-space:pre-line; }
 

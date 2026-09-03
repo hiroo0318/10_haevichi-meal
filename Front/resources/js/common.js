@@ -264,8 +264,8 @@ document.addEventListener('DOMContentLoaded', function(){
      PAGE: home.html — 주간 날짜 스트립 + 끼니 탭 + 코너 카드
      "식단" 탭 없이 홈 하나로 메뉴 열람이 끝나도록 통합했다.
      ------------------------------------------------------- */
-  // 전주/금주/차주 3주 데이터는 퍼블리싱 검토용 고정 마크업이며,
-  // 기본 위치는 금주의 선택 날짜가 보이는 지점이다.
+  // 전주/이번 주/차주 데이터는 퍼블리싱 검토용 고정 마크업이며,
+  // 주 선택 버튼으로 해당 주의 7일만 즉시 전환한다.
   var weekStrip = document.getElementById('weekStrip');
   if(weekStrip){
     var mealTabs = document.getElementById('mealTabs');
@@ -273,6 +273,18 @@ document.addEventListener('DOMContentLoaded', function(){
     var selectedDate = '9-2';
     var selectedMeal = 'lunch';
     var order = ['breakfast', 'lunch', 'dinner'];
+    var selectedDateByWeek = { current:'9-2' };
+
+    function selectWeek(week){
+      var group = weekStrip.querySelector('[data-week="' + week + '"]');
+      if(!group) return;
+      weekStrip.querySelectorAll('.week-group').forEach(function(item){ item.classList.toggle('is-active', item === group); });
+      document.querySelectorAll('[data-week-nav]').forEach(function(button){ button.classList.toggle('is-active', button.getAttribute('data-week-nav') === week); });
+      var activeDay = group.querySelector('[data-md="' + selectedDateByWeek[week] + '"]') || group.querySelector('.week-day');
+      weekStrip.querySelectorAll('.week-day').forEach(function(day){ day.classList.toggle('is-selected', day === activeDay); });
+      selectedDate = activeDay.dataset.md;
+      renderHome();
+    }
 
     function availableMealsForDate(date){
       var status = DATE_MEAL_STATUS[date];
@@ -284,7 +296,11 @@ document.addEventListener('DOMContentLoaded', function(){
       weekStrip.querySelectorAll('.week-day').forEach(function(d){ d.classList.remove('is-selected'); });
       day.classList.add('is-selected');
       selectedDate = day.dataset.md;
+      selectedDateByWeek[day.closest('.week-group').dataset.week] = selectedDate;
       renderHome();
+    });
+    document.querySelectorAll('[data-week-nav]').forEach(function(button){
+      button.addEventListener('click', function(){ selectWeek(button.getAttribute('data-week-nav')); });
     });
 
     function renderCorners(mealKey, isAvailable){
@@ -349,11 +365,6 @@ document.addEventListener('DOMContentLoaded', function(){
       mealTabs.appendChild(btn);
     });
 
-    window.requestAnimationFrame(function(){
-      var selectedDay = weekStrip.querySelector('.week-day.is-selected');
-      // 전주 마지막·차주 첫 날짜가 양 끝에 반 칸가량 보이도록 기준 위치를 보정한다.
-      weekStrip.scrollLeft = Math.max(0, selectedDay.offsetLeft - weekStrip.clientWidth / 2 + selectedDay.offsetWidth / 2 + 16);
-    });
     renderHome();
   }
 
@@ -482,8 +493,35 @@ document.addEventListener('DOMContentLoaded', function(){
     vocForm.addEventListener('submit', function(e){
       e.preventDefault();
       if(!document.getElementById('vocMessage').value.trim()){ document.getElementById('vocMessage').focus(); return; }
-      window.location.href = 'voc-list.html';
+      var vocSuccessAlert = document.getElementById('vocSuccessAlert');
+      if(vocSuccessAlert) vocSuccessAlert.hidden = false;
     });
+    var vocSuccessConfirm = document.getElementById('vocSuccessConfirm');
+    if(vocSuccessConfirm){
+      vocSuccessConfirm.addEventListener('click', function(){ window.location.href = 'voc-list.html'; });
+    }
+  }
+
+  /* -------------------------------------------------------
+     공통 일반 알럿 — data-alert-open / data-alert-close로 단일·선택형을 공통 제어
+     ------------------------------------------------------- */
+  document.querySelectorAll('[data-alert-open]').forEach(function(trigger){
+    trigger.addEventListener('click', function(){
+      var alert = document.getElementById(trigger.getAttribute('data-alert-open'));
+      if(alert) alert.hidden = false;
+    });
+  });
+  document.querySelectorAll('[data-alert-close]').forEach(function(button){
+    button.addEventListener('click', function(){
+      var alert = button.closest('.app-alert');
+      if(alert) alert.hidden = true;
+    });
+  });
+  var alertPopupPage = document.getElementById('alertPopupPage');
+  if(alertPopupPage){
+    var isDoubleAlert = new URLSearchParams(location.search).get('type') === 'double';
+    document.getElementById('singleAlert').hidden = isDoubleAlert;
+    document.getElementById('doubleAlert').hidden = !isDoubleAlert;
   }
 
   /* -------------------------------------------------------
@@ -508,38 +546,34 @@ document.addEventListener('DOMContentLoaded', function(){
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !imageModal.hidden) closeImageModal(); });
   }
 
-  /* PAGE: notice.html — 목록 / 상세 화면 전환 */
-  var noticeListView = document.getElementById('noticeListView');
-  if(noticeListView){
-    var noticeDetailView = document.getElementById('noticeDetailView');
-    var noticeDetailTitle = document.getElementById('noticeDetailTitle');
-    var noticeDetailDate = document.getElementById('noticeDetailDate');
-    var noticeDetailBody = document.getElementById('noticeDetailBody');
-    var noticeDetailTag = document.getElementById('noticeDetailTag');
-    var noticeBrandHeader = document.getElementById('noticeBrandHeader');
-    var noticeDetailHeader = document.getElementById('noticeDetailHeader');
-    var noticeDetailClose = document.getElementById('noticeDetailClose');
-    var showNoticeList = function(){
-      noticeDetailView.hidden = true;
-      noticeListView.hidden = false;
-      noticeDetailHeader.hidden = true;
-      noticeBrandHeader.hidden = false;
+  /* PAGE: notice-detail.html — URL의 공지 ID로 독립 상세 화면을 렌더링 */
+  var noticeDetailPage = document.getElementById('noticeDetailPage');
+  if(noticeDetailPage){
+    var noticeItems = {
+      'service-start': {
+        title:'[안내] 10월 6일부터 새 급식정보 서비스가 시작됩니다', date:'2026.09.01', pinned:true,
+        content:'10월 6일부터 기존 급식정보 제공 서비스가 종료되고, 새로운 급식정보 서비스가 시작됩니다.\n\n새 서비스에서는 날짜와 식사 구분을 선택해 오늘의 식단을 빠르게 확인할 수 있습니다.\n\n가입은 사내 메일 주소 인증만으로 가능하며, 별도의 사번 등록 절차는 없습니다. 이용에 참고 부탁드립니다.'
+      },
+      'login-method': {
+        title:'로그인 방식 변경 안내', date:'2026.08.24',
+        content:'보다 간편하고 안전한 서비스 이용을 위해 로그인 방식이 사내 메일 주소 인증 방식으로 변경됩니다.\n\n이용 중인 사내 메일 주소로 인증을 완료한 뒤 서비스를 이용해 주세요.'
+      },
+      'hygiene-check': {
+        title:'8월 여름철 위생점검 결과 공유', date:'2026.08.05',
+        content:'8월 여름철 위생점검을 완료했습니다.\n\n식당 내 위생 관리와 식재료 보관 상태를 점검했으며, 앞으로도 안전한 식사를 제공할 수 있도록 지속적으로 관리하겠습니다.'
+      }
     };
-    noticeListView.querySelectorAll('[data-notice-title]').forEach(function(item){
-      item.addEventListener('click', function(){
-        noticeDetailTitle.textContent = item.dataset.noticeTitle;
-        noticeDetailDate.textContent = item.dataset.noticeDate;
-        noticeDetailDate.dateTime = item.dataset.noticeDate.replace(/\./g, '-');
-        noticeDetailBody.textContent = item.dataset.noticeContent;
-        noticeDetailTag.hidden = item.dataset.noticePinned !== 'true';
-        noticeListView.hidden = true;
-        noticeDetailView.hidden = false;
-        noticeBrandHeader.hidden = true;
-        noticeDetailHeader.hidden = false;
-        document.querySelector('.notice-content').scrollTop = 0;
-      });
-    });
-    noticeDetailClose.addEventListener('click', showNoticeList);
+    var noticeId = new URLSearchParams(location.search).get('id') || 'service-start';
+    var notice = noticeItems[noticeId] || noticeItems['service-start'];
+    var noticeTitle = document.getElementById('noticeDetailTitle');
+    var noticeDate = document.getElementById('noticeDetailDate');
+    var noticeBody = document.getElementById('noticeDetailBody');
+    var noticeTag = document.getElementById('noticeDetailTag');
+    noticeTitle.textContent = notice.title;
+    noticeDate.textContent = notice.date;
+    noticeDate.dateTime = notice.date.replace(/\./g, '-');
+    noticeBody.textContent = notice.content;
+    noticeTag.hidden = !notice.pinned;
   }
 
 });

@@ -16,12 +16,13 @@ splash.html → login.html → home.html
 home.html
 ├─ menu-detail.html
 ├─ voc.html / voc-list.html
-├─ notice.html
+├─ notice.html / notice-detail.html
 ├─ my.html 및 하위 설정 화면
-└─ notice-popup.html (홈 최초 진입 전체 공지 팝업 UI)
+├─ notice-popup.html (홈 최초 진입 전체 공지 팝업 UI)
+└─ alert-popup.html (공통 일반 알럿 UI)
 ```
 
-`notice-popup.html`은 팝업 UI를 검토하기 위한 독립 HTML입니다. 실제 서비스에서는 공지 데이터의 노출 조건에 따라 홈 화면 위에 같은 구조로 오버레이합니다.
+`notice-popup.html`과 `alert-popup.html`은 팝업 UI를 검토하기 위한 독립 HTML입니다. 실제 서비스에서는 공지 데이터나 사용자 동작에 따라 홈 또는 현재 화면 위에 같은 구조로 오버레이합니다.
 
 ## 파일 구조
 
@@ -32,9 +33,11 @@ Front/
 ├─ signup.html                회원가입 3단계
 ├─ home.html                  홈 / 식단 통합 조회
 ├─ notice-popup.html          홈 최초 진입 전체 공지 팝업 UI
+├─ alert-popup.html           공통 일반 알럿 팝업 UI (확인형 / 선택형)
 ├─ menu-detail.html           식단 상세
 ├─ voc.html / voc-list.html   나의 의견 접수 / 내역
-├─ notice.html                공지 목록 / 상세
+├─ notice.html                공지 목록
+├─ notice-detail.html         공지 상세 (독립 2뎁스 URL)
 ├─ my.html                    My 메인
 ├─ my-password.html           비밀번호 변경
 ├─ my-policy.html             약관·개인정보처리방침 목록
