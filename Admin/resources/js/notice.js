@@ -24,10 +24,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const deleteBtn = document.getElementById('noticeDeleteBtn');
   const submitBtn = document.getElementById('noticeSubmitBtn');
   const countBadge = document.querySelector('.panel-title .accent');
+  const scopeAllInput = document.getElementById('noticeScopeAll');
+  const scopeSiteInput = document.getElementById('noticeScopeSite');
+  const scopeSitesBlock = document.getElementById('noticeScopeSites');
+  const scopeSitesError = document.getElementById('noticeScopeSitesError');
+  const siteCheckboxes = () => [...scopeSitesBlock.querySelectorAll('.noticeSiteCheckbox')];
 
   let editingRow = null;
 
   const toDot = (isoDate) => isoDate ? isoDate.slice(5).replace('-', '.') : '';
+
+  // 노출 대상(전체/특정 사업장) — 전체 선택 시 사업장 체크박스는 비활성화만 하고 영역은 계속 보여준다.
+  const syncScope = () => {
+    const specific = scopeSiteInput.checked;
+    siteCheckboxes().forEach((cb) => { cb.disabled = !specific; });
+    scopeSitesBlock.classList.toggle('is-disabled', !specific);
+    if (!specific && scopeSitesError) { scopeSitesError.hidden = true; }
+  };
+  scopeAllInput.addEventListener('change', syncScope);
+  scopeSiteInput.addEventListener('change', syncScope);
 
   const updateCount = () => {
     if (countBadge) countBadge.textContent = table.querySelectorAll('tbody > tr.notice-row').length + '건';
@@ -45,6 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
     popupInput.dispatchEvent(new Event('change'));
     popupStartInput.value = '';
     popupEndInput.value = '';
+    scopeAllInput.checked = true;
+    siteCheckboxes().forEach((cb) => { cb.checked = false; });
+    syncScope();
     deleteBtn.hidden = true;
     submitBtn.textContent = '등록';
     modal.classList.add('show');
@@ -63,6 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
     popupInput.dispatchEvent(new Event('change'));
     popupStartInput.value = row.dataset.popupStart || '';
     popupEndInput.value = row.dataset.popupEnd || '';
+    const scopeSites = (row.dataset.scopeSites || '').split(',').filter(Boolean);
+    const isSiteScope = row.dataset.scope === 'sites';
+    scopeAllInput.checked = !isSiteScope;
+    scopeSiteInput.checked = isSiteScope;
+    siteCheckboxes().forEach((cb) => { cb.checked = scopeSites.includes(cb.value); });
+    syncScope();
     deleteBtn.hidden = false;
     submitBtn.textContent = '저장';
     modal.classList.add('show');
@@ -98,9 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const buildRowHTML = (data) => {
     const status = data.end && data.end < '2026-09-08' ? '종료' : '노출중';
     const badgeClass = status === '노출중' ? 'done' : 'muted';
+    const scopeLabel = data.scope === 'sites' ? data.scopeSites.join(', ') : '전체';
     return `
       <td class="notice-title">${data.title}</td>
       <td>${toDot(data.start)} ~ ${toDot(data.end)}</td>
+      <td>${scopeLabel}</td>
       <td>${data.pinned ? 'Y' : 'N'}</td>
       <td>${data.popup ? 'Y' : 'N'}</td>
       <td><span class="badge ${badgeClass}">${status}</span></td>
@@ -112,6 +138,12 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('제목과 내용을 입력해주세요.');
       return;
     }
+    const scopeSites = siteCheckboxes().filter((cb) => cb.checked).map((cb) => cb.value);
+    if (scopeSiteInput.checked && scopeSites.length === 0) {
+      scopeSitesError.textContent = '노출할 사업장을 1개 이상 선택해주세요.';
+      scopeSitesError.hidden = false;
+      return;
+    }
     const data = {
       title: titleInput.value.trim(),
       content: contentInput.value.trim(),
@@ -121,6 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
       popup: popupInput.checked,
       popupStart: popupInput.checked ? popupStartInput.value : '',
       popupEnd: popupInput.checked ? popupEndInput.value : '',
+      scope: scopeSiteInput.checked ? 'sites' : 'all',
+      scopeSites: scopeSiteInput.checked ? scopeSites : [],
     };
 
     if (editingRow) {
@@ -132,6 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
       editingRow.dataset.popup = String(data.popup);
       editingRow.dataset.popupStart = data.popupStart;
       editingRow.dataset.popupEnd = data.popupEnd;
+      editingRow.dataset.scope = data.scope;
+      editingRow.dataset.scopeSites = data.scopeSites.join(',');
       editingRow.innerHTML = buildRowHTML(data);
       showToast('공지가 저장되었습니다.');
     } else {
@@ -147,6 +183,8 @@ document.addEventListener('DOMContentLoaded', () => {
       row.dataset.popup = String(data.popup);
       row.dataset.popupStart = data.popupStart;
       row.dataset.popupEnd = data.popupEnd;
+      row.dataset.scope = data.scope;
+      row.dataset.scopeSites = data.scopeSites.join(',');
       row.innerHTML = buildRowHTML(data);
       row.addEventListener('click', () => openEditModal(row));
       row.addEventListener('keydown', (event) => {

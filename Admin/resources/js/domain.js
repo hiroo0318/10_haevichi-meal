@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // 도메인 추가 모달
   const modal = document.getElementById('domainModal');
   const newBtn = document.getElementById('domain-new');
-  const siteSelect = document.getElementById('domainSiteSelect');
   const domainInput = document.getElementById('domainInput');
   const domainInputError = document.getElementById('domainInputError');
   const subdomainInput = document.getElementById('domainSubdomainInput');
@@ -33,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const openModal = () => {
-    siteSelect.value = '본사';
     domainInput.value = '';
     setFieldError(domainInput, domainInputError, '');
     subdomainInput.checked = false;
@@ -70,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const row = document.createElement('tr');
     row.dataset.page = '1';
     row.innerHTML = `
-      <td>${siteSelect.value}</td>
       <td>${value}</td>
       <td><span class="badge ${subdomainInput.checked ? 'done' : 'muted'}">${subdomainInput.checked ? '허용' : '미허용'}</span></td>
       <td>${todayDash()}</td>
@@ -91,9 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const openDeleteConfirm = (row) => {
     pendingRow = row;
-    const site = row.children[0].textContent.trim();
-    const domain = row.children[1].textContent.trim();
-    deleteDesc.textContent = site + ' · ' + domain + ' 도메인을 삭제하면 해당 도메인으로 신규 가입이 즉시 차단됩니다. 기존 가입자 계정은 유지됩니다.';
+    const domain = row.children[0].textContent.trim();
+    deleteDesc.textContent = domain + ' 도메인을 삭제하면 해당 도메인으로 신규 가입이 즉시 차단됩니다. 기존 가입자 계정은 유지됩니다.';
     deleteModal.classList.add('show');
     deleteModal.setAttribute('aria-hidden', 'false');
   };
@@ -109,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   deleteOk.addEventListener('click', () => {
     if (!pendingRow) return;
-    const domain = pendingRow.children[1].textContent.trim();
+    const domain = pendingRow.children[0].textContent.trim();
     pendingRow.remove();
     updateCount();
     closeDeleteConfirm();

@@ -11,7 +11,7 @@
   <header class="topbar">
     <a class="brand" href="dashboard.html"><span class="brand-mark">H</span>해비치 급식 App <em>관리자</em></a>
     <div class="profile">
-      <button type="button" class="scope-trigger" id="scopeTrigger" aria-haspopup="dialog"><span id="scopeLabel">현대캐피탈 · 본사</span><span class="scope-caret" aria-hidden="true">▾</span></button>
+      <button type="button" class="scope-trigger" id="scopeTrigger" aria-haspopup="dialog"><span id="scopeLabel">현대캐피탈</span><span class="scope-caret" aria-hidden="true">▾</span></button>
       <span class="avatar">정H</span><strong>정혜림 관리자</strong>
     </div>
   </header>
@@ -28,9 +28,17 @@
     </div>
     <div class="nav-section"><span class="nav-label">환경 설정</span>
       <a class="nav-link active" href="domain.html"><span class="nav-icon">@</span>인증 도메인 설정</a>
-      <a class="nav-link" href="#" data-demo="계정 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">◌</span>계정 관리</a>
-      <a class="nav-link" href="#" data-demo="사업장·테마 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">◇</span>사업장·테마 관리</a>
-      <a class="nav-link" href="#" data-demo="관리자 계정·권한 화면은 다음 작업에서 연결합니다."><span class="nav-icon">♙</span>관리자 계정·권한</a>
+      <div class="nav-parent"><span class="nav-icon">◌</span>계정 관리</div>
+      <div class="nav-sub">
+        <a class="nav-sub-link" href="account.html">계정 관리</a>
+        <a class="nav-sub-link" href="withdrawal.html">탈퇴 사유 통계</a>
+      </div>
+      <div class="nav-parent"><span class="nav-icon">◇</span>사업장·테마 관리</div>
+      <div class="nav-sub">
+        <a class="nav-sub-link" href="site.html">사업장 관리</a>
+        <a class="nav-sub-link" href="theme.html">테마 관리</a>
+      </div>
+      <a class="nav-link" href="#" data-demo="운영자 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">♙</span>운영자 관리</a>
     </div>
   </nav></aside>
   <main class="admin-shell"><div class="content">
@@ -43,20 +51,16 @@
 
     <section class="panel">
       <div class="panel-head">
-        <div><h2 class="panel-title">등록 도메인 <span class="accent" id="domainCount">3건</span></h2></div>
+        <div><h2 class="panel-title">등록 도메인 <span class="accent" id="domainCount">2건</span></h2></div>
         <div class="panel-head-right"><button type="button" class="action-button primary" id="domain-new">＋ 도메인 추가</button></div>
       </div>
-      <div class="table-wrap"><table class="table domain-table"><thead><tr><th>사업장</th><th>허용 도메인</th><th>서브도메인 허용</th><th>등록일</th><th></th></tr></thead><tbody>
+      <div class="table-wrap"><table class="table domain-table"><thead><tr><th>허용 도메인</th><th>서브도메인 허용</th><th>등록일</th><th></th></tr></thead><tbody>
         <tr data-page="1">
-          <td>본사</td><td>hyundaicapital.com</td><td><span class="badge muted">미허용</span></td><td>2026-08-01</td>
+          <td>hyundaicapital.com</td><td><span class="badge muted">미허용</span></td><td>2026-08-01</td>
           <td><button class="btn outline" type="button" data-domain-delete>삭제</button></td>
         </tr>
         <tr data-page="1">
-          <td>여의도</td><td>hyundaicapital.com</td><td><span class="badge muted">미허용</span></td><td>2026-08-01</td>
-          <td><button class="btn outline" type="button" data-domain-delete>삭제</button></td>
-        </tr>
-        <tr data-page="1">
-          <td>홍대</td><td>hyundaicapital.com</td><td><span class="badge done">허용</span></td><td>2026-08-01</td>
+          <td>hcs.hyundaicapital.com</td><td><span class="badge done">허용</span></td><td>2026-08-20</td>
           <td><button class="btn outline" type="button" data-domain-delete>삭제</button></td>
         </tr>
       </tbody></table></div>
@@ -78,13 +82,6 @@
       <button type="button" class="lightbox-close" data-domain-modal-close aria-label="닫기">✕</button>
       <h3 class="voc-modal-answer-title" style="margin-bottom:16px">도메인 추가</h3>
       <div class="notice-form">
-        <label class="notice-field">사업장
-          <select class="field" id="domainSiteSelect">
-            <option>본사</option>
-            <option>여의도</option>
-            <option>홍대</option>
-          </select>
-        </label>
         <label class="notice-field">허용 도메인
           <input class="field" type="text" id="domainInput" placeholder="예: hyundaicapital.com">
           <span class="field-error" id="domainInputError" hidden></span>
@@ -115,12 +112,10 @@
 
   <div class="scope-modal" id="scopeModal" aria-hidden="true">
     <div class="scope-modal-backdrop" data-scope-close></div>
-    <div class="scope-modal-body" role="dialog" aria-modal="true" aria-label="조회 사업장 변경">
-      <h2 class="scope-modal-title">조회 범위 변경</h2>
+    <div class="scope-modal-body" role="dialog" aria-modal="true" aria-label="조회 기업 변경">
+      <h2 class="scope-modal-title">조회 기업 변경</h2>
       <label class="scope-modal-label" for="scopeCompany">기업</label>
       <select class="field scope-modal-field" id="scopeCompany"><option value="현대캐피탈">현대캐피탈</option></select>
-      <span class="scope-modal-label">사업장</span>
-      <div class="scope-modal-list" id="scopeSiteList" role="radiogroup" aria-label="사업장 선택"></div>
       <div class="scope-modal-actions">
         <button type="button" class="btn outline" data-scope-close>취소</button>
         <button type="button" class="btn primary" id="scopeConfirm">변경</button>

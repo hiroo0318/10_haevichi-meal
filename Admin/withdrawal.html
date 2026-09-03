@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>해비치 급식 App 관리자 - 코너 관리</title>
+  <title>해비치 급식 App 관리자 - 탈퇴 사유 통계</title>
   <link rel="stylesheet" href="resources/css/reset.css">
   <link rel="stylesheet" href="resources/css/admin.css">
 </head>
@@ -21,7 +21,7 @@
       <div class="nav-parent"><span class="nav-icon">▤</span>식단 관리</div>
       <div class="nav-sub">
         <a class="nav-sub-link" href="menu.html">주간 식단 관리</a>
-        <a class="nav-sub-link active" href="menu-corners.html">코너 관리</a>
+        <a class="nav-sub-link" href="menu-corners.html">코너 관리</a>
       </div>
       <a class="nav-link" href="voc.html"><span class="nav-icon">◉</span>고객의견</a>
       <a class="nav-link" href="notice.html"><span class="nav-icon">▣</span>공지 관리</a>
@@ -31,7 +31,7 @@
       <div class="nav-parent"><span class="nav-icon">◌</span>계정 관리</div>
       <div class="nav-sub">
         <a class="nav-sub-link" href="account.html">계정 관리</a>
-        <a class="nav-sub-link" href="withdrawal.html">탈퇴 사유 통계</a>
+        <a class="nav-sub-link active" href="withdrawal.html">탈퇴 사유 통계</a>
       </div>
       <div class="nav-parent"><span class="nav-icon">◇</span>사업장·테마 관리</div>
       <div class="nav-sub">
@@ -42,48 +42,19 @@
     </div>
   </nav></aside>
   <main class="admin-shell"><div class="content">
-    <section class="page-head"><div><h1>코너 관리</h1></div></section>
-    <div class="menu-toolbar">
-      <select class="field" aria-label="사업장 선택" style="margin-right:16px"><option>본사</option><option>여의도</option><option>홍대</option></select>
-      <label class="switch-row">
-        <span class="switch"><input type="checkbox" id="corner-use-toggle" checked><span class="switch-track" aria-hidden="true"></span></span>
-        코너 사용
-      </label>
-    </div>
+    <section class="page-head"><div><h1>탈퇴 사유 통계</h1></div></section>
+
     <section class="panel">
-      <div class="panel-head"><div><h2 class="panel-title">코너 목록</h2><p class="panel-sub">사업장별로 5개 슬롯(코너A~코너E)이 기본 제공되며, 코너명을 수정한 뒤 저장을 눌러주세요.</p></div></div>
-      <div class="table-wrap"><table class="table corner-table"><thead><tr><th>순서</th><th>코너명</th><th>최근 수정일</th></tr></thead><tbody>
-        <tr data-corner-row>
-          <td>1</td>
-          <td><input class="field corner-input" type="text" value="코너A" maxlength="10" aria-label="코너 1 이름"></td>
-          <td>2026.08.28</td>
-        </tr>
-        <tr data-corner-row>
-          <td>2</td>
-          <td><input class="field corner-input" type="text" value="코너B" maxlength="10" aria-label="코너 2 이름"></td>
-          <td>2026.08.28</td>
-        </tr>
-        <tr data-corner-row>
-          <td>3</td>
-          <td><input class="field corner-input" type="text" value="코너C" maxlength="10" aria-label="코너 3 이름"></td>
-          <td>-</td>
-        </tr>
-        <tr data-corner-row>
-          <td>4</td>
-          <td><input class="field corner-input" type="text" value="코너D" maxlength="10" aria-label="코너 4 이름"></td>
-          <td>-</td>
-        </tr>
-        <tr data-corner-row>
-          <td>5</td>
-          <td><input class="field corner-input" type="text" value="코너E" maxlength="10" aria-label="코너 5 이름"></td>
-          <td>-</td>
-        </tr>
+      <div class="panel-head"><div><h2 class="panel-title">탈퇴 사유</h2><p class="panel-sub">임직원 자진 탈퇴 시 선택한 사유와 기타 입력 건수를 집계합니다. 관리자의 강제 탈퇴 처리는 집계에 포함하지 않습니다.</p></div></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>사유</th><th>건수</th><th>비율</th></tr></thead><tbody>
+        <tr><td>이용 빈도가 낮아요</td><td>8</td><td>44%</td></tr>
+        <tr><td>메뉴 정보가 부족해요</td><td>5</td><td>28%</td></tr>
+        <tr><td>서비스가 불편해요</td><td>3</td><td>17%</td></tr>
+        <tr><td>기타</td><td>2</td><td>11%</td></tr>
       </tbody></table></div>
-      <div class="corner-actions">
-        <button class="action-button primary" type="button" id="corner-save">저장</button>
-      </div>
     </section>
   </div></main>
+
   <div class="scope-modal" id="scopeModal" aria-hidden="true">
     <div class="scope-modal-backdrop" data-scope-close></div>
     <div class="scope-modal-body" role="dialog" aria-modal="true" aria-label="조회 기업 변경">
@@ -98,6 +69,5 @@
   </div>
   <div class="toast" role="status">✓ <span></span></div>
   <script src="resources/js/admin-common.js"></script>
-  <script src="resources/js/menu-corners.js"></script>
 </body>
 </html>
