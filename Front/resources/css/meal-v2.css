@@ -9,3 +9,4 @@
 .meal-v2-detail-intro .meal-v2-detail-menu li{padding:3px 0;font-size:12px;line-height:1.45}
 .meal-v2-detail-intro .meal-v2-detail-menu li b{font-size:11px}
 .meal-v2-detail-intro + .meal-v2-nutrients{border-top:0;padding-top:24px}
+.meal-v2-detail-content{background:var(--v2-surface)}
