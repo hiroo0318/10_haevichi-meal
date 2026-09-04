@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>오늘의 식사 V2 A | 해비치 Food Service</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/meal-v2.css">
+</head>
+<body class="meal-v2-body meal-v2-layout-a">
+<div class="meal-v2-app">
+  <header class="meal-v2-brand"><img src="resources/images/brand/haevichi-food-service.svg" alt="HAEVICHI FOOD SERVICE"></header>
+  <main class="meal-v2-content">
+    <h1>오늘의 식사</h1>
+    <nav class="meal-v2-week" aria-label="주간 식단 선택"><button type="button" data-week="previous">지난주</button><button type="button" data-week="current" class="is-active">이번 주</button><button type="button" data-week="next">다음 주</button></nav>
+    <div class="meal-v2-dates" id="mealV2Dates" aria-label="날짜 선택"></div>
+    <a class="meal-v2-notice" href="notice-detail.html?id=service-start"><span aria-hidden="true">⌁</span><span>10월 6일부터 새 급식정보 서비스가 시작됩니다.</span><b aria-hidden="true">›</b></a>
+    <div id="mealV2Sections"></div>
+  </main>
+  <nav class="meal-v2-tabbar" aria-label="주요 메뉴"><a class="is-active" href="home-v2-a.html"><span class="v2-icon" style="--icon:url('../images/icon/ic-home.svg')"></span>홈</a><a href="voc.html"><span class="v2-icon" style="--icon:url('../images/icon/ic-voc.svg')"></span>나의 의견</a><a href="notice.html"><span class="v2-icon" style="--icon:url('../images/icon/ic-notice.svg')"></span>공지</a><a href="my.html"><span class="v2-icon" style="--icon:url('../images/icon/ic-my.svg')"></span>My</a></nav>
+</div>
+<script src="resources/js/meal-v2.js"></script>
+</body>
+</html>
