@@ -70,6 +70,47 @@
 }());
 
 /* =========================================================
+   서비스 화면 2 — My 및 설정
+   기존 서비스 화면 1의 비밀번호 변경·개인정보 버전·탈퇴 데모 흐름을
+   service-v2 전용 ID로 분리한다.
+   ========================================================= */
+(function () {
+  'use strict';
+  document.querySelectorAll('a[href="../../my.html"]').forEach(function (link) { link.setAttribute('href', '../my/my.html'); });
+  var logout = document.querySelector('[data-v2-logout]');
+  if (logout) logout.addEventListener('click', function () { location.href = '../../login.html'; });
+
+  var passwordForm = document.getElementById('serviceV2PasswordForm');
+  if (passwordForm) {
+    var current = document.getElementById('serviceV2CurrentPassword');
+    var currentError = document.getElementById('serviceV2CurrentPasswordError');
+    var next = document.getElementById('serviceV2NewPassword');
+    var confirm = document.getElementById('serviceV2NewPasswordConfirm');
+    var lengthError = document.getElementById('serviceV2NewPasswordLengthError');
+    var matchError = document.getElementById('serviceV2NewPasswordError');
+    var changeStep = function (step) { passwordForm.querySelectorAll('[data-v2-password-step]').forEach(function (panel) { panel.hidden = Number(panel.dataset.v2PasswordStep) !== step; }); };
+    passwordForm.querySelector('[data-v2-password-verify]').addEventListener('click', function () { currentError.hidden = Boolean(current.value); if (!current.value) { current.focus(); return; } changeStep(2); next.focus(); });
+    passwordForm.querySelector('[data-v2-password-back]').addEventListener('click', function () { changeStep(1); });
+    passwordForm.addEventListener('submit', function (event) { event.preventDefault(); var validLength = next.value.length >= 8; var matches = next.value === confirm.value; lengthError.hidden = validLength; matchError.hidden = matches; if (!validLength) { next.focus(); return; } if (!matches) { confirm.focus(); return; } location.href = 'my.html'; });
+  }
+
+  var privacy = document.getElementById('serviceV2PrivacyVersion');
+  if (privacy) privacy.addEventListener('change', function () { document.querySelectorAll('[data-v2-privacy-version]').forEach(function (section) { section.hidden = section.dataset.v2PrivacyVersion !== privacy.value; }); });
+
+  var withdrawForm = document.getElementById('serviceV2WithdrawForm');
+  if (withdrawForm) {
+    var withdrawPassword = document.getElementById('serviceV2WithdrawPassword');
+    var withdrawPasswordError = document.getElementById('serviceV2WithdrawPasswordError');
+    var reason = document.getElementById('serviceV2WithdrawReason');
+    var other = document.getElementById('serviceV2WithdrawOther');
+    var agree = document.getElementById('serviceV2WithdrawAgree');
+    var agreeError = document.getElementById('serviceV2WithdrawAgreeError');
+    reason.addEventListener('change', function () { other.hidden = reason.value !== 'other'; if (other.hidden) other.value = ''; });
+    withdrawForm.addEventListener('submit', function (event) { event.preventDefault(); withdrawPasswordError.hidden = Boolean(withdrawPassword.value); agreeError.hidden = agree.checked; if (!withdrawPassword.value) { withdrawPassword.focus(); return; } if (!agree.checked) { agree.focus(); return; } location.href = '../../login.html'; });
+  }
+}());
+
+/* =========================================================
    서비스 화면 2 — 나의 의견
    기존 서비스 화면 1의 접수·첨부·내역 기능과 동일한 데모 동작을
    service-v2 화면 전용 선택자로 분리한다.
