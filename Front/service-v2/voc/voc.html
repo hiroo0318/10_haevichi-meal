@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>의견 접수 | 해비치 Food Service</title>
+  <link rel="stylesheet" href="../../resources/css/reset.css">
+  <link rel="stylesheet" href="../../resources/css/theme-haevichi.css">
+  <link rel="stylesheet" href="../../resources/css/service-v2.css">
+</head>
+<body class="meal-v2-body">
+  <div class="meal-v2-app service-v2-voc-app">
+    <header class="meal-v2-brand"><img src="../../resources/images/brand/haevichi-food-service.svg" alt="HAEVICHI FOOD SERVICE"></header>
+    <main class="meal-v2-content service-v2-voc-content">
+      <p class="service-v2-eyebrow">YOUR VOICE</p>
+      <h1>의견을 들려주세요</h1>
+      <nav class="service-v2-voc-tabs" aria-label="나의 의견 메뉴"><a class="is-active" aria-current="page" href="voc.html">접수</a><a href="voc-list.html">내역</a></nav>
+      <form class="service-v2-voc-form" id="vocForm">
+        <fieldset class="service-v2-voc-field"><legend>어떤 의견인가요?</legend><div class="service-v2-voc-category-list" id="vocCategoryList"><button type="button" class="is-active" data-voc-category="맛/메뉴">맛/메뉴</button><button type="button" data-voc-category="위생">위생</button><button type="button" data-voc-category="서비스/친절도">서비스</button><button type="button" data-voc-category="시설/환경">시설/환경</button><button type="button" data-voc-category="APP 사용 경험">앱 사용</button><button type="button" data-voc-category="제안">제안</button><button type="button" data-voc-category="기타">기타</button></div><select id="vocType" class="service-v2-sr-only" required><option>맛/메뉴</option><option>위생</option><option>서비스/친절도</option><option>시설/환경</option><option>APP 사용 경험</option><option>제안</option><option>기타</option></select></fieldset>
+        <div class="service-v2-voc-field"><label for="vocMessage">의견을 들려주세요 <em>필수</em></label><textarea id="vocMessage" maxlength="500" placeholder="불편사항이나 제안을 입력해주세요&#10;&#10;메뉴명이나 상황을 함께 알려주시면 더 빠르게 확인할 수 있어요." required></textarea><div class="service-v2-voc-meta"><p>급식 메뉴 또는 서비스 이용에 대한 의견을 남겨주세요.</p><span id="vocCharCount">0 / 500</span></div></div>
+        <div class="service-v2-voc-field"><label for="vocFiles">사진을 함께 보낼까요? <small>선택 · 최대 3장</small></label><input id="vocFiles" class="service-v2-sr-only" type="file" accept="image/*" multiple><div class="service-v2-voc-upload-list" id="vocPreviewList"><label class="service-v2-voc-upload" for="vocFiles"><b>＋</b><span>사진 추가</span></label></div><p class="service-v2-voc-file-count" id="vocFileCount">사진을 첨부하면 더 정확하게 확인할 수 있어요.</p></div>
+        <div class="service-v2-voc-submit"><p>제출 후 내역에서 처리 상태를 확인할 수 있어요.</p><button type="submit">의견 제출하기</button></div>
+      </form>
+    </main>
+    <section class="service-v2-alert" id="vocSuccessAlert" role="dialog" aria-modal="true" aria-labelledby="vocSuccessTitle" hidden><div><span aria-hidden="true">✓</span><h2 id="vocSuccessTitle">의견이 접수되었습니다</h2><p>더 나은 식사 경험을 제공할 수 있도록 하겠습니다.</p><button type="button" id="vocSuccessConfirm">확인</button></div></section>
+    <nav class="meal-v2-tabbar" aria-label="주요 메뉴"><a href="../meal/home-b.html"><span class="v2-icon" style="--icon:url('../../resources/images/icon/ic-home.svg')"></span>홈</a><a class="is-active" href="voc.html"><span class="v2-icon" style="--icon:url('../../resources/images/icon/ic-voc.svg')"></span>나의 의견</a><a href="../notice/notice.html"><span class="v2-icon" style="--icon:url('../../resources/images/icon/ic-notice.svg')"></span>공지</a><a href="../../my.html"><span class="v2-icon" style="--icon:url('../../resources/images/icon/ic-my.svg')"></span>My</a></nav>
+  </div>
+  <script src="../../resources/js/service-v2.js"></script>
+</body>
+</html>

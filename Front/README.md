@@ -49,7 +49,10 @@ Front/
    ├─ css/style.css
    ├─ css/theme-hyundaicapital.css
    ├─ css/theme-haevichi.css
+   ├─ css/service-v2.css
+   ├─ js/auth.js
    ├─ js/common.js
+   ├─ js/service-v2.js
    └─ images/
 ```
 
@@ -80,6 +83,8 @@ Front/
 ### 정적 퍼블리싱 처리
 
 - `resources/js/common.js`의 `MEALS`, `DATE_MEAL_STATUS`, 공지·의견 데이터는 화면 검토용 샘플입니다.
+- 인증 V1·V2·V3의 스플래시·로그인·회원가입·비밀번호 재설정 인터랙션은 `resources/js/auth.js`에만 둡니다. 파일 내부에서 V1·V2·V3 구간을 주석으로 구분합니다.
+- 서비스 화면 2의 식단 인터랙션은 `resources/js/service-v2.js`, 전용 스타일은 `resources/css/service-v2.css`만 사용합니다. 기존 `style.css`, `common.js`를 사용하지 않습니다.
 - `window.location.href` 기반 페이지 이동은 데모용이며, 실제 라우팅으로 교체합니다.
 - 로그인, 회원가입, 비밀번호 변경, 회원 탈퇴의 입력 검증은 UI 검토용입니다. 실제 인증·검증은 서버 로직으로 처리합니다.
 - `notice-popup.html`의 `오늘 하루 보지 않기`는 UI만 구현되어 있습니다. 홈 진입 시 팝업 노출과 당일 미노출 처리는 서비스의 공지 데이터 및 저장 정책으로 연결합니다.
