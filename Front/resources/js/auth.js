@@ -13,15 +13,35 @@ document.addEventListener('DOMContentLoaded', function(){
   /* =======================================================
      V3 — 통합 스플래시와 플로팅 로그인·회원가입 시트
      ======================================================= */
-  var animateV3SheetHeight = function(sheet, startHeight, endHeight){
+  /* 회원가입 시트는 단계 전체에서 같은 높이를 사용한다.
+     로그인 높이에서 보간하면 전환 중 form 내부 스크롤바가 잠시 생기므로 높이를 애니메이션하지 않는다. */
+  var animateV3SheetHeight = function(sheet){
     if(!sheet) return;
-    sheet.style.minHeight = '0px';
-    sheet.style.height = startHeight + 'px';
-    window.requestAnimationFrame(function(){ sheet.style.height = endHeight + 'px'; });
-    window.setTimeout(function(){
-      sheet.style.height = '';
-      sheet.style.minHeight = '';
-    }, 650);
+    sheet.style.height = '';
+    sheet.style.minHeight = '';
+  };
+  var v3ToastTimer;
+  var v3ToastHideTimer;
+  var showV3Toast = function(message){
+    if(document.body.dataset.authVersion !== 'v3') return;
+    var toast = document.getElementById('authV3Toast');
+    if(!toast){
+      toast = document.createElement('p');
+      toast.id = 'authV3Toast';
+      toast.className = 'auth-v3-toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      document.body.appendChild(toast);
+    }
+    window.clearTimeout(v3ToastTimer);
+    window.clearTimeout(v3ToastHideTimer);
+    toast.textContent = message;
+    toast.hidden = false;
+    window.requestAnimationFrame(function(){ toast.classList.add('is-open'); });
+    v3ToastTimer = window.setTimeout(function(){
+      toast.classList.remove('is-open');
+      v3ToastHideTimer = window.setTimeout(function(){ toast.hidden = true; }, 220);
+    }, 2600);
   };
 
   var unifiedV3Auth = document.querySelector('.v3-unified-auth');
@@ -111,11 +131,20 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     loginForm.addEventListener('submit', function(e){
       e.preventDefault();
+      if(document.body.dataset.authVersion === 'v3' && !/^\S+@\S+\.\S+$/.test(loginEmail.value.trim())){
+        showV3Toast('이메일 주소 형식을 확인해주세요.');
+        loginEmail.focus();
+        return;
+      }
       var pw = document.getElementById('pw').value;
       var err = document.getElementById('loginErr');
-      if(pw === '0000'){ err.hidden = false; return; }
+      if(pw === '0000'){
+        if(document.body.dataset.authVersion === 'v3') showV3Toast('이메일 또는 비밀번호를 확인해주세요.');
+        else err.hidden = false;
+        return;
+      }
       err.hidden = true;
-      window.location.href = 'home.html';
+      window.location.href = document.body.dataset.authVersion === 'v3' ? 'service-v2/meal/home-b.html' : 'home.html';
     });
   }
 
@@ -136,6 +165,42 @@ document.addEventListener('DOMContentLoaded', function(){
     var signupPasswordConfirm = document.getElementById('signupPasswordConfirm');
     var signupPasswordLengthError = document.getElementById('signupPasswordLengthError');
     var signupPasswordError = document.getElementById('signupPasswordError');
+    var signupAffiliation = document.getElementById('signupAffiliation');
+    var signupGender = document.getElementById('signupGender');
+    var signupAgeGroup = document.getElementById('signupAgeGroup');
+    var signupPosition = document.getElementById('signupPosition');
+    var signupPrivacyConsent = document.getElementById('signupPrivacyConsent');
+    var signupProfileError = document.getElementById('signupProfileError');
+    var signupEmailConsent;
+    var v3ConsentLayer = document.getElementById('privacyConsentLayer');
+    var v3ConsentContent = {
+      email: { title: '개인정보 수집 및 이용 동의', intro: '회원가입과 사내 메일 인증을 위해 아래 정보를 수집·이용합니다.', items: '사내 이메일 주소', purpose: '로그인 ID 관리, 회원 식별 및 이메일 인증', retention: '회원 탈퇴 시까지. 관계 법령에 따라 보관이 필요한 정보는 해당 기간까지 보관합니다.' },
+      profile: { title: '개인정보 수집 및 이용 동의', intro: '회원 정보 관리와 급식 서비스 운영을 위해 아래 정보를 수집·이용합니다.', items: '소속 구분, 직급, 성별, 연령대', purpose: '회원 정보 관리 및 급식 서비스 운영', retention: '회원 탈퇴 시까지. 관계 법령에 따라 보관이 필요한 정보는 해당 기간까지 보관합니다.' }
+    };
+    var showV3Consent = function(type){
+      if(!v3ConsentLayer || !v3ConsentContent[type]) return;
+      var content = v3ConsentContent[type];
+      v3ConsentLayer.querySelector('#privacyConsentTitle').textContent = content.title;
+      v3ConsentLayer.querySelector('.auth-common-layer__body').innerHTML = '<p>' + content.intro + '</p><dl><dt>수집 항목</dt><dd>' + content.items + '</dd><dt>이용 목적</dt><dd>' + content.purpose + '</dd><dt>보유 기간</dt><dd>' + content.retention + '</dd></dl><p class="auth-common-layer__notice">동의를 거부할 수 있으나, 필수 정보 수집 및 이용에 동의하지 않으면 회원가입이 제한됩니다.</p>';
+      v3ConsentLayer.classList.add('is-open');
+      v3ConsentLayer.setAttribute('aria-hidden', 'false');
+    };
+    if(signupForm.dataset.signupVersion === 'v3'){
+      signupEmailError.insertAdjacentHTML('afterend', '<label class="v3-consent v3-email-consent"><input id="signupEmailConsent" type="checkbox" required><span>개인정보 수집 및 이용에 동의합니다. <b>(필수)</b></span><button type="button" data-open-consent="email">전문 보기</button></label><p class="v3-message is-error" id="signupEmailConsentError" hidden>개인정보 수집 및 이용 동의가 필요합니다.</p>');
+      signupEmailConsent = document.getElementById('signupEmailConsent');
+      signupGender.required = true;
+      signupGender.options[0].text = '선택해주세요';
+      var signupGenderOptional = signupGender.closest('.v3-field').querySelector('em');
+      if(signupGenderOptional) signupGenderOptional.remove();
+      signupForm.querySelector('[data-signup-step="3"] .v3-description').textContent = '서비스 제공을 위해 필요한 정보예요.';
+      var profileConsentLabel = signupPrivacyConsent.closest('.v3-consent');
+      profileConsentLabel.querySelector('span').innerHTML = '개인정보 수집 및 이용에 동의합니다. <b>(필수)</b>';
+      profileConsentLabel.querySelector('button').setAttribute('data-open-consent', 'profile');
+      profileConsentLabel.querySelector('button').removeAttribute('data-open-layer');
+      document.querySelectorAll('[data-open-consent]').forEach(function(control){
+        control.addEventListener('click', function(){ showV3Consent(control.dataset.openConsent); });
+      });
+    }
     var signupBack = document.getElementById('signupBack');
     var signupBackLabel = document.getElementById('signupBackLabel');
     var signupStep = 1;
@@ -181,7 +246,19 @@ document.addEventListener('DOMContentLoaded', function(){
       var email = signupEmail.value.trim();
       var isAllowed = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && !/^test/i.test(email) && !/@(gmail|naver|daum)\./i.test(email);
       signupEmailError.hidden = isAllowed;
-      if(!isAllowed){ signupEmail.focus(); return; }
+      if(!isAllowed){
+        if(signupForm.dataset.signupVersion === 'v3') showV3Toast('허용되지 않은 메일 도메인입니다.');
+        signupEmail.focus();
+        return;
+      }
+      if(signupEmailConsent && !signupEmailConsent.checked){
+        document.getElementById('signupEmailConsentError').hidden = false;
+        if(signupForm.dataset.signupVersion === 'v3') showV3Toast('개인정보 수집 및 이용 동의가 필요합니다.');
+        signupEmailConsent.focus();
+        return;
+      }
+      var emailConsentError = document.getElementById('signupEmailConsentError');
+      if(emailConsentError) emailConsentError.hidden = true;
       signupEmailDisplay.textContent = email;
       changeSignupStep(2);
       signupCode.focus();
@@ -195,9 +272,38 @@ document.addEventListener('DOMContentLoaded', function(){
     signupForm.querySelector('[data-signup-next="verify"]').addEventListener('click', function(){
       var isValidCode = /^\d{6}$/.test(signupCode.value.trim());
       signupCodeError.hidden = isValidCode;
-      if(!isValidCode){ signupCode.focus(); return; }
+      if(!isValidCode){
+        if(signupForm.dataset.signupVersion === 'v3') showV3Toast('인증번호를 다시 확인해주세요.');
+        signupCode.focus();
+        return;
+      }
       changeSignupStep(3);
-      signupPassword.focus();
+      if(signupForm.dataset.signupVersion !== 'v3') signupPassword.focus();
+    });
+    var signupProfileNext = signupForm.querySelector('[data-signup-next="profile"]');
+    if(signupProfileNext){
+      signupProfileNext.addEventListener('click', function(){
+        var isProfileComplete = signupAffiliation.value && signupGender.value && signupAgeGroup.value && signupPosition.value && signupPrivacyConsent.checked;
+        signupProfileError.hidden = Boolean(isProfileComplete);
+        if(!isProfileComplete){
+          if(signupForm.dataset.signupVersion === 'v3') showV3Toast('필수 정보를 모두 입력하고 동의해주세요.');
+          var firstEmpty = !signupAffiliation.value ? signupAffiliation : (!signupGender.value ? signupGender : (!signupAgeGroup.value ? signupAgeGroup : (!signupPosition.value ? signupPosition : signupPrivacyConsent)));
+          firstEmpty.focus();
+          return;
+        }
+        changeSignupStep(4);
+        signupPassword.focus();
+      });
+    }
+    document.querySelectorAll('[data-open-layer], [data-close-layer]').forEach(function(control){
+      control.addEventListener('click', function(){
+        var layerName = control.dataset.openLayer;
+        var layer = layerName ? document.querySelector('[data-layer="' + layerName + '"]') : control.closest('.auth-common-layer');
+        if(!layer) return;
+        var isOpening = Boolean(layerName);
+        layer.classList.toggle('is-open', isOpening);
+        layer.setAttribute('aria-hidden', String(!isOpening));
+      });
     });
     signupForm.addEventListener('submit', function(e){
       e.preventDefault();
@@ -205,9 +311,17 @@ document.addEventListener('DOMContentLoaded', function(){
       var isMatching = hasValidLength && signupPassword.value === signupPasswordConfirm.value;
       signupPasswordLengthError.hidden = hasValidLength;
       signupPasswordError.hidden = isMatching;
-      if(!hasValidLength){ signupPassword.focus(); return; }
-      if(!isMatching){ signupPasswordConfirm.focus(); return; }
-      window.location.href = 'home.html';
+      if(!hasValidLength){
+        if(signupForm.dataset.signupVersion === 'v3') showV3Toast('비밀번호를 8자 이상 입력해주세요.');
+        signupPassword.focus();
+        return;
+      }
+      if(!isMatching){
+        if(signupForm.dataset.signupVersion === 'v3') showV3Toast('비밀번호가 일치하지 않습니다.');
+        signupPasswordConfirm.focus();
+        return;
+      }
+      window.location.href = signupForm.dataset.signupVersion === 'v3' ? 'service-v2/meal/home-b.html' : 'home.html';
     });
   }
 

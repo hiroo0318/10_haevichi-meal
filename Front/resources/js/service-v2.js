@@ -15,6 +15,8 @@
   var selectedDay = 3;
   var query = function (key) { return new URLSearchParams(location.search).get(key); };
   var escapeHtml = function (value) { return String(value).replace(/[&<>'"]/g, function (char) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]; }); };
+  /* 코너는 선택적 운영 정보다. 사용하지 않는 식단은 card.corner를 false로 설정한다. */
+  var cornerLabel = function (card) { return card.corner === false ? '' : '코너 ' + escapeHtml(card.id.toUpperCase()); };
 
   function renderDates() {
     var root = document.getElementById('mealV2Dates');
@@ -30,7 +32,8 @@
     root.innerHTML = Object.keys(meals).map(function (key) {
       var meal = meals[key];
       var cards = meal.cards.map(function (card) {
-        return '<a class="meal-v2-photo-card" href="menu-detail.html?meal=' + key + '&corner=' + card.id + '"><img src="' + card.photo + '" alt="' + escapeHtml(card.name) + '"><span class="meal-v2-photo-copy"><small>코너 ' + card.id.toUpperCase() + '</small><strong>' + escapeHtml(card.name) + '</strong></span></a>';
+        var corner = cornerLabel(card);
+        return '<a class="meal-v2-photo-card" href="menu-detail.html?meal=' + key + '&corner=' + card.id + '"><img src="' + card.photo + '" alt="' + escapeHtml(card.name) + '"><span class="meal-v2-photo-copy"><strong>' + escapeHtml(card.name) + '</strong>' + (corner ? '<small>' + corner + '</small>' : '') + '</span></a>';
       }).join('');
       return '<section class="meal-v2-meal-section"><div class="meal-v2-section-title"><h2>' + meal.label + '</h2><span>' + meal.time + '</span></div><div class="meal-v2-photo-grid meal-v2-photo-grid--' + meal.cards.length + '">' + cards + '</div></section>';
     }).join('');
@@ -44,7 +47,8 @@
     var id = query('corner') || meal.cards[0].id;
     var card = meal.cards.filter(function (item) { return item.id === id; })[0] || meal.cards[0];
     var detailItems = card.items.map(function (item) { return '<li><span>' + escapeHtml(item[0]) + '</span><b>' + item[1] + 'kcal</b></li>'; }).join('');
-    root.innerHTML = '<article class="meal-v2-detail-sheet"><img class="meal-v2-detail-photo" src="' + card.photo + '" alt="' + escapeHtml(card.name) + '"><div class="meal-v2-detail-body"><div class="meal-v2-detail-intro"><div class="meal-v2-detail-title"><p>코너 ' + card.id.toUpperCase() + ' · ' + card.type + '</p><h2>' + escapeHtml(card.name) + '</h2></div><section class="meal-v2-detail-menu"><ul>' + detailItems + '</ul></section></div><section class="meal-v2-nutrients"><h3>영양소 정보</h3><div><span><small>열량</small><b>' + card.macro.total + 'kcal</b></span><span><small>탄수화물</small><b>' + card.macro.carb + 'g</b></span><span><small>단백질</small><b>' + card.macro.protein + 'g</b></span><span><small>지방</small><b>' + card.macro.fat + 'g</b></span><span><small>나트륨</small><b>' + card.macro.sodium + 'mg</b></span></div></section><a class="meal-v2-opinion" href="../voc/voc.html?meal=' + key + '&corner=' + card.id + '">의견 쓰기</a></div></article>';
+    var detailMeta = [cornerLabel(card), card.type].filter(Boolean).join(' · ');
+    root.innerHTML = '<article class="meal-v2-detail-sheet"><img class="meal-v2-detail-photo" src="' + card.photo + '" alt="' + escapeHtml(card.name) + '"><div class="meal-v2-detail-body"><div class="meal-v2-detail-intro"><div class="meal-v2-detail-title"><h2>' + escapeHtml(card.name) + '</h2>' + (detailMeta ? '<p>' + detailMeta + '</p>' : '') + '</div><section class="meal-v2-detail-menu"><ul>' + detailItems + '</ul></section></div><section class="meal-v2-nutrients"><h3>영양소 정보</h3><div><span><small>열량</small><b>' + card.macro.total + 'kcal</b></span><span><small>탄수화물</small><b>' + card.macro.carb + 'g</b></span><span><small>단백질</small><b>' + card.macro.protein + 'g</b></span><span><small>지방</small><b>' + card.macro.fat + 'g</b></span><span><small>나트륨</small><b>' + card.macro.sodium + 'mg</b></span></div></section><a class="meal-v2-opinion" href="../voc/voc.html?meal=' + key + '&corner=' + card.id + '">의견 쓰기</a></div></article>';
   }
 
   var notice = document.getElementById('mealV2Notice');
@@ -78,7 +82,7 @@
   'use strict';
   document.querySelectorAll('a[href="../../my.html"]').forEach(function (link) { link.setAttribute('href', '../my/my.html'); });
   var logout = document.querySelector('[data-v2-logout]');
-  if (logout) logout.addEventListener('click', function () { location.href = '../../login.html'; });
+  if (logout) logout.addEventListener('click', function () { location.href = '../../splash-v3.html'; });
 
   var passwordForm = document.getElementById('serviceV2PasswordForm');
   if (passwordForm) {

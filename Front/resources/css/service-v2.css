@@ -99,7 +99,7 @@ body.meal-v2-body { background: #e9ece8; color: var(--v2-ink); }
 .meal-v2-detail-photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
 .meal-v2-detail-body { padding: 0 20px 30px; }
 .meal-v2-detail-intro { display: grid; grid-template-columns: minmax(112px, .78fr) minmax(0, 1.22fr); gap: 22px; padding: 24px 0 22px; }
-.meal-v2-detail-title p { margin: 0 0 8px; color: var(--v2-primary); font-size: 13px; font-weight: 700; }
+.meal-v2-detail-title p { margin: 8px 0 0; color: var(--v2-primary); font-size: 13px; font-weight: 700; }
 .meal-v2-detail-title h2 { margin: 0; font-size: 22px; line-height: 1.24; letter-spacing: -.055em; }
 .meal-v2-detail-menu ul { margin: 0; padding: 0; list-style: none; }
 .meal-v2-detail-menu li { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; font-size: 12px; line-height: 1.45; }
