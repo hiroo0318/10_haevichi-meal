@@ -145,7 +145,11 @@
     var files = document.getElementById('vocFiles');
     var previewList = document.getElementById('vocPreviewList');
     var fileCount = document.getElementById('vocFileCount');
+    var messageError = document.getElementById('vocMessageError');
+    var fileError = document.getElementById('vocFileError');
     var attachedPhotos = [];
+    var maxPhotoSize = 3 * 1024 * 1024;
+    var maxTotalPhotoSize = 10 * 1024 * 1024;
 
     categoryList.addEventListener('click', function (event) {
       var button = event.target.closest('[data-voc-category]');
@@ -153,7 +157,7 @@
       categoryList.querySelectorAll('[data-voc-category]').forEach(function (item) { item.classList.toggle('is-active', item === button); });
       type.value = button.dataset.vocCategory;
     });
-    message.addEventListener('input', function () { charCount.textContent = message.value.length + ' / 500'; });
+    message.addEventListener('input', function () { charCount.textContent = message.value.length + ' / 500'; if (message.value.trim()) messageError.hidden = true; });
 
     function escapeHtml(value) { return String(value).replace(/[&<>"']/g, function (char) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]; }); }
     function syncFiles() {
@@ -161,7 +165,13 @@
       attachedPhotos.forEach(function (photo) { transfer.items.add(photo.file); });
       files.files = transfer.files;
     }
-    function renderPreviews(notice) {
+    function showFileError(notice) {
+      fileError.querySelector('span').textContent = notice;
+      fileError.hidden = false;
+    }
+    function clearFileError() { fileError.hidden = true; }
+    function totalPhotoSize() { return attachedPhotos.reduce(function (total, photo) { return total + photo.file.size; }, 0); }
+    function renderPreviews() {
       previewList.innerHTML = '';
       attachedPhotos.forEach(function (photo, index) {
         var preview = document.createElement('div');
@@ -175,29 +185,44 @@
         add.htmlFor = 'vocFiles';
         add.innerHTML = '<b>＋</b><span>사진 추가</span>';
         previewList.appendChild(add);
+      } else {
+        var limit = document.createElement('button');
+        limit.type = 'button';
+        limit.className = 'service-v2-voc-upload is-limit';
+        limit.setAttribute('data-photo-limit', '');
+        limit.innerHTML = '<b>3</b><span>최대 첨부</span>';
+        previewList.appendChild(limit);
       }
-      fileCount.textContent = notice || (attachedPhotos.length ? attachedPhotos.length + '장의 사진이 첨부되었습니다.' : '사진을 첨부하면 더 정확하게 확인할 수 있어요.');
+      fileCount.textContent = attachedPhotos.length ? attachedPhotos.length + ' / 3장 첨부됨 · ' + (totalPhotoSize() / 1024 / 1024).toFixed(1) + 'MB / 10MB' : 'JPG, PNG · 장당 최대 3MB · 최대 3장 · 총 10MB';
       syncFiles();
     }
     files.addEventListener('change', function () {
       var selected = Array.prototype.slice.call(files.files);
-      if (selected.some(function (file) { return !file.type.match(/^image\//); })) { renderPreviews('이미지 파일만 첨부할 수 있습니다.'); return; }
+      if (!selected.length) return;
+      if (selected.some(function (file) { return file.type !== 'image/jpeg' && file.type !== 'image/png'; })) { showFileError('JPG 또는 PNG 파일만 첨부할 수 있습니다.'); files.value = ''; return; }
+      if (selected.some(function (file) { return file.size > maxPhotoSize; })) { showFileError('사진은 장당 최대 3MB까지 첨부할 수 있습니다.'); files.value = ''; return; }
+      if (totalPhotoSize() + selected.reduce(function (total, file) { return total + file.size; }, 0) > maxTotalPhotoSize) { showFileError('사진 총 용량은 최대 10MB까지 첨부할 수 있습니다.'); files.value = ''; return; }
       var originalLength = selected.length;
       selected = selected.slice(0, Math.max(0, 3 - attachedPhotos.length));
       selected.forEach(function (file) { attachedPhotos.push({ file: file, url: URL.createObjectURL(file) }); });
-      renderPreviews(selected.length < originalLength ? '사진은 최대 3장까지 첨부할 수 있습니다.' : '');
+      if (selected.length < originalLength) showFileError('사진은 최대 3장까지 첨부할 수 있습니다.');
+      else clearFileError();
+      renderPreviews();
     });
     previewList.addEventListener('click', function (event) {
+      if (event.target.closest('[data-photo-limit]')) { showFileError('사진은 최대 3장까지 첨부할 수 있습니다.'); return; }
       var remove = event.target.closest('[data-photo-index]');
       if (!remove) return;
       var index = Number(remove.dataset.photoIndex);
       URL.revokeObjectURL(attachedPhotos[index].url);
       attachedPhotos.splice(index, 1);
+      clearFileError();
       renderPreviews();
     });
     form.addEventListener('submit', function (event) {
       event.preventDefault();
-      if (!message.value.trim()) { message.focus(); return; }
+      if (!message.value.trim()) { messageError.hidden = false; message.focus(); return; }
+      messageError.hidden = true;
       document.getElementById('vocSuccessAlert').hidden = false;
     });
     document.getElementById('vocSuccessConfirm').addEventListener('click', function () { window.location.href = 'voc-list.html'; });
