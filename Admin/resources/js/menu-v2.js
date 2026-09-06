@@ -29,38 +29,38 @@ document.addEventListener('DOMContentLoaded', () => {
   const DATA = {
     '2026-09-07': {
       조식: [
-        { name: '된장국 정식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '된장국', kcal: 120 }, { name: '계란말이', kcal: 150 }, { name: '시금치나물', kcal: 40 }], nutrition: { carb: 180, protein: 70, fat: 40, sodium: 1050, kcal: 540 }, origin: '된장(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
-        { name: '계란볶음밥', composition: [{ name: '계란볶음밥', kcal: 380 }, { name: '채소볶음', kcal: 60 }], nutrition: { carb: 130, protein: 45, fat: 55, sodium: 780, kcal: 470 }, origin: '-', allergy: '계란', image: null, exposed: false },
+        { name: '된장국 정식', corner: '한식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '된장국', kcal: 120 }, { name: '계란말이', kcal: 150 }, { name: '시금치나물', kcal: 40 }], nutrition: { carb: 180, protein: 70, fat: 40, sodium: 1050, kcal: 540 }, origin: '된장(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
+        { name: '계란볶음밥', corner: '', composition: [{ name: '계란볶음밥', kcal: 380 }, { name: '채소볶음', kcal: 60 }], nutrition: { carb: 130, protein: 45, fat: 55, sodium: 780, kcal: 470 }, origin: '-', allergy: '계란', image: null, exposed: false },
       ],
       중식: [
-        { name: '제육볶음 정식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '제육볶음', kcal: 280 }, { name: '계란찜', kcal: 120 }], nutrition: { carb: 210, protein: 120, fat: 90, sodium: 1480, kcal: 890 }, origin: '돼지고기(국내산)', allergy: '대두 · 돼지고기', image: 'resources/images/menu/jeyuk-bokkeum-photo.png', exposed: true },
+        { name: '제육볶음 정식', corner: '일품', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '제육볶음', kcal: 280 }, { name: '계란찜', kcal: 120 }], nutrition: { carb: 210, protein: 120, fat: 90, sodium: 1480, kcal: 890 }, origin: '돼지고기(국내산)', allergy: '대두 · 돼지고기', image: 'resources/images/menu/jeyuk-bokkeum-photo.png', exposed: true },
       ],
       석식: [
-        { name: '순두부찌개 정식', composition: [{ name: '흰쌀밥', kcal: 300 }, { name: '순두부찌개', kcal: 210 }], nutrition: { carb: 185, protein: 95, fat: 80, sodium: 1390, kcal: 710 }, origin: '대두(국내산)', allergy: '대두', image: null, exposed: false },
+        { name: '순두부찌개 정식', corner: '한식', composition: [{ name: '흰쌀밥', kcal: 300 }, { name: '순두부찌개', kcal: 210 }], nutrition: { carb: 185, protein: 95, fat: 80, sodium: 1390, kcal: 710 }, origin: '대두(국내산)', allergy: '대두', image: null, exposed: false },
       ],
     },
     '2026-09-08': {
       조식: [
-        { name: '된장국 정식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '된장국', kcal: 120 }], nutrition: { carb: 180, protein: 70, fat: 40, sodium: 1050, kcal: 540 }, origin: '된장(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
+        { name: '된장국 정식', corner: '한식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '된장국', kcal: 120 }], nutrition: { carb: 180, protein: 70, fat: 40, sodium: 1050, kcal: 540 }, origin: '된장(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
       ],
       중식: [],
       석식: [
-        { name: '순두부찌개 정식', composition: [{ name: '흰쌀밥', kcal: 300 }, { name: '순두부찌개', kcal: 210 }], nutrition: { carb: 185, protein: 95, fat: 80, sodium: 1390, kcal: 710 }, origin: '대두(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: false },
+        { name: '순두부찌개 정식', corner: '한식', composition: [{ name: '흰쌀밥', kcal: 300 }, { name: '순두부찌개', kcal: 210 }], nutrition: { carb: 185, protein: 95, fat: 80, sodium: 1390, kcal: 710 }, origin: '대두(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: false },
       ],
     },
     '2026-09-09': {
       조식: [
-        { name: '된장국 정식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '된장국', kcal: 120 }], nutrition: { carb: 180, protein: 70, fat: 40, sodium: 1050, kcal: 540 }, origin: '된장(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
-        { name: '계란볶음밥', composition: [{ name: '계란볶음밥', kcal: 380 }], nutrition: { carb: 130, protein: 45, fat: 55, sodium: 780, kcal: 470 }, origin: '-', allergy: '계란', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
-        { name: '북엇국 정식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '북엇국', kcal: 110 }], nutrition: { carb: 170, protein: 65, fat: 35, sodium: 980, kcal: 500 }, origin: '황태(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
-        { name: '누룽지백숙', composition: [{ name: '누룽지백숙', kcal: 450 }], nutrition: { carb: 90, protein: 80, fat: 30, sodium: 900, kcal: 450 }, origin: '닭고기(국내산)', allergy: '-', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
-        { name: '토스트 세트', composition: [{ name: '토스트', kcal: 320 }, { name: '우유', kcal: 120 }], nutrition: { carb: 120, protein: 30, fat: 60, sodium: 620, kcal: 440 }, origin: '-', allergy: '우유·밀', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
+        { name: '된장국 정식', corner: '한식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '된장국', kcal: 120 }], nutrition: { carb: 180, protein: 70, fat: 40, sodium: 1050, kcal: 540 }, origin: '된장(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
+        { name: '계란볶음밥', corner: '', composition: [{ name: '계란볶음밥', kcal: 380 }], nutrition: { carb: 130, protein: 45, fat: 55, sodium: 780, kcal: 470 }, origin: '-', allergy: '계란', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
+        { name: '북엇국 정식', corner: '한식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '북엇국', kcal: 110 }], nutrition: { carb: 170, protein: 65, fat: 35, sodium: 980, kcal: 500 }, origin: '황태(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
+        { name: '누룽지백숙', corner: '별미', composition: [{ name: '누룽지백숙', kcal: 450 }], nutrition: { carb: 90, protein: 80, fat: 30, sodium: 900, kcal: 450 }, origin: '닭고기(국내산)', allergy: '-', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
+        { name: '토스트 세트', corner: '', composition: [{ name: '토스트', kcal: 320 }, { name: '우유', kcal: 120 }], nutrition: { carb: 120, protein: 30, fat: 60, sodium: 620, kcal: 440 }, origin: '-', allergy: '우유·밀', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
       ],
       중식: [
-        { name: '제육볶음 정식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '제육볶음', kcal: 280 }], nutrition: { carb: 210, protein: 120, fat: 90, sodium: 1480, kcal: 890 }, origin: '돼지고기(국내산)', allergy: '대두 · 돼지고기', image: 'resources/images/menu/jeyuk-bokkeum-photo.png', exposed: true },
+        { name: '제육볶음 정식', corner: '일품', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '제육볶음', kcal: 280 }], nutrition: { carb: 210, protein: 120, fat: 90, sodium: 1480, kcal: 890 }, origin: '돼지고기(국내산)', allergy: '대두 · 돼지고기', image: 'resources/images/menu/jeyuk-bokkeum-photo.png', exposed: true },
       ],
       석식: [
-        { name: '순두부찌개 정식', composition: [{ name: '흰쌀밥', kcal: 300 }, { name: '순두부찌개', kcal: 210 }], nutrition: { carb: 185, protein: 95, fat: 80, sodium: 1390, kcal: 710 }, origin: '대두(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
+        { name: '순두부찌개 정식', corner: '한식', composition: [{ name: '흰쌀밥', kcal: 300 }, { name: '순두부찌개', kcal: 210 }], nutrition: { carb: 185, protein: 95, fat: 80, sodium: 1390, kcal: 710 }, origin: '대두(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
       ],
     },
   };
@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mode,
     idx,
     name: item ? item.name : '',
+    corner: item ? item.corner : '',
     compositions: item ? item.composition.map((c) => ({ ...c })) : [{ name: '', kcal: '' }],
     nutrition: item ? { ...item.nutrition } : { carb: '', protein: '', fat: '', sodium: '', kcal: '' },
     origin: item ? item.origin : '',
@@ -194,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="mv2-drag-handle" aria-hidden="true">⋮⋮</span>
         <div class="mv2-menu-item-photo">${photoCell}</div>
         <div class="mv2-menu-item-body">
-          <span class="mv2-menu-item-name">${item.name}</span>
+          <span class="mv2-menu-item-name">${item.corner ? `<span class="mv2-menu-item-corner">${item.corner}</span> ` : ''}${item.name}</span>
           <span class="mv2-menu-item-line"><b>메뉴구성</b> ${compText || '-'}</span>
           <span class="mv2-menu-item-line"><b>영양성분</b> ${nutriText}</span>
           <span class="mv2-menu-item-meta"><span>원산지 ${item.origin || '-'}</span><span>알레르기 ${item.allergy || '-'}</span></span>
@@ -223,6 +224,10 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="mv2-form-photo">
             <span class="mv2-form-photo-preview" id="mv2FormPhotoPreview">${photoPreview}</span>
             <label class="btn outline" style="cursor:pointer">사진 선택<input type="file" accept="image/*" id="mv2FormPhotoInput" hidden></label>
+          </div>
+          <div class="mv2-form-field">
+            <label for="mv2FormCorner">코너</label>
+            <input class="field" type="text" id="mv2FormCorner" value="${f.corner}" placeholder="예: 한식/일품 (입력값 그대로 노출, 미입력 시 코너명 없이 노출)">
           </div>
           <div class="mv2-form-field">
             <label for="mv2FormName">메뉴명</label>
@@ -368,6 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---- 등록/수정 폼 바인딩 ----
     const formEl = root.querySelector('.mv2-menu-form');
     if (formEl && form) {
+      formEl.querySelector('#mv2FormCorner').addEventListener('input', (e) => { form.corner = e.target.value; });
       formEl.querySelector('#mv2FormName').addEventListener('input', (e) => { form.name = e.target.value; });
       formEl.querySelector('#mv2FormOrigin').addEventListener('input', (e) => { form.origin = e.target.value; });
       formEl.querySelector('#mv2FormAllergy').addEventListener('input', (e) => { form.allergy = e.target.value; });
@@ -425,6 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const record = {
           name: form.name.trim(),
+          corner: form.corner.trim(),
           composition,
           nutrition,
           origin: form.origin.trim(),

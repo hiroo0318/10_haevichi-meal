@@ -45,78 +45,103 @@
     <section class="page-head"><div><h1>계정 관리</h1></div></section>
 
     <div class="filters" aria-label="계정 조회 조건">
-      <input class="field" type="text" placeholder="메일 주소 검색" aria-label="메일 주소 검색">
-      <select class="field" aria-label="상태 선택"><option>전체 상태</option><option>정상</option><option>정지</option></select>
+      <select class="field" aria-label="검색어 유형 선택" id="accountSearchTypeSelect">
+        <option value="email">메일주소</option>
+        <option value="sabun">사번</option>
+      </select>
+      <input class="field" type="text" placeholder="검색어를 입력해주세요" aria-label="검색어 입력">
+      <select class="field" aria-label="상태 선택"><option>전체 상태</option><option>정상</option><option>탈퇴</option></select>
+      <select class="field" aria-label="기간 유형 선택">
+        <option>가입일</option>
+        <option>최근 접속일</option>
+      </select>
+      <input class="field" type="date" aria-label="기간 시작일">
+      <span aria-hidden="true">~</span>
+      <input class="field" type="date" aria-label="기간 종료일">
       <button class="btn primary" type="button" data-demo="선택한 조건으로 계정을 조회했습니다.">조회</button>
     </div>
 
     <section class="panel">
-      <div class="panel-head"><div><h2 class="panel-title">계정 <span class="accent" id="accountCount">12건</span></h2><p class="panel-sub">가입 현황을 조회하고 정지·해제, 초기화, 강제 탈퇴를 처리합니다.</p></div></div>
-      <div class="table-wrap"><table class="table account-table"><thead><tr><th>메일 주소</th><th>사번</th><th>가입일</th><th>최근 접속</th><th>상태</th><th>관리</th></tr></thead><tbody>
-        <tr data-page="1" data-status="정상">
-          <td>honeun.ji@hyundaicapital.com</td><td>-</td><td>2026-08-01</td><td>2026-08-19</td>
+      <div class="panel-head"><div><h2 class="panel-title">계정 <span class="accent" id="accountCount">12건</span></h2><p class="panel-sub">가입 현황을 조회합니다. 행을 클릭하면 계정 상세에서 초기화·탈퇴 처리를 할 수 있습니다.</p></div></div>
+      <div class="table-wrap"><table class="table account-table"><thead><tr><th>메일 주소</th><th>소속</th><th>직급</th><th>성별</th><th>연령대</th><th>가입일</th><th>최근 접속</th><th>상태</th></tr></thead><tbody>
+        <tr class="account-row" data-page="1" data-status="정상" data-sabun="-" tabindex="0">
+          <td>honeun.ji@hyundaicapital.com</td><td>현대캐피탈</td><td>대리</td><td>여</td><td>30대</td><td>2026-08-01</td><td>2026-08-19</td>
           <td><span class="badge done">정상</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-reset>초기화</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-suspend>정지</button></td>
         </tr>
-        <tr data-page="1" data-status="정지">
-          <td>dhlee@hyundaicapital.com</td><td>20220110</td><td>2025-03-02</td><td>2025-09-10</td>
-          <td><span class="badge danger">정지</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-restore>해제</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-terminate>강제 탈퇴</button></td>
+        <tr class="account-row" data-page="1" data-status="탈퇴" data-sabun="-" tabindex="0">
+          <td>dhlee@hyundaicapital.com</td><td>현대캐피탈</td><td>과장</td><td>남</td><td>40대</td><td>2025-03-02</td><td>2025-09-10</td>
+          <td><span class="badge danger">탈퇴</span></td>
         </tr>
-        <tr data-page="1" data-status="정상">
-          <td>jyeom@hyundaicapital.com</td><td>-</td><td>2026-07-15</td><td>2026-09-01</td>
+        <tr class="account-row" data-page="1" data-status="정상" data-sabun="-" tabindex="0">
+          <td>jyeom@hyundaicapital.com</td><td>현대캐피탈</td><td>사원</td><td>여</td><td>20대</td><td>2026-07-15</td><td>2026-09-01</td>
           <td><span class="badge done">정상</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-reset>초기화</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-suspend>정지</button></td>
         </tr>
-        <tr data-page="1" data-status="정상">
-          <td>skim@hyundaicapital.com</td><td>20190522</td><td>2025-11-02</td><td>2026-08-30</td>
+        <tr class="account-row" data-page="1" data-status="정상" data-sabun="-" tabindex="0">
+          <td>skim@partner-a.com</td><td>협력사 A</td><td>팀장</td><td>남</td><td>40대</td><td>2025-11-02</td><td>2026-08-30</td>
           <td><span class="badge done">정상</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-reset>초기화</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-suspend>정지</button></td>
         </tr>
-        <tr data-page="1" data-status="정지">
-          <td>mjpark@hyundaicapital.com</td><td>-</td><td>2026-05-10</td><td>2026-08-28</td>
-          <td><span class="badge danger">정지</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-restore>해제</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-terminate>강제 탈퇴</button></td>
+        <tr class="account-row" data-page="1" data-status="탈퇴" data-sabun="-" tabindex="0">
+          <td>mjpark@hyundaicapital.com</td><td>현대캐피탈</td><td>차장</td><td>남</td><td>50대</td><td>2026-05-10</td><td>2026-08-28</td>
+          <td><span class="badge danger">탈퇴</span></td>
         </tr>
-        <tr data-page="1" data-status="정상">
-          <td>hjung@hyundaicapital.com</td><td>20210809</td><td>2026-01-20</td><td>2026-09-02</td>
+        <tr class="account-row" data-page="1" data-status="정상" data-sabun="-" tabindex="0">
+          <td>hjung@hyundaicapital.com</td><td>현대캐피탈</td><td>대리</td><td>여</td><td>30대</td><td>2026-01-20</td><td>2026-09-02</td>
           <td><span class="badge done">정상</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-reset>초기화</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-suspend>정지</button></td>
         </tr>
-        <tr data-page="1" data-status="정상">
-          <td>ywlee@hyundaicapital.com</td><td>-</td><td>2026-06-03</td><td>2026-07-22</td>
+        <tr class="account-row" data-page="1" data-status="정상" data-sabun="-" tabindex="0">
+          <td>ywlee@hyundaicapital.com</td><td>현대캐피탈</td><td>사원</td><td>남</td><td>20대</td><td>2026-06-03</td><td>2026-07-22</td>
           <td><span class="badge done">정상</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-reset>초기화</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-suspend>정지</button></td>
         </tr>
-        <tr data-page="1" data-status="정상">
-          <td>bkchoi@hyundaicapital.com</td><td>20230115</td><td>2026-03-11</td><td>2026-08-15</td>
+        <tr class="account-row" data-page="1" data-status="정상" data-sabun="-" tabindex="0">
+          <td>bkchoi@partner-b.com</td><td>협력사 B</td><td>매니저</td><td>여</td><td>30대</td><td>2026-03-11</td><td>2026-08-15</td>
           <td><span class="badge done">정상</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-reset>초기화</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-suspend>정지</button></td>
         </tr>
-        <tr data-page="1" data-status="정지">
-          <td>shsong@hyundaicapital.com</td><td>-</td><td>2025-12-01</td><td>2026-06-10</td>
-          <td><span class="badge danger">정지</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-restore>해제</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-terminate>강제 탈퇴</button></td>
+        <tr class="account-row" data-page="1" data-status="탈퇴" data-sabun="-" tabindex="0">
+          <td>shsong@hyundaicapital.com</td><td>현대캐피탈</td><td>부장</td><td>남</td><td>50대</td><td>2025-12-01</td><td>2026-06-10</td>
+          <td><span class="badge danger">탈퇴</span></td>
         </tr>
-        <tr data-page="1" data-status="정상">
-          <td>jwyoon@hyundaicapital.com</td><td>20180630</td><td>2025-09-09</td><td>2026-08-05</td>
+        <tr class="account-row" data-page="1" data-status="정상" data-sabun="-" tabindex="0">
+          <td>jwyoon@hyundaicapital.com</td><td>현대캐피탈</td><td>과장</td><td>여</td><td>40대</td><td>2025-09-09</td><td>2026-08-05</td>
           <td><span class="badge done">정상</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-reset>초기화</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-suspend>정지</button></td>
         </tr>
-        <tr data-page="2" data-status="정상">
-          <td>khhan@hyundaicapital.com</td><td>-</td><td>2026-02-14</td><td>2026-08-27</td>
+        <tr class="account-row" data-page="2" data-status="정상" data-sabun="-" tabindex="0">
+          <td>khhan@hyundaicapital.com</td><td>현대캐피탈</td><td>사원</td><td>남</td><td>20대</td><td>2026-02-14</td><td>2026-08-27</td>
           <td><span class="badge done">정상</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-reset>초기화</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-suspend>정지</button></td>
         </tr>
-        <tr data-page="2" data-status="정상">
-          <td>dwjang@hyundaicapital.com</td><td>20220207</td><td>2026-04-19</td><td>2026-07-30</td>
+        <tr class="account-row" data-page="2" data-status="정상" data-sabun="-" tabindex="0">
+          <td>dwjang@hyundaicapital.com</td><td>현대캐피탈</td><td>대리</td><td>여</td><td>30대</td><td>2026-04-19</td><td>2026-07-30</td>
           <td><span class="badge done">정상</span></td>
-          <td class="account-actions"><button class="link-btn" type="button" data-account-reset>초기화</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-suspend>정지</button></td>
         </tr>
       </tbody></table></div>
       <nav class="pagination" id="accountPagination" aria-label="계정 목록 페이지"></nav>
     </section>
   </div></main>
+
+  <div class="voc-modal" id="accountDetailModal" aria-hidden="true">
+    <div class="voc-modal-backdrop" data-account-detail-close></div>
+    <div class="voc-modal-body" role="dialog" aria-modal="true" aria-label="계정 상세">
+      <button type="button" class="lightbox-close" data-account-detail-close aria-label="닫기">✕</button>
+      <h2 class="scope-modal-title" style="margin-bottom:16px">계정 상세</h2>
+      <div class="notice-form">
+        <label class="notice-field">기업<input class="field" type="text" id="accountDetailCompany" disabled></label>
+        <label class="notice-field">계정(이메일)<input class="field" type="text" id="accountDetailEmail" disabled></label>
+        <label class="notice-field">사번<input class="field" type="text" id="accountDetailSabun" placeholder="사번을 입력해주세요"></label>
+        <label class="notice-field">가입일<input class="field" type="text" id="accountDetailJoined" disabled></label>
+        <label class="notice-field">최근 접속일<input class="field" type="text" id="accountDetailLastLogin" disabled></label>
+        <label class="notice-field">상태<input class="field" type="text" id="accountDetailStatus" disabled></label>
+      </div>
+      <div class="notice-modal-actions" style="justify-content:space-between">
+        <div>
+          <button class="btn outline" type="button" id="accountDetailReset">비밀번호 초기화</button>
+          <button class="btn outline" type="button" id="accountDetailWithdraw">탈퇴 처리</button>
+        </div>
+        <div>
+          <button class="btn outline" type="button" data-account-detail-close>취소</button>
+          <button class="btn primary" type="button" id="accountDetailSave">저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="scope-modal" id="accountConfirmModal" aria-hidden="true">
     <div class="scope-modal-backdrop" data-account-confirm-cancel></div>

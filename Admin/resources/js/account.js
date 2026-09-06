@@ -11,92 +11,126 @@ document.addEventListener('DOMContentLoaded', () => {
     timer = setTimeout(() => toast.classList.remove('show'), 2600);
   };
 
-  const modal = document.getElementById('accountConfirmModal');
-  const modalTitle = document.getElementById('accountConfirmTitle');
-  const modalDesc = document.getElementById('accountConfirmDesc');
-  const modalOk = document.getElementById('accountConfirmOk');
-  let pending = null; // { type, row }
-
   const emailOf = (row) => row.children[0].textContent.trim();
-
-  const closeConfirm = () => {
-    pending = null;
-    modal.classList.remove('show');
-    modal.setAttribute('aria-hidden', 'true');
-  };
-  const openConfirm = (type, row, title, desc) => {
-    pending = { type, row };
-    modalTitle.textContent = title;
-    modalDesc.textContent = desc;
-    modal.classList.add('show');
-    modal.setAttribute('aria-hidden', 'false');
-  };
-
-  modal.querySelectorAll('[data-account-confirm-cancel]').forEach((el) => el.addEventListener('click', closeConfirm));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modal.classList.contains('show')) closeConfirm();
-  });
-
-  const setSuspended = (row) => {
-    row.dataset.status = '정지';
-    row.children[4].innerHTML = '<span class="badge danger">정지</span>';
-    row.children[5].innerHTML = '<button class="link-btn" type="button" data-account-restore>해제</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-terminate>강제 탈퇴</button>';
-    bindRowActions(row);
-  };
-  const setNormal = (row) => {
-    row.dataset.status = '정상';
-    row.children[4].innerHTML = '<span class="badge done">정상</span>';
-    row.children[5].innerHTML = '<button class="link-btn" type="button" data-account-reset>초기화</button><span aria-hidden="true"> · </span><button class="link-btn danger" type="button" data-account-suspend>정지</button>';
-    bindRowActions(row);
-  };
 
   const updateCount = () => {
     const badge = document.getElementById('accountCount');
     if (badge) badge.textContent = table.querySelectorAll('tbody > tr').length + '건';
   };
 
-  function bindRowActions(row) {
-    const email = emailOf(row);
-    const resetBtn = row.querySelector('[data-account-reset]');
-    const suspendBtn = row.querySelector('[data-account-suspend]');
-    const restoreBtn = row.querySelector('[data-account-restore]');
-    const terminateBtn = row.querySelector('[data-account-terminate]');
+  // ---- 계정 상세 모달 --------------------------------------------------------
+  const detailModal = document.getElementById('accountDetailModal');
+  const detailCompany = document.getElementById('accountDetailCompany');
+  const detailEmail = document.getElementById('accountDetailEmail');
+  const detailSabun = document.getElementById('accountDetailSabun');
+  const detailJoined = document.getElementById('accountDetailJoined');
+  const detailLastLogin = document.getElementById('accountDetailLastLogin');
+  const detailStatus = document.getElementById('accountDetailStatus');
+  const detailResetBtn = document.getElementById('accountDetailReset');
+  const detailWithdrawBtn = document.getElementById('accountDetailWithdraw');
+  const detailSaveBtn = document.getElementById('accountDetailSave');
+  let activeRow = null;
 
-    if (resetBtn) resetBtn.addEventListener('click', () => {
-      openConfirm('reset', row, '비밀번호를 초기화하시겠습니까?', email + ' 계정의 비밀번호를 고정된 임시 비밀번호로 초기화합니다.');
-    });
-    if (suspendBtn) suspendBtn.addEventListener('click', () => {
-      openConfirm('suspend', row, '계정을 정지하시겠습니까?', email + ' 계정을 정지하면 즉시 로그인이 차단됩니다.');
-    });
-    if (terminateBtn) terminateBtn.addEventListener('click', () => {
-      openConfirm('terminate', row, '계정을 강제 탈퇴 처리하시겠습니까?', email + ' 계정을 강제 탈퇴 처리합니다. 이 작업은 되돌릴 수 없습니다.');
-    });
-    // 해제(정지 → 정상)는 접근을 다시 여는 저위험 동작이라 확인 없이 즉시 처리한다.
-    if (restoreBtn) restoreBtn.addEventListener('click', () => {
-      setNormal(row);
-      showToast(email + ' 계정의 정지가 해제되었습니다.');
-    });
-  }
+  const setRowStatus = (row, status) => {
+    row.dataset.status = status;
+    row.children[7].innerHTML = status === '정상'
+      ? '<span class="badge done">정상</span>'
+      : '<span class="badge danger">탈퇴</span>';
+  };
 
-  modalOk.addEventListener('click', () => {
-    if (!pending) return;
-    const { type, row } = pending;
-    const email = emailOf(row);
+  const openDetail = (row) => {
+    activeRow = row;
+    detailCompany.value = row.children[1].textContent.trim();
+    detailEmail.value = emailOf(row);
+    detailSabun.value = row.dataset.sabun === '-' ? '' : row.dataset.sabun;
+    detailJoined.value = row.children[5].textContent.trim();
+    detailLastLogin.value = row.children[6].textContent.trim();
+    detailStatus.value = row.dataset.status;
+    const isWithdrawn = row.dataset.status === '탈퇴';
+    detailWithdrawBtn.disabled = isWithdrawn;
+    detailWithdrawBtn.textContent = isWithdrawn ? '탈퇴 처리됨' : '탈퇴 처리';
+    detailModal.classList.add('show');
+    detailModal.setAttribute('aria-hidden', 'false');
+  };
+  const closeDetail = () => {
+    activeRow = null;
+    detailModal.classList.remove('show');
+    detailModal.setAttribute('aria-hidden', 'true');
+  };
+
+  detailModal.querySelectorAll('[data-account-detail-close]').forEach((el) => el.addEventListener('click', closeDetail));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && detailModal.classList.contains('show')) closeDetail();
+  });
+
+  table.querySelectorAll('tbody > tr').forEach((row) => {
+    row.addEventListener('click', () => openDetail(row));
+    row.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openDetail(row);
+      }
+    });
+  });
+
+  detailSaveBtn.addEventListener('click', () => {
+    if (!activeRow) return;
+    activeRow.dataset.sabun = detailSabun.value.trim() || '-';
+    const email = emailOf(activeRow);
+    closeDetail();
+    showToast(email + ' 계정 정보가 저장되었습니다.');
+  });
+
+  // ---- 초기화 · 탈퇴 처리 확인 모달 (accountConfirmModal 재사용) ----------------------
+  const confirmModal = document.getElementById('accountConfirmModal');
+  const confirmTitle = document.getElementById('accountConfirmTitle');
+  const confirmDesc = document.getElementById('accountConfirmDesc');
+  const confirmOk = document.getElementById('accountConfirmOk');
+  let pending = null; // { type }
+
+  const closeConfirm = () => {
+    pending = null;
+    confirmModal.classList.remove('show');
+    confirmModal.setAttribute('aria-hidden', 'true');
+  };
+  const openConfirm = (type, title, desc) => {
+    pending = { type };
+    confirmTitle.textContent = title;
+    confirmDesc.textContent = desc;
+    confirmModal.classList.add('show');
+    confirmModal.setAttribute('aria-hidden', 'false');
+  };
+
+  confirmModal.querySelectorAll('[data-account-confirm-cancel]').forEach((el) => el.addEventListener('click', closeConfirm));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && confirmModal.classList.contains('show')) closeConfirm();
+  });
+
+  detailResetBtn.addEventListener('click', () => {
+    if (!activeRow) return;
+    openConfirm('reset', '비밀번호를 초기화하시겠습니까?', emailOf(activeRow) + ' 계정의 비밀번호를 고정된 임시 비밀번호로 초기화합니다.');
+  });
+  detailWithdrawBtn.addEventListener('click', () => {
+    if (!activeRow || activeRow.dataset.status === '탈퇴') return;
+    openConfirm('withdraw', '계정을 탈퇴 처리하시겠습니까?', emailOf(activeRow) + ' 계정을 탈퇴 처리하면 즉시 로그인이 차단됩니다. 이 작업은 되돌릴 수 없습니다.');
+  });
+
+  confirmOk.addEventListener('click', () => {
+    if (!pending || !activeRow) { closeConfirm(); return; }
+    const { type } = pending;
+    const email = emailOf(activeRow);
+    const row = activeRow;
     closeConfirm();
 
     if (type === 'reset') {
       showToast(email + ' 계정 비밀번호가 임시 비밀번호로 초기화되었습니다.');
-    } else if (type === 'suspend') {
-      setSuspended(row);
-      showToast(email + ' 계정이 정지되었습니다.');
-    } else if (type === 'terminate') {
-      row.remove();
-      updateCount();
-      showToast(email + ' 계정이 강제 탈퇴 처리되었습니다.');
+    } else if (type === 'withdraw') {
+      setRowStatus(row, '탈퇴');
+      closeDetail();
+      showToast(email + ' 계정이 탈퇴 처리되었습니다.');
     }
   });
 
-  table.querySelectorAll('tbody > tr').forEach(bindRowActions);
   updateCount();
 
   const pager = (() => {
