@@ -190,9 +190,11 @@ document.addEventListener('DOMContentLoaded', function(){
       signupEmailConsent = document.getElementById('signupEmailConsent');
       signupGender.required = true;
       signupGender.options[0].text = '선택해주세요';
+      Array.prototype.slice.call(signupGender.options).forEach(function(option){ if(option.text === '응답하지 않음') option.remove(); });
       var signupGenderOptional = signupGender.closest('.v3-field').querySelector('em');
       if(signupGenderOptional) signupGenderOptional.remove();
       signupForm.querySelector('[data-signup-step="3"] .v3-description').textContent = '서비스 제공을 위해 필요한 정보예요.';
+      signupProfileError.textContent = '소속 구분, 성별, 연령대, 직급과 개인정보 수집 및 이용 동의는 필수입니다.';
       var profileConsentLabel = signupPrivacyConsent.closest('.v3-consent');
       profileConsentLabel.querySelector('span').innerHTML = '개인정보 수집 및 이용에 동의합니다. <b>(필수)</b>';
       profileConsentLabel.querySelector('button').setAttribute('data-open-consent', 'profile');
