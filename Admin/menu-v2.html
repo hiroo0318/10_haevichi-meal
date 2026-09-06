@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>해비치 급식 App 관리자 - 주간 식단 관리 v2</title>
+  <link rel="stylesheet" href="resources/css/reset.css">
+  <link rel="stylesheet" href="resources/css/admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="dashboard.html"><span class="brand-mark">H</span>해비치 급식 App <em>관리자</em></a>
+    <div class="profile">
+      <button type="button" class="scope-trigger" id="scopeTrigger" aria-haspopup="dialog"><span id="scopeLabel">현대캐피탈</span><span class="scope-caret" aria-hidden="true">▾</span></button>
+      <span class="avatar">정H</span><strong>정혜림 관리자</strong>
+    </div>
+  </header>
+  <aside class="sidenav" aria-label="관리자 메뉴"><nav>
+    <div class="nav-section"><span class="nav-label">운영</span>
+      <a class="nav-link" href="dashboard.html"><span class="nav-icon">▦</span>대시보드</a>
+      <button type="button" class="nav-parent"><span class="nav-parent-label"><span class="nav-icon">▤</span>식단 관리</span><span class="nav-caret" aria-hidden="true">›</span></button>
+      <div class="nav-sub">
+        <a class="nav-sub-link active" href="menu-v2.html">주간 식단 관리</a>
+        <a class="nav-sub-link" href="mealtime.html">식사 시간 관리</a>
+      </div>
+      <a class="nav-link" href="voc.html"><span class="nav-icon">◉</span>고객의견</a>
+      <a class="nav-link" href="notice.html"><span class="nav-icon">▣</span>공지 관리</a>
+    </div>
+    <div class="nav-section"><span class="nav-label">환경 설정</span>
+      <a class="nav-link" href="domain.html"><span class="nav-icon">@</span>인증 도메인 설정</a>
+      <button type="button" class="nav-parent"><span class="nav-parent-label"><span class="nav-icon">◌</span>계정 관리</span><span class="nav-caret" aria-hidden="true">›</span></button>
+      <div class="nav-sub">
+        <a class="nav-sub-link" href="account.html">계정 관리</a>
+        <a class="nav-sub-link" href="withdrawal.html">탈퇴 사유 통계</a>
+      </div>
+      <button type="button" class="nav-parent"><span class="nav-parent-label"><span class="nav-icon">◇</span>사업장·테마 관리</span><span class="nav-caret" aria-hidden="true">›</span></button>
+      <div class="nav-sub">
+        <a class="nav-sub-link" href="site.html">사업장 관리</a>
+        <a class="nav-sub-link" href="theme.html">테마 관리</a>
+      </div>
+      <a class="nav-link" href="#" data-demo="운영자 관리 화면은 다음 작업에서 연결합니다."><span class="nav-icon">♙</span>운영자 관리</a>
+    </div>
+  </nav></aside>
+  <main class="admin-shell"><div class="content">
+    <section class="page-head"><div><h1>주간 식단 관리</h1></div></section>
+
+    <div class="menu-toolbar">
+      <select class="field" aria-label="사업장 선택" id="mv2SiteSelect"><option>본사</option><option>여의도</option><option>홍대</option></select>
+      <div class="upload-actions">
+        <a class="action-button" href="#" data-demo="식단 업로드 양식은 실제 .xlsx 파일 확정 후 연결합니다.">양식 다운로드</a>
+        <label class="action-button primary">파일 업로드<input type="file" accept=".xlsx,.xls" id="mv2ExcelInput"></label>
+      </div>
+    </div>
+    <p class="notice-help" style="margin:-10px 0 16px">엑셀 파일 안에 사업장 컬럼을 포함하면 여러 사업장 데이터를 한 번에 업로드할 수 있습니다. 업로드는 위 사업장 선택과 무관하게 파일 내용 전체를 처리합니다. 단, <b>엑셀에는 이미지를 포함할 수 없어</b> 업로드 후 아래 목록에서 메뉴별로 이미지를 개별 등록해야 합니다. 화면에서 직접 등록/수정할 때는 이미지까지 한 번에 입력합니다.</p>
+
+    <div class="mv2-legend">
+      <span class="mv2-dot mv2-dot-empty"></span>미등록
+      <span class="mv2-dot mv2-dot-warn"></span>확인 필요(이미지·노출 미완료)
+      <span class="mv2-dot mv2-dot-ok"></span>완료
+    </div>
+
+    <div class="mv2-planner">
+      <section class="panel mv2-calendar-panel">
+        <div class="panel-head"><div><h2 class="panel-title" id="mv2CalendarTitle">2026년 9월</h2></div>
+          <div class="panel-head-right">
+            <button type="button" class="btn outline" id="mv2CalPrev" aria-label="이전 달">‹</button>
+            <button type="button" class="btn outline" id="mv2CalNext" aria-label="다음 달">›</button>
+          </div>
+        </div>
+        <table class="mv2-calendar" id="mv2Calendar" aria-label="월 달력, 날짜를 클릭하면 그 주가 선택됩니다">
+          <thead><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead>
+          <tbody id="mv2CalendarBody"></tbody>
+        </table>
+      </section>
+
+      <section class="panel mv2-week-panel">
+        <div class="panel-head"><div><h2 class="panel-title">선택 주차</h2><p class="panel-sub">날짜를 클릭하면 아래 관리 영역이 그 날짜로 전환됩니다.</p></div></div>
+        <div class="mv2-week-strip" id="mv2WeekStrip"></div>
+      </section>
+    </div>
+
+    <div class="mv2-day-panel">
+      <h2 class="mv2-day-title" id="mv2DayTitle">날짜를 선택해주세요</h2>
+      <div id="mv2MealSections"></div>
+    </div>
+  </div></main>
+
+  <div class="lightbox" id="photoLightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <div class="lightbox-body" role="dialog" aria-modal="true">
+      <button type="button" class="lightbox-close" data-lightbox-close aria-label="미리보기 닫기">✕</button>
+      <img id="lightboxImg" src="" alt="">
+      <p id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <div class="scope-modal" id="mv2PublishConfirmModal" aria-hidden="true">
+    <div class="scope-modal-backdrop" data-mv2-publish-cancel></div>
+    <div class="scope-modal-body" role="dialog" aria-modal="true">
+      <h2 class="scope-modal-title">비노출로 전환하시겠습니까?</h2>
+      <p class="scope-modal-desc" id="mv2PublishConfirmDesc"></p>
+      <div class="scope-modal-actions">
+        <button type="button" class="btn outline" data-mv2-publish-cancel>취소</button>
+        <button type="button" class="btn primary" id="mv2PublishConfirmOk">비노출로 전환</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="scope-modal" id="mv2DeleteConfirmModal" aria-hidden="true">
+    <div class="scope-modal-backdrop" data-mv2-delete-cancel></div>
+    <div class="scope-modal-body" role="dialog" aria-modal="true">
+      <h2 class="scope-modal-title">메뉴를 삭제하시겠습니까?</h2>
+      <p class="scope-modal-desc" id="mv2DeleteConfirmDesc"></p>
+      <div class="scope-modal-actions">
+        <button type="button" class="btn outline" data-mv2-delete-cancel>취소</button>
+        <button type="button" class="btn primary" id="mv2DeleteConfirmOk">삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="scope-modal" id="scopeModal" aria-hidden="true">
+    <div class="scope-modal-backdrop" data-scope-close></div>
+    <div class="scope-modal-body" role="dialog" aria-modal="true" aria-label="조회 기업 변경">
+      <h2 class="scope-modal-title">조회 기업 변경</h2>
+      <label class="scope-modal-label" for="scopeCompany">기업</label>
+      <select class="field scope-modal-field" id="scopeCompany"><option value="현대캐피탈">현대캐피탈</option></select>
+      <div class="scope-modal-actions">
+        <button type="button" class="btn outline" data-scope-close>취소</button>
+        <button type="button" class="btn primary" id="scopeConfirm">변경</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" role="status">✓ <span></span></div>
+  <script src="resources/js/admin-common.js"></script>
+  <script src="resources/js/menu-v2.js"></script>
+</body>
+</html>

@@ -9,6 +9,25 @@ document.addEventListener('DOMContentLoaded', () => {
     timer = setTimeout(() => toast.classList.remove('show'), 2600);
   };
 
+  // 좌측 네비게이션 2뎁스 아코디언 — 부모 라벨을 누르면 그 그룹만 접고 편다.
+  // 초기 펼침/접힘은 CSS(`.nav-sub:has(.nav-sub-link.active)`)가 첫 페인트부터 바로 처리해 깜빡임이 없다.
+  // 여기서는 그 상태를 is-open/is-closed 클래스로 동기화해 이후 클릭 토글이 가능하게만 한다.
+  document.querySelectorAll('.nav-parent').forEach((parent) => {
+    const sub = parent.nextElementSibling;
+    if (!sub || !sub.classList.contains('nav-sub')) return;
+    const hasActive = !!sub.querySelector('.nav-sub-link.active');
+    sub.classList.add(hasActive ? 'is-open' : 'is-closed');
+    parent.classList.toggle('is-open', hasActive);
+    parent.setAttribute('aria-expanded', String(hasActive));
+    parent.addEventListener('click', () => {
+      const willOpen = !sub.classList.contains('is-open');
+      sub.classList.toggle('is-open', willOpen);
+      sub.classList.toggle('is-closed', !willOpen);
+      parent.classList.toggle('is-open', willOpen);
+      parent.setAttribute('aria-expanded', String(willOpen));
+    });
+  });
+
   // 전역 조회 기업 전환 — 사업장은 더 이상 상단 전역에서 다루지 않는다(화면별로 사업장 필요 여부가 달라 각 화면 안으로 내림).
   const scopeTrigger = document.getElementById('scopeTrigger');
   const scopeModal = document.getElementById('scopeModal');
