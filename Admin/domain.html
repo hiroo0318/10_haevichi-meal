@@ -21,7 +21,7 @@
       <div class="nav-parent"><span class="nav-icon">▤</span>식단 관리</div>
       <div class="nav-sub">
         <a class="nav-sub-link" href="menu.html">주간 식단 관리</a>
-        <a class="nav-sub-link" href="menu-corners.html">코너 관리</a>
+        <a class="nav-sub-link" href="mealtime.html">식사 시간 관리</a>
       </div>
       <a class="nav-link" href="voc.html"><span class="nav-icon">◉</span>고객의견</a>
       <a class="nav-link" href="notice.html"><span class="nav-icon">▣</span>공지 관리</a>
@@ -54,13 +54,13 @@
         <div><h2 class="panel-title">등록 도메인 <span class="accent" id="domainCount">2건</span></h2></div>
         <div class="panel-head-right"><button type="button" class="action-button primary" id="domain-new">＋ 도메인 추가</button></div>
       </div>
-      <div class="table-wrap"><table class="table domain-table"><thead><tr><th>허용 도메인</th><th>서브도메인 허용</th><th>등록일</th><th></th></tr></thead><tbody>
+      <div class="table-wrap"><table class="table domain-table"><thead><tr><th>허용 도메인</th><th>등록일</th><th></th></tr></thead><tbody>
         <tr data-page="1">
-          <td>hyundaicapital.com</td><td><span class="badge muted">미허용</span></td><td>2026-08-01</td>
+          <td>hyundaicapital.com</td><td>2026-08-01</td>
           <td><button class="btn outline" type="button" data-domain-delete>삭제</button></td>
         </tr>
         <tr data-page="1">
-          <td>hcs.hyundaicapital.com</td><td><span class="badge done">허용</span></td><td>2026-08-20</td>
+          <td>hcs.hyundaicapital.com</td><td>2026-08-20</td>
           <td><button class="btn outline" type="button" data-domain-delete>삭제</button></td>
         </tr>
       </tbody></table></div>
@@ -85,10 +85,7 @@
         <label class="notice-field">허용 도메인
           <input class="field" type="text" id="domainInput" placeholder="예: hyundaicapital.com">
           <span class="field-error" id="domainInputError" hidden></span>
-        </label>
-        <label class="switch-row">
-          <span class="switch"><input type="checkbox" id="domainSubdomainInput"><span class="switch-track" aria-hidden="true"></span></span>
-          서브도메인 허용
+          <span class="notice-help">서브도메인을 쓰는 계열사가 있다면 해당 서브도메인 전체를 별도 도메인으로 각각 등록해주세요. (예: hcs.hyundaicapital.com)</span>
         </label>
       </div>
       <div class="notice-modal-actions">

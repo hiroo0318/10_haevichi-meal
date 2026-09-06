@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const newBtn = document.getElementById('domain-new');
   const domainInput = document.getElementById('domainInput');
   const domainInputError = document.getElementById('domainInputError');
-  const subdomainInput = document.getElementById('domainSubdomainInput');
   const submitBtn = document.getElementById('domainSubmitBtn');
 
   const setFieldError = (input, errorEl, message) => {
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const openModal = () => {
     domainInput.value = '';
     setFieldError(domainInput, domainInputError, '');
-    subdomainInput.checked = false;
     modal.classList.add('show');
     modal.setAttribute('aria-hidden', 'false');
   };
@@ -69,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
     row.dataset.page = '1';
     row.innerHTML = `
       <td>${value}</td>
-      <td><span class="badge ${subdomainInput.checked ? 'done' : 'muted'}">${subdomainInput.checked ? '허용' : '미허용'}</span></td>
       <td>${todayDash()}</td>
       <td><button class="btn outline" type="button" data-domain-delete>삭제</button></td>
     `;
