@@ -76,6 +76,12 @@ body.meal-v2-body { background: #e9ece8; color: var(--v2-ink); }
 .meal-v2-photo-copy { position: absolute; z-index: 2; top: 14px; right: 12px; left: 14px; display: flex; flex-direction: column; gap: 4px; text-shadow: 0 1px 5px rgba(0, 0, 0, .35); }
 .meal-v2-photo-copy small { font-size: 12px; font-weight: 650; }
 .meal-v2-photo-copy strong { font-size: 17px; line-height: 1.25; letter-spacing: -.04em; }
+.meal-v2-empty { display: flex; grid-column: 1 / -1; flex-direction: column; align-items: center; justify-content: center; border-radius: 16px; background: #fff; box-shadow: 0 8px 20px rgba(32, 37, 28, .08); text-align: center; }
+.meal-v2-empty img { width: 72px; height: 54px; margin: 0 0 7px; object-fit: contain; opacity: .72; }
+.meal-v2-empty strong { display: block; color: var(--v2-ink); font-size: 15px; letter-spacing: -.04em; }
+.meal-v2-empty p { margin: 6px 0 0; color: var(--v2-sub); font-size: 12px; }
+.meal-v2-empty--meal { min-height: var(--v2-card-height); padding: 20px; }
+.meal-v2-empty--all { min-height: 236px; margin: 28px 0 0; padding: 32px 22px; }
 
 /* A: 사진 비율을 16:9로 보존한다. 식단 수에 따라 섹션 높이는 달라진다. */
 .meal-v2-layout-a .meal-v2-photo-card { aspect-ratio: 16 / 9; }

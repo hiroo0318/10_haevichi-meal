@@ -13,6 +13,13 @@
   };
   var selectedWeek = 'current';
   var selectedDay = 3;
+  /* 이번 주 예외 식단: 9/3은 조식 미운영, 9/4는 전 식사 미운영이다. */
+  var mealAvailability = {
+    current: {
+      4: { breakfast: false },
+      5: { empty: true }
+    }
+  };
   var query = function (key) { return new URLSearchParams(location.search).get(key); };
   var escapeHtml = function (value) { return String(value).replace(/[&<>'"]/g, function (char) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]; }); };
   /* 코너는 선택적 운영 정보다. 사용하지 않는 식단은 card.corner를 false로 설정한다. */
@@ -24,18 +31,26 @@
     root.innerHTML = weeks[selectedWeek].map(function (day, index) {
       return '<button type="button" class="' + (index === selectedDay ? 'is-selected' : '') + '" data-day="' + index + '"><span>' + day[0] + '</span><strong>' + day[1] + '</strong></button>';
     }).join('');
+    renderHome();
   }
 
   function renderHome() {
     var root = document.getElementById('mealV2Sections');
     if (!root) return;
+    var availability = mealAvailability[selectedWeek] && mealAvailability[selectedWeek][selectedDay];
+    if (availability && availability.empty) {
+      root.innerHTML = '<section class="meal-v2-empty meal-v2-empty--all"><img src="../../resources/images/icon/ill-empty-meal.svg" alt="" aria-hidden="true"><strong>등록된 식단이 없습니다</strong><p>다른 날짜의 식단을 확인해 주세요.</p></section>';
+      return;
+    }
     root.innerHTML = Object.keys(meals).map(function (key) {
       var meal = meals[key];
+      var isUnavailable = availability && availability[key] === false;
       var cards = meal.cards.map(function (card) {
         var corner = cornerLabel(card);
         return '<a class="meal-v2-photo-card" href="menu-detail.html?meal=' + key + '&corner=' + card.id + '"><img src="' + card.photo + '" alt="' + escapeHtml(card.name) + '"><span class="meal-v2-photo-copy"><strong>' + escapeHtml(card.name) + '</strong>' + (corner ? '<small>' + corner + '</small>' : '') + '</span></a>';
       }).join('');
-      return '<section class="meal-v2-meal-section"><div class="meal-v2-section-title"><h2>' + meal.label + '</h2><span>' + meal.time + '</span></div><div class="meal-v2-photo-grid meal-v2-photo-grid--' + meal.cards.length + '">' + cards + '</div></section>';
+      var content = isUnavailable ? '<div class="meal-v2-empty meal-v2-empty--meal"><img src="../../resources/images/icon/ill-empty-meal.svg" alt="" aria-hidden="true"><strong>' + meal.label + ' 식단이 등록되지 않았어요</strong><p>다른 식사를 확인해 주세요.</p></div>' : cards;
+      return '<section class="meal-v2-meal-section"><div class="meal-v2-section-title"><h2>' + meal.label + '</h2><span>' + meal.time + '</span></div><div class="meal-v2-photo-grid meal-v2-photo-grid--' + meal.cards.length + '">' + content + '</div></section>';
     }).join('');
   }
 
@@ -69,7 +84,6 @@
   });
 
   renderDates();
-  renderHome();
   renderDetail();
 }());
 
