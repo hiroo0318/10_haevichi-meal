@@ -11,11 +11,25 @@ document.addEventListener('DOMContentLoaded', () => {
     timer = setTimeout(() => toast.classList.remove('show'), 2600);
   };
 
+  const syncRowUse = (row) => {
+    const useToggle = row.querySelector('[data-mealtime-use]');
+    const timeInputs = row.querySelectorAll('input[type="time"]');
+    timeInputs.forEach((input) => { input.disabled = !useToggle.checked; });
+  };
+  table.querySelectorAll('tbody tr').forEach((row) => {
+    const useToggle = row.querySelector('[data-mealtime-use]');
+    if (!useToggle) return;
+    syncRowUse(row);
+    useToggle.addEventListener('change', () => syncRowUse(row));
+  });
+
   const saveBtn = document.getElementById('mealtime-save');
   if (saveBtn) {
     saveBtn.addEventListener('click', () => {
       const rows = [...table.querySelectorAll('tbody tr')];
       const invalid = rows.find((row) => {
+        const useToggle = row.querySelector('[data-mealtime-use]');
+        if (useToggle && !useToggle.checked) return false;
         const [start, end] = row.querySelectorAll('input[type="time"]');
         return start.value && end.value && start.value >= end.value;
       });
