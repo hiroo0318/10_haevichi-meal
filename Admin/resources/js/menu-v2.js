@@ -70,10 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- 날짜 유틸 -----------------------------------------------------------
   const toKey = (y, m, d) => `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+  const keyOf = (date) => toKey(date.getFullYear(), date.getMonth(), date.getDate());
   const dow = ['일', '월', '화', '수', '목', '금', '토'];
 
-  let calYear = 2026, calMonth = 8;
-  let selectedWeekSunday = new Date(2026, 8, 6);
+  const TODAY_WEEK_START = new Date(2026, 8, 6); // 데모 기준 "이번 주" 일요일
+  let weekStart = new Date(TODAY_WEEK_START);
   let selectedDate = '2026-09-09';
 
   const mealStatus = (items) => {
@@ -100,35 +101,50 @@ document.addEventListener('DOMContentLoaded', () => {
     exposed: item ? item.exposed : false,
   });
 
-  // ---- 캘린더 렌더 ---------------------------------------------------------
-  const calendarTitle = document.getElementById('mv2CalendarTitle');
+  // ---- 2주 달력(주차 페이저) 렌더 ---------------------------------------------
+  // 월 달력 + 주차 선택을 한 화면으로 합친 구조: 이번 주 · 다음 주 2줄만 보여주고
+  // ‹ › 로 한 주씩 이동한다. 임의 날짜로의 점프(월 달력 방식)는 필요 없는 범위라 지원하지 않는다.
+  const rangeTitle = document.getElementById('mv2RangeTitle');
   const calendarBody = document.getElementById('mv2CalendarBody');
+  const dateLabel = (date) => `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+
+  function renderRangeTitle() {
+    const start = weekStart;
+    const end = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 13);
+    rangeTitle.textContent = `${dateLabel(start)} ~ ${dateLabel(end)}`;
+  }
 
   function renderCalendar() {
-    calendarTitle.textContent = `${calYear}년 ${calMonth + 1}월`;
-    const firstOfMonth = new Date(calYear, calMonth, 1);
-    const gridStart = new Date(calYear, calMonth, 1 - firstOfMonth.getDay());
+    renderRangeTitle();
     calendarBody.innerHTML = '';
-    for (let w = 0; w < 6; w += 1) {
-      const weekStart = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + w * 7);
+    for (let w = 0; w < 2; w += 1) {
+      const rowStart = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + w * 7);
       const tr = document.createElement('tr');
       tr.className = 'mv2-cal-week';
-      if (weekStart.getTime() === selectedWeekSunday.getTime()) tr.classList.add('is-selected');
+      if (rowStart.getTime() === TODAY_WEEK_START.getTime()) tr.classList.add('is-current');
       for (let d = 0; d < 7; d += 1) {
-        const day = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + d);
+        const day = new Date(rowStart.getFullYear(), rowStart.getMonth(), rowStart.getDate() + d);
+        const key = keyOf(day);
+        const data = DATA[key] || emptyDay();
         const td = document.createElement('td');
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'mv2-cal-day' + (day.getMonth() !== calMonth ? ' is-muted' : '');
-        btn.textContent = String(day.getDate());
+        btn.className = 'mv2-cal-day' + (key === selectedDate ? ' is-selected' : '');
+        const showMonth = day.getDate() === 1;
+        btn.innerHTML = `
+          ${showMonth ? `<span class="mv2-cal-day-month">${day.getMonth() + 1}월</span>` : ''}
+          <span class="mv2-cal-day-num">${day.getDate()}</span>
+          <span class="mv2-cal-dots">
+            <span class="mv2-dot mv2-dot-${mealStatus(data.조식)}" title="조식"></span>
+            <span class="mv2-dot mv2-dot-${mealStatus(data.중식)}" title="중식"></span>
+            <span class="mv2-dot mv2-dot-${mealStatus(data.석식)}" title="석식"></span>
+          </span>
+        `;
         btn.addEventListener('click', () => {
-          selectedWeekSunday = new Date(day.getFullYear(), day.getMonth(), day.getDate() - day.getDay());
-          if (day.getMonth() !== calMonth) {
-            calYear = day.getFullYear();
-            calMonth = day.getMonth();
-          }
+          selectedDate = key;
+          form = null;
           renderCalendar();
-          renderWeekStrip();
+          renderDayPanel();
         });
         td.appendChild(btn);
         tr.appendChild(td);
@@ -137,47 +153,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  document.getElementById('mv2CalPrev').addEventListener('click', () => {
-    calMonth -= 1;
-    if (calMonth < 0) { calMonth = 11; calYear -= 1; }
+  document.getElementById('mv2WeekPrev').addEventListener('click', () => {
+    weekStart = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() - 7);
     renderCalendar();
   });
-  document.getElementById('mv2CalNext').addEventListener('click', () => {
-    calMonth += 1;
-    if (calMonth > 11) { calMonth = 0; calYear += 1; }
+  document.getElementById('mv2WeekNext').addEventListener('click', () => {
+    weekStart = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 7);
     renderCalendar();
   });
-
-  // ---- 주차 스트립 렌더 -----------------------------------------------------
-  const weekStrip = document.getElementById('mv2WeekStrip');
-
-  function renderWeekStrip() {
-    weekStrip.innerHTML = '';
-    for (let d = 0; d < 7; d += 1) {
-      const day = new Date(selectedWeekSunday.getFullYear(), selectedWeekSunday.getMonth(), selectedWeekSunday.getDate() + d);
-      const key = toKey(day.getFullYear(), day.getMonth(), day.getDate());
-      const data = DATA[key] || emptyDay();
-      const cell = document.createElement('button');
-      cell.type = 'button';
-      cell.className = 'mv2-day-cell' + (key === selectedDate ? ' is-selected' : '');
-      cell.innerHTML = `
-        <span>${dow[day.getDay()]}</span>
-        <strong>${day.getDate()}</strong>
-        <span class="mv2-cal-dots">
-          <span class="mv2-dot mv2-dot-${mealStatus(data.조식)}" title="조식"></span>
-          <span class="mv2-dot mv2-dot-${mealStatus(data.중식)}" title="중식"></span>
-          <span class="mv2-dot mv2-dot-${mealStatus(data.석식)}" title="석식"></span>
-        </span>
-      `;
-      cell.addEventListener('click', () => {
-        selectedDate = key;
-        form = null;
-        renderWeekStrip();
-        renderDayPanel();
-      });
-      weekStrip.appendChild(cell);
-    }
-  }
+  document.getElementById('mv2WeekToday').addEventListener('click', () => {
+    weekStart = new Date(TODAY_WEEK_START);
+    renderCalendar();
+  });
 
   // ---- 하단 일자별 관리 영역 렌더 --------------------------------------------
   const dayTitle = document.getElementById('mv2DayTitle');
@@ -350,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           item.exposed = true;
           showToast(item.name + ' 메뉴가 노출(으)로 변경되었습니다.');
-          renderWeekStrip();
+          renderCalendar();
         }
       });
     });
@@ -366,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         item.image = URL.createObjectURL(file);
         showToast(item.name + ' 이미지가 등록되었습니다.');
         renderDayPanel();
-        renderWeekStrip();
+        renderCalendar();
       });
     });
 
@@ -449,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         form = null;
         renderDayPanel();
-        renderWeekStrip();
+        renderCalendar();
       });
     }
 
@@ -506,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const [removed] = data[meal].splice(idx, 1);
     closeDeleteConfirm();
     renderDayPanel();
-    renderWeekStrip();
+    renderCalendar();
     showToast(removed.name + ' 메뉴가 삭제되었습니다.');
   });
 
@@ -539,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
     publishModal.classList.remove('show');
     publishModal.setAttribute('aria-hidden', 'true');
     renderDayPanel();
-    renderWeekStrip();
+    renderCalendar();
     showToast(item.name + ' 메뉴가 임시저장(으)로 변경되었습니다.');
   });
 
@@ -555,6 +542,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   renderCalendar();
-  renderWeekStrip();
   renderDayPanel();
 });

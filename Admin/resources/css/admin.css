@@ -115,22 +115,18 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .mv2-dot-empty{background:#c9d0d8}
 .mv2-dot-warn{background:var(--amber)}
 .mv2-dot-ok{background:var(--green)}
-.mv2-planner{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.mv2-week-panel{margin-bottom:16px}
 .mv2-calendar{width:100%;border-collapse:collapse;table-layout:fixed}
 .mv2-calendar th{padding:6px 0;color:#909090;font-size:11px;font-weight:600;text-align:center}
-.mv2-calendar td{padding:2px;text-align:center}
-.mv2-cal-day{display:flex;flex-direction:column;align-items:center;gap:3px;width:100%;padding:6px 0;border-radius:6px;background:transparent;color:var(--body);font-size:12.5px;cursor:pointer}
+.mv2-calendar td{padding:3px;text-align:center}
+.mv2-cal-day{display:flex;flex-direction:column;align-items:center;gap:5px;width:100%;padding:9px 4px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--body);font-size:12.5px;cursor:pointer}
 .mv2-cal-day:hover{background:#f7fbfd}
 .mv2-cal-day.is-muted{color:#c3c8ce}
-.mv2-cal-week.is-selected .mv2-cal-day{background:var(--admin-blue-pale);color:var(--admin-blue);font-weight:700}
-.mv2-cal-dots{display:flex;gap:2px}
-.mv2-cal-dots .mv2-dot{width:5px;height:5px}
-.mv2-week-strip{display:flex;gap:8px;padding:4px 20px 20px}
-.mv2-day-cell{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 4px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--body);font-size:12px;font-weight:600;cursor:pointer}
-.mv2-day-cell:hover{border-color:#b6d1e3}
-.mv2-day-cell.is-selected{border-color:var(--admin-blue);background:var(--admin-blue-pale);color:var(--admin-blue)}
-.mv2-day-cell .mv2-cal-dots{gap:4px}
-.mv2-day-cell .mv2-dot{width:7px;height:7px}
+.mv2-cal-day-month{color:#9aa4af;font-size:9.5px;font-weight:700}
+.mv2-cal-week.is-current .mv2-cal-day{background:#f7fbfd}
+.mv2-cal-day.is-selected{border-color:var(--admin-blue);background:var(--admin-blue-pale);color:var(--admin-blue);font-weight:700}
+.mv2-cal-dots{display:flex;flex-direction:row;gap:3px}
+.mv2-cal-dots .mv2-dot{width:6px;height:6px}
 .mv2-day-panel{margin-top:16px}
 .mv2-day-title{margin:0 0 12px;color:var(--ink);font-size:16px;font-weight:700}
 .mv2-meal-section{margin-bottom:16px;padding:18px 20px}

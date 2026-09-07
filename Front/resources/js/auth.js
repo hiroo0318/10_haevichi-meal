@@ -144,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function(){
         return;
       }
       err.hidden = true;
-      window.location.href = document.body.dataset.authVersion === 'v3' ? 'service-v2/meal/home-b.html' : 'home.html';
     });
   }
 
@@ -323,7 +322,6 @@ document.addEventListener('DOMContentLoaded', function(){
         signupPasswordConfirm.focus();
         return;
       }
-      window.location.href = signupForm.dataset.signupVersion === 'v3' ? 'service-v2/meal/home-b.html' : 'home.html';
     });
   }
 

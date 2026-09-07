@@ -58,25 +58,20 @@
       <span class="mv2-dot mv2-dot-ok"></span>완료
     </div>
 
-    <div class="mv2-planner">
-      <section class="panel mv2-calendar-panel">
-        <div class="panel-head"><div><h2 class="panel-title" id="mv2CalendarTitle">2026년 9월</h2></div>
-          <div class="panel-head-right">
-            <button type="button" class="btn outline" id="mv2CalPrev" aria-label="이전 달">‹</button>
-            <button type="button" class="btn outline" id="mv2CalNext" aria-label="다음 달">›</button>
-          </div>
+    <section class="panel mv2-week-panel">
+      <div class="panel-head">
+        <div><h2 class="panel-title" id="mv2RangeTitle">2026년 9월</h2><p class="panel-sub">날짜를 클릭하면 아래 관리 영역이 그 날짜로 전환됩니다. 2주 단위로 이동합니다.</p></div>
+        <div class="panel-head-right">
+          <button type="button" class="btn outline" id="mv2WeekToday">이번 주</button>
+          <button type="button" class="btn outline" id="mv2WeekPrev" aria-label="이전 주">‹</button>
+          <button type="button" class="btn outline" id="mv2WeekNext" aria-label="다음 주">›</button>
         </div>
-        <table class="mv2-calendar" id="mv2Calendar" aria-label="월 달력, 날짜를 클릭하면 그 주가 선택됩니다">
-          <thead><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead>
-          <tbody id="mv2CalendarBody"></tbody>
-        </table>
-      </section>
-
-      <section class="panel mv2-week-panel">
-        <div class="panel-head"><div><h2 class="panel-title">선택 주차</h2><p class="panel-sub">날짜를 클릭하면 아래 관리 영역이 그 날짜로 전환됩니다.</p></div></div>
-        <div class="mv2-week-strip" id="mv2WeekStrip"></div>
-      </section>
-    </div>
+      </div>
+      <table class="mv2-calendar" id="mv2Calendar" aria-label="2주 달력, 날짜를 클릭하면 그 날짜로 전환됩니다">
+        <thead><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead>
+        <tbody id="mv2CalendarBody"></tbody>
+      </table>
+    </section>
 
     <div class="mv2-day-panel">
       <h2 class="mv2-day-title" id="mv2DayTitle">날짜를 선택해주세요</h2>
