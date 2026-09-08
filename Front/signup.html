@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
-<!-- HVM-MO-02-00 회원가입: 사내 메일 확인 → 메일 인증 → 비밀번호 등록 -->
+<!-- HVM-MO-02-00 회원가입: 사내 메일 확인 → 메일 인증 → 추가 정보 → 비밀번호 등록 -->
 <div class="page">
   <main class="content signup-content">
     <div class="signup-brand">FX<span>By Haevichi</span></div>
@@ -17,11 +17,12 @@
       <div class="signup-progress" aria-label="회원가입 진행 단계">
         <span class="is-active" data-signup-progress="1">1</span><i></i>
         <span data-signup-progress="2">2</span><i></i>
-        <span data-signup-progress="3">3</span>
+        <span data-signup-progress="3">3</span><i></i>
+        <span data-signup-progress="4">4</span>
       </div>
 
       <section class="signup-step" data-signup-step="1">
-        <p class="signup-step-count">1 / 3</p>
+        <p class="signup-step-count">1 / 4</p>
         <h1>사내 메일 주소를<br>입력해주세요</h1>
         <p class="signup-description">소속 회사의 사내 메일 주소만 가입할 수 있어요.</p>
         <div class="field signup-field">
@@ -29,11 +30,13 @@
           <input class="input" id="signupEmail" type="email" placeholder="name@hyundaicapital.com" autocomplete="email" inputmode="email" required>
           <p class="form-message is-error" id="signupEmailError" hidden>허용되지 않은 메일 도메인입니다. 소속 회사의 사내 메일 주소로 다시 시도해주세요.</p>
         </div>
+        <label class="signup-consent"><input id="signupEmailConsent" type="checkbox" required><span>개인정보 수집 및 이용에 동의합니다. <b>(필수)</b></span><button type="button" data-open-consent="email">전문 보기</button></label>
+        <p class="form-message is-error" id="signupEmailConsentError" hidden>개인정보 수집 및 이용 동의가 필요합니다.</p>
         <button class="btn btn-primary" type="button" data-signup-next="email">다음</button>
       </section>
 
       <section class="signup-step" data-signup-step="2" hidden>
-        <p class="signup-step-count">2 / 3</p>
+        <p class="signup-step-count">2 / 4</p>
         <h1>메일 인증</h1>
         <p class="signup-description"><b id="signupEmailDisplay"></b>로<br>인증번호를 보냈어요.</p>
         <div class="field signup-field">
@@ -49,7 +52,34 @@
       </section>
 
       <section class="signup-step" data-signup-step="3" hidden>
-        <p class="signup-step-count">3 / 3</p>
+        <p class="signup-step-count">3 / 4</p>
+        <h1>추가 정보를<br>입력해주세요</h1>
+        <p class="signup-description">서비스 제공을 위해 필요한 정보예요.</p>
+        <div class="signup-profile-grid">
+          <div class="field signup-field">
+            <label for="signupAffiliation">소속 구분</label>
+            <select class="input" id="signupAffiliation" required><option value="">선택해주세요</option><option>현대캐피탈</option><option>협력사</option></select>
+          </div>
+          <div class="field signup-field">
+            <label for="signupPosition">직급</label>
+            <select class="input" id="signupPosition" required><option value="">선택해주세요</option><option>사원</option><option>주임·대리</option><option>과장</option><option>차장</option><option>부장 이상</option><option>임원</option></select>
+          </div>
+          <div class="field signup-field">
+            <label for="signupGender">성별</label>
+            <select class="input" id="signupGender" required><option value="">선택해주세요</option><option>여성</option><option>남성</option></select>
+          </div>
+          <div class="field signup-field">
+            <label for="signupAgeGroup">연령대</label>
+            <select class="input" id="signupAgeGroup" required><option value="">선택해주세요</option><option>20대</option><option>30대</option><option>40대</option><option>50대</option><option>60대 이상</option></select>
+          </div>
+        </div>
+        <label class="signup-consent"><input id="signupPrivacyConsent" type="checkbox" required><span>개인정보 수집 및 이용에 동의합니다. <b>(필수)</b></span><button type="button" data-open-consent="profile">전문 보기</button></label>
+        <p class="form-message is-error" id="signupProfileError" hidden>소속 구분, 성별, 연령대, 직급과 개인정보 수집 및 이용 동의는 필수입니다.</p>
+        <button class="btn btn-primary" type="button" data-signup-next="profile">다음</button>
+      </section>
+
+      <section class="signup-step" data-signup-step="4" hidden>
+        <p class="signup-step-count">4 / 4</p>
         <h1>비밀번호를<br>등록해주세요</h1>
         <p class="signup-description">로그인할 때 사용할 비밀번호를 설정해 주세요.</p>
         <div class="field signup-field">
@@ -69,6 +99,14 @@
     <button class="signup-step-back" id="signupBack" type="button"><span aria-hidden="true">←</span> <span id="signupBackLabel">로그인으로 돌아가기</span></button>
   </main>
 </div>
+<section class="auth-common-layer" id="privacyConsentLayer" data-layer="privacy-consent" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="privacyConsentTitle">
+  <div class="auth-common-layer__dim" data-close-layer></div>
+  <div class="auth-common-layer__panel">
+    <div class="auth-common-layer__head"><h2 id="privacyConsentTitle">개인정보 수집 및 이용 동의</h2><button type="button" class="auth-common-layer__close" data-close-layer aria-label="닫기">×</button></div>
+    <div class="auth-common-layer__body"><p>회원가입과 사내 메일 인증을 위해 아래 정보를 수집·이용합니다.</p><dl><dt>수집 항목</dt><dd>사내 이메일 주소</dd><dt>이용 목적</dt><dd>로그인 ID 관리, 회원 식별 및 이메일 인증</dd><dt>보유 기간</dt><dd>회원 탈퇴 시까지. 관계 법령에 따라 보관이 필요한 정보는 해당 기간까지 보관합니다.</dd></dl><p class="auth-common-layer__notice">동의를 거부할 수 있으나, 필수 정보 수집 및 이용에 동의하지 않으면 회원가입이 제한됩니다.</p></div>
+    <button type="button" class="btn btn-primary" data-close-layer>확인</button>
+  </div>
+</section>
 <script src="resources/js/auth.js"></script>
 </body>
 </html>

@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   /* -------------------------------------------------------
-     PAGE: signup.html — 도메인 확인 / 메일 인증 / 비밀번호 등록
+     PAGE: signup.html — 도메인 확인 / 메일 인증 / 추가 정보 / 비밀번호 등록
      실제 메일 발송과 인증은 개발 연동 대상이며, 퍼블리싱에서는 단계
      전환과 유효성 상태를 확인할 수 있게만 구성한다.
      ------------------------------------------------------- */
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var signupPosition = document.getElementById('signupPosition');
     var signupPrivacyConsent = document.getElementById('signupPrivacyConsent');
     var signupProfileError = document.getElementById('signupProfileError');
-    var signupEmailConsent;
+    var signupEmailConsent = document.getElementById('signupEmailConsent');
     var v3ConsentLayer = document.getElementById('privacyConsentLayer');
     var v3ConsentContent = {
       email: { title: '개인정보 수집 및 이용 동의', intro: '회원가입과 사내 메일 인증을 위해 아래 정보를 수집·이용합니다.', items: '사내 이메일 주소', purpose: '로그인 ID 관리, 회원 식별 및 이메일 인증', retention: '회원 탈퇴 시까지. 관계 법령에 따라 보관이 필요한 정보는 해당 기간까지 보관합니다.' },
@@ -198,10 +198,10 @@ document.addEventListener('DOMContentLoaded', function(){
       profileConsentLabel.querySelector('span').innerHTML = '개인정보 수집 및 이용에 동의합니다. <b>(필수)</b>';
       profileConsentLabel.querySelector('button').setAttribute('data-open-consent', 'profile');
       profileConsentLabel.querySelector('button').removeAttribute('data-open-layer');
-      document.querySelectorAll('[data-open-consent]').forEach(function(control){
-        control.addEventListener('click', function(){ showV3Consent(control.dataset.openConsent); });
-      });
     }
+    document.querySelectorAll('[data-open-consent]').forEach(function(control){
+      control.addEventListener('click', function(){ showV3Consent(control.dataset.openConsent); });
+    });
     var signupBack = document.getElementById('signupBack');
     var signupBackLabel = document.getElementById('signupBackLabel');
     var signupStep = 1;
@@ -279,7 +279,8 @@ document.addEventListener('DOMContentLoaded', function(){
         return;
       }
       changeSignupStep(3);
-      if(signupForm.dataset.signupVersion !== 'v3') signupPassword.focus();
+      if(signupProfileNext) signupAffiliation.focus();
+      else if(signupForm.dataset.signupVersion !== 'v3') signupPassword.focus();
     });
     var signupProfileNext = signupForm.querySelector('[data-signup-next="profile"]');
     if(signupProfileNext){
