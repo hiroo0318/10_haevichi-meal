@@ -57,6 +57,108 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
+  // 관리자 정보 / 로그아웃 — 모든 화면 상단바에 동일하게 있어 화면마다 모달 마크업을 두지 않고 여기서 한 번만 만들어 붙인다.
+  const adminInfoTrigger = document.getElementById('adminInfoTrigger');
+  const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+  if (adminInfoTrigger) {
+    const modal = document.createElement('div');
+    modal.className = 'scope-modal';
+    modal.id = 'adminInfoModal';
+    modal.setAttribute('aria-hidden', 'true');
+    modal.innerHTML = `
+      <div class="scope-modal-backdrop" data-admin-info-close></div>
+      <div class="scope-modal-body" role="dialog" aria-modal="true" aria-label="관리자 정보">
+        <h2 class="scope-modal-title">관리자 정보</h2>
+        <div id="adminInfoDetail">
+          <div class="admin-info-grid">
+            <b>관리자 ID</b><span>admin_hc</span>
+            <b>이름</b><span>정혜림</span>
+            <b>권한</b><span>마스터, 운영자</span>
+            <b>상태</b><span>활성</span>
+          </div>
+          <div class="scope-modal-actions">
+            <button type="button" class="btn outline" id="adminPasswordOpen">비밀번호 변경</button>
+            <button type="button" class="btn outline" data-admin-info-close>닫기</button>
+          </div>
+        </div>
+        <div id="adminPasswordCurrent" hidden>
+          <label class="scope-modal-label" for="adminCurrentPassword">기존 비밀번호 인증</label>
+          <input class="field scope-modal-field" type="password" id="adminCurrentPassword" placeholder="기존 비밀번호 입력">
+          <div class="scope-modal-actions">
+            <button type="button" class="btn outline" id="adminPasswordBack1">취소</button>
+            <button type="button" class="btn primary" id="adminPasswordVerify">인증</button>
+          </div>
+        </div>
+        <div id="adminPasswordNew" hidden>
+          <label class="scope-modal-label" for="adminNewPassword">신규 비밀번호 설정</label>
+          <input class="field scope-modal-field" type="password" id="adminNewPassword" placeholder="신규 비밀번호 입력" style="margin-bottom:10px">
+          <input class="field scope-modal-field" type="password" id="adminNewPasswordConfirm" placeholder="신규 비밀번호 확인">
+          <div class="scope-modal-actions">
+            <button type="button" class="btn outline" id="adminPasswordBack2">이전</button>
+            <button type="button" class="btn primary" id="adminPasswordSave">변경 완료</button>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+
+    const detailView = modal.querySelector('#adminInfoDetail');
+    const currentView = modal.querySelector('#adminPasswordCurrent');
+    const newView = modal.querySelector('#adminPasswordNew');
+    const showView = (view) => {
+      detailView.hidden = view !== 'detail';
+      currentView.hidden = view !== 'current';
+      newView.hidden = view !== 'new';
+    };
+    const openModal = () => {
+      showView('detail');
+      modal.querySelector('#adminCurrentPassword').value = '';
+      modal.querySelector('#adminNewPassword').value = '';
+      modal.querySelector('#adminNewPasswordConfirm').value = '';
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+    };
+    const closeModal = () => {
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+    };
+
+    adminInfoTrigger.addEventListener('click', openModal);
+    modal.querySelectorAll('[data-admin-info-close]').forEach((el) => el.addEventListener('click', closeModal));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.classList.contains('show')) closeModal();
+    });
+
+    modal.querySelector('#adminPasswordOpen').addEventListener('click', () => showView('current'));
+    modal.querySelector('#adminPasswordBack1').addEventListener('click', () => showView('detail'));
+    modal.querySelector('#adminPasswordBack2').addEventListener('click', () => showView('current'));
+    modal.querySelector('#adminPasswordVerify').addEventListener('click', () => {
+      if (!modal.querySelector('#adminCurrentPassword').value.trim()) {
+        showToast('기존 비밀번호를 입력해주세요.');
+        return;
+      }
+      showView('new');
+    });
+    modal.querySelector('#adminPasswordSave').addEventListener('click', () => {
+      const newPassword = modal.querySelector('#adminNewPassword').value;
+      const confirmPassword = modal.querySelector('#adminNewPasswordConfirm').value;
+      if (!newPassword || !confirmPassword) {
+        showToast('신규 비밀번호를 입력해주세요.');
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        showToast('신규 비밀번호가 서로 일치하지 않습니다.');
+        return;
+      }
+      closeModal();
+      showToast('비밀번호가 변경되었습니다.');
+    });
+  }
+  if (adminLogoutBtn) {
+    adminLogoutBtn.addEventListener('click', () => {
+      window.location.href = 'login.html';
+    });
+  }
+
   document.querySelectorAll('[data-demo]').forEach((button) => {
     button.addEventListener('click', (event) => {
       if (button.tagName === 'A') event.preventDefault();
