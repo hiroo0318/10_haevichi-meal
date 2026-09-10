@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const startInput = document.getElementById('noticeStartInput');
   const endInput = document.getElementById('noticeEndInput');
   const pinnedInput = document.getElementById('noticePinnedInput');
+  const homeInput = document.getElementById('noticeHomeInput');
   const popupInput = document.getElementById('noticePopupInput');
   const popupStartInput = document.getElementById('noticePopupStartInput');
   const popupEndInput = document.getElementById('noticePopupEndInput');
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startInput.value = '';
     endInput.value = '';
     pinnedInput.checked = false;
+    homeInput.checked = false;
     popupInput.checked = false;
     popupInput.dispatchEvent(new Event('change'));
     popupStartInput.value = '';
@@ -77,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startInput.value = row.dataset.start;
     endInput.value = row.dataset.end;
     pinnedInput.checked = row.dataset.pinned === 'true';
+    homeInput.checked = row.dataset.home === 'true';
     popupInput.checked = row.dataset.popup === 'true';
     popupInput.dispatchEvent(new Event('change'));
     popupStartInput.value = row.dataset.popupStart || '';
@@ -128,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <td>${toDot(data.start)} ~ ${toDot(data.end)}</td>
       <td>${scopeLabel}</td>
       <td>${data.pinned ? 'Y' : 'N'}</td>
+      <td>${data.home ? 'Y' : 'N'}</td>
       <td>${data.popup ? 'Y' : 'N'}</td>
       <td><span class="badge ${badgeClass}">${status}</span></td>
     `;
@@ -150,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
       start: startInput.value,
       end: endInput.value,
       pinned: pinnedInput.checked,
+      home: homeInput.checked,
       popup: popupInput.checked,
       popupStart: popupInput.checked ? popupStartInput.value : '',
       popupEnd: popupInput.checked ? popupEndInput.value : '',
@@ -163,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
       editingRow.dataset.start = data.start;
       editingRow.dataset.end = data.end;
       editingRow.dataset.pinned = String(data.pinned);
+      editingRow.dataset.home = String(data.home);
       editingRow.dataset.popup = String(data.popup);
       editingRow.dataset.popupStart = data.popupStart;
       editingRow.dataset.popupEnd = data.popupEnd;
@@ -180,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
       row.dataset.start = data.start;
       row.dataset.end = data.end;
       row.dataset.pinned = String(data.pinned);
+      row.dataset.home = String(data.home);
       row.dataset.popup = String(data.popup);
       row.dataset.popupStart = data.popupStart;
       row.dataset.popupEnd = data.popupEnd;
