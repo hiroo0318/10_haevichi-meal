@@ -56,13 +56,9 @@
         <h1>추가 정보를<br>입력해주세요</h1>
         <p class="signup-description">서비스 제공을 위해 필요한 정보예요.</p>
         <div class="signup-profile-grid">
-          <div class="field signup-field">
+          <div class="field signup-field signup-field--full">
             <label for="signupAffiliation">소속 구분</label>
             <select class="input" id="signupAffiliation" required><option value="">선택해주세요</option><option>현대캐피탈</option><option>협력사</option></select>
-          </div>
-          <div class="field signup-field">
-            <label for="signupPosition">직급</label>
-            <select class="input" id="signupPosition" required><option value="">선택해주세요</option><option>사원</option><option>주임·대리</option><option>과장</option><option>차장</option><option>부장 이상</option><option>임원</option></select>
           </div>
           <div class="field signup-field">
             <label for="signupGender">성별</label>
@@ -74,7 +70,7 @@
           </div>
         </div>
         <label class="signup-consent"><input id="signupPrivacyConsent" type="checkbox" required><span>개인정보 수집 및 이용에 동의합니다. <b>(필수)</b></span><button type="button" data-open-consent="profile">전문 보기</button></label>
-        <p class="form-message is-error" id="signupProfileError" hidden>소속 구분, 성별, 연령대, 직급과 개인정보 수집 및 이용 동의는 필수입니다.</p>
+        <p class="form-message is-error" id="signupProfileError" hidden>소속 구분, 성별, 연령대와 개인정보 수집 및 이용 동의는 필수입니다.</p>
         <button class="btn btn-primary" type="button" data-signup-next="profile">다음</button>
       </section>
 

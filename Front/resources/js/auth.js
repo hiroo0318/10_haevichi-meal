@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var v3ConsentLayer = document.getElementById('privacyConsentLayer');
     var v3ConsentContent = {
       email: { title: '개인정보 수집 및 이용 동의', intro: '회원가입과 사내 메일 인증을 위해 아래 정보를 수집·이용합니다.', items: '사내 이메일 주소', purpose: '로그인 ID 관리, 회원 식별 및 이메일 인증', retention: '회원 탈퇴 시까지. 관계 법령에 따라 보관이 필요한 정보는 해당 기간까지 보관합니다.' },
-      profile: { title: '개인정보 수집 및 이용 동의', intro: '회원 정보 관리와 급식 서비스 운영을 위해 아래 정보를 수집·이용합니다.', items: '소속 구분, 직급, 성별, 연령대', purpose: '회원 정보 관리 및 급식 서비스 운영', retention: '회원 탈퇴 시까지. 관계 법령에 따라 보관이 필요한 정보는 해당 기간까지 보관합니다.' }
+      profile: { title: '개인정보 수집 및 이용 동의', intro: '회원 정보 관리와 급식 서비스 운영을 위해 아래 정보를 수집·이용합니다.', items: signupPosition ? '소속 구분, 직급, 성별, 연령대' : '소속 구분, 성별, 연령대', purpose: '회원 정보 관리 및 급식 서비스 운영', retention: '회원 탈퇴 시까지. 관계 법령에 따라 보관이 필요한 정보는 해당 기간까지 보관합니다.' }
     };
     var showV3Consent = function(type){
       if(!v3ConsentLayer || !v3ConsentContent[type]) return;
@@ -285,11 +285,11 @@ document.addEventListener('DOMContentLoaded', function(){
     var signupProfileNext = signupForm.querySelector('[data-signup-next="profile"]');
     if(signupProfileNext){
       signupProfileNext.addEventListener('click', function(){
-        var isProfileComplete = signupAffiliation.value && signupGender.value && signupAgeGroup.value && signupPosition.value && signupPrivacyConsent.checked;
+        var isProfileComplete = signupAffiliation.value && signupGender.value && signupAgeGroup.value && (!signupPosition || signupPosition.value) && signupPrivacyConsent.checked;
         signupProfileError.hidden = Boolean(isProfileComplete);
         if(!isProfileComplete){
           if(signupForm.dataset.signupVersion === 'v3') showV3Toast('필수 정보를 모두 입력하고 동의해주세요.');
-          var firstEmpty = !signupAffiliation.value ? signupAffiliation : (!signupGender.value ? signupGender : (!signupAgeGroup.value ? signupAgeGroup : (!signupPosition.value ? signupPosition : signupPrivacyConsent)));
+          var firstEmpty = !signupAffiliation.value ? signupAffiliation : (!signupGender.value ? signupGender : (!signupAgeGroup.value ? signupAgeGroup : (signupPosition && !signupPosition.value ? signupPosition : signupPrivacyConsent)));
           firstEmpty.focus();
           return;
         }
