@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const homeFrame = document.getElementById('themePreviewFrameHome');
   const vocFrame = document.getElementById('themePreviewFrameVoc');
+  const noticeFrame = document.getElementById('themePreviewFrameNotice');
   if (!homeFrame || !vocFrame) return;
   const toast = document.querySelector('.toast');
   let timer;
@@ -114,13 +115,34 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </body></html>`;
 
+  const noticeDoc = (color) => `<!doctype html><html lang="ko"><head><meta charset="UTF-8">${previewHead(color)}</head><body>
+<div class="page notice-popup-page" id="previewPage">
+  <section class="home-notice-popup" role="dialog" aria-modal="true" aria-labelledby="previewNoticePopupTitle">
+    <div class="home-notice-popup-card">
+      <span class="home-notice-popup-label">전체 공지</span>
+      <h1 id="previewNoticePopupTitle">10월 6일부터 새 급식정보 서비스가 시작됩니다</h1>
+      <p>
+        더욱 편리한 급식정보 서비스를 위해 앱이 새롭게 변경됩니다.<br>
+        로그인 후 오늘의 식단과 다양한 소식을 확인해 보세요.
+      </p>
+      <a class="home-notice-popup-detail">공지 자세히 보기 <span aria-hidden="true">›</span></a>
+      <label class="home-notice-popup-today"><input type="checkbox"> <span>오늘 하루 보지 않기</span></label>
+      <div class="home-notice-popup-actions">
+        <button class="home-notice-popup-confirm" type="button">확인</button>
+      </div>
+    </div>
+  </section>
+</div>
+</body></html>`;
+
   const render = () => {
     homeFrame.srcdoc = homeDoc(colorPicker.value);
     vocFrame.srcdoc = vocDoc(colorPicker.value);
+    if (noticeFrame) noticeFrame.srcdoc = noticeDoc(colorPicker.value);
   };
 
   const applyColor = (hex) => {
-    [homeFrame, vocFrame].forEach((frame) => {
+    [homeFrame, vocFrame, noticeFrame].filter(Boolean).forEach((frame) => {
       const doc = frame.contentDocument;
       const page = doc && doc.getElementById('previewPage');
       if (page) page.style.setProperty('--brand-primary', hex);
