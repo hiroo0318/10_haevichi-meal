@@ -99,15 +99,25 @@ document.addEventListener('DOMContentLoaded', () => {
   vmAnswerSubmit.addEventListener('click', () => {
     if (!activeRow || !vmAnswerInput.value.trim()) return;
     const answer = vmAnswerInput.value.trim();
+    const today = '2026.09.11';
     activeRow.dataset.status = '답변완료';
     activeRow.dataset.answer = answer;
+    activeRow.dataset.answerDate = today;
     const badge = activeRow.querySelector('.badge');
     badge.className = 'badge done';
     badge.textContent = '답변완료';
+    activeRow.children[7].textContent = today;
 
     updateWaitingCount();
     if (window.vocPager) window.vocPager.render();
     showToast('답변이 등록되었습니다.');
     closeModal();
   });
+
+  const excelDownloadBtn = document.getElementById('voc-excel-download');
+  if (excelDownloadBtn) {
+    excelDownloadBtn.addEventListener('click', () => {
+      showToast('현재 조회 결과를 엑셀로 다운로드했습니다. (접수일·작성자·사업장·유형·내용·상태·답변일자·답변내용 포함)');
+    });
+  }
 });
