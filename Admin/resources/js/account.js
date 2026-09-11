@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const setRowStatus = (row, status) => {
     row.dataset.status = status;
-    row.children[7].innerHTML = status === '정상'
+    row.children[6].innerHTML = status === '정상'
       ? '<span class="badge done">정상</span>'
       : '<span class="badge danger">탈퇴</span>';
   };
@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
     detailCompany.value = row.children[1].textContent.trim();
     detailEmail.value = emailOf(row);
     detailSabun.value = row.dataset.sabun === '-' ? '' : row.dataset.sabun;
-    detailJoined.value = row.children[5].textContent.trim();
-    detailLastLogin.value = row.children[6].textContent.trim();
+    detailJoined.value = row.children[4].textContent.trim();
+    detailLastLogin.value = row.children[5].textContent.trim();
     detailStatus.value = row.dataset.status;
     const isWithdrawn = row.dataset.status === '탈퇴';
     detailWithdrawBtn.disabled = isWithdrawn;
