@@ -541,6 +541,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ---- 식단 다운로드 (선택 사업장 + 지정 기간, 업로드 양식과 동일 컬럼) --------------------
+  const downloadModal = document.getElementById('mv2DownloadModal');
+  const downloadOpenBtn = document.getElementById('mv2DownloadOpen');
+  const downloadSiteLabel = document.getElementById('mv2DownloadSite');
+  const downloadStart = document.getElementById('mv2DownloadStart');
+  const downloadEnd = document.getElementById('mv2DownloadEnd');
+  const downloadConfirm = document.getElementById('mv2DownloadConfirm');
+  const siteSelect = document.getElementById('mv2SiteSelect');
+
+  if (downloadOpenBtn && downloadModal) {
+    downloadOpenBtn.addEventListener('click', () => {
+      downloadSiteLabel.textContent = siteSelect ? siteSelect.value : '';
+      downloadStart.value = weekStart.toISOString().slice(0, 10);
+      downloadEnd.value = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + 13).toISOString().slice(0, 10);
+      downloadModal.classList.add('show');
+      downloadModal.setAttribute('aria-hidden', 'false');
+    });
+    downloadModal.querySelectorAll('[data-mv2-download-close]').forEach((el) => el.addEventListener('click', () => {
+      downloadModal.classList.remove('show');
+      downloadModal.setAttribute('aria-hidden', 'true');
+    }));
+    downloadConfirm.addEventListener('click', () => {
+      if (!downloadStart.value || !downloadEnd.value) {
+        showToast('다운로드할 기간을 선택해주세요.');
+        return;
+      }
+      if (downloadStart.value > downloadEnd.value) {
+        showToast('종료일은 시작일보다 늦어야 합니다.');
+        return;
+      }
+      downloadModal.classList.remove('show');
+      downloadModal.setAttribute('aria-hidden', 'true');
+      showToast(`${downloadSiteLabel.textContent} · ${downloadStart.value} ~ ${downloadEnd.value} 식단을 업로드 양식과 동일한 컬럼으로 다운로드했습니다.`);
+    });
+  }
+
   renderCalendar();
   renderDayPanel();
 });

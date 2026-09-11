@@ -15,7 +15,7 @@ body{min-width:1024px;background:var(--bg);color:var(--body);font-family:var(--f
 .scope-fixed{display:inline-flex;align-items:center;height:30px;padding:0 10px;color:var(--heading);font-size:12px;font-weight:600}
 .scope-modal{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;padding:24px}.scope-modal.show{display:flex}
 .scope-modal-backdrop{position:absolute;inset:0;background:rgb(15 23 42 / .55)}
-.scope-modal-body{position:relative;z-index:1;width:100%;max-width:360px;padding:24px;background:#fff;border-radius:8px;box-shadow:0 20px 48px rgb(15 23 42 / .28)}
+.scope-modal-body{position:relative;z-index:1;width:100%;max-width:360px;padding:24px;background:#fff;border-radius:8px;box-shadow:0 20px 48px rgb(15 23 42 / .28)}.scope-modal-body.wide{max-width:440px}
 .scope-modal-title{margin:0 0 6px;color:var(--heading);font-size:15px;font-weight:700}
 .scope-modal-desc{margin:0 0 16px;color:var(--sub);font-size:12px;line-height:1.5}
 .scope-modal-label{display:block;margin:0 0 6px;color:var(--heading);font-size:12px;font-weight:600}
@@ -185,7 +185,7 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .field-error[hidden]{display:none}
 .corner-actions{display:flex;justify-content:flex-end;gap:8px;padding:16px 20px}
 .corner-table td{vertical-align:middle}
-.date-range{display:flex;align-items:center;gap:8px}.date-range[hidden]{display:none}
+.date-range{display:flex;align-items:center;gap:8px}.date-range[hidden]{display:none}.date-range .field{flex:1;min-width:0;width:auto}
 .voc-table th,.voc-table td{text-align:center}.voc-table td.voc-content{text-align:left;max-width:320px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .attach-thumb{display:inline-flex;align-items:center;height:26px;padding:0 9px;border:1px solid var(--line);border-radius:99px;background:#fff;color:var(--admin-blue);font-size:11px;font-weight:600;cursor:zoom-in}.attach-thumb:hover{border-color:var(--admin-blue);background:var(--admin-blue-pale)}
 .voc-row{cursor:pointer}.voc-row:hover{background:#f7fbfd}
