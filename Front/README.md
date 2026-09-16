@@ -5,19 +5,38 @@
 - 기준 기획서: `SB/해비치 급식 App-0.6.0.html`
 - 범위: `PUBLISH/Front` 사용자 화면
 - 제외: `PUBLISH/Admin` 관리자 화면
-- 현재 작업 기준: 인증 화면 3 + 서비스 화면 2
+- **현재 최종본: `service-v3/`** — 해비치 디자인 의견(2026.09.15) 반영본
+- 이전 작업본: 인증 화면 3 + 서비스 화면 2 (비교용으로 보존)
+
+## 최종본 — `service-v3/`
+
+`해비치 디자인 의견/20260915/`의 기준 설정 PDF와 전후 비교 시안을 반영한 최종 퍼블리싱본입니다.
+독립 실행 가능한 폴더이며, HTML·CSS·JS·폰트·이미지를 모두 `service-v3/resources/` 안에서 참조합니다.
+
+- 화면 진입: `index.html` 최상단 최종본 영역
+- 변경 이력과 반영·보류 판정: [`service-v3/WEB_SCREEN_CHANGELOG.md`](service-v3/WEB_SCREEN_CHANGELOG.md)
+- 회사별 테마: `service-v3/resources/css/theme-{company-code}.css`가 `--brand-primary`(대표색)와
+  `--brand-on-primary`(대표색 위 글자색)를 제공하고, `service.css`가 파생색을 계산합니다.
+  `--brand-on-primary`를 비우면 `theme-oncolor.js`가 대표색 밝기로 자동 판정합니다.
+  현대캐피탈 등 다른 고객사를 추가해도 컴포넌트 CSS는 수정하지 않습니다.
+- 인증 화면(`splash`/`login`/`signup`/`password-reset`)은 회사 확정 전 화면이므로 테마를 적용하지 않고
+  `auth.css`의 고정 디자인을 사용합니다.
+
+아래 서비스 화면 1·2와 인증 화면 1·2·3 문서는 이전 작업본 기록이며, 최종본 기준이 아닙니다.
 
 ## 구현안 구분
 
-기존 화면을 보존한 상태에서 서비스 화면 2를 별도 영역으로 구성했습니다. 신규 작업은 서비스 화면 2와 인증 화면 3을 기준으로 합니다.
+기존 화면을 보존한 상태에서 각 안을 별도 영역으로 구성했습니다.
 
 | 구분 | 대상 | 전용 리소스 |
 | --- | --- | --- |
+| **서비스/인증 화면 3 (최종본)** | `service-v3/` | `service-v3/resources/css/service.css`, `auth.css`, `theme-haevichi.css`, `js/common.js`, `js/auth.js`, `js/theme-oncolor.js` |
 | 서비스 화면 1 | `home.html` 및 Front 루트의 기존 서비스 화면 | `resources/css/style.css`, `resources/js/common.js` |
 | 서비스 화면 2 | `service-v2/` | `resources/css/service-v2.css`, `resources/js/service-v2.js` |
 | 인증 화면 1·2·3 | `splash*.html`, `login*.html`, `signup*.html`, `password-reset*.html` | `resources/js/auth.js`, 각 인증 전용 CSS |
 
 서비스 화면 2는 기존 `style.css`, `common.js`를 사용하거나 수정하지 않습니다.
+`service-v3/`는 Front 루트의 `resources/`를 참조하지 않고 자체 사본을 사용하므로, 이전 안을 수정해도 영향을 받지 않습니다.
 
 ## 현재 화면 흐름
 
@@ -49,6 +68,17 @@ My 로그아웃 → splash-v3.html
 
 ```text
 Front/
+├─ service-v3/                               최종본 — 해비치 의견 반영
+│  ├─ splash.html / login.html / signup.html / password-reset.html
+│  ├─ home.html / menu-detail.html
+│  ├─ voc.html / voc-list.html
+│  ├─ notice.html / notice-detail.html / notice-popup.html / alert-popup.html
+│  ├─ my.html / my-password.html / my-policy.html
+│  ├─ terms.html / privacy.html / app-version.html / withdraw.html
+│  ├─ resources/                             최종본 전용 사본 (css / js / fonts / images)
+│  │  ├─ css/ service.css · auth.css · style.css · theme-haevichi.css · reset.css
+│  │  └─ js/  common.js · auth.js · theme-oncolor.js
+│  └─ WEB_SCREEN_CHANGELOG.md                반영·보류 판정과 수정 이력
 ├─ splash.html / splash-v2.html / splash-v3.html
 ├─ login.html / login-v2.html
 ├─ signup.html / signup-v2.html

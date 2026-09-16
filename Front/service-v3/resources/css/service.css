@@ -1,0 +1,408 @@
+/* =========================================================
+   Service V3 — 로그인 후 서비스 화면 공통 디자인 시스템
+   회사별 theme 파일은 --brand-primary만 제공한다. 이 파일의 파생값은
+   대표색을 바꾸면 같은 명도 관계를 유지하도록 자동 재계산된다.
+   인증 화면(auth.css)은 이 체계와 분리한다.
+   ========================================================= */
+
+@font-face{
+  font-family:"Pretendard";
+  src:url("../fonts/PretendardVariable.woff2") format("woff2");
+  font-style:normal;
+  font-weight:45 920;
+  font-display:swap;
+}
+
+:root{
+  /* 고정 중립 UI 색상 — 브랜드 대표색에 영향받지 않는다. */
+  --ui-ink:#171A1F;
+  --ui-dark:#4B525A;
+  --ui-muted:#8C95A1;
+  --ui-line:#D5DAE0;
+  --ui-divider:#E6E9ED;
+  --ui-bg:#F4F5F6;
+  --ui-surface:#FFFFFF;
+  --service-primary-blue:#156AAF;
+  --ui-success:#287035;
+  --ui-success-bg:#EAF5EC;
+  --ui-danger:#E0432B;
+  --ui-danger-bg:#FFF5F3;
+
+  /* 브랜드 파생색 — theme 파일의 --brand-primary 하나를 기준으로 계산한다. */
+  /* `light`와 `border`는 제품 상태에 사용할 때만 쓴다. PDF의 일반 카드·구분선에는
+     중립 토큰을 사용해, 회사 대표색 변경이 정보 위계를 침범하지 않게 한다. */
+  --brand-primary-light:color-mix(in srgb, var(--brand-primary) 56%, var(--ui-surface));
+  /* #70747A 기준 결과값은 PDF의 공지 Bar 배경 #F4F5F6이다.
+     약한 7% 혼합과 미세한 쿨 화이트를 사용해, 대표색 영향은 남기되
+     브랜드 배경이 중립 UI 배경보다 무겁게 보이지 않게 한다. */
+  --brand-primary-bg:color-mix(in srgb, var(--brand-primary) 7%, #FEFFFF);
+  --brand-primary-border:color-mix(in srgb, var(--brand-primary) 32%, var(--ui-line));
+  --brand-primary-pressed:color-mix(in srgb, var(--brand-primary) 88%, var(--ui-ink));
+
+  /* 기존 화면의 토큰 별칭 — 개별 페이지가 새 중립 체계를 공통으로 사용한다. */
+  --font:"Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  --ink:var(--ui-ink);
+  --sub:var(--ui-dark);
+  --faint:var(--ui-muted);
+  --line:var(--ui-line);
+  --bg:var(--ui-bg);
+  --white:var(--ui-surface);
+
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:20px;
+  --space-6:24px;
+  --radius-input:10px;
+  --radius-card:16px;
+  --radius-button:26px;
+  --radius-pill:999px;
+  --radius-lg:var(--radius-card);
+  --radius-md:12px;
+  --radius-sm:var(--radius-input);
+  --tabbar-h:72px;
+}
+
+body{ background:var(--ui-bg); }
+.page{ background:var(--ui-surface); box-shadow:0 0 0 1px var(--ui-divider); }
+
+/* 공통 헤더와 콘텐츠 여백 */
+.topbar{ height:56px; padding:var(--space-5) var(--space-5) 0; align-items:flex-start; border-color:var(--ui-divider); background:var(--ui-surface); }
+.brand-topbar{ height:64px; padding-right:var(--space-5); padding-left:var(--space-5); border-color:var(--ui-divider); background:var(--ui-surface); }
+.brand-logo,.brand-topbar .brand-logo{ width:38px; height:auto; max-width:none; }
+.greeting{ padding-right:var(--space-5); padding-left:var(--space-5); }
+.home-body,.voc-body,.my-body,.menu-detail-content,.notice-list-view,.notice-detail-view,.policy-body,.withdraw-content,.app-version-content{ padding-right:var(--space-5); padding-left:var(--space-5); }
+
+/* 입력·버튼 */
+.field .input,.voc-textarea,.withdraw-select{ border-color:var(--ui-line); border-radius:var(--radius-input); background:var(--ui-surface); color:var(--ui-ink); }
+.field .input::placeholder,.voc-textarea::placeholder{ color:var(--ui-muted); }
+.field .input:focus,.voc-textarea:focus,.withdraw-select:focus{ border-color:var(--brand-primary); box-shadow:0 0 0 2px var(--brand-primary-bg); }
+.btn{ min-height:48px; border-radius:var(--radius-button); font-weight:600; }
+.btn-primary{ background:var(--brand-primary); box-shadow:none; color:var(--brand-on-primary, #FFFFFF); }
+.btn-primary:active{ background:var(--brand-primary-pressed); }
+.btn-ghost{ background:var(--brand-primary-bg); color:var(--ui-dark); }
+.btn:disabled{ background:var(--ui-line); color:var(--ui-muted); box-shadow:none; cursor:not-allowed; }
+.btn-resend{ border-color:var(--ui-line); border-radius:var(--radius-input); background:var(--ui-surface); color:var(--ui-dark); }
+.voc-upload{ border-color:var(--ui-line); border-radius:var(--radius-input); }
+
+/* 카드 및 선택 컴포넌트 */
+.corner-card,.menu-detail-card,.my-menu-group,.voc-history-card,.notice-item,.version-card{ border-color:var(--ui-divider); border-radius:var(--radius-card); box-shadow:none; }
+.corner-card,.menu-detail-card,.voc-history-card,.notice-item{ background:var(--ui-surface); }
+.menu-detail-card{ border:1px solid var(--ui-divider); }
+.my-profile,.version-card{ background:var(--ui-surface); border-color:var(--ui-divider); border-radius:var(--radius-card); }
+.corner-voc-link,.voc-category-chip.is-active,.voc-history-type,.home-notice-popup-label{ background:var(--brand-primary-bg); color:var(--ui-dark); }
+.voc-category-chip.is-active{ border-color:var(--ui-line); }
+.notice-item--pinned{ border-color:var(--ui-divider); background:var(--brand-primary-bg); }
+.notice-item-tag{ background:var(--brand-primary); color:var(--brand-on-primary, #FFFFFF); }
+
+/* 의미 상태는 회사 대표색과 분리한다. */
+.voc-status{ background:var(--ui-bg); color:var(--ui-dark); }
+.voc-status.is-complete{
+  background:color-mix(in srgb, var(--service-primary-blue) 10%, var(--ui-surface));
+  color:var(--service-primary-blue);
+}
+.withdraw-notice{ background:var(--ui-danger-bg); color:var(--ui-dark); }
+.withdraw-notice strong{ color:var(--ui-danger); }
+.my-menu-item--danger{ color:var(--service-primary-blue); }
+/* 회원 탈퇴 확정 버튼.
+   위험색 채움 대신 중립 다크 채움을 쓴다. 이 화면은 경고 박스 배경·강조 문구·동의 체크박스로
+   이미 위험을 세 겹 알리고 있어, 버튼까지 붉게 채우면 과하다.
+   위험색(--ui-danger)은 경고 박스 안에만 남긴다. My 목록의 `회원 탈퇴`도 위험색을 쓰지 않는다.
+   회색 채움은 쓰지 않는다. 비활성 상태(--ui-line 배경)와 혼동되기 때문이다. */
+.btn-danger{ background:var(--ui-ink); color:var(--ui-surface); }
+.btn-danger:active{ background:color-mix(in srgb, var(--ui-ink) 82%, #FFFFFF); }
+
+/* 탭·선택 상태 */
+.meal-tab,.voc-tab{ border-radius:var(--radius-input); background:var(--ui-bg); color:var(--ui-dark); }
+.meal-tab.is-active,.voc-tab.is-active,.week-day.is-selected{ background:var(--brand-primary); color:var(--brand-on-primary, #FFFFFF); }
+.week-day.is-selected .dom{ color:var(--brand-on-primary, #FFFFFF); }
+.meal-tab:disabled{ background:var(--ui-bg); color:var(--ui-muted); }
+.week-navigation{ background:var(--ui-bg); }
+.week-navigation-button.is-active{ background:var(--ui-surface); color:var(--ui-dark); box-shadow:none; }
+
+/* 대표색 배경 위 글자색은 --brand-on-primary를 쓴다.
+   테마가 값을 주면 그 값, 없으면 theme-oncolor.js가 대표색 밝기로 채운다.
+   fallback #FFFFFF는 스크립트가 없는 환경에서 현재 동작을 유지하기 위한 값이다. */
+.app-alert-confirm{ background:var(--brand-primary); color:var(--brand-on-primary, #FFFFFF); }
+
+/* 팝업과 상세 화면도 동일한 표면·반경 규칙을 사용한다. */
+.home-notice-popup-card,.app-alert-card{ border-radius:var(--radius-card); background:var(--ui-surface); }
+.app-alert-actions button{ border-radius:var(--radius-button); }
+.menu-detail-content{ background:var(--ui-bg); }
+
+/* 남은 상세·설정 화면의 공통 표면과 컨트롤 */
+.hd-sub{ border-color:var(--ui-divider); background:var(--ui-surface); }
+.hd-sub{ padding-right:var(--space-5); padding-left:var(--space-5); }
+.back-btn,.hd-sub-close{ background:var(--ui-bg); }
+.home-notice-popup-confirm{ border-radius:var(--radius-button); background:var(--brand-primary); color:var(--brand-on-primary, #FFFFFF); }
+.notice-detail-heading,.legal-body section{ border-color:var(--ui-divider); }
+.voc-history-card{ border-color:var(--ui-divider); background:var(--ui-surface); }
+.voc-attachment-thumb{ border-radius:var(--radius-input); }
+.open-source-empty{ border-color:var(--ui-divider); border-radius:var(--radius-card); background:var(--ui-surface); }
+
+/* 하단 네비게이션 */
+.tabbar{ height:calc(var(--tabbar-h) + env(safe-area-inset-bottom)); padding:8px 6px calc(8px + env(safe-area-inset-bottom)); border-top-color:var(--ui-divider); background:color-mix(in srgb, var(--ui-surface) 94%, transparent); box-shadow:none; }
+.tabbar a,.tabbar a.is-active{ gap:4px; color:var(--ui-muted); font-weight:500; }
+.tabbar a.is-active{ color:var(--ui-ink); }
+
+/* 하단 네비 아이콘.
+
+   색은 currentColor(.tabbar a / .tabbar a.is-active)가 담당하고 모양만 mask로 찍는다.
+   그래서 활성/비활성 아이콘 파일을 따로 두지 않는다.
+
+   mask-image를 외부 .svg 파일로 두지 않고 data URI로 심는 이유:
+   CSS mask는 background-image와 달리 동일 출처 제한을 받는다. 이 퍼블리싱 산출물은
+   로컬에서 HTML 파일을 그대로 더블클릭해(file://) 여는 일이 많은데, file://에서는 각 파일이
+   서로 다른 출처로 취급돼 외부 .svg 마스크가 차단되고 아이콘이 통째로 사라진다.
+   (로컬 서버로 띄우면 보이고 file://에서만 안 보이는 증상이 이 때문이다.)
+   data URI는 이 제한을 받지 않으므로 두 경우 모두 동일하게 보인다.
+
+   아이콘 원본은 `resources/images/icon/ic-home|voc|notice|my.svg`이며 이 파일이 원본이다.
+   원본을 고치면 아래 data URI도 같이 갱신해야 한다. 갱신은 SVG에서 주석·여분 공백을 제거하고
+   `# < > "`를 퍼센트 인코딩(따옴표는 ')한 문자열을 넣으면 된다. */
+.tabbar .icon{
+  width:25px; height:25px;
+  background-color:currentColor;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  -webkit-mask-position:center; mask-position:center;
+  -webkit-mask-size:contain; mask-size:contain;
+  -webkit-mask-mode:alpha; mask-mode:alpha;
+}
+.tabbar .icon-home{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6.5H9V21H4a1 1 0 0 1-1-1z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6.5H9V21H4a1 1 0 0 1-1-1z'/%3E%3C/svg%3E"); }
+.tabbar .icon-voc{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.41 2.92h17.18a2.4 2.4 0 0 1 2.4 2.4v9a2.4 2.4 0 0 1-2.4 2.4H10.38L7.17 21V16.72H3.41a2.4 2.4 0 0 1-2.4-2.4v-9a2.4 2.4 0 0 1 2.4-2.4Z'/%3E%3Cpath d='M4.48 7.06h15.03M4.48 9.81h10.2'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.41 2.92h17.18a2.4 2.4 0 0 1 2.4 2.4v9a2.4 2.4 0 0 1-2.4 2.4H10.38L7.17 21V16.72H3.41a2.4 2.4 0 0 1-2.4-2.4v-9a2.4 2.4 0 0 1 2.4-2.4Z'/%3E%3Cpath d='M4.48 7.06h15.03M4.48 9.81h10.2'/%3E%3C/svg%3E"); }
+.tabbar .icon-notice{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9'/%3E%3Cpath d='M13.7 21a2 2 0 0 1-3.4 0'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9'/%3E%3Cpath d='M13.7 21a2 2 0 0 1-3.4 0'/%3E%3C/svg%3E"); }
+.tabbar .icon-my{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='butt' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='4.78' r='3.75'/%3E%3Cpath d='M4.53 9.53V24M19 9.53V24M1.39 16.71h21.22'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='butt' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='4.78' r='3.75'/%3E%3Cpath d='M4.53 9.53V24M19 9.53V24M1.39 16.71h21.22'/%3E%3C/svg%3E"); }
+
+/* =========================================================
+   PDF 기준 화면별 색상 역할
+   - 대표색: 선택 상태·주요 CTA·필독 배지
+   - 연한 대표색: 공지 Bar 및 약한 강조 배경
+   - 중립색: 읽기·탐색·카드 구조. 대표색 변경과 무관하게 유지한다.
+   ========================================================= */
+
+/* Home */
+.home-content{ background:var(--ui-surface); }
+.home-meal-section{ padding:0 var(--space-5) var(--space-2); background:var(--ui-surface); }
+.home-meal-section .meal-tabs{ margin-bottom:0; }
+.home-body{ padding-top:10px; }
+.home-content .corner-photo{ aspect-ratio:auto; }
+.home-content .corner-photo img{ display:block; width:100%; height:auto; object-fit:contain; }
+.greeting{ padding-top:var(--space-3); padding-bottom:var(--space-5); }
+.greeting h1,.page-title h1,.notice-page-intro h1{
+  color:var(--service-primary-blue);
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:-.02em;
+}
+.notice{ background:var(--brand-primary-bg); color:var(--ui-dark); font-weight:500; }
+.notice-dot{ background:var(--ui-dark); }
+.notice-close{ color:var(--ui-dark); }
+.notice-close::before{ background:var(--ui-divider); }
+.notice-close span{ background:transparent; }
+.week-navigation-button,.week-navigation-button.is-active{ color:var(--ui-dark); font-weight:500; }
+.week-day{ background:transparent; color:var(--ui-dark); }
+.week-day .dow{ font-weight:500; }
+.week-day .dom{ font-weight:600; }
+.week-day .dom{ color:var(--ui-ink); }
+.week-day.is-selected{ background:var(--brand-primary); }
+.meal-tab,.meal-tab.is-active{ background:var(--ui-bg); color:var(--ui-dark); }
+.meal-tab.is-active{ background:var(--brand-primary); color:var(--brand-on-primary, #FFFFFF); }
+.corner-card{ border-color:var(--ui-divider); background:var(--ui-surface); }
+.corner-label{ color:var(--ui-dark); font-weight:500; }
+.corner-name{ color:var(--ui-ink); font-weight:700; }
+.corner-desc{ color:var(--ui-muted); }
+.corner-voc-link{ background:var(--brand-primary-bg); color:var(--ui-dark); font-weight:600; }
+.corner-list--grid2 .corner-voc-link{ font-size:12px; }
+
+/* 식단 상세 */
+/* 대표 식단 이미지는 PDF 02번 주석대로 원본 비율을 유지한다(홈 카드와 같은 규칙).
+   style.css의 .hero는 16:10 고정 크롭이라, 정사각 원본은 위아래가 38% 잘린다.
+   끼니마다 이미지 높이가 달라지는 것은 의도된 결과이며, 운영 이미지의 권장 비율이
+   확정되면 해소된다. 임의의 max-height 상한은 두지 않는다. */
+.menu-detail-card .hero{ aspect-ratio:auto; }
+.menu-detail-card .hero img{ display:block; width:100%; height:auto; object-fit:contain; }
+.hd-sub-date{ font-weight:600; }
+.hd-sub-meal{ background:var(--ui-bg); color:var(--ui-dark); font-weight:500; }
+.detail-corner{ color:var(--ui-dark); font-weight:500; }
+.detail-name{ color:var(--ui-ink); font-weight:700; }
+.nutrition-detail .item-row{ color:var(--ui-ink); }
+.nutrition-detail .item-row b{ color:var(--ui-ink); font-weight:600; }
+.macro-summary,.macro-cell + .macro-cell{ border-color:var(--ui-divider); }
+.macro-cell .macro-label{ color:var(--ui-muted); font-weight:400; }
+.macro-cell .macro-value{ font-weight:600; }
+.macro-cell .macro-value small{ font-weight:600; }
+.macro-cell .macro-value,.macro-cell .macro-value small,.macro-total .macro-label,.macro-total .macro-value,.macro-total .macro-value small{ color:var(--ui-ink); }
+/* 홈 카드의 의견 쓰기와 같은 컴포넌트이므로 배경도 같은 브랜드 파생색을 쓴다.
+   style.css의 고정값 #F1F2F3은 홈만 정리하면서 상세에 남아 있던 값이다.
+   글자색 #4B525A는 PDF 주석(홈 10번·식단 상세 10번)대로 고정 중립색을 유지한다. */
+.detail-voc-link{ background:var(--brand-primary-bg); color:var(--ui-dark); font-weight:600; }
+.sheet{ padding-right:var(--space-5); padding-left:var(--space-5); }
+
+/* 의견·공지·My */
+.voc-body,.my-body,.notice-list-view{ padding-top:var(--space-3); }
+.policy-body,.withdraw-content,.app-version-content{ padding-top:var(--space-5); }
+.page-title,.notice-page-intro{ margin-bottom:var(--space-5); }
+.voc-field > label,.voc-field legend,.notice-section-label{ color:var(--ui-ink); font-weight:600; }
+.voc-category-chip{ border-color:var(--ui-line); color:var(--ui-dark); font-weight:500; }
+.voc-category-chip.is-active{ background:var(--brand-primary-bg); color:var(--ui-dark); }
+.voc-field-meta{ justify-content:flex-end; }
+.voc-textarea{ border-color:var(--ui-line); color:var(--ui-ink); }
+.voc-textarea::placeholder,.voc-help,.voc-file-count{ color:var(--ui-muted); }
+.notice-section-label::after,.my-menu-item{ border-color:var(--ui-divider); }
+.notice-item{ border-color:var(--ui-divider); border-radius:var(--radius-card); }
+.notice-item-tag{ font-weight:600; }
+.notice-item-copy strong{ color:var(--ui-ink); font-weight:600; }
+.notice-item-copy time{ color:var(--ui-muted); }
+.notice-item-chevron{ color:var(--ui-muted); }
+.my-profile,.version-card{ background:var(--ui-surface); border-color:var(--ui-divider); }
+.my-profile strong,.version-card strong{ color:var(--ui-ink); font-weight:700; }
+.my-profile span,.version-card span,.version-card em{ color:var(--ui-muted); }
+.my-menu-item{ color:var(--ui-ink); font-weight:500; }
+.my-menu-item b,.my-menu-item small{ color:var(--ui-muted); font-weight:400; }
+.my-menu-item--danger{ color:var(--service-primary-blue); font-weight:600; }
+
+/* 키보드·마우스 포커스 표시 */
+a:focus-visible,button:focus-visible,[role="button"]:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
+
+/* =========================================================
+   타이포 스케일 정규화 (B안)
+
+   기준: 해비치 PDF의 레벨 구분(Caption / Body / Card Title / Section / Main / Button)은
+   그대로 두고, 각 레벨의 크기만 일괄 +2px 한다. 굵기는 PDF와 같이 400 / 600 두 단계만 쓴다.
+
+   | 레벨        | PDF     | 적용    |
+   | Caption     | 10/400  | 12/400 |
+   | Body        | 11/400  | 13/400 |
+   | Body        | 12/400  | 14/400 |
+   | Card Title  | 12/600  | 14/600 |
+   | Button      | 12/600  | 14/600 |
+   | Section     | 13/600  | 15/600 |
+   | Main        | 15/600  | 17/600 |
+   | Hero        | (15/600) | 20/600 |  <- 아래 예외 참고
+
+   - 기존 소스에 있던 11.5 / 12.5 같은 반 px와 700 / 800 굵기는 이 단계에서 모두 정리했다.
+   - 인증 화면(auth.css)도 같은 스케일을 쓴다. 두 화면군의 타이포 체계는 하나다.
+   - 화살표(›), ＋, × 같은 아이콘 문자와 진행 단계 원의 지름처럼 구조에 묶인 값은
+     이 스케일의 대상이 아니다.
+   - 선택자는 style.css의 것을 그대로 미러링했다. 특이도를 맞추고 로드 순서로만 덮기 위함이다.
+
+   [Hero 예외] 식단 상세와 공지 상세에는 별도의 화면 제목이 없고 콘텐츠 제목이 그 자리를 대신한다.
+   PDF는 이 항목도 Main(15/600)으로 매겼지만, 그대로 따르면 본문 14px 대비 17px가 되어
+   본문과 1.21배 차이밖에 나지 않아 위계가 서지 않는다. 상세 화면의 대표 제목만 Hero 20/600으로 둔다.
+   (본문 대비 1.43배. 이전 소스의 23px는 다른 화면과 간격이 맞지 않아 쓰지 않는다.)
+   ========================================================= */
+
+:root{
+  --fs-display:22px;   /* 스플래시 브랜드 메시지 */
+  --fs-hero:20px;      /* 상세 화면 대표 제목 — 그 화면에 화면 제목이 없는 경우에만 */
+  --fs-title:17px;     /* 화면 제목, 상세 대표 메뉴명, 팝업 제목 */
+  --fs-section:15px;   /* 섹션 제목 */
+  --fs-label:14px;     /* 카드 제목, 입력 라벨, 버튼, 본문 강조 */
+  --fs-body:14px;      /* 본문, 입력값 */
+  --fs-body-sm:13px;   /* 보조 본문, 탭 */
+  --fs-caption:12px;   /* 캡션, 배지, 메타 */
+}
+
+/* 화면 제목 */
+.greeting h1,.page-title h1,.notice-page-intro h1{ font-size:var(--fs-title); font-weight:600; }
+.notice-page-intro span{ font-size:var(--fs-caption); font-weight:400; }
+
+/* 홈 */
+.notice{ font-size:var(--fs-caption); font-weight:400; }
+.week-navigation-button,.week-navigation-button.is-active{ font-size:var(--fs-caption); font-weight:400; }
+.week-day .dow{ font-size:var(--fs-caption); font-weight:400; }
+.week-day .dom{ font-size:var(--fs-body-sm); font-weight:600; }
+.meal-tab{ font-size:var(--fs-body-sm); font-weight:400; }
+.corner-label,.corner-list--grid2 .corner-label{ font-size:var(--fs-caption); font-weight:400; }
+.corner-name,.corner-list--grid2 .corner-name{ font-size:var(--fs-label); font-weight:600; }
+.corner-desc,.corner-list--grid2 .corner-desc{ font-size:var(--fs-body-sm); font-weight:400; }
+.corner-voc-link,.corner-list--grid2 .corner-voc-link{ font-size:var(--fs-label); font-weight:600; }
+.meal-empty strong{ font-size:var(--fs-section); font-weight:600; }
+.meal-empty p{ font-size:var(--fs-body-sm); font-weight:400; }
+
+/* 식단 상세 */
+.hd-sub-date{ font-size:var(--fs-section); font-weight:600; }
+.hd-sub-meal{ font-size:var(--fs-caption); font-weight:400; }
+.detail-corner{ font-size:var(--fs-caption); font-weight:400; }
+.detail-name{ font-size:var(--fs-hero); font-weight:600; }
+.nutrition-detail .item-row{ font-size:var(--fs-body); font-weight:400; }
+.nutrition-detail .item-row b{ font-size:var(--fs-body); font-weight:600; }
+.macro-cell .macro-label{ font-size:var(--fs-caption); font-weight:400; }
+.macro-cell .macro-value{ font-size:var(--fs-body); font-weight:600; }
+.macro-cell .macro-value small{ font-size:var(--fs-caption); font-weight:600; }
+.detail-voc-link{ font-size:var(--fs-label); font-weight:600; }
+
+/* 나의 의견 */
+.voc-tab{ font-size:var(--fs-body-sm); font-weight:400; }
+/* 선택 상태는 PDF 기준으로는 색만 다르지만(대표색 배경 + 흰 글자), 실제 화면에서 선택감이 약해
+   굵기 한 단계를 함께 쓴다. 크기는 비선택과 같게 두어 탭 폭이 흔들리지 않게 한다. */
+.meal-tab.is-active,.voc-tab.is-active{ font-weight:600; }
+.voc-field > label,.voc-field legend,.notice-section-label{ font-size:var(--fs-section); font-weight:600; }
+.voc-field > label span{ font-size:var(--fs-caption); font-weight:400; }
+.voc-field em{ font-size:var(--fs-caption); font-weight:400; }
+.voc-textarea{ font-size:var(--fs-body); font-weight:400; }
+.voc-category-chip{ font-size:var(--fs-caption); font-weight:400; }
+.voc-field-meta span{ font-size:var(--fs-caption); font-weight:400; }
+.voc-help,.voc-file-count{ font-size:var(--fs-caption); font-weight:400; }
+.voc-upload span{ font-size:var(--fs-caption); font-weight:400; }
+.voc-history-head strong{ font-size:var(--fs-section); font-weight:600; }
+.voc-history-head span{ font-size:var(--fs-caption); font-weight:400; }
+.voc-history-type,.voc-status{ font-size:var(--fs-caption); font-weight:600; }
+.voc-history-card p{ font-size:var(--fs-body); font-weight:400; }
+.voc-history-card time{ font-size:var(--fs-caption); font-weight:400; }
+.voc-answer{ font-size:var(--fs-body-sm); font-weight:400; }
+.voc-answer b{ font-size:var(--fs-label); font-weight:600; }
+.voc-answer time{ font-size:var(--fs-caption); font-weight:400; }
+.voc-submit-wrap p{ font-size:var(--fs-caption); font-weight:400; }
+
+/* 공지 */
+.notice-item-tag{ font-size:var(--fs-caption); font-weight:600; }
+.notice-item-copy strong{ font-size:var(--fs-label); font-weight:600; }
+.notice-item-copy time{ font-size:var(--fs-caption); font-weight:400; }
+.notice-detail-heading h1{ font-size:var(--fs-hero); font-weight:600; }
+.notice-detail-heading time{ font-size:var(--fs-caption); font-weight:400; }
+.notice-detail-body{ font-size:var(--fs-body); font-weight:400; }
+
+/* 공지 팝업 · 일반 알럿 */
+.home-notice-popup h1{ font-size:var(--fs-title); font-weight:600; }
+.home-notice-popup p{ font-size:var(--fs-body); font-weight:400; }
+.home-notice-popup-label{ font-size:var(--fs-caption); font-weight:600; }
+.home-notice-popup-detail{ font-size:var(--fs-body-sm); font-weight:400; }
+.home-notice-popup-today{ font-size:var(--fs-caption); font-weight:400; }
+.home-notice-popup-confirm{ font-size:var(--fs-label); font-weight:600; }
+.app-alert-card h2{ font-size:var(--fs-title); font-weight:600; }
+.app-alert-card p{ font-size:var(--fs-body); font-weight:400; }
+.app-alert-actions button{ font-size:var(--fs-label); font-weight:600; }
+
+/* My 및 설정 */
+.my-profile strong,.version-card strong{ font-size:var(--fs-label); font-weight:600; }
+.my-profile span{ font-size:var(--fs-caption); font-weight:400; }
+.my-menu-item{ font-size:var(--fs-body); font-weight:400; }
+.my-menu-item small{ font-size:var(--fs-caption); font-weight:400; }
+.my-menu-item--danger{ font-size:var(--fs-label); font-weight:600; }
+.version-card span{ font-size:var(--fs-body-sm); font-weight:400; }
+.version-card em{ font-size:var(--fs-caption); font-weight:400; }
+.open-source-section h2{ font-size:var(--fs-section); font-weight:600; }
+.open-source-section > p{ font-size:var(--fs-body-sm); font-weight:400; }
+.open-source-empty{ font-size:var(--fs-body-sm); font-weight:400; }
+
+/* 약관 · 개인정보처리방침 · 탈퇴 */
+.policy-description{ font-size:var(--fs-body-sm); font-weight:400; }
+.legal-body h1{ font-size:var(--fs-title); font-weight:600; }
+.legal-body h2{ font-size:var(--fs-section); font-weight:600; }
+.legal-body section p{ font-size:var(--fs-body-sm); font-weight:400; }
+.legal-date{ font-size:var(--fs-caption); font-weight:400; }
+.privacy-version-picker label{ font-size:var(--fs-caption); font-weight:600; }
+.privacy-version-select{ font-size:var(--fs-body); font-weight:400; }
+.withdraw-description{ font-size:var(--fs-body-sm); font-weight:400; }
+.withdraw-notice strong{ font-size:var(--fs-label); font-weight:600; }
+.withdraw-notice ul{ font-size:var(--fs-body-sm); font-weight:400; }
+.withdraw-select{ font-size:var(--fs-body); font-weight:400; }
+.withdraw-agree{ font-size:var(--fs-body-sm); font-weight:400; }
+.field-optional{ font-size:var(--fs-caption); font-weight:400; }
+
+/* 공통 입력 · 버튼 · 하단 네비 */
+.field .input{ font-size:var(--fs-body); font-weight:400; }
+.btn{ font-size:var(--fs-label); font-weight:600; }
+.tabbar a,.tabbar a.is-active{ font-size:var(--fs-caption); font-weight:400; }

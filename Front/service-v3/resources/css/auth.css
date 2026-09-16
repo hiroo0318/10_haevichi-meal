@@ -1,0 +1,101 @@
+/* =========================================================
+   Service V3 — 인증 화면 최종 디자인
+   해비치 인증 화면은 회사별 서비스 테마와 분리된 고정 디자인을 사용한다.
+   기준: APP_기준 설정.pdf (2026.09.15)
+   타이포는 service.css의 정규화 스케일과 동일하다. PDF 레벨 구분을 유지하고 크기만 +2px,
+   굵기는 400 / 600 두 단계만 쓴다. 서비스 화면과 인증 화면의 타이포 체계는 하나다.
+   ========================================================= */
+
+/* 인증 화면은 service.css를 로드하지 않으므로 @font-face를 여기에도 선언한다.
+   선언이 service.css에만 있으면 인증 화면이 시스템 폰트로 렌더된다.
+   PDF 공통 기준의 `Font: Pretendard`를 전 화면에 동일하게 적용하기 위함이다. */
+@font-face{
+  font-family:"Pretendard";
+  src:url("../fonts/PretendardVariable.woff2") format("woff2");
+  font-style:normal;
+  font-weight:45 920;
+  font-display:swap;
+}
+
+:root{
+  /* style.css의 --font는 시스템 폰트 스택이므로 Pretendard를 앞에 세워 덮는다. */
+  --font:"Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  --auth-grid:4px;
+  --auth-blue:#156AAF;
+  --auth-ink:#171A1F;
+  --auth-dark:#4B525A;
+  --auth-muted:#8C95A1;
+  --auth-line:#D5DAE0;
+  --auth-divider:#E6E9ED;
+  --auth-bg:#F4F5F6;
+  --auth-cta:#70747A;
+}
+
+.splash-page,.splash-page .splash-content,
+.login-content,.signup-content,.password-reset-content{ background:#fff; }
+.splash-page .splash-content{ padding:0 20px; }
+
+.splash-wordmark{ position:relative; width:100%; height:100%; text-align:center; }
+.splash-wordmark p{ position:absolute; top:calc(var(--auth-grid) * 48); left:0; right:0; margin:0; color:var(--auth-blue); font-size:22px; font-weight:600; line-height:1.45; letter-spacing:-.035em; }
+.splash-wordmark img{ position:absolute; bottom:calc(var(--auth-grid) * 16); left:50%; display:block; width:72px; height:auto; object-fit:contain; transform:translateX(-50%); }
+
+.auth-logo{ display:block; width:38px; height:auto; object-fit:contain; }
+
+.login-content{ justify-content:flex-start; padding:0 20px; }
+.login-brand{ margin:calc(var(--auth-grid) * 48) 0 calc(var(--auth-grid) * 32); text-align:center; }
+.login-brand h1{ margin:0; color:var(--auth-blue); font-size:17px; font-weight:600; line-height:1.45; letter-spacing:-.03em; }
+.login-logo,.login-tagline{ display:none; }
+
+/* PDF 공통 기준 Page Padding 20px. 회원가입과 비밀번호 재설정을 같은 값으로 둔다. */
+.signup-content,.password-reset-content{ padding:20px; }
+.signup-brand,.password-reset-brand{ display:flex; flex-direction:row; align-items:center; justify-content:flex-start; min-height:40px; margin:0 0 28px; }
+.signup-brand .auth-logo,.password-reset-brand .auth-logo{ width:38px; }
+.signup-progress{ gap:8px; margin:0 0 28px; }
+.signup-progress span{ width:22px; height:22px; background:var(--auth-divider); color:var(--auth-muted); font-size:12px; font-weight:600; }
+.signup-progress span.is-active{ background:var(--auth-cta); color:#fff; }
+.signup-progress i{ background:var(--auth-divider); }
+.signup-step-count,.password-step-count{ display:none; }
+.signup-step h1,.password-reset-step h1{ color:var(--auth-blue); font-size:17px; font-weight:600; line-height:1.45; letter-spacing:-.03em; }
+.signup-description,.password-description{ min-height:0; margin:8px 0 28px; color:var(--auth-muted); font-size:13px; font-weight:400; line-height:1.55; }
+.signup-description b,.password-description b{ color:inherit; font-weight:400; }
+
+.field{ margin-bottom:12px; }
+.signup-field{ margin-bottom:20px; }
+.signup-field > label{ margin-bottom:8px; color:var(--auth-ink); font-size:14px; font-weight:600; }
+.field .input{ min-height:44px; padding:0 12px; border:1px solid var(--auth-line); border-radius:10px; background:#fff; color:var(--auth-ink); font-size:14px; font-weight:400; }
+.field .input::placeholder{ color:var(--auth-muted); }
+.field .input:focus{ border-color:var(--auth-cta); background:#fff; box-shadow:0 0 0 2px rgba(112,116,122,.14); }
+.verify-field{ gap:8px; }
+.btn-resend{ min-height:44px; min-width:64px; border-color:var(--auth-line); border-radius:10px; background:#fff; color:var(--auth-dark); font-size:14px; font-weight:600; }
+.form-message{ margin-top:8px; color:var(--auth-muted); font-size:12px; font-weight:400; line-height:1.5; }
+.form-message.is-error,.errmsg{ color:var(--auth-blue); font-size:12px; font-weight:400; }
+
+.login-row{ margin:4px 0 20px; }
+.checkbox,.find-link{ color:var(--auth-dark); font-size:13px; font-weight:400; }
+.checkbox input{ width:15px; height:15px; accent-color:var(--auth-cta); }
+.login-footer{ margin-top:16px; color:var(--auth-dark); font-size:12px; font-weight:400; }
+.login-footer a{ color:inherit; }
+
+.btn,.btn-dark,.btn-primary{ min-height:44px; padding:0 16px; border-radius:26px; background:var(--auth-cta); box-shadow:none; color:#fff; font-size:14px; font-weight:600; }
+.btn:disabled{ background:var(--auth-line); color:var(--auth-muted); cursor:not-allowed; }
+.signup-profile-grid{ gap:0 10px; }
+.signup-profile-grid .input{ font-size:14px; }
+.signup-profile-grid select.input{ min-height:44px; padding:0 31px 0 12px; border-color:var(--auth-line); border-radius:10px; background-position:right 11px center; }
+.signup-profile-grid select.input:focus{ border-color:var(--auth-cta); outline:0; box-shadow:0 0 0 2px rgba(112,116,122,.14); }
+/* 동의 문구는 12px에서 좁은 화면일 때 두 줄이 된다. 폰트를 줄이지 않고 두 줄을 전제로 배치한다. */
+.signup-consent{ align-items:flex-start; gap:8px; margin:0 0 16px; color:var(--auth-dark); font-size:12px; font-weight:400; line-height:1.5; }
+.signup-consent input{ margin-top:2px; }
+.signup-consent button{ margin-top:1px; }
+.signup-consent input{ width:15px; height:15px; accent-color:var(--auth-cta); }
+.signup-consent b,.signup-consent button{ color:var(--auth-dark); font-size:12px; font-weight:400; }
+.signup-consent button{ font-weight:600; }
+.signup-step-back,.password-reset-back{ min-height:40px; margin-top:16px; color:var(--auth-dark); font-size:12px; font-weight:400; }
+.signup-step-back > span:first-child{ color:inherit; font-size:14px; }
+
+.auth-common-layer__panel{ border-radius:16px; }
+.auth-common-layer__head h2{ color:var(--auth-ink); font-size:17px; font-weight:600; }
+.auth-common-layer__body > p{ color:var(--auth-dark); font-size:13px; }
+.auth-common-layer__body dl{ border-radius:10px; background:var(--auth-bg); }
+.auth-common-layer__body dt{ font-size:14px; font-weight:600; }
+.auth-common-layer__body dd,.auth-common-layer__body .auth-common-layer__notice{ color:var(--auth-dark); font-size:12px; }
+

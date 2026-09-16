@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>공지 상세 | 해비치 급식 App</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/style.css?v=20260916-40">
+<link rel="stylesheet" href="resources/css/theme-haevichi.css?v=20260916-40" id="themeLink">
+<link rel="stylesheet" href="resources/css/service.css?v=20260916-40">
+<script src="resources/js/theme-oncolor.js?v=20260916-40"></script>
+</head>
+<body>
+<!-- HVM-MO-09-01 공지 상세: 독립 URL을 갖는 2뎁스 화면 -->
+<div class="page" id="noticeDetailPage">
+  <header class="hd-sub">
+    <a class="back-btn" href="notice.html" aria-label="공지 목록으로 돌아가기"><img src="resources/images/icon/ic-back.svg" alt=""></a>
+    <span class="hd-sub-date">공지 상세</span>
+    <span class="hd-sub-spacer" aria-hidden="true"></span>
+  </header>
+  <main class="content notice-content">
+    <article class="notice-detail-view" aria-live="polite">
+      <div class="notice-detail-heading"><span class="notice-item-tag" id="noticeDetailTag" hidden>필독</span><h1 id="noticeDetailTitle"></h1><time id="noticeDetailDate"></time></div>
+      <div class="notice-detail-body" id="noticeDetailBody"></div>
+    </article>
+  </main>
+  <nav class="tabbar">
+    <a href="home.html"><span class="icon icon-home" aria-hidden="true"></span>홈</a>
+    <a href="voc.html"><span class="icon icon-voc" aria-hidden="true"></span>나의 의견</a>
+    <a class="is-active" aria-current="page" href="notice.html"><span class="icon icon-notice" aria-hidden="true"></span>공지</a>
+    <a href="my.html"><span class="icon icon-my" aria-hidden="true"></span>My</a>
+  </nav>
+</div>
+<script src="resources/js/common.js?v=20260916-40"></script>
+</body>
+</html>
