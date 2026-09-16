@@ -103,6 +103,8 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .theme-color-row input[type="color"]{width:44px;height:37px;padding:2px;border:1px solid var(--line);border-radius:4px;background:#fff;cursor:pointer}
 .theme-color-row .field{width:120px;text-transform:uppercase}
 .theme-save-row{display:flex;justify-content:flex-end;padding:16px 20px}
+.theme-oncolor-block{padding:16px 20px 0}.theme-oncolor-block .theme-color-row{padding:12px 0 20px;margin-top:8px}
+.theme-oncolor-block #themeOnColorAutoNote{margin:8px 0 0;color:var(--sub);font-size:11px;font-weight:500;line-height:1.5}
 .theme-preview-frame{display:flex;justify-content:center;gap:28px;padding:24px;background:#eef0f2;overflow-x:auto}
 .theme-preview-item{display:flex;flex-direction:column;align-items:center;gap:10px;flex:0 0 auto}
 .theme-preview-item-label{margin:0;color:var(--sub);font-size:12px;font-weight:700}

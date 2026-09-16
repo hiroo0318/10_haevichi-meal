@@ -53,8 +53,19 @@
         <span class="file-name" id="themeLogoName">등록된 로고 없음</span>
       </div>
       <div class="theme-color-row">
-        <input type="color" id="themeColorPicker" value="#156aaf" aria-label="대표 색상 선택">
-        <input class="field" type="text" id="themeColorHex" value="#156AAF" maxlength="7" aria-label="대표 색상 HEX 값">
+        <input type="color" id="themeColorPicker" value="#70747a" aria-label="대표 색상 선택">
+        <input class="field" type="text" id="themeColorHex" value="#70747A" maxlength="7" aria-label="대표 색상 HEX 값">
+      </div>
+      <div class="theme-oncolor-block">
+        <label class="switch-row">
+          <span class="switch"><input type="checkbox" id="themeOnColorManual"><span class="switch-track" aria-hidden="true"></span></span>
+          대표색 위 글자색 직접 지정
+        </label>
+        <p class="notice-help" id="themeOnColorAutoNote">지정하지 않으면 대표 색상의 밝기에 따라 흰색 또는 짙은 회색(#171A1F)이 자동으로 선택됩니다.</p>
+        <div class="theme-color-row">
+          <input type="color" id="themeOnColorPicker" value="#ffffff" aria-label="대표색 위 글자색 선택" disabled>
+          <input class="field" type="text" id="themeOnColorHex" value="#FFFFFF" maxlength="7" aria-label="대표색 위 글자색 HEX 값" disabled>
+        </div>
       </div>
       <div class="theme-save-row">
         <button class="btn primary" type="button" id="themeSaveBtn">로고·색상 저장</button>
@@ -62,7 +73,7 @@
     </section>
 
     <section class="panel" style="margin-top:16px">
-      <div class="panel-head"><div><h2 class="panel-title">미리보기</h2><p class="panel-sub">임직원 채널(Front, <code>PUBLISH/Front</code>) 실제 화면 그대로 렌더링해 선택한 색상이 어떻게 적용되는지 확인합니다.</p></div></div>
+      <div class="panel-head"><div><h2 class="panel-title">미리보기</h2><p class="panel-sub">임직원 채널(Front, <code>PUBLISH/Front/service-v3</code>) 실제 화면 그대로 렌더링해 선택한 색상·글자색이 어떻게 적용되는지 확인합니다.</p></div></div>
       <div class="theme-preview-frame">
         <div class="theme-preview-item">
           <p class="theme-preview-item-label">홈</p>
