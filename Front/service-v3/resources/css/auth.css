@@ -1,5 +1,114 @@
-/* =========================================================
-   Service V3 — 인증 화면 최종 디자인
+/* Authentication screen foundations moved from the legacy stylesheet. */
+/* ---------------------------------------------------------
+   스플래시 — HVM-MO-00-00
+   해비치 제공 이미지가 확정되면 .splash-wordmark를 이미지로 교체한다.
+   --------------------------------------------------------- */
+.splash-content{
+  display:flex; align-items:center; justify-content:center;
+  min-height:0; overflow:hidden;
+  background:linear-gradient(180deg, #fff 0%, #F3F7FF 100%);
+}
+.splash-wordmark{ text-align:center; animation:splash-in .38s ease-out both; }
+.splash-wordmark strong{ display:block; color:#1554B3; font-size:30px; font-weight:900; letter-spacing:0; }
+.splash-wordmark span{ display:block; margin-top:6px; color:#64748B; font-size:11px; font-weight:600; letter-spacing:.02em; }
+@keyframes splash-in{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:translateY(0); } }
+body.is-splash-leaving .splash-content{ animation:splash-page-out .36s cubic-bezier(.4,0,.2,1) both; }
+@keyframes splash-page-out{ to{ opacity:0; transform:scale(1.025); } }
+@media (prefers-reduced-motion:reduce){ .splash-wordmark{ animation:none; } }
+/* ---------------------------------------------------------
+   PAGE: login.html
+   --------------------------------------------------------- */
+.login-content{
+  flex:1; min-height:0; overflow-y:auto; overflow-x:hidden;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:40px 28px;
+}
+.login-content{ animation:login-page-in .42s cubic-bezier(.22,1,.36,1) both; }
+@keyframes login-page-in{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:translateY(0); } }
+.login-brand{ text-align:center; margin-bottom:36px; }
+.login-logo{
+  font-size:26px; font-weight:800; letter-spacing:-.02em; color:var(--ink);
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+}
+.login-logo span{ font-size:12px; font-weight:600; color:var(--sub); letter-spacing:0; }
+.login-tagline{ margin:14px 0 0; font-size:14px; font-weight:600; color:var(--sub); line-height:1.6; }
+
+
+/* ---------------------------------------------------------
+   PAGE: signup.html — 회원가입 4단계
+   --------------------------------------------------------- */
+.signup-content{ padding:42px 28px 32px; }
+.signup-brand{ display:flex; flex-direction:column; align-items:center; margin:0 0 36px; color:var(--ink); font-size:22px; font-weight:800; letter-spacing:-.02em; }
+.signup-brand span{ margin-top:2px; color:var(--sub); font-size:11px; font-weight:600; letter-spacing:0; }
+.signup-progress{ display:flex; align-items:center; gap:8px; margin-bottom:34px; }
+.signup-progress span{ width:24px; height:24px; display:grid; place-items:center; border-radius:50%; background:#EEF0F2; color:var(--faint); font-size:11px; font-weight:800; }
+.signup-progress span.is-active{ background:var(--brand-primary); color:#fff; }
+.signup-progress i{ height:1px; flex:1; background:var(--line); }
+.signup-step-count{ margin:0 0 10px; color:var(--brand-primary); font-size:12px; font-weight:800; }
+.signup-step h1{ margin:0; color:var(--ink); font-size:25px; line-height:1.35; font-weight:800; letter-spacing:-.045em; }
+.signup-description{ min-height:42px; margin:12px 0 30px; color:var(--sub); font-size:13.5px; line-height:1.55; }
+.signup-description b{ color:var(--ink); font-weight:700; overflow-wrap:anywhere; }
+.signup-field{ margin-bottom:22px; }
+.signup-field > label{ display:block; margin:0 0 8px; color:var(--ink); font-size:13px; font-weight:700; }
+.signup-field .input{ background:#fff; }
+.signup-profile-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 12px; }
+.signup-profile-grid .signup-field{ min-width:0; }
+.signup-profile-grid .signup-field--full{ grid-column:1 / -1; }
+.signup-profile-grid .input{ width:100%; min-width:0; padding:0 10px; font-size:12px; }
+.signup-profile-grid select.input{
+  min-height:44px;
+  padding:0 34px 0 12px;
+  -webkit-appearance:none;
+  appearance:none;
+  border-radius:12px;
+  background-color:#fff;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8'%3E%3Cpath d='m1 1 6 6 6-6' fill='none' stroke='%234D5C52' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.8'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  background-size:14px 8px;
+  color:var(--ink);
+  line-height:1.2;
+}
+.signup-profile-grid select.input:focus{ border-color:var(--brand-primary); outline:2px solid rgba(46,125,72,.18); outline-offset:1px; }
+.signup-consent{ display:flex; align-items:center; gap:8px; margin:2px 0 0; color:var(--ink); font-size:12px; line-height:1.45; }
+.signup-consent input{ flex:0 0 auto; width:18px; height:18px; accent-color:var(--brand-primary); }
+.signup-consent span{ min-width:0; flex:1; }
+.signup-consent b{ color:var(--brand-primary); }
+.signup-consent button{ flex:0 0 auto; color:var(--brand-primary); font-size:12px; font-weight:800; text-decoration:underline; }
+.signup-consent + .form-message{ margin-top:8px; }
+.verify-field{ display:flex; gap:8px; }
+.verify-field .input{ min-width:0; flex:1; }
+.btn-resend{ flex:0 0 auto; min-width:72px; padding:0 10px; border:1px solid var(--line); border-radius:10px; background:#F7F8FA; color:var(--sub); font-size:12px; font-weight:700; }
+.form-message{ margin:8px 0 0; color:var(--faint); font-size:11.5px; line-height:1.45; }
+.form-message.is-error{ color:var(--danger); font-weight:600; }
+.signup-step-back{ display:flex; align-items:center; justify-content:center; gap:6px; width:100%; min-height:42px; margin-top:18px; color:var(--sub); font-size:13px; font-weight:700; }
+.signup-step-back > span:first-child{ color:var(--ink); font-size:18px; line-height:1; }
+.signup-step-back:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
+
+/* 공통 개인정보 수집 및 이용 동의 레이어 */
+.auth-common-layer{ position:fixed; inset:0; z-index:50; display:none; align-items:center; justify-content:center; padding:20px; }
+.auth-common-layer.is-open{ display:flex; }
+.auth-common-layer__dim{ position:absolute; inset:0; background:rgba(21,27,31,.56); }
+.auth-common-layer__panel{ position:relative; width:min(100%,380px); max-height:min(720px,calc(100dvh - 40px)); overflow:auto; padding:22px 20px 20px; border-radius:18px; background:#fff; box-shadow:0 18px 48px rgba(19,25,29,.24); }
+.auth-common-layer__head{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:18px; }
+.auth-common-layer__head h2{ margin:0; color:var(--ink); font-size:20px; letter-spacing:-.04em; }
+.auth-common-layer__close{ display:grid; flex:0 0 auto; place-items:center; width:34px; height:34px; border-radius:50%; background:#F1F3F4; color:var(--ink); font-size:25px; line-height:1; }
+.auth-common-layer__body > p{ margin:0; color:var(--sub); font-size:13px; line-height:1.65; }
+.auth-common-layer__body dl{ margin:18px 0; padding:18px 16px; border-radius:14px; background:#F5F7F7; }
+.auth-common-layer__body dt{ margin-top:15px; color:var(--ink); font-size:13px; font-weight:800; }
+.auth-common-layer__body dt:first-child{ margin-top:0; }
+.auth-common-layer__body dd{ margin:6px 0 0; color:var(--sub); font-size:12.5px; line-height:1.6; }
+.auth-common-layer__body .auth-common-layer__notice{ margin-bottom:20px; font-size:12px; }
+.auth-common-layer__panel > .btn{ width:100%; }
+
+/* PAGE: password-reset.html — 로그인 전 비밀번호 재설정 2단계 */
+.password-reset-content{ padding:42px 28px 32px; }
+.password-reset-brand{ display:flex; flex-direction:column; align-items:center; margin:0 0 36px; color:var(--ink); font-size:22px; font-weight:800; letter-spacing:-.02em; }
+.password-reset-brand span{ margin-top:2px; color:var(--sub); font-size:11px; font-weight:600; letter-spacing:0; }
+.password-reset-step h1{ margin:0; color:var(--ink); font-size:25px; line-height:1.35; font-weight:800; letter-spacing:-.045em; }
+.password-reset-back{ display:flex; align-items:center; justify-content:center; gap:6px; width:100%; min-height:42px; margin-top:18px; color:var(--sub); font-size:13px; font-weight:700; }
+.password-reset-back:focus-visible{ outline:2px solid var(--brand-primary); outline-offset:2px; }
+/* Service V3 — 인증 화면 최종 디자인
    해비치 인증 화면은 회사별 서비스 테마와 분리된 고정 디자인을 사용한다.
    기준: APP_기준 설정.pdf (2026.09.15)
    타이포는 service.css의 정규화 스케일과 동일하다. PDF 레벨 구분을 유지하고 크기만 +2px,
@@ -18,9 +127,17 @@
 }
 
 :root{
-  /* style.css의 --font는 시스템 폰트 스택이므로 Pretendard를 앞에 세워 덮는다. */
+  /* base.css의 기본 시스템 폰트 스택을 Pretendard 우선으로 바꾼다. */
   --font:"Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
   --auth-grid:4px;
+
+  /* 인증 진입 화면 전용 타이포 레벨.
+     서비스 화면의 스케일(service.css :root)과 이어지는 상위 두 단계이며,
+     인증 화면은 service.css를 로드하지 않으므로 여기에 둔다.
+     Display는 브랜드 메시지 성격의 문구에 쓴다. 회원가입·비밀번호 재설정의
+     단계 제목은 서비스 화면 제목과 같은 Main 17px을 유지한다. */
+  --fs-splash:27px;    /* 스플래시 브랜드 메시지 */
+  --fs-display:22px;   /* 로그인 안내 문구 */
   --auth-blue:#156AAF;
   --auth-ink:#171A1F;
   --auth-dark:#4B525A;
@@ -36,14 +153,16 @@
 .splash-page .splash-content{ padding:0 20px; }
 
 .splash-wordmark{ position:relative; width:100%; height:100%; text-align:center; }
-.splash-wordmark p{ position:absolute; top:calc(var(--auth-grid) * 48); left:0; right:0; margin:0; color:var(--auth-blue); font-size:22px; font-weight:600; line-height:1.45; letter-spacing:-.035em; }
-.splash-wordmark img{ position:absolute; bottom:calc(var(--auth-grid) * 16); left:50%; display:block; width:72px; height:auto; object-fit:contain; transform:translateX(-50%); }
+.splash-wordmark p{ position:absolute; top:calc(var(--auth-grid) * 48); left:0; right:0; margin:0; color:var(--auth-blue); font-size:var(--fs-splash); font-weight:600; line-height:1.45; letter-spacing:-.035em; }
+/* 하단 여백은 상단 여백(브랜드 메시지 top)에서 10px을 뺀 값이다.
+   상단 값을 바꾸면 하단도 같이 따라가도록 계산식으로 묶어 둔다. */
+.splash-wordmark img{ position:absolute; bottom:calc(var(--auth-grid) * 48 - 10px); left:50%; display:block; width:72px; height:auto; object-fit:contain; transform:translateX(-50%); }
 
 .auth-logo{ display:block; width:38px; height:auto; object-fit:contain; }
 
 .login-content{ justify-content:flex-start; padding:0 20px; }
 .login-brand{ margin:calc(var(--auth-grid) * 48) 0 calc(var(--auth-grid) * 32); text-align:center; }
-.login-brand h1{ margin:0; color:var(--auth-blue); font-size:17px; font-weight:600; line-height:1.45; letter-spacing:-.03em; }
+.login-brand h1{ margin:0; color:var(--auth-blue); font-size:var(--fs-display); font-weight:600; line-height:1.45; letter-spacing:-.03em; }
 .login-logo,.login-tagline{ display:none; }
 
 /* PDF 공통 기준 Page Padding 20px. 회원가입과 비밀번호 재설정을 같은 값으로 둔다. */
@@ -98,4 +217,3 @@
 .auth-common-layer__body dl{ border-radius:10px; background:var(--auth-bg); }
 .auth-common-layer__body dt{ font-size:14px; font-weight:600; }
 .auth-common-layer__body dd,.auth-common-layer__body .auth-common-layer__notice{ color:var(--auth-dark); font-size:12px; }
-

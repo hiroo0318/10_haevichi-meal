@@ -50,7 +50,8 @@ PDF 기준의 Body는 11~12px, Caption은 10px입니다. iOS 기본 본문이 17
 | Section | 13 / 600 | **15 / 600** | 섹션 제목 |
 | Main | 15 / 600 | **17 / 600** | 화면 제목 |
 | Hero | (Main 15 / 600) | **20 / 600** | 상세 화면 대표 제목 — 5-1 참고 |
-| Display | 20 / 600 | **22 / 600** | 스플래시 브랜드 메시지 |
+| Display | 20 / 600 | **22 / 600** | 로그인 안내 문구 |
+| Splash | 별도 피드백 | **27 / 600** | 스플래시 브랜드 메시지 — 2026-09-17 추가 의견 반영 예외 |
 
 ### 2-2. 굵기 정책
 
@@ -139,8 +140,8 @@ PDF와 동일하게 **400 / 600 두 단계만** 사용합니다.
 
 | 화면 | 항목 | PDF | 소스 | 변화 |
 | --- | --- | --- | --- | --- |
-| 스플래시 | 브랜드 메시지 | 20 / 600 | **22 / 600** | 크기 +2 |
-| 로그인 | 안내 문구 | 15 / 600 | **17 / 600** | 크기 +2 |
+| 스플래시 | 브랜드 메시지 | 20 / 600 | **27 / 600** | 2026-09-17 추가 의견 반영, 크기 +7 |
+| 로그인 | 안내 문구 | 15 / 600 | **22 / 600** | Display 레벨 적용, 크기 +7 |
 | 로그인 | 입력창 | 12 / 400 | **14 / 400** | 크기 +2 |
 | 로그인 | 자동로그인 · 비밀번호 찾기 | 11 / 400 | **13 / 400** | 크기 +2 |
 | 로그인 | 로그인 버튼 | 12 / 600 | **14 / 600** | 크기 +2 |
@@ -220,7 +221,7 @@ CSS는 **뒤에 오는 파일이 앞을 덮는 구조**입니다. 반드시 아�
 
 ```html
 <link rel="stylesheet" href="resources/css/reset.css">
-<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/base.css">
 <link rel="stylesheet" href="resources/css/theme-haevichi.css" id="themeLink">  <!-- 서비스 화면만 -->
 <link rel="stylesheet" href="resources/css/service.css">                        <!-- 서비스 화면 -->
 <link rel="stylesheet" href="resources/css/auth.css">                           <!-- 인증 화면 -->
@@ -230,7 +231,7 @@ CSS는 **뒤에 오는 파일이 앞을 덮는 구조**입니다. 반드시 아�
 | 파일 | 역할 | 타이포 정의 |
 | --- | --- | --- |
 | `reset.css` | 브라우저 기본값 초기화 | 없음 |
-| `style.css` | 초기 퍼블리싱 구조·레이아웃 | **수정 대상 아님** (6-2 참고) |
+| `base.css` | 공통 토큰·페이지 레이아웃·입력/버튼 구조 | 공통 구조만 |
 | `theme-haevichi.css` | 회사 대표색 `--brand-primary` 한 값 | 없음 |
 | `service.css` | 서비스 화면 디자인 시스템 + 타이포 스케일 | **있음** — 하단 전용 섹션 |
 | `auth.css` | 인증 화면 전용 디자인 | **있음** |
@@ -238,32 +239,23 @@ CSS는 **뒤에 오는 파일이 앞을 덮는 구조**입니다. 반드시 아�
 
 인증 화면은 회사 확정 전 화면이므로 `theme-*.css`를 연결하지 않습니다.
 
-### 6-2. `style.css`를 수정하지 않는 이유
+### 6-2. 전용 CSS에서 타이포를 관리하는 이유
 
-타이포 값을 `style.css`에서 직접 고치지 않고, `service.css` 하단의 전용 섹션에서 **같은 선택자로 덮어쓰고** 있습니다.
+`service-v3/`는 이전 퍼블리싱 안과 리소스를 공유하지 않는 독립 폴더입니다. 따라서 서비스 화면의 타이포는
+`service.css`, 인증 화면의 타이포는 `auth.css`에서 직접 관리합니다. `base.css`는 공통 구조만 가지며,
+타이포의 최종값을 덮어쓰는 용도로 사용하지 않습니다.
 
-- 초기 퍼블리싱본(Front 루트 · `service-v2/`)이 `style.css`를 공유하므로, 직접 수정하면 이전 안이 함께 깨집니다.
-- 타이포 관련 선언이 한 파일 한 섹션에 모여 있어 변경 이력을 추적하기 쉽습니다.
-
-덮어쓰기는 **특이도를 맞추고 로드 순서로만** 이깁니다. `style.css`가 `.corner-list--grid2 .corner-desc`처럼 클래스 2개를 쓰는 곳은, `service.css`도 같은 형태로 선언합니다.
-
-```css
-/* style.css */
-.corner-list--grid2 .corner-desc{ font-size:11.5px; }
-
-/* service.css — 같은 특이도, 뒤에 오므로 이김 */
-.corner-desc,.corner-list--grid2 .corner-desc{ font-size:var(--fs-body-sm); font-weight:400; }
-```
-
-> 타이포 값을 바꿀 때는 `style.css`가 아니라 **`service.css` 하단 섹션 / `auth.css`**를 수정하십시오.
+> 타이포 값을 바꿀 때는 **`service.css`의 타이포 토큰·선택자 또는 `auth.css`**를 수정하십시오.
 
 ### 6-3. 크기 토큰
 
-`service.css`의 `:root`에 선언되어 있습니다. 개별 화면에서 px를 직접 쓰지 않고 토큰을 참조합니다.
+서비스 공통 토큰은 `service.css`의 `:root`에, 인증 전용 토큰은 `auth.css`의 `:root`에 선언되어 있습니다.
+개별 화면에서 px를 직접 쓰지 않고 토큰을 참조합니다.
 
 ```css
 :root{
-  --fs-display:22px;   /* 스플래시 브랜드 메시지 */
+  --fs-display:22px;   /* 로그인 안내 문구 — auth.css */
+  --fs-splash:27px;    /* 스플래시 브랜드 메시지 — auth.css */
   --fs-hero:20px;      /* 상세 화면 대표 제목 — 그 화면에 화면 제목이 없는 경우에만 */
   --fs-title:17px;     /* 화면 제목, 팝업 제목 */
   --fs-section:15px;   /* 섹션 제목 */
@@ -323,13 +315,13 @@ PDF 공통 기준의 `Font: Pretendard`에 따라 Pretendard Variable 한 종만
 ```
 
 인증 화면은 `service.css`를 로드하지 않으므로, **`auth.css`에도 같은 `@font-face`와 `--font`를 선언**해
-두 화면군이 동일한 폰트를 쓰도록 했습니다. `style.css`의 `--font`는 Pretendard가 없는 시스템 폰트 스택이라,
+두 화면군이 동일한 폰트를 쓰도록 했습니다. `base.css`의 `--font`는 Pretendard가 없는 시스템 폰트 스택이라,
 `service.css` · `auth.css`에서 각각 덮습니다.
 
 | 화면군 | 로드하는 CSS | `@font-face` 선언 위치 |
 | --- | --- | --- |
-| 서비스 | `reset` → `style` → `theme` → `service` | `service.css` |
-| 인증 | `reset` → `style` → `auth` | `auth.css` |
+| 서비스 | `reset` → `base` → `theme` → `service` | `service.css` |
+| 인증 | `reset` → `base` → `auth` | `auth.css` |
 
 > CSS 파일을 새로 추가할 때, 그 파일만 로드하는 화면이 생긴다면 `@font-face`와 `--font`를 함께 선언해야 합니다.
 
@@ -352,4 +344,4 @@ PDF 공통 기준의 `Font: Pretendard`에 따라 Pretendard Variable 한 종만
 - 크기를 바꿀 때는 개별 선언이 아니라 `:root`의 토큰을 수정합니다.
 - 새 항목을 추가할 때는 2-1의 레벨 중 하나를 골라 토큰을 참조합니다. 새 px 값을 만들지 않습니다.
 - 굵기는 400 / 600 외의 값을 쓰지 않습니다.
-- `style.css`에 남아 있는 이전 값(반 px, 700~900)은 `service.css` · `auth.css`가 덮고 있으므로, 브라우저 개발자도구의 **최종 계산값(Computed)** 기준으로 확인하십시오.
+- 최종 계산값 확인은 브라우저 개발자도구의 **Computed** 기준으로 합니다. 전용 화면의 타이포 값은 해당 전용 CSS에서 찾습니다.

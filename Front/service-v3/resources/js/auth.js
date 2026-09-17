@@ -2,7 +2,7 @@
    해비치 급식 App — 인증 화면 전용 스크립트
 
    적용 대상: splash.html / login.html / signup.html / password-reset.html
-   의존 CSS: reset.css → style.css → auth.css
+   의존 CSS: reset.css → base.css → auth.css
    서비스 화면 스크립트(common.js)와는 독립이며 서로 참조하지 않는다.
    ========================================================= */
 

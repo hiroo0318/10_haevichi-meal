@@ -72,7 +72,7 @@ var DATE_MEAL_STATUS = {
   if(!themeLink) return;
   var theme = new RegExp('[?&]theme=([^&]+)').exec(location.search);
   if(theme && theme[1] === 'haevichi'){
-    themeLink.href = 'resources/css/theme-haevichi.css?v=20260916-40';
+    themeLink.href = 'resources/css/theme-haevichi.css?v=20260917-3';
   }
 })();
 
@@ -108,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function(){
     var newPasswordConfirm = document.getElementById('newPasswordConfirm');
     var newPasswordLengthError = document.getElementById('newPasswordLengthError');
     var newPasswordError = document.getElementById('newPasswordError');
-    var passwordStepBack = document.getElementById('passwordStepBack');
     var changePasswordStep = function(step){
       passwordChangeForm.querySelectorAll('[data-password-step]').forEach(function(panel){
         panel.hidden = Number(panel.dataset.passwordStep) !== step;
@@ -121,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function(){
       changePasswordStep(2);
       newPassword.focus();
     });
-    passwordStepBack.addEventListener('click', function(){ changePasswordStep(1); });
     passwordChangeForm.addEventListener('submit', function(e){
       e.preventDefault();
       var hasValidLength = newPassword.value.length >= 8;

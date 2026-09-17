@@ -42,7 +42,7 @@ service-v3/
 └─ resources/
    ├─ css/
    │  ├─ reset.css            최소 리셋
-   │  ├─ style.css            초기 퍼블리싱 구조·레이아웃 (수정 대상 아님 — 3장)
+   │  ├─ base.css             공통 토큰·페이지 레이아웃·공통 입력 구조
    │  ├─ theme-haevichi.css   회사 대표색 1개
    │  ├─ service.css          로그인 후 화면 디자인 시스템 + 타이포 스케일
    │  └─ auth.css             인증 화면 전용
@@ -63,40 +63,32 @@ service-v3/
 ```html
 <!-- 로그인 후 서비스 화면 -->
 <link rel="stylesheet" href="resources/css/reset.css">
-<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/base.css">
 <link rel="stylesheet" href="resources/css/theme-haevichi.css" id="themeLink">
 <link rel="stylesheet" href="resources/css/service.css">
 <script src="resources/js/theme-oncolor.js"></script>   <!-- 반드시 head, 동기 로드 -->
 
 <!-- 인증 화면 (회사 확정 전 화면이므로 테마를 연결하지 않음) -->
 <link rel="stylesheet" href="resources/css/reset.css">
-<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/base.css">
 <link rel="stylesheet" href="resources/css/auth.css">
 ```
 
-### `style.css`는 수정하지 않습니다
+### 전용 CSS에서 최종값을 관리합니다
 
-`style.css`는 초기 퍼블리싱본이 공유하는 파일입니다. 현재 디자인 값은 `service.css` · `auth.css`가
-**같은 선택자로 덮어쓰는** 구조이며, 특이도를 맞추고 로드 순서로만 이깁니다.
+`base.css`는 공통 토큰·페이지 레이아웃·입력과 버튼의 구조만 제공합니다. 화면별 최종 디자인 값은
+서비스 화면의 `service.css`, 인증 화면의 `auth.css`에서 관리합니다.
 
-```css
-/* style.css — 이전 값 */
-.corner-list--grid2 .corner-desc{ font-size:11.5px; }
-
-/* service.css — 같은 특이도, 뒤에 오므로 이김 */
-.corner-desc,.corner-list--grid2 .corner-desc{ font-size:var(--fs-body-sm); font-weight:400; }
-```
-
-- 값을 바꿀 때는 **`service.css` · `auth.css`**를 수정합니다.
-- `style.css`에는 반영되지 않은 이전 값(반 px, 굵기 700~900)이 남아 있습니다. 확인은 반드시 브라우저 개발자도구의 **최종 계산값(Computed)** 기준으로 합니다.
-- 개발 프레임워크로 옮길 때 `style.css`의 값을 그대로 가져가지 마십시오.
+- 서비스 화면의 색상·타이포·컴포넌트 값은 **`service.css`**를 기준으로 합니다.
+- 인증 화면의 색상·타이포·컴포넌트 값은 **`auth.css`**를 기준으로 합니다.
+- 개발 이관 시에는 더 이상 존재하지 않는 `style.css`를 참조하지 않습니다.
 
 ### 폰트
 
 전 화면 Pretendard Variable 한 종입니다. `font-weight:45 920` 가변 폰트라 굵기별 파일이 필요 없습니다.
 
 `@font-face`는 **`service.css`와 `auth.css`에 각각** 선언되어 있습니다. 인증 화면은 `service.css`를
-로드하지 않기 때문입니다. `style.css`의 `--font`에는 Pretendard가 없으므로, 두 파일이 각각 덮습니다.
+로드하지 않기 때문입니다. `base.css`의 기본 시스템 폰트 스택은 두 파일이 각각 Pretendard 우선으로 바꿉니다.
 
 > 새 CSS 파일을 만들고 그 파일만 로드하는 화면이 생긴다면 `@font-face`와 `--font`를 함께 선언해야 합니다.
 
@@ -241,17 +233,18 @@ service-v3/
 - 비밀번호 정책과 로그인 실패 제한 정책
 - 메뉴 이미지 최소 해상도, 한 끼당 카드 수
 
-## 9. 해비치 협의 중인 항목
+## 9. 해비치 협의 완료 항목
 
-디자인 확정 전이므로, 아래는 값이 바뀔 수 있습니다.
+2026-09-15·09-17 두 차례 디자인 회신을 거쳐 확정했습니다. 09-17 회신에서 아래 값에 대한 변경 요청이 없었고,
+타이포는 추가 상향 요청까지 반영했습니다.
 
-| 항목 | 현재 | 협의 내용 |
+| 항목 | 확정값 | 확정 근거 |
 | --- | --- | --- |
-| 주요 버튼 색 | `#70747A` | PDF 색상표는 `#70747A`인데 전후 비교 시안의 로그인 버튼은 거의 검정입니다 |
-| 홈 카드 영역 배경 | 흰색 | PDF 홈 11번의 `BG #F4F5F6` 적용 범위. 식단 상세에는 적용했습니다 |
-| 타이포 스케일 | PDF 대비 +2px | `TYPOGRAPHY_SCALE.md` 전달 후 회신 대기 |
-| 상세 대표 제목 | 20 / 600 | PDF 기준(`Main 15`)과 다르게 적용한 항목 |
-| 탭 선택 굵기 | 선택 시 600 | PDF는 색으로만 구분 |
+| 주요 버튼 색 | `#70747A` | PDF 색상표와 09-15·09-17 회신 반영 |
+| 홈 카드 영역 배경 | 흰색 | PDF 홈 11번의 `BG #F4F5F6` 적용 범위를 식단 상세와 구분 |
+| 타이포 스케일 | PDF 대비 +2px | 09-17 추가 상향 요청 반영 |
+| 상세 대표 제목 | 20 / 600 | 상세 콘텐츠 제목의 정보 위계를 위해 확정 |
+| 탭 선택 굵기 | 선택 시 600 | 선택 상태 인지성을 위해 확정 |
 
 ## 10. 구현 시 유의사항
 
