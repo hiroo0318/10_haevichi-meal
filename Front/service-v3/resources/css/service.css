@@ -409,7 +409,6 @@
 .notice-page-intro h1{ margin:0; color:var(--ink); font-size:20px; font-weight:800; letter-spacing:-.025em; }
 .notice-page-intro span{ flex:0 0 auto; color:var(--faint); font-size:12px; }
 .notice-section-label{ display:flex; align-items:center; gap:9px; margin:0 0 10px; color:var(--sub); font-size:12px; font-weight:700; }
-.notice-section-label::after{ content:""; flex:1; height:1px; background:var(--line); }
 .notice-section-label--all{ margin-top:26px; }
 .notice-item{ width:100%; display:flex; align-items:center; gap:11px; padding:17px 15px; border:1px solid var(--line); border-radius:var(--radius-md); background:#fff; color:var(--ink); text-align:left; }
 .notice-item + .notice-item{ margin-top:9px; }
@@ -690,7 +689,7 @@ body{ background:var(--ui-bg); }
 .voc-field-meta{ justify-content:flex-end; }
 .voc-textarea{ border-color:var(--ui-line); color:var(--ui-ink); }
 .voc-textarea::placeholder,.voc-help,.voc-file-count{ color:var(--ui-muted); }
-.notice-section-label::after,.my-menu-item{ border-color:var(--ui-divider); }
+.my-menu-item{ border-color:var(--ui-divider); }
 .notice-item{ border-color:var(--ui-divider); border-radius:var(--radius-card); }
 .notice-item-tag{ font-weight:600; }
 .notice-item-copy strong{ color:var(--ui-ink); font-weight:600; }
