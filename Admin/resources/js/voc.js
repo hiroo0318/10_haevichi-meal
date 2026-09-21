@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const excelDownloadBtn = document.getElementById('voc-excel-download');
   if (excelDownloadBtn) {
     excelDownloadBtn.addEventListener('click', () => {
-      showToast('현재 조회 결과를 엑셀로 다운로드했습니다. (접수일·작성자·사업장·유형·내용·상태·답변일자·답변내용 포함)');
+      showToast('현재 조회 결과를 엑셀로 다운로드했습니다. (접수일·작성자·사업장·유형·내용·상태·답변일자·답변내용 포함, 탈퇴회원 작성 건은 작성자를 "탈퇴회원"으로 비식별 처리)');
     });
   }
 });
