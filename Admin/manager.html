@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>해비치 급식 App 관리자 - 운영자 관리</title>
+  <link rel="stylesheet" href="resources/css/reset.css">
+  <link rel="stylesheet" href="resources/css/admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="dashboard.html"><span class="brand-mark">H</span>해비치 급식 App <em>관리자</em></a>
+    <div class="profile">
+      <button type="button" class="scope-trigger" id="scopeTrigger" aria-haspopup="dialog"><span id="scopeLabel">현대캐피탈</span><span class="scope-caret" aria-hidden="true">▾</span></button>
+      <button type="button" class="scope-trigger" id="adminInfoTrigger" aria-haspopup="dialog"><span class="avatar">정H</span>정혜림 관리자</button>
+      <button type="button" class="scope-trigger" id="adminLogoutBtn">로그아웃</button>
+    </div>
+  </header>
+  <aside class="sidenav" aria-label="관리자 메뉴"><nav>
+    <div class="nav-section"><span class="nav-label">운영</span>
+      <a class="nav-link" href="dashboard.html"><span class="nav-icon">▦</span>대시보드</a>
+      <button type="button" class="nav-parent"><span class="nav-parent-label"><span class="nav-icon">▤</span>식단 관리</span><span class="nav-caret" aria-hidden="true">›</span></button>
+      <div class="nav-sub">
+        <a class="nav-sub-link" href="menu-v2.html">주간 식단 관리</a>
+        <a class="nav-sub-link" href="mealtime.html">식사 시간 관리</a>
+      </div>
+      <a class="nav-link" href="voc.html"><span class="nav-icon">◉</span>고객의견</a>
+      <a class="nav-link" href="notice.html"><span class="nav-icon">▣</span>공지 관리</a>
+    </div>
+    <div class="nav-section"><span class="nav-label">환경 설정</span>
+      <a class="nav-link" href="domain.html"><span class="nav-icon">@</span>인증 도메인 설정</a>
+      <button type="button" class="nav-parent"><span class="nav-parent-label"><span class="nav-icon">◌</span>계정 관리</span><span class="nav-caret" aria-hidden="true">›</span></button>
+      <div class="nav-sub">
+        <a class="nav-sub-link" href="account.html">계정 관리</a>
+        <a class="nav-sub-link" href="withdrawal.html">탈퇴 사유 통계</a>
+      </div>
+      <button type="button" class="nav-parent"><span class="nav-parent-label"><span class="nav-icon">◇</span>회사 관리</span><span class="nav-caret" aria-hidden="true">›</span></button>
+      <div class="nav-sub">
+        <a class="nav-sub-link" href="site.html">사업장 관리</a>
+        <a class="nav-sub-link" href="theme.html">테마 관리</a>
+      </div>
+      <a class="nav-link active" href="manager.html"><span class="nav-icon">♙</span>운영자 관리</a>
+    </div>
+  </nav></aside>
+  <main class="admin-shell"><div class="content">
+    <section class="page-head"><div><h1>운영자 관리</h1></div></section>
+
+    <div class="filters" aria-label="운영자 조회 조건">
+      <select class="field" aria-label="검색어 유형 선택" id="managerSearchTypeSelect">
+        <option value="id">관리자 ID</option>
+        <option value="name">이름</option>
+      </select>
+      <input class="field" type="text" placeholder="검색어를 입력해주세요" aria-label="검색어 입력">
+      <select class="field" aria-label="권한 선택"><option>전체 권한</option><option>마스터</option><option>운영자</option><option>관리자</option></select>
+      <select class="field" aria-label="사업장 선택"><option>전체 사업장</option><option>본사</option><option>여의도</option><option>홍대</option></select>
+      <select class="field" aria-label="상태 선택"><option>전체 상태</option><option>활성</option><option>비활성</option></select>
+      <input class="field" type="date" aria-label="등록일 시작일">
+      <span aria-hidden="true">~</span>
+      <input class="field" type="date" aria-label="등록일 종료일">
+      <button class="btn primary" type="button" data-demo="선택한 조건으로 운영자를 조회했습니다.">검색</button>
+    </div>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div><h2 class="panel-title">운영자 <span class="accent" id="managerCount">7건</span></h2><p class="panel-sub">현재 선택된 기업 범위 안의 운영자 계정입니다. 행을 클릭하면 상세·수정을 할 수 있습니다.</p></div>
+        <div class="panel-head-right"><button type="button" class="btn primary" id="managerRegisterOpen">관리자 등록</button></div>
+      </div>
+      <div class="table-wrap"><table class="table manager-table"><thead><tr><th>관리자 ID</th><th>이름</th><th>권한</th><th>사업장</th><th>상태</th><th>등록일</th></tr></thead><tbody>
+        <tr class="manager-row" data-page="1" data-id="admin_hc" data-name="정혜림" data-role="마스터" data-sites="여의도" data-status="활성" data-registered="2026-08-01" tabindex="0">
+          <td>admin_hc</td><td>정혜림</td><td>마스터</td><td>여의도</td><td><span class="badge done">활성</span></td><td>2026-08-01</td>
+        </tr>
+        <tr class="manager-row" data-page="1" data-id="admin_ops1" data-name="박서연" data-role="운영자" data-sites="본사,여의도" data-status="활성" data-registered="2026-08-04" tabindex="0">
+          <td>admin_ops1</td><td>박서연</td><td>운영자</td><td>본사, 여의도</td><td><span class="badge done">활성</span></td><td>2026-08-04</td>
+        </tr>
+        <tr class="manager-row" data-page="1" data-id="admin_ops2" data-name="이도현" data-role="운영자" data-sites="홍대" data-status="활성" data-registered="2026-08-11" tabindex="0">
+          <td>admin_ops2</td><td>이도현</td><td>운영자</td><td>홍대</td><td><span class="badge done">활성</span></td><td>2026-08-11</td>
+        </tr>
+        <tr class="manager-row" data-page="1" data-id="admin_view1" data-name="최윤아" data-role="관리자" data-sites="본사" data-status="활성" data-registered="2026-08-19" tabindex="0">
+          <td>admin_view1</td><td>최윤아</td><td>관리자</td><td>본사</td><td><span class="badge done">활성</span></td><td>2026-08-19</td>
+        </tr>
+        <tr class="manager-row" data-page="1" data-id="admin_view2" data-name="한지민" data-role="관리자" data-sites="본사,여의도,홍대" data-status="비활성" data-registered="2026-08-22" tabindex="0">
+          <td>admin_view2</td><td>한지민</td><td>관리자</td><td>본사, 여의도, 홍대</td><td><span class="badge muted">비활성</span></td><td>2026-08-22</td>
+        </tr>
+        <tr class="manager-row" data-page="1" data-id="admin_ops3" data-name="정우진" data-role="운영자" data-sites="여의도" data-status="비활성" data-registered="2026-08-27" tabindex="0">
+          <td>admin_ops3</td><td>정우진</td><td>운영자</td><td>여의도</td><td><span class="badge muted">비활성</span></td><td>2026-08-27</td>
+        </tr>
+        <tr class="manager-row" data-page="1" data-id="admin_view3" data-name="김소율" data-role="관리자" data-sites="홍대" data-status="활성" data-registered="2026-09-03" tabindex="0">
+          <td>admin_view3</td><td>김소율</td><td>관리자</td><td>홍대</td><td><span class="badge done">활성</span></td><td>2026-09-03</td>
+        </tr>
+      </tbody></table></div>
+      <nav class="pagination" id="managerPagination" aria-label="운영자 목록 페이지"></nav>
+    </section>
+  </div></main>
+
+  <div class="voc-modal" id="managerModal" aria-hidden="true">
+    <div class="voc-modal-backdrop" data-manager-modal-close></div>
+    <div class="voc-modal-body" role="dialog" aria-modal="true">
+      <button type="button" class="lightbox-close" data-manager-modal-close aria-label="닫기">✕</button>
+      <h3 class="voc-modal-answer-title" id="managerModalTitle" style="margin-bottom:16px">관리자 등록</h3>
+      <div class="notice-form">
+        <label class="notice-field">관리자 ID<input class="field" type="text" id="managerIdInput" placeholder="관리자 ID를 입력해주세요"></label>
+        <label class="notice-field">이름<input class="field" type="text" id="managerNameInput" placeholder="이름을 입력해주세요"></label>
+        <div class="notice-field">
+          <span class="notice-field-label">권한</span>
+          <div style="display:flex;gap:16px">
+            <label class="notice-checkbox"><input type="radio" name="managerRole" value="마스터" checked> 마스터</label>
+            <label class="notice-checkbox"><input type="radio" name="managerRole" value="운영자"> 운영자</label>
+            <label class="notice-checkbox"><input type="radio" name="managerRole" value="관리자"> 관리자</label>
+          </div>
+        </div>
+        <div class="notice-field">
+          <span class="notice-field-label">사업장</span>
+          <div style="display:flex;gap:16px">
+            <label class="notice-checkbox"><input type="checkbox" class="managerSiteCheckbox" value="본사"> 본사</label>
+            <label class="notice-checkbox"><input type="checkbox" class="managerSiteCheckbox" value="여의도" checked> 여의도</label>
+            <label class="notice-checkbox"><input type="checkbox" class="managerSiteCheckbox" value="홍대"> 홍대</label>
+          </div>
+          <span class="field-error" id="managerSitesError" hidden></span>
+        </div>
+        <div class="notice-field">
+          <span class="notice-field-label">상태</span>
+          <div style="display:flex;gap:16px">
+            <label class="notice-checkbox"><input type="radio" name="managerStatus" value="활성" checked> 활성</label>
+            <label class="notice-checkbox"><input type="radio" name="managerStatus" value="비활성"> 비활성</label>
+          </div>
+        </div>
+      </div>
+      <div class="notice-modal-actions" style="justify-content:space-between">
+        <div>
+          <button class="btn outline" type="button" id="managerResetPassword" hidden>비밀번호 초기화</button>
+          <button class="btn outline danger" type="button" id="managerDelete" hidden>계정 삭제</button>
+        </div>
+        <div>
+          <button class="btn outline" type="button" data-manager-modal-close>취소</button>
+          <button class="btn primary" type="button" id="managerSaveBtn">등록</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scope-modal" id="managerConfirmModal" aria-hidden="true">
+    <div class="scope-modal-backdrop" data-manager-confirm-cancel></div>
+    <div class="scope-modal-body" role="dialog" aria-modal="true" aria-label="운영자 처리 확인">
+      <h2 class="scope-modal-title" id="managerConfirmTitle"></h2>
+      <p class="scope-modal-desc" id="managerConfirmDesc"></p>
+      <div class="scope-modal-actions">
+        <button type="button" class="btn outline" data-manager-confirm-cancel>취소</button>
+        <button type="button" class="btn primary" id="managerConfirmOk">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="scope-modal" id="scopeModal" aria-hidden="true">
+    <div class="scope-modal-backdrop" data-scope-close></div>
+    <div class="scope-modal-body" role="dialog" aria-modal="true" aria-label="조회 기업 변경">
+      <h2 class="scope-modal-title">조회 기업 변경</h2>
+      <label class="scope-modal-label" for="scopeCompany">기업</label>
+      <select class="field scope-modal-field" id="scopeCompany"><option value="현대캐피탈">현대캐피탈</option></select>
+      <div class="scope-modal-actions">
+        <button type="button" class="btn outline" data-scope-close>취소</button>
+        <button type="button" class="btn primary" id="scopeConfirm">변경</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" role="status">✓ <span></span></div>
+  <script src="resources/js/admin-common.js"></script>
+  <script src="resources/js/manager.js"></script>
+</body>
+</html>
