@@ -9,6 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
     timer = setTimeout(() => toast.classList.remove('show'), 2600);
   };
 
+  // 모달 Esc로 닫는 동작 — 화면마다 반복 구현되던 로직을 공용화했다.
+  // 각 화면은 자신의 close 함수(상태 초기화 등 화면별 후처리 포함)를 그대로 넘겨서 호출하므로
+  // 동작(닫힐 때 무엇을 초기화하는지)은 이전과 똑같이 유지된다. 여기서 하는 일은 "언제 부를지"뿐이다.
+  // [2026-09-22 결정] 딤(backdrop) 클릭으로는 닫히지 않는다 — 실수로 딤을 클릭했을 때 입력 중인
+  // 내용이 날아가는 걸 막기 위해, 명시적으로 X·취소 버튼을 눌러야만 닫히도록 확정했다.
+  window.bindModalDismiss = (modal, close) => {
+    if (!modal) return;
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.classList.contains('show')) close();
+    });
+  };
+
   // 좌측 네비게이션 2뎁스 아코디언 — 부모 라벨을 누르면 그 그룹만 접고 편다.
   // 초기 펼침/접힘은 CSS(`.nav-sub:has(.nav-sub-link.active)`)가 첫 페인트부터 바로 처리해 깜빡임이 없다.
   // 여기서는 그 상태를 is-open/is-closed 클래스로 동기화해 이후 클릭 토글이 가능하게만 한다.
@@ -66,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.id = 'adminInfoModal';
     modal.setAttribute('aria-hidden', 'true');
     modal.innerHTML = `
-      <div class="scope-modal-backdrop" data-admin-info-close></div>
+      <div class="scope-modal-backdrop"></div>
       <div class="scope-modal-body" role="dialog" aria-modal="true" aria-label="관리자 정보">
         <h2 class="scope-modal-title">관리자 정보</h2>
         <div id="adminInfoDetail">

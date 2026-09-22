@@ -102,9 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renameModal.setAttribute('aria-hidden', 'true');
   };
   renameModal.querySelectorAll('[data-site-rename-close]').forEach((el) => el.addEventListener('click', closeRenameModal));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && renameModal.classList.contains('show')) closeRenameModal();
-  });
+  window.bindModalDismiss(renameModal, closeRenameModal);
   renameInput.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') renameSaveBtn.click();
   });
@@ -150,9 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     deleteModal.setAttribute('aria-hidden', 'true');
   };
   deleteModal.querySelectorAll('[data-site-delete-cancel]').forEach((el) => el.addEventListener('click', closeDeleteConfirm));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && deleteModal.classList.contains('show')) closeDeleteConfirm();
-  });
+  window.bindModalDismiss(deleteModal, closeDeleteConfirm);
   deleteOk.addEventListener('click', () => {
     if (!pendingRow) return;
     const name = pendingRow.querySelector('.site-name-link').textContent.trim();
@@ -195,9 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (newBtn) newBtn.addEventListener('click', openModal);
   modal.querySelectorAll('[data-site-modal-close]').forEach((el) => el.addEventListener('click', closeModal));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modal.classList.contains('show')) closeModal();
-  });
+  window.bindModalDismiss(modal, closeModal);
   nameInput.addEventListener('input', () => {
     if (nameInput.value.trim()) setFieldError(nameInput, nameError, '');
   });

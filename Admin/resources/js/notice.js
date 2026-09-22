@@ -118,9 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   modal.querySelectorAll('[data-notice-modal-close]').forEach((el) => {
     el.addEventListener('click', closeModal);
   });
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modal.classList.contains('show')) closeModal();
-  });
+  window.bindModalDismiss(modal, closeModal);
 
   const buildRowHTML = (data) => {
     const status = data.end && data.end < '2026-09-08' ? '종료' : '노출중';

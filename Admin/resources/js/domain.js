@@ -43,9 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (newBtn) newBtn.addEventListener('click', openModal);
   modal.querySelectorAll('[data-domain-modal-close]').forEach((el) => el.addEventListener('click', closeModal));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modal.classList.contains('show')) closeModal();
-  });
+  window.bindModalDismiss(modal, closeModal);
   domainInput.addEventListener('input', () => {
     if (domainInput.value.trim()) setFieldError(domainInput, domainInputError, '');
   });
@@ -97,9 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   deleteModal.querySelectorAll('[data-domain-delete-cancel]').forEach((el) => el.addEventListener('click', closeDeleteConfirm));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && deleteModal.classList.contains('show')) closeDeleteConfirm();
-  });
+  window.bindModalDismiss(deleteModal, closeDeleteConfirm);
   deleteOk.addEventListener('click', () => {
     if (!pendingRow) return;
     const domain = pendingRow.children[0].textContent.trim();

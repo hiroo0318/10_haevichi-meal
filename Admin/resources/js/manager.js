@@ -91,9 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('managerRegisterOpen').addEventListener('click', openCreateModal);
   modal.querySelectorAll('[data-manager-modal-close]').forEach((el) => el.addEventListener('click', closeModal));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modal.classList.contains('show')) closeModal();
-  });
+  window.bindModalDismiss(modal, closeModal);
 
   const buildRowHTML = (data) => `
     <td>${data.id}</td><td>${data.name}</td><td>${data.role}</td><td>${data.sites.join(', ')}</td>
@@ -188,9 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmModal.setAttribute('aria-hidden', 'false');
   };
   confirmModal.querySelectorAll('[data-manager-confirm-cancel]').forEach((el) => el.addEventListener('click', closeConfirm));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && confirmModal.classList.contains('show')) closeConfirm();
-  });
+  window.bindModalDismiss(confirmModal, closeConfirm);
 
   resetPasswordBtn.addEventListener('click', () => {
     if (!editingRow) return;

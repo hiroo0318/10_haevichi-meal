@@ -92,9 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
   modal.querySelectorAll('[data-voc-modal-close]').forEach((el) => {
     el.addEventListener('click', closeModal);
   });
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && modal.classList.contains('show')) closeModal();
-  });
+  window.bindModalDismiss(modal, closeModal);
 
   vmAnswerSubmit.addEventListener('click', () => {
     if (!activeRow || !vmAnswerInput.value.trim()) return;

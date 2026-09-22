@@ -486,6 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
     deleteModal.setAttribute('aria-hidden', 'true');
   }
   deleteModal.querySelectorAll('[data-mv2-delete-cancel]').forEach((el) => el.addEventListener('click', closeDeleteConfirm));
+  window.bindModalDismiss(deleteModal, closeDeleteConfirm);
   deleteOk.addEventListener('click', () => {
     if (!pendingDelete) return;
     const { meal, idx } = pendingDelete;
@@ -510,13 +511,15 @@ document.addEventListener('DOMContentLoaded', () => {
     publishModal.setAttribute('aria-hidden', 'false');
     renderDayPanel();
   }
-  publishModal.querySelectorAll('[data-mv2-publish-cancel]').forEach((el) => el.addEventListener('click', () => {
+  function closePublishConfirm() {
     if (pendingPublish) dataFor(selectedDate)[pendingPublish.meal][pendingPublish.idx].exposed = true;
     pendingPublish = null;
     publishModal.classList.remove('show');
     publishModal.setAttribute('aria-hidden', 'true');
     renderDayPanel();
-  }));
+  }
+  publishModal.querySelectorAll('[data-mv2-publish-cancel]').forEach((el) => el.addEventListener('click', closePublishConfirm));
+  window.bindModalDismiss(publishModal, closePublishConfirm);
   publishOk.addEventListener('click', () => {
     if (!pendingPublish) return;
     const { meal, idx } = pendingPublish;
@@ -558,10 +561,12 @@ document.addEventListener('DOMContentLoaded', () => {
       downloadModal.classList.add('show');
       downloadModal.setAttribute('aria-hidden', 'false');
     });
-    downloadModal.querySelectorAll('[data-mv2-download-close]').forEach((el) => el.addEventListener('click', () => {
+    const closeDownloadModal = () => {
       downloadModal.classList.remove('show');
       downloadModal.setAttribute('aria-hidden', 'true');
-    }));
+    };
+    downloadModal.querySelectorAll('[data-mv2-download-close]').forEach((el) => el.addEventListener('click', closeDownloadModal));
+    window.bindModalDismiss(downloadModal, closeDownloadModal);
     downloadConfirm.addEventListener('click', () => {
       if (!downloadStart.value || !downloadEnd.value) {
         showToast('다운로드할 기간을 선택해주세요.');

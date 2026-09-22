@@ -59,9 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   detailModal.querySelectorAll('[data-account-detail-close]').forEach((el) => el.addEventListener('click', closeDetail));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && detailModal.classList.contains('show')) closeDetail();
-  });
+  window.bindModalDismiss(detailModal, closeDetail);
 
   table.querySelectorAll('tbody > tr').forEach((row) => {
     row.addEventListener('click', () => openDetail(row));
@@ -102,9 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   confirmModal.querySelectorAll('[data-account-confirm-cancel]').forEach((el) => el.addEventListener('click', closeConfirm));
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && confirmModal.classList.contains('show')) closeConfirm();
-  });
+  window.bindModalDismiss(confirmModal, closeConfirm);
 
   detailResetBtn.addEventListener('click', () => {
     if (!activeRow) return;
