@@ -126,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scopeLabel = data.scope === 'sites' ? data.scopeSites.join(', ') : '전체';
     return `
       <td class="notice-title">${data.title}</td>
+      <td>${data.registered}</td>
       <td>${toDot(data.start)} ~ ${toDot(data.end)}</td>
       <td>${scopeLabel}</td>
       <td>${data.pinned ? 'Y' : 'N'}</td>
@@ -134,6 +135,57 @@ document.addEventListener('DOMContentLoaded', () => {
       <td><span class="badge ${badgeClass}">${status}</span></td>
     `;
   };
+
+  // ---- 검색(조회) — 기간 기준(노출기간/등록일) + 상태/팝업/노출대상/제목 -----------------
+  const periodTypeSelect = document.getElementById('noticePeriodType');
+  const filterStart = document.getElementById('noticeFilterStart');
+  const filterEnd = document.getElementById('noticeFilterEnd');
+  const filterStatus = document.getElementById('noticeFilterStatus');
+  const filterPopup = document.getElementById('noticeFilterPopup');
+  const filterBusiness = document.getElementById('noticeFilterBusiness');
+  const filterTitle = document.getElementById('noticeFilterTitle');
+  const searchBtn = document.getElementById('notice-search');
+  const pagination = document.getElementById('noticePagination');
+  const overlaps = (aStart, aEnd, bStart, bEnd) => aStart <= bEnd && aEnd >= bStart;
+
+  const applyFilter = () => {
+    const periodType = periodTypeSelect.value;
+    const start = filterStart.value;
+    const end = filterEnd.value;
+    const status = filterStatus.value;
+    const popup = filterPopup.value;
+    const business = filterBusiness.value;
+    const titleQuery = filterTitle.value.trim();
+
+    let matchedCount = 0;
+    table.querySelectorAll('tbody > tr.notice-row').forEach((row) => {
+      let match = true;
+      if (start && end) {
+        match = periodType === 'registered'
+          ? row.dataset.registered >= start && row.dataset.registered <= end
+          : overlaps(row.dataset.start, row.dataset.end, start, end);
+      }
+      if (match && status) {
+        const badge = row.querySelector('.badge');
+        match = !!badge && badge.textContent.trim() === status;
+      }
+      if (match && popup) {
+        match = popup === 'Y' ? row.dataset.popup === 'true' : row.dataset.popup !== 'true';
+      }
+      if (match && business) {
+        match = row.dataset.scope === 'sites' ? (row.dataset.scopeSites || '').split(',').includes(business) : true;
+      }
+      if (match && titleQuery) {
+        match = row.dataset.title.includes(titleQuery);
+      }
+      row.style.display = match ? '' : 'none';
+      if (match) matchedCount += 1;
+    });
+    if (pagination) pagination.hidden = true;
+    if (countBadge) countBadge.textContent = matchedCount + '건';
+    showToast('선택한 조건으로 공지를 조회했습니다.');
+  };
+  if (searchBtn) searchBtn.addEventListener('click', applyFilter);
 
   submitBtn.addEventListener('click', () => {
     if (!titleInput.value.trim() || !contentInput.value.trim()) {
@@ -149,6 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = {
       title: titleInput.value.trim(),
       content: contentInput.value.trim(),
+      registered: editingRow ? editingRow.dataset.registered : '2026-09-22',
       start: startInput.value,
       end: endInput.value,
       pinned: pinnedInput.checked,
@@ -181,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
       row.dataset.page = '1';
       row.dataset.title = data.title;
       row.dataset.content = data.content;
+      row.dataset.registered = data.registered;
       row.dataset.start = data.start;
       row.dataset.end = data.end;
       row.dataset.pinned = String(data.pinned);
