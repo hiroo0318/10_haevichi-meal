@@ -7,7 +7,7 @@
 body{min-width:1024px;background:var(--bg);color:var(--body);font-family:var(--font);font-size:14px;letter-spacing:-.015em}
 .admin-shell{min-height:100vh;padding-top:64px;padding-left:244px}
 .topbar{height:64px;position:fixed;z-index:10;inset:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:#fff;border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:10px;color:var(--heading);font-size:17px;font-weight:700;letter-spacing:-.04em}.brand-mark{display:grid;place-items:center;width:26px;height:26px;border-radius:4px;background:var(--admin-blue);color:#fff;font-size:12px;letter-spacing:0}.brand em{font-style:normal;color:var(--admin-blue)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--heading);font-size:17px;font-weight:700;letter-spacing:-.04em}.brand-mark{height:26px;width:auto;object-fit:contain}.brand em{font-style:normal;color:var(--admin-blue)}
 .profile{display:flex;align-items:center;gap:8px;color:var(--sub);font-size:12px}.profile strong{color:var(--heading);font-size:13px}.avatar{display:grid;place-items:center;width:32px;height:32px;background:#f2f2f3;border-radius:50%;color:#666;font-size:12px;font-weight:700}
 .scope-trigger .avatar{width:20px;height:20px;font-size:10px}
 .admin-info-grid{display:grid;grid-template-columns:88px 1fr;gap:10px;margin-bottom:18px;color:var(--body);font-size:12.5px}.admin-info-grid b{color:var(--heading);font-weight:700}
@@ -84,7 +84,7 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .login-shell{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:24px}
 .login-card{width:100%;max-width:360px;padding:36px 32px 32px;background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 20px 48px rgb(15 23 42 / .08)}
 .login-brand{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:28px;text-align:center}
-.login-brand .brand-mark{width:40px;height:40px;border-radius:8px;font-size:17px}
+.login-brand .brand-mark{height:40px;width:auto}
 .login-brand h1{margin:0;color:var(--heading);font-size:17px;font-weight:700;letter-spacing:-.02em}
 .login-brand span{color:var(--sub);font-size:12px}
 .login-form{display:flex;flex-direction:column;gap:12px}
