@@ -45,44 +45,38 @@
   <main class="admin-shell"><div class="content">
     <section class="page-head"><div><h1>사업장 관리</h1></div></section>
 
-    <label class="switch-row" style="margin-bottom:20px">
+    <label class="switch-row" style="margin-bottom:12px">
       <span class="switch"><input type="checkbox" id="siteMultiToggle" checked><span class="switch-track" aria-hidden="true"></span></span>
       사업장을 구분해서 운영
     </label>
+    <p class="notice-help" id="siteMultiHelp" style="margin:0 0 20px"></p>
 
-    <div id="siteMultiSection">
-      <section class="panel">
-        <div class="panel-head">
-          <div><h2 class="panel-title">사업장 목록 <span class="accent" id="siteCount">3건</span></h2><p class="panel-sub">기본으로 선택된 사업장은 임직원 채널 진입 시 초기값으로 쓰입니다. 미사용으로 전환하면 신규 식단·코너 관리 대상에서 제외됩니다.</p></div>
-          <div class="panel-head-right"><button type="button" class="action-button primary" id="site-new">＋ 사업장 추가</button></div>
-        </div>
-        <div class="table-wrap"><table class="table site-table"><thead><tr><th>기본</th><th>사업장명</th><th>사용</th><th></th></tr></thead><tbody>
-          <tr data-page="1">
-            <td><input type="radio" name="siteDefault" checked aria-label="본사를 기본 사업장으로 지정"></td>
-            <td>본사</td>
-            <td><label class="switch-row"><span class="switch"><input type="checkbox" class="site-use-toggle" checked><span class="switch-track" aria-hidden="true"></span></span></label></td>
-            <td><button class="btn outline" type="button" data-site-delete>삭제</button></td>
-          </tr>
-          <tr data-page="1">
-            <td><input type="radio" name="siteDefault" aria-label="여의도를 기본 사업장으로 지정"></td>
-            <td>여의도</td>
-            <td><label class="switch-row"><span class="switch"><input type="checkbox" class="site-use-toggle" checked><span class="switch-track" aria-hidden="true"></span></span></label></td>
-            <td><button class="btn outline" type="button" data-site-delete>삭제</button></td>
-          </tr>
-          <tr data-page="1">
-            <td><input type="radio" name="siteDefault" aria-label="홍대를 기본 사업장으로 지정"></td>
-            <td>홍대</td>
-            <td><label class="switch-row"><span class="switch"><input type="checkbox" class="site-use-toggle" checked><span class="switch-track" aria-hidden="true"></span></span></label></td>
-            <td><button class="btn outline" type="button" data-site-delete>삭제</button></td>
-          </tr>
-        </tbody></table></div>
-      </section>
-    </div>
-
-    <p id="siteSingleNote" class="notice-box" hidden>
-      <span>ⓘ</span>
-      <span>사업장을 구분하지 않고 하나의 매장으로 운영 중입니다. 식단·코너 관리 등 사업장 단위 화면은 단일 매장 기준으로 동작합니다.</span>
-    </p>
+    <section class="panel">
+      <div class="panel-head">
+        <div><h2 class="panel-title">사업장 목록 <span class="accent" id="siteCount">3건</span></h2><p class="panel-sub" id="siteListSub"></p></div>
+        <div class="panel-head-right"><button type="button" class="action-button primary" id="site-new">＋ 사업장 추가</button></div>
+      </div>
+      <div class="table-wrap"><table class="table site-table" id="siteTable"><thead><tr><th>기본</th><th>사업장명</th><th>사용</th><th></th></tr></thead><tbody>
+        <tr data-page="1">
+          <td><input type="radio" name="siteDefault" checked aria-label="본사를 기본 사업장으로 지정"></td>
+          <td><button class="link-btn site-name-link" type="button" data-site-rename>본사</button></td>
+          <td><label class="switch-row"><span class="switch"><input type="checkbox" class="site-use-toggle" checked><span class="switch-track" aria-hidden="true"></span></span></label></td>
+          <td><button class="btn outline" type="button" data-site-delete>삭제</button></td>
+        </tr>
+        <tr data-page="1">
+          <td><input type="radio" name="siteDefault" aria-label="여의도를 기본 사업장으로 지정"></td>
+          <td><button class="link-btn site-name-link" type="button" data-site-rename>여의도</button></td>
+          <td><label class="switch-row"><span class="switch"><input type="checkbox" class="site-use-toggle" checked><span class="switch-track" aria-hidden="true"></span></span></label></td>
+          <td><button class="btn outline" type="button" data-site-delete>삭제</button></td>
+        </tr>
+        <tr data-page="1">
+          <td><input type="radio" name="siteDefault" aria-label="홍대를 기본 사업장으로 지정"></td>
+          <td><button class="link-btn site-name-link" type="button" data-site-rename>홍대</button></td>
+          <td><label class="switch-row"><span class="switch"><input type="checkbox" class="site-use-toggle" checked><span class="switch-track" aria-hidden="true"></span></span></label></td>
+          <td><button class="btn outline" type="button" data-site-delete>삭제</button></td>
+        </tr>
+      </tbody></table></div>
+    </section>
   </div></main>
 
   <div class="scope-modal" id="siteDeleteModal" aria-hidden="true">
@@ -93,6 +87,20 @@
       <div class="scope-modal-actions">
         <button type="button" class="btn outline" data-site-delete-cancel>취소</button>
         <button type="button" class="btn primary" id="siteDeleteOk">삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="scope-modal" id="siteRenameModal" aria-hidden="true">
+    <div class="scope-modal-backdrop" data-site-rename-close></div>
+    <div class="scope-modal-body" role="dialog" aria-modal="true" aria-label="사업장명 수정">
+      <h2 class="scope-modal-title">사업장명 수정</h2>
+      <label class="scope-modal-label" for="siteRenameInput">사업장명</label>
+      <input class="field scope-modal-field" type="text" id="siteRenameInput" aria-label="사업장명 수정">
+      <span class="field-error" id="siteRenameError" hidden></span>
+      <div class="scope-modal-actions">
+        <button type="button" class="btn outline" data-site-rename-close>닫기</button>
+        <button type="button" class="btn primary" id="siteRenameSaveBtn">저장</button>
       </div>
     </div>
   </div>

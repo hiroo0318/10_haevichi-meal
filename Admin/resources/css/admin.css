@@ -209,6 +209,9 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .notice-row{cursor:pointer}.notice-row:hover{background:#f7fbfd}
 .account-row{cursor:pointer}.account-row:hover{background:#f7fbfd}
 .manager-row{cursor:pointer}.manager-row:hover{background:#f7fbfd}
+.site-table.is-dimmed{opacity:.45}
+.site-table td{white-space:nowrap}
+.site-name-link{font-size:12.5px}
 .notice-form{display:flex;flex-direction:column;gap:14px;margin-bottom:20px}
 .notice-field{display:flex;flex-direction:column;gap:6px;font-size:12.5px;font-weight:600;color:var(--heading)}.notice-field[hidden]{display:none}
 .notice-field-label{font-size:12.5px;font-weight:600;color:var(--heading)}
