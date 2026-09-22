@@ -123,10 +123,10 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .mv2-calendar{width:100%;border-collapse:collapse;table-layout:fixed}
 .mv2-calendar th{padding:6px 0;color:#909090;font-size:11px;font-weight:600;text-align:center}
 .mv2-calendar td{padding:3px;text-align:center}
-.mv2-cal-day{display:flex;flex-direction:column;align-items:center;gap:5px;width:100%;padding:9px 4px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--body);font-size:12.5px;cursor:pointer}
+.mv2-cal-day{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:100%;height:46px;padding:9px 4px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--body);font-size:12.5px;cursor:pointer;position:relative}
 .mv2-cal-day:hover{background:#f7fbfd}
 .mv2-cal-day.is-muted{color:#c3c8ce}
-.mv2-cal-day-month{color:#9aa4af;font-size:9.5px;font-weight:700}
+.mv2-cal-day-month{position:absolute;top:-3px;left:50%;transform:translateX(-50%);color:#9aa4af;font-size:9.5px;font-weight:700;line-height:1;white-space:nowrap}
 .mv2-cal-week.is-current .mv2-cal-day{background:#f7fbfd}
 .mv2-cal-day.is-selected{border-color:var(--admin-blue);background:var(--admin-blue-pale);color:var(--admin-blue);font-weight:700}
 .mv2-cal-dots{display:flex;flex-direction:row;gap:3px}
