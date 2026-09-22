@@ -51,7 +51,7 @@
         <option value="name">이름</option>
       </select>
       <input class="field" type="text" placeholder="검색어를 입력해주세요" aria-label="검색어 입력">
-      <select class="field" aria-label="권한 선택"><option>전체 권한</option><option>마스터</option><option>운영자</option><option>관리자</option></select>
+      <select class="field" aria-label="권한 선택"><option>전체 권한</option><option>관리자</option><option>운영자</option></select>
       <select class="field" aria-label="사업장 선택"><option>전체 사업장</option><option>본사</option><option>여의도</option><option>홍대</option></select>
       <select class="field" aria-label="상태 선택"><option>전체 상태</option><option>활성</option><option>비활성</option></select>
       <input class="field" type="date" aria-label="등록일 시작일">
@@ -66,8 +66,8 @@
         <div class="panel-head-right"><button type="button" class="btn primary" id="managerRegisterOpen">관리자 등록</button></div>
       </div>
       <div class="table-wrap"><table class="table manager-table"><thead><tr><th>관리자 ID</th><th>이름</th><th>권한</th><th>사업장</th><th>상태</th><th>등록일</th></tr></thead><tbody>
-        <tr class="manager-row" data-page="1" data-id="admin_hc" data-name="정혜림" data-role="마스터" data-sites="여의도" data-status="활성" data-registered="2026-08-01" tabindex="0">
-          <td>admin_hc</td><td>정혜림</td><td>마스터</td><td>여의도</td><td><span class="badge done">활성</span></td><td>2026-08-01</td>
+        <tr class="manager-row" data-page="1" data-id="admin_hc" data-name="정혜림" data-role="관리자" data-sites="전체" data-status="활성" data-registered="2026-08-01" tabindex="0">
+          <td>admin_hc</td><td>정혜림</td><td>관리자</td><td>전체</td><td><span class="badge done">활성</span></td><td>2026-08-01</td>
         </tr>
         <tr class="manager-row" data-page="1" data-id="admin_ops1" data-name="박서연" data-role="운영자" data-sites="본사,여의도" data-status="활성" data-registered="2026-08-04" tabindex="0">
           <td>admin_ops1</td><td>박서연</td><td>운영자</td><td>본사, 여의도</td><td><span class="badge done">활성</span></td><td>2026-08-04</td>
@@ -75,17 +75,17 @@
         <tr class="manager-row" data-page="1" data-id="admin_ops2" data-name="이도현" data-role="운영자" data-sites="홍대" data-status="활성" data-registered="2026-08-11" tabindex="0">
           <td>admin_ops2</td><td>이도현</td><td>운영자</td><td>홍대</td><td><span class="badge done">활성</span></td><td>2026-08-11</td>
         </tr>
-        <tr class="manager-row" data-page="1" data-id="admin_view1" data-name="최윤아" data-role="관리자" data-sites="본사" data-status="활성" data-registered="2026-08-19" tabindex="0">
-          <td>admin_view1</td><td>최윤아</td><td>관리자</td><td>본사</td><td><span class="badge done">활성</span></td><td>2026-08-19</td>
+        <tr class="manager-row" data-page="1" data-id="admin_view1" data-name="최윤아" data-role="관리자" data-sites="전체" data-status="활성" data-registered="2026-08-19" tabindex="0">
+          <td>admin_view1</td><td>최윤아</td><td>관리자</td><td>전체</td><td><span class="badge done">활성</span></td><td>2026-08-19</td>
         </tr>
-        <tr class="manager-row" data-page="1" data-id="admin_view2" data-name="한지민" data-role="관리자" data-sites="본사,여의도,홍대" data-status="비활성" data-registered="2026-08-22" tabindex="0">
-          <td>admin_view2</td><td>한지민</td><td>관리자</td><td>본사, 여의도, 홍대</td><td><span class="badge muted">비활성</span></td><td>2026-08-22</td>
+        <tr class="manager-row" data-page="1" data-id="admin_view2" data-name="한지민" data-role="관리자" data-sites="전체" data-status="비활성" data-registered="2026-08-22" tabindex="0">
+          <td>admin_view2</td><td>한지민</td><td>관리자</td><td>전체</td><td><span class="badge muted">비활성</span></td><td>2026-08-22</td>
         </tr>
         <tr class="manager-row" data-page="1" data-id="admin_ops3" data-name="정우진" data-role="운영자" data-sites="여의도" data-status="비활성" data-registered="2026-08-27" tabindex="0">
           <td>admin_ops3</td><td>정우진</td><td>운영자</td><td>여의도</td><td><span class="badge muted">비활성</span></td><td>2026-08-27</td>
         </tr>
-        <tr class="manager-row" data-page="1" data-id="admin_view3" data-name="김소율" data-role="관리자" data-sites="홍대" data-status="활성" data-registered="2026-09-03" tabindex="0">
-          <td>admin_view3</td><td>김소율</td><td>관리자</td><td>홍대</td><td><span class="badge done">활성</span></td><td>2026-09-03</td>
+        <tr class="manager-row" data-page="1" data-id="admin_view3" data-name="김소율" data-role="관리자" data-sites="전체" data-status="활성" data-registered="2026-09-03" tabindex="0">
+          <td>admin_view3</td><td>김소율</td><td>관리자</td><td>전체</td><td><span class="badge done">활성</span></td><td>2026-09-03</td>
         </tr>
       </tbody></table></div>
       <nav class="pagination" id="managerPagination" aria-label="운영자 목록 페이지"></nav>
@@ -103,12 +103,11 @@
         <div class="notice-field">
           <span class="notice-field-label">권한</span>
           <div style="display:flex;gap:16px">
-            <label class="notice-checkbox"><input type="radio" name="managerRole" value="마스터" checked> 마스터</label>
+            <label class="notice-checkbox"><input type="radio" name="managerRole" value="관리자" checked> 관리자</label>
             <label class="notice-checkbox"><input type="radio" name="managerRole" value="운영자"> 운영자</label>
-            <label class="notice-checkbox"><input type="radio" name="managerRole" value="관리자"> 관리자</label>
           </div>
         </div>
-        <div class="notice-field">
+        <div class="notice-field" id="managerSitesField">
           <span class="notice-field-label">사업장</span>
           <div style="display:flex;gap:16px">
             <label class="notice-checkbox"><input type="checkbox" class="managerSiteCheckbox" value="본사"> 본사</label>
@@ -117,6 +116,7 @@
           </div>
           <span class="field-error" id="managerSitesError" hidden></span>
         </div>
+        <p class="notice-help" id="managerSitesAllNote" hidden>회사 전체 사업장을 자동으로 관리합니다.</p>
         <div class="notice-field">
           <span class="notice-field-label">상태</span>
           <div style="display:flex;gap:16px">

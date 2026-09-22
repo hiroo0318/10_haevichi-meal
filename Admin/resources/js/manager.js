@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalTitle = document.getElementById('managerModalTitle');
   const idInput = document.getElementById('managerIdInput');
   const nameInput = document.getElementById('managerNameInput');
+  const sitesField = document.getElementById('managerSitesField');
+  const sitesAllNote = document.getElementById('managerSitesAllNote');
   const sitesError = document.getElementById('managerSitesError');
   const resetPasswordBtn = document.getElementById('managerResetPassword');
   const deleteBtn = document.getElementById('managerDelete');
@@ -34,16 +36,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const setRadioValue = (inputs, value) => { inputs.forEach((el) => { el.checked = el.value === value; }); };
   const getRadioValue = (inputs) => (inputs.find((el) => el.checked) || {}).value || '';
 
+  // 관리자 권한은 사업장 선택 자체가 없다 — 회사 전체를 자동으로 관리한다.
+  // 운영자 권한만 사업장을 지정한다. 라디오를 바꿀 때마다 실시간으로 토글한다.
+  const syncSitesVisibility = () => {
+    const isManagerRole = getRadioValue(roleInputs()) === '관리자';
+    sitesField.hidden = isManagerRole;
+    sitesAllNote.hidden = !isManagerRole;
+    if (isManagerRole) sitesError.hidden = true;
+  };
+  roleInputs().forEach((input) => input.addEventListener('change', syncSitesVisibility));
+
   const openCreateModal = () => {
     editingRow = null;
     modalTitle.textContent = '관리자 등록';
     idInput.value = '';
     idInput.disabled = false;
     nameInput.value = '';
-    setRadioValue(roleInputs(), '마스터');
+    setRadioValue(roleInputs(), '관리자');
     siteCheckboxes().forEach((cb) => { cb.checked = false; });
     setRadioValue(statusInputs(), '활성');
     sitesError.hidden = true;
+    syncSitesVisibility();
     resetPasswordBtn.hidden = true;
     deleteBtn.hidden = true;
     saveBtn.textContent = '등록';
@@ -62,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     siteCheckboxes().forEach((cb) => { cb.checked = sites.includes(cb.value); });
     setRadioValue(statusInputs(), row.dataset.status);
     sitesError.hidden = true;
+    syncSitesVisibility();
     resetPasswordBtn.hidden = false;
     deleteBtn.hidden = false;
     saveBtn.textContent = '저장';
@@ -104,16 +118,22 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('관리자 ID와 이름을 입력해주세요.');
       return;
     }
-    const sites = siteCheckboxes().filter((cb) => cb.checked).map((cb) => cb.value);
-    if (sites.length === 0) {
-      sitesError.textContent = '사업장을 1개 이상 선택해주세요.';
-      sitesError.hidden = false;
-      return;
+    const role = getRadioValue(roleInputs());
+    let sites;
+    if (role === '관리자') {
+      sites = ['전체'];
+    } else {
+      sites = siteCheckboxes().filter((cb) => cb.checked).map((cb) => cb.value);
+      if (sites.length === 0) {
+        sitesError.textContent = '사업장을 1개 이상 선택해주세요.';
+        sitesError.hidden = false;
+        return;
+      }
     }
     const data = {
       id,
       name,
-      role: getRadioValue(roleInputs()),
+      role,
       sites,
       status: getRadioValue(statusInputs()),
       registered: editingRow ? editingRow.dataset.registered : '2026-09-21',
