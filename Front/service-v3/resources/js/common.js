@@ -9,12 +9,20 @@ var MEALS = {
     label: '조식', time: '07:30–09:00',
     corners: [
       {
-        id: 'a', type: '한식', name: '된장국 정식', photo: 'resources/images/menu/doenjangguk-photo-v2.png',
+        id: 'a', type: '한식', name: '된장국 정식', photo: 'resources/images/menu/doenjangguk-photo.png',
         desc: '잡곡밥 · 계란말이 · 시금치나물',
         composition: [['주식','잡곡밥'], ['국','된장국'], ['반찬','계란말이 · 시금치나물']],
         items: [['잡곡밥',300], ['된장국',120], ['계란말이',150], ['시금치나물',40]],
         macro: { carb:180, protein:70, fat:40, sodium:1050, total:540 },
         allergy: '대두 함유'
+      },
+      {
+        id: 'b', type: '한식', name: '비빔밥 코너', photo: 'resources/images/menu/bibimbap-photo.png',
+        desc: '흰쌀밥 · 나물 5종 · 계란후라이 · 고추장',
+        composition: [['주식','흰쌀밥'], ['메인','나물 비빔 5종'], ['반찬','계란후라이 · 고추장']],
+        items: [['흰쌀밥',300], ['나물 5종',150], ['계란후라이',110], ['고추장',30]],
+        macro: { carb:195, protein:85, fat:75, sodium:1290, total:790 },
+        allergy: '대두, 계란 함유'
       }
     ]
   },
