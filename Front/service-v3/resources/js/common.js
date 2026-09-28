@@ -62,6 +62,15 @@ var MEALS = {
   }
 };
 
+/* 사업장별 식사 시간 관리의 "사용 여부"를 프런트에 전달받은 값.
+   실제 연동에서는 관리자가 저장한 조식·중식·석식 사용 여부로 대체한다.
+   시간 표시는 이번 화면 범위에 포함하지 않는다. */
+var MEAL_OPERATION_ENABLED = {
+  breakfast: true,
+  lunch: true,
+  dinner: true
+};
+
 /* 날짜별 식단 상태 — 퍼블리싱 검토용 샘플 데이터.
    null은 해당 끼니에 식단이 없는 상태이며, 값이 생략된 날짜는 세 끼 모두 제공한다. */
 var DATE_MEAL_STATUS = {
@@ -193,6 +202,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if(weekStrip){
     var mealTabs = document.getElementById('mealTabs');
     var cornerList = document.getElementById('cornerList');
+    var homeMealSection = mealTabs.closest('.home-meal-section');
     var selectedDate = '9-2';
     var selectedMeal = 'lunch';
     var order = ['breakfast', 'lunch', 'dinner'];
@@ -209,9 +219,13 @@ document.addEventListener('DOMContentLoaded', function(){
       renderHome();
     }
 
-    function availableMealsForDate(date){
+    function operatingMeals(){
+      return order.filter(function(key){ return MEAL_OPERATION_ENABLED[key]; });
+    }
+
+    function availableMealsForDate(date, enabledMeals){
       var status = DATE_MEAL_STATUS[date];
-      return status ? order.filter(function(key){ return status[key]; }) : order.slice();
+      return status ? enabledMeals.filter(function(key){ return status[key]; }) : enabledMeals.slice();
     }
     weekStrip.addEventListener('click', function(e){
       var day = e.target.closest('.week-day');
@@ -226,13 +240,13 @@ document.addEventListener('DOMContentLoaded', function(){
       button.addEventListener('click', function(){ selectWeek(button.getAttribute('data-week-nav')); });
     });
 
-    function renderCorners(mealKey, isAvailable){
+    function renderCorners(mealKey, isAvailable, enabledMeals){
       cornerList.innerHTML = '';
       if(!isAvailable){
         cornerList.innerHTML =
           '<div class="meal-empty"><span class="meal-empty-icon" aria-hidden="true"><img src="resources/images/icon/ill-empty-meal.svg" alt=""></span>' +
           '<strong>' + MEALS[mealKey].label + ' 식단이 등록되지 않았어요</strong>' +
-          '<p>다른 식사 탭을 선택해 주세요.</p></div>';
+          '<p>' + (enabledMeals.length > 1 ? '다른 식사 탭을 선택해 주세요.' : '다른 날짜의 식단을 확인해 주세요.') + '</p></div>';
         return;
       }
       var meal = MEALS[mealKey];
@@ -258,16 +272,39 @@ document.addEventListener('DOMContentLoaded', function(){
       renderHome();
     }
 
-    function renderHome(){
-      var availableMeals = availableMealsForDate(selectedDate);
-      var isDayEmpty = availableMeals.length === 0;
-      // 전체 미등록일에도 탭 영역을 유지해, 한 끼 미등록 상태와 빈 안내 영역의
-      // 시작 위치 및 크기가 같도록 한다. 이때 세 탭은 모두 선택·이동할 수 없다.
-      order.forEach(function(key){
-        var tab = document.getElementById('mealTab-' + key);
-        tab.disabled = isDayEmpty;
-        tab.classList.toggle('is-active', !isDayEmpty && key === selectedMeal);
+    function renderMealTabs(enabledMeals, isDayEmpty){
+      mealTabs.innerHTML = '';
+      homeMealSection.hidden = enabledMeals.length <= 1;
+      if(enabledMeals.length <= 1) return;
+
+      enabledMeals.forEach(function(key){
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'meal-tab';
+        btn.id = 'mealTab-' + key;
+        btn.textContent = MEALS[key].label;
+        btn.disabled = isDayEmpty;
+        btn.classList.toggle('is-active', !isDayEmpty && key === selectedMeal);
+        btn.addEventListener('click', function(){ selectMealTab(key); });
+        mealTabs.appendChild(btn);
       });
+    }
+
+    function renderHome(){
+      var enabledMeals = operatingMeals();
+      if(enabledMeals.length === 0){
+        homeMealSection.hidden = true;
+        cornerList.innerHTML =
+          '<div class="meal-empty"><span class="meal-empty-icon" aria-hidden="true"><img src="resources/images/icon/ill-empty-meal.svg" alt=""></span>' +
+          '<strong>운영 중인 식사가 없습니다</strong>' +
+          '<p>식사 운영 여부를 확인해 주세요.</p></div>';
+        return;
+      }
+      if(enabledMeals.indexOf(selectedMeal) === -1) selectedMeal = enabledMeals[0];
+
+      var availableMeals = availableMealsForDate(selectedDate, enabledMeals);
+      var isDayEmpty = availableMeals.length === 0;
+      renderMealTabs(enabledMeals, isDayEmpty);
       if(isDayEmpty){
         cornerList.innerHTML =
           '<div class="meal-empty"><span class="meal-empty-icon" aria-hidden="true"><img src="resources/images/icon/ill-empty-meal.svg" alt=""></span>' +
@@ -275,18 +312,8 @@ document.addEventListener('DOMContentLoaded', function(){
           '<p>다른 날짜의 식단을 확인해 주세요.</p></div>';
         return;
       }
-      renderCorners(selectedMeal, availableMeals.indexOf(selectedMeal) !== -1);
+      renderCorners(selectedMeal, availableMeals.indexOf(selectedMeal) !== -1, enabledMeals);
     }
-
-    order.forEach(function(key){
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'meal-tab';
-      btn.id = 'mealTab-' + key;
-      btn.textContent = MEALS[key].label;
-      btn.addEventListener('click', function(){ selectMealTab(key); });
-      mealTabs.appendChild(btn);
-    });
 
     renderHome();
   }
