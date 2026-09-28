@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const syncMulti = () => {
     const on = multiToggle.checked;
     siteTable.classList.toggle('is-dimmed', !on);
+    siteTable.inert = !on;
     newBtn.disabled = !on;
     newBtn.title = on ? '' : '사업장을 구분해서 운영해야 새 사업장을 추가할 수 있습니다.';
     multiHelp.textContent = on

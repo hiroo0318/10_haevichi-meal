@@ -209,7 +209,7 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .notice-row{cursor:pointer}.notice-row:hover{background:#f7fbfd}
 .account-row{cursor:pointer}.account-row:hover{background:#f7fbfd}
 .manager-row{cursor:pointer}.manager-row:hover{background:#f7fbfd}
-.site-table.is-dimmed{opacity:.45}
+.site-table.is-dimmed{opacity:.45;pointer-events:none}
 .site-table td{white-space:nowrap}
 .site-name-link{font-size:12.5px}
 .notice-form{display:flex;flex-direction:column;gap:14px;margin-bottom:20px}
