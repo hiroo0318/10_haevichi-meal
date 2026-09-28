@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const detailJoined = document.getElementById('accountDetailJoined');
   const detailLastLogin = document.getElementById('accountDetailLastLogin');
   const detailStatus = document.getElementById('accountDetailStatus');
-  const detailResetBtn = document.getElementById('accountDetailReset');
+  // const detailResetBtn = document.getElementById('accountDetailReset');
   const detailWithdrawBtn = document.getElementById('accountDetailWithdraw');
   const detailSaveBtn = document.getElementById('accountDetailSave');
   let activeRow = null;
@@ -102,10 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
   confirmModal.querySelectorAll('[data-account-confirm-cancel]').forEach((el) => el.addEventListener('click', closeConfirm));
   window.bindModalDismiss(confirmModal, closeConfirm);
 
-  detailResetBtn.addEventListener('click', () => {
-    if (!activeRow) return;
-    openConfirm('reset', '비밀번호를 초기화하시겠습니까?', emailOf(activeRow) + ' 계정의 비밀번호를 고정된 임시 비밀번호로 초기화합니다.');
-  });
+  // 비밀번호 초기화 버튼 주석 처리(HTML)에 맞춰 핸들러도 비활성화
+  // detailResetBtn.addEventListener('click', () => {
+  //   if (!activeRow) return;
+  //   openConfirm('reset', '비밀번호를 초기화하시겠습니까?', emailOf(activeRow) + ' 계정의 비밀번호를 고정된 임시 비밀번호로 초기화합니다.');
+  // });
   detailWithdrawBtn.addEventListener('click', () => {
     if (!activeRow || activeRow.dataset.status === '탈퇴') return;
     openConfirm('withdraw', '계정을 탈퇴 처리하시겠습니까?', emailOf(activeRow) + ' 계정을 탈퇴 처리하면 즉시 로그인이 차단됩니다. 이 작업은 되돌릴 수 없습니다.');
