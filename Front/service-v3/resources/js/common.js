@@ -392,7 +392,25 @@ document.addEventListener('DOMContentLoaded', function(){
       chip.classList.add('is-active');
       vocType.value = chip.dataset.vocCategory;
     });
-    vocMessage.addEventListener('input', function(){ vocCharCount.textContent = vocMessage.value.length + ' / 500'; });
+    var maxMessageLength = vocMessage.maxLength;
+    vocMessage.addEventListener('beforeinput', function(e){
+      if(!e.inputType || e.inputType.indexOf('delete') === 0) return;
+      var insertedText = e.data;
+      if(insertedText === null && e.clipboardData) insertedText = e.clipboardData.getData('text');
+      if(typeof insertedText !== 'string') return;
+      var selectedLength = vocMessage.selectionEnd - vocMessage.selectionStart;
+      if(vocMessage.value.length - selectedLength + insertedText.length > maxMessageLength) e.preventDefault();
+    });
+    function syncMessageLength(){
+      if(vocMessage.value.length > maxMessageLength){
+        var caretPosition = Math.min(vocMessage.selectionStart, maxMessageLength);
+        vocMessage.value = vocMessage.value.slice(0, maxMessageLength);
+        vocMessage.setSelectionRange(caretPosition, caretPosition);
+      }
+      vocCharCount.textContent = vocMessage.value.length + ' / ' + maxMessageLength;
+    }
+    vocMessage.addEventListener('input', syncMessageLength);
+    vocMessage.addEventListener('compositionend', syncMessageLength);
     var attachedPhotos = [];
     function escapeHtml(value){
       return value.replace(/[&<>"']/g, function(char){
