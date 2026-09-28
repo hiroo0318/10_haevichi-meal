@@ -535,11 +535,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- 엑셀 업로드 (이미지 제외, 사업장 컬럼으로 복수 사업장 처리) -------------------
   const excelInput = document.getElementById('mv2ExcelInput');
+  const uploadResultModal = document.getElementById('mv2UploadResultModal');
+  const uploadResultDesc = document.getElementById('mv2UploadResultDesc');
+  const closeUploadResult = () => {
+    uploadResultModal.classList.remove('show');
+    uploadResultModal.setAttribute('aria-hidden', 'true');
+  };
+  document.getElementById('mv2UploadResultOk').addEventListener('click', closeUploadResult);
+  window.bindModalDismiss(uploadResultModal, closeUploadResult);
   if (excelInput) {
     excelInput.addEventListener('change', () => {
       const file = excelInput.files[0];
       if (!file) return;
-      showToast(file.name + ' — 이미지를 제외한 메뉴 정보가 반영되었습니다. 이미지는 목록에서 개별 등록해주세요. (등록 완료 4건, 오류 1건)');
+      uploadResultDesc.textContent = file.name + ' — 이미지를 제외한 메뉴 정보가 반영되었습니다. 이미지는 목록에서 개별 등록해주세요. (등록 완료 4건, 오류 1건)';
+      uploadResultModal.classList.add('show');
+      uploadResultModal.setAttribute('aria-hidden', 'false');
       excelInput.value = '';
     });
   }
