@@ -196,8 +196,8 @@ document.addEventListener('DOMContentLoaded', function(){
      PAGE: home.html — 주간 날짜 스트립 + 끼니 탭 + 코너 카드
      "식단" 탭 없이 홈 하나로 메뉴 열람이 끝나도록 통합했다.
      ------------------------------------------------------- */
-  // 전주/이번 주/차주 데이터는 퍼블리싱 검토용 고정 마크업이며,
-  // 주 선택 버튼으로 해당 주의 7일만 즉시 전환한다.
+  // 전주/이번 주/차주 데이터는 퍼블리싱 검토용 고정 마크업이다.
+  // 기본 선택은 수요일이며, 선택한 요일은 주를 이동해도 계속 유지한다.
   var weekStrip = document.getElementById('weekStrip');
   if(weekStrip){
     var mealTabs = document.getElementById('mealTabs');
@@ -206,14 +206,15 @@ document.addEventListener('DOMContentLoaded', function(){
     var selectedDate = '9-2';
     var selectedMeal = 'lunch';
     var order = ['breakfast', 'lunch', 'dinner'];
-    var selectedDateByWeek = { current:'9-2' };
+    var selectedWeekdayIndex = 3;
 
     function selectWeek(week){
       var group = weekStrip.querySelector('[data-week="' + week + '"]');
       if(!group) return;
       weekStrip.querySelectorAll('.week-group').forEach(function(item){ item.classList.toggle('is-active', item === group); });
       document.querySelectorAll('[data-week-nav]').forEach(function(button){ button.classList.toggle('is-active', button.getAttribute('data-week-nav') === week); });
-      var activeDay = group.querySelector('[data-md="' + selectedDateByWeek[week] + '"]') || group.querySelector('.week-day');
+      var days = group.querySelectorAll('.week-day');
+      var activeDay = days[selectedWeekdayIndex] || days[0];
       weekStrip.querySelectorAll('.week-day').forEach(function(day){ day.classList.toggle('is-selected', day === activeDay); });
       selectedDate = activeDay.dataset.md;
       renderHome();
@@ -233,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function(){
       weekStrip.querySelectorAll('.week-day').forEach(function(d){ d.classList.remove('is-selected'); });
       day.classList.add('is-selected');
       selectedDate = day.dataset.md;
-      selectedDateByWeek[day.closest('.week-group').dataset.week] = selectedDate;
+      selectedWeekdayIndex = Array.prototype.indexOf.call(day.closest('.week-group').querySelectorAll('.week-day'), day);
       renderHome();
     });
     document.querySelectorAll('[data-week-nav]').forEach(function(button){
