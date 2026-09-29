@@ -132,8 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.className = 'mv2-cal-day' + (key === selectedDate ? ' is-selected' : '');
         const showMonth = day.getDate() === 1;
         btn.innerHTML = `
-          ${showMonth ? `<span class="mv2-cal-day-month">${day.getMonth() + 1}월</span>` : ''}
-          <span class="mv2-cal-day-num">${day.getDate()}</span>
+          <span class="mv2-cal-day-top">
+            ${showMonth ? `<span class="mv2-cal-day-month">${day.getMonth() + 1}월</span>` : ''}
+            <span class="mv2-cal-day-num">${day.getDate()}</span>
+          </span>
           <span class="mv2-cal-dots">
             <span class="mv2-dot mv2-dot-${mealStatus(data.조식)}" title="조식"></span>
             <span class="mv2-dot mv2-dot-${mealStatus(data.중식)}" title="중식"></span>

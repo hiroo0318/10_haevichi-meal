@@ -126,7 +126,8 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .mv2-cal-day{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:100%;height:46px;padding:9px 4px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--body);font-size:12.5px;cursor:pointer;position:relative}
 .mv2-cal-day:hover{background:#f7fbfd}
 .mv2-cal-day.is-muted{color:#c3c8ce}
-.mv2-cal-day-month{position:absolute;top:-3px;left:50%;transform:translateX(-50%);color:#9aa4af;font-size:9.5px;font-weight:700;line-height:1;white-space:nowrap}
+.mv2-cal-day-top{display:flex;align-items:baseline;gap:3px}
+.mv2-cal-day-month{color:#9aa4af;font-size:9.5px;font-weight:700;line-height:1;white-space:nowrap}
 .mv2-cal-week.is-current .mv2-cal-day{background:#f7fbfd}
 .mv2-cal-day.is-selected{border-color:var(--admin-blue);background:var(--admin-blue-pale);color:var(--admin-blue);font-weight:700}
 .mv2-cal-dots{display:flex;flex-direction:row;gap:3px}
