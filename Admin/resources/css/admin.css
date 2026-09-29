@@ -208,6 +208,8 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .voc-modal-answer #vmAnswerSubmit{align-self:flex-end}
 .notice-table th,.notice-table td{text-align:center}.notice-table td.notice-title{text-align:left;max-width:360px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .notice-row{cursor:pointer}.notice-row:hover{background:#f7fbfd}
+.notice-row:has(.badge.muted){background:#f5f5f6}.notice-row:has(.badge.muted):hover{background:#eceded}
+.notice-row[data-pinned="true"]{background:#eef5fb}.notice-row[data-pinned="true"]:hover{background:#e3eef8}
 .account-row{cursor:pointer}.account-row:hover{background:#f7fbfd}
 .manager-row{cursor:pointer}.manager-row:hover{background:#f7fbfd}
 .site-table.is-dimmed{opacity:.45;pointer-events:none}
