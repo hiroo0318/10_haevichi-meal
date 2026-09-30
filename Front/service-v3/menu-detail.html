@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="resources/css/reset.css">
 <link rel="stylesheet" href="resources/css/base.css?v=20260917-3">
 <link rel="stylesheet" href="resources/css/theme-haevichi.css?v=20260917-3" id="themeLink">
-<link rel="stylesheet" href="resources/css/service.css?v=20260917-3">
+<link rel="stylesheet" href="resources/css/service.css?v=20260930-2">
 <script src="resources/js/theme-oncolor.js?v=20260917-3"></script>
 </head>
 <body>
@@ -31,8 +31,9 @@
   <main class="content menu-detail-content">
 
     <article class="menu-detail-card" id="detailSheet">
-      <div class="hero">
-        <img id="heroPhoto" src="" alt="">
+      <div class="hero is-loading">
+        <span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span>
+        <img id="heroPhoto" src="" alt="" hidden>
       </div>
 
       <div class="sheet">
@@ -47,6 +48,12 @@
 
       <!-- 탄단지 + 나트륨 합계 — 위와 동일하게 표시 전용 -->
       <div class="macro-summary" id="macroSummary"></div>
+      <section class="detail-info" aria-label="원산지 및 알레르기 정보">
+        <dl>
+          <div class="detail-info-row"><dt>원산지</dt><dd id="detailOrigin"></dd></div>
+          <div class="detail-info-row"><dt>알레르기</dt><dd id="detailAllergy"></dd></div>
+        </dl>
+      </section>
 
       <section class="detail-voc" aria-label="메뉴 의견 작성">
         <a id="detailVocLink" class="detail-voc-link" href="voc.html">의견 쓰기</a>
@@ -66,6 +73,6 @@
   </nav>
 
 </div>
-<script src="resources/js/common.js?v=20260917-3"></script>
+<script src="resources/js/common.js?v=20260930-2"></script>
 </body>
 </html>

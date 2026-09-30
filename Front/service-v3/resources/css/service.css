@@ -163,6 +163,11 @@
 .corner-detail-link{ display:block; color:inherit; }
 .corner-photo{ aspect-ratio:16/9; }
 .corner-photo img{ width:100%; height:100%; object-fit:cover; }
+.corner-photo.is-loading,.hero.is-loading{ background:var(--ui-surface); }
+.meal-image-loading{
+  display:block; padding:16px 20px; color:var(--ui-muted); background:var(--ui-surface);
+  text-align:center; font-size:var(--fs-caption); font-weight:400;
+}
 .corner-cardbody{ padding:14px 16px 16px; }
 .corner-label{ font-size:12px; font-weight:700; color:var(--brand-primary); margin-bottom:4px; }
 .corner-name{ font-size:17px; font-weight:800; margin-bottom:5px; }
@@ -332,6 +337,11 @@
 .macro-cell .macro-value{ font-size:13px; font-weight:800; white-space:nowrap; }
 .macro-cell .macro-value small{ font-size:9px; font-weight:600; color:var(--sub); margin-left:1px; }
 .macro-total .macro-label,.macro-total .macro-value,.macro-total .macro-value small{ color:var(--brand-primary); }
+.detail-info{ padding:12px 0 0; }
+.detail-info dl{ margin:0; }
+.detail-info-row{ display:flex; align-items:baseline; gap:12px; padding:4px 0; }
+.detail-info-row dt{ flex:0 0 52px; color:var(--sub); font-size:11px; font-weight:600; line-height:1.5; }
+.detail-info-row dd{ min-width:0; margin:0; color:var(--ink); font-size:12px; font-weight:500; line-height:1.5; }
 
 .detail-voc{ display:flex; justify-content:flex-end; padding:14px 0 0; }
 .detail-voc-link{
@@ -673,6 +683,8 @@ body{ background:var(--ui-bg); }
 .macro-cell .macro-value{ font-weight:600; }
 .macro-cell .macro-value small{ font-weight:600; }
 .macro-cell .macro-value,.macro-cell .macro-value small,.macro-total .macro-label,.macro-total .macro-value,.macro-total .macro-value small{ color:var(--ui-ink); }
+.detail-info-row dt{ color:var(--ui-muted); font-weight:400; }
+.detail-info-row dd{ color:var(--ui-ink); font-weight:400; }
 /* 홈 카드의 의견 쓰기와 같은 컴포넌트이므로 배경도 같은 브랜드 파생색을 쓴다.
    이전 기반 규칙의 고정값 #F1F2F3은 홈만 정리하면서 상세에 남아 있던 값이다.
    글자색 #4B525A는 PDF 주석(홈 10번·식단 상세 10번)대로 고정 중립색을 유지한다. */
@@ -770,6 +782,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{ outline:2px 
 .macro-cell .macro-label{ font-size:var(--fs-caption); font-weight:400; }
 .macro-cell .macro-value{ font-size:var(--fs-body); font-weight:600; }
 .macro-cell .macro-value small{ font-size:var(--fs-caption); font-weight:600; }
+.detail-info-row dt{ font-size:var(--fs-caption); font-weight:400; }
+.detail-info-row dd{ font-size:var(--fs-body); font-weight:400; }
 .detail-voc-link{ font-size:var(--fs-label); font-weight:600; }
 
 /* 나의 의견 */

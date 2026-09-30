@@ -14,6 +14,7 @@ var MEALS = {
         composition: [['주식','잡곡밥'], ['국','된장국'], ['반찬','계란말이 · 시금치나물']],
         items: [['잡곡밥',300], ['된장국',120], ['계란말이',150], ['시금치나물',40]],
         macro: { carb:180, protein:70, fat:40, sodium:1050, total:540 },
+        origin: '쌀(국내산), 두부(외국산)',
         allergy: '대두 함유'
       },
       {
@@ -22,6 +23,7 @@ var MEALS = {
         composition: [['주식','흰쌀밥'], ['메인','나물 비빔 5종'], ['반찬','계란후라이 · 고추장']],
         items: [['흰쌀밥',300], ['나물 5종',150], ['계란후라이',110], ['고추장',30]],
         macro: { carb:195, protein:85, fat:75, sodium:1290, total:790 },
+        origin: '쌀(국내산), 소고기(호주산)',
         allergy: '대두, 계란 함유'
       }
     ]
@@ -35,6 +37,7 @@ var MEALS = {
         composition: [['주식','잡곡밥'], ['메인','제육볶음'], ['반찬','계란찜 · 시금치나물 · 배추김치'], ['국','된장국']],
         items: [['잡곡밥',300], ['제육볶음',280], ['계란찜',120], ['시금치나물',40], ['배추김치',30], ['된장국',120]],
         macro: { carb:210, protein:120, fat:90, sodium:1480, total:890 },
+        origin: '돼지고기(국내산), 쌀(국내산)',
         allergy: '대두, 돼지고기 함유'
       },
       {
@@ -43,6 +46,7 @@ var MEALS = {
         composition: [['주식','흰쌀밥'], ['메인','나물 비빔 5종'], ['반찬','계란후라이 · 고추장']],
         items: [['흰쌀밥',300], ['나물 5종',150], ['계란후라이',110], ['고추장',30]],
         macro: { carb:195, protein:85, fat:75, sodium:1290, total:790 },
+        origin: '쌀(국내산), 소고기(호주산)',
         allergy: '대두, 계란 함유'
       }
     ]
@@ -56,6 +60,7 @@ var MEALS = {
         composition: [['주식','흰쌀밥'], ['메인','순두부찌개'], ['반찬','계란후라이 · 어묵볶음']],
         items: [['흰쌀밥',300], ['순두부찌개',210], ['계란후라이',110], ['어묵볶음',90]],
         macro: { carb:185, protein:95, fat:80, sodium:1390, total:710 },
+        origin: '쌀(국내산), 돈육(국내산)',
         allergy: '대두 함유'
       }
     ]
@@ -94,6 +99,24 @@ var DATE_MEAL_STATUS = {
 })();
 
 document.addEventListener('DOMContentLoaded', function(){
+
+  function revealMealImage(image){
+    var container = image.parentNode;
+    var loadingMessage = container.querySelector('.meal-image-loading');
+    image.hidden = false;
+    container.classList.remove('is-loading');
+    if(loadingMessage) loadingMessage.hidden = true;
+  }
+
+  function loadMealImage(image){
+    var container = image.parentNode;
+    var loadingMessage = container.querySelector('.meal-image-loading');
+    image.hidden = true;
+    container.classList.add('is-loading');
+    if(loadingMessage) loadingMessage.hidden = false;
+    image.addEventListener('load', function(){ revealMealImage(image); }, { once:true });
+    if(image.complete && image.naturalWidth) revealMealImage(image);
+  }
 
   /* -------------------------------------------------------
      PAGE: home.html — 상단 공지 닫기
@@ -256,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function(){
         card.className = 'corner-card';
         card.innerHTML =
           '<a class="corner-detail-link" href="menu-detail.html?meal=' + mealKey + '&corner=' + corner.id + '">' +
-            '<div class="corner-photo"><img src="' + corner.photo + '" alt="' + corner.name + '"></div>' +
+            '<div class="corner-photo is-loading"><span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span><img src="' + corner.photo + '" alt="' + corner.name + '" hidden></div>' +
             '<div class="corner-cardbody">' +
               (meal.corners.length > 1 ? '<div class="corner-label">코너 ' + corner.id.toUpperCase() + '(' + corner.type + ')</div>' : '') +
               '<div class="corner-name">' + corner.name + '</div>' +
@@ -264,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function(){
             '</div>' +
           '</a>' +
           '<a class="corner-voc-link" href="voc.html?meal=' + mealKey + '&corner=' + corner.id + '">의견 쓰기</a>';
+        loadMealImage(card.querySelector('.corner-photo img'));
         cornerList.appendChild(card);
       });
     }
@@ -342,6 +366,8 @@ document.addEventListener('DOMContentLoaded', function(){
     var elName = document.getElementById('detailName');
     var elItems = document.getElementById('nutritionItems');
     var elMacro = document.getElementById('macroSummary');
+    var elOrigin = document.getElementById('detailOrigin');
+    var elAllergy = document.getElementById('detailAllergy');
     var elVocLink = document.getElementById('detailVocLink');
 
     function render(){
@@ -349,6 +375,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
       elHdMeal.textContent = meal.label;
 
+      loadMealImage(elHero);
       elHero.src = corner.photo;
       elHero.alt = corner.name;
       elCorner.textContent = '코너 ' + corner.id.toUpperCase() + ' · ' + corner.type;
@@ -369,6 +396,8 @@ document.addEventListener('DOMContentLoaded', function(){
         '<div class="macro-cell"><span class="macro-label">지방</span><span class="macro-value">' + corner.macro.fat + '<small>g</small></span></div>' +
         '<div class="macro-cell"><span class="macro-label">나트륨</span><span class="macro-value">' + corner.macro.sodium + '<small>mg</small></span></div>' +
         '<div class="macro-cell macro-total"><span class="macro-label">총 칼로리</span><span class="macro-value">' + corner.macro.total + '<small>kcal</small></span></div>';
+      elOrigin.textContent = corner.origin;
+      elAllergy.textContent = corner.allergy;
     }
 
     render();
