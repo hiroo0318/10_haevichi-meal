@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function(){
           '<a class="corner-detail-link" href="menu-detail.html?meal=' + mealKey + '&corner=' + corner.id + '">' +
             '<div class="corner-photo is-loading"><span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span><img src="' + corner.photo + '" alt="' + corner.name + '" hidden></div>' +
             '<div class="corner-cardbody">' +
-              (meal.corners.length > 1 ? '<div class="corner-label">코너 ' + corner.id.toUpperCase() + '(' + corner.type + ')</div>' : '') +
+              '<div class="corner-label">코너 ' + corner.id.toUpperCase() + '(' + corner.type + ')</div>' +
               '<div class="corner-name">' + corner.name + '</div>' +
               '<div class="corner-desc">' + corner.desc + '</div>' +
             '</div>' +
