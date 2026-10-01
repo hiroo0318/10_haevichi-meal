@@ -251,7 +251,7 @@
 .legal-body h1{ margin:0; color:var(--ink); font-size:23px; font-weight:800; letter-spacing:-.04em; }
 .privacy-version-picker{ margin:18px 0 20px; }
 .privacy-version-picker label{ display:block; margin:0 0 8px; color:var(--ink); font-size:12px; font-weight:700; }
-.privacy-version-select{ width:100%; min-height:46px; padding:0 13px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); font-family:var(--font); font-size:13px; font-weight:600; }
+.privacy-version-select{ width:100%; height:46px; padding:0 13px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); font-family:var(--font); font-size:13px; font-weight:600; }
 .privacy-version-select:focus{ outline:2px solid var(--brand-primary); outline-offset:2px; }
 .legal-date{ margin:8px 0 28px; color:var(--faint); font-size:12px; }
 .legal-body section{ padding:20px 0; border-top:1px solid var(--line); }
@@ -267,7 +267,7 @@
 .withdraw-notice strong{ display:block; color:var(--danger); font-size:13px; font-weight:800; }
 .withdraw-notice ul{ margin:9px 0 0; padding-left:17px; font-size:12px; line-height:1.65; }
 .field-optional{ color:var(--faint); font-size:12px; font-weight:500; }
-.withdraw-select{ width:100%; min-height:48px; padding:0 13px; border:1.5px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); font-family:var(--font); font-size:14px; }
+.withdraw-select{ width:100%; height:48px; padding:0 13px; border:1.5px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); font-family:var(--font); font-size:14px; }
 .withdraw-select:focus{ outline:none; border-color:var(--brand-primary); }
 .withdraw-other{ min-height:94px; margin-top:8px; }
 .withdraw-agree{ display:flex; align-items:flex-start; gap:9px; margin:4px 0 16px; color:var(--sub); font-size:12.5px; line-height:1.5; }
