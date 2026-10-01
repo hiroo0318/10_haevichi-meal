@@ -80,7 +80,10 @@ var MEAL_OPERATION_ENABLED = {
    null은 해당 끼니에 식단이 없는 상태이며, 값이 생략된 날짜는 세 끼 모두 제공한다. */
 var DATE_MEAL_STATUS = {
   '9-3': { breakfast:null, lunch:'lunch', dinner:'dinner' },
-  '9-4': { breakfast:null, lunch:null, dinner:null }
+  '9-4': { breakfast:null, lunch:null, dinner:null },
+  /* 5일은 홈·상세의 이미지 로딩 기본 문구 확인용 샘플이다.
+     실제 이미지 미등록 상태 UI가 아니라, 이미지 응답 전 상태를 고정해 둔다. */
+  '9-5': { breakfast:'breakfast', lunch:'lunch', dinner:'dinner', thumbnailLoading:true }
 };
 
 /* -------------------------------------------------------
@@ -264,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function(){
       button.addEventListener('click', function(){ selectWeek(button.getAttribute('data-week-nav')); });
     });
 
-    function renderCorners(mealKey, isAvailable, enabledMeals){
+    function renderCorners(mealKey, isAvailable, enabledMeals, isThumbnailLoading){
       cornerList.innerHTML = '';
       if(!isAvailable){
         cornerList.innerHTML =
@@ -276,10 +279,13 @@ document.addEventListener('DOMContentLoaded', function(){
       var meal = MEALS[mealKey];
       meal.corners.forEach(function(corner){
         var card = document.createElement('article');
+        var thumbnail = isThumbnailLoading
+          ? '<div class="corner-photo is-loading"><span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span></div>'
+          : '<div class="corner-photo is-loading"><span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span><img src="' + corner.photo + '" alt="' + corner.name + '" hidden></div>';
         card.className = 'corner-card';
         card.innerHTML =
-          '<a class="corner-detail-link" href="menu-detail.html?meal=' + mealKey + '&corner=' + corner.id + '">' +
-            '<div class="corner-photo is-loading"><span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span><img src="' + corner.photo + '" alt="' + corner.name + '" hidden></div>' +
+          '<a class="corner-detail-link" href="menu-detail.html?meal=' + mealKey + '&corner=' + corner.id + '&date=' + selectedDate + '">' +
+            thumbnail +
             '<div class="corner-cardbody">' +
               '<div class="corner-label">코너 ' + corner.id.toUpperCase() + '(' + corner.type + ')</div>' +
               '<div class="corner-name">' + corner.name + '</div>' +
@@ -287,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function(){
             '</div>' +
           '</a>' +
           '<a class="corner-voc-link" href="voc.html?meal=' + mealKey + '&corner=' + corner.id + '">의견 쓰기</a>';
-        loadMealImage(card.querySelector('.corner-photo img'));
+        if(!isThumbnailLoading) loadMealImage(card.querySelector('.corner-photo img'));
         cornerList.appendChild(card);
       });
     }
@@ -329,6 +335,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
       var availableMeals = availableMealsForDate(selectedDate, enabledMeals);
       var isDayEmpty = availableMeals.length === 0;
+      var isThumbnailLoading = !!(DATE_MEAL_STATUS[selectedDate] && DATE_MEAL_STATUS[selectedDate].thumbnailLoading);
       renderMealTabs(enabledMeals, isDayEmpty);
       if(isDayEmpty){
         cornerList.innerHTML =
@@ -337,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function(){
           '<p>다른 날짜의 식단을 확인해 주세요.</p></div>';
         return;
       }
-      renderCorners(selectedMeal, availableMeals.indexOf(selectedMeal) !== -1, enabledMeals);
+      renderCorners(selectedMeal, availableMeals.indexOf(selectedMeal) !== -1, enabledMeals, isThumbnailLoading);
     }
 
     renderHome();
@@ -359,6 +366,8 @@ document.addEventListener('DOMContentLoaded', function(){
     var meal = MEALS[mealKey];
     var requestedCorner = getQueryParam('corner', meal.corners[0].id);
     var activeCornerId = meal.corners.some(function(c){ return c.id === requestedCorner; }) ? requestedCorner : meal.corners[0].id;
+    var requestedDate = getQueryParam('date', '');
+    var isThumbnailLoading = !!(DATE_MEAL_STATUS[requestedDate] && DATE_MEAL_STATUS[requestedDate].thumbnailLoading);
 
     var elHdMeal = document.getElementById('hdMeal');
     var elHero = document.getElementById('heroPhoto');
@@ -375,9 +384,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
       elHdMeal.textContent = meal.label;
 
-      loadMealImage(elHero);
-      elHero.src = corner.photo;
-      elHero.alt = corner.name;
+      if(!isThumbnailLoading){
+        loadMealImage(elHero);
+        elHero.src = corner.photo;
+        elHero.alt = corner.name;
+      }
       elCorner.textContent = '코너 ' + corner.id.toUpperCase() + ' · ' + corner.type;
       elName.textContent = corner.name;
       elVocLink.href = 'voc.html?meal=' + mealKey + '&corner=' + corner.id;

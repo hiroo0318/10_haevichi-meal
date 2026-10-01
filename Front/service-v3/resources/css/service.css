@@ -163,9 +163,10 @@
 .corner-detail-link{ display:block; color:inherit; }
 .corner-photo{ aspect-ratio:16/9; }
 .corner-photo img{ width:100%; height:100%; object-fit:cover; }
-.corner-photo.is-loading,.hero.is-loading{ background:var(--ui-surface); }
+.corner-photo.is-loading,.hero.is-loading{ display:grid; place-items:center; background:var(--ui-bg); }
+.corner-photo.is-loading{ aspect-ratio:16 / 9; }
 .meal-image-loading{
-  display:block; padding:16px 20px; color:var(--ui-muted); background:var(--ui-surface);
+  display:block; padding:16px 20px; color:var(--ui-muted); background:transparent;
   text-align:center; font-size:var(--fs-caption); font-weight:400;
 }
 .corner-cardbody{ padding:14px 16px 16px; }
@@ -638,6 +639,7 @@ body{ background:var(--ui-bg); }
 .home-body{ padding-top:10px; }
 .home-content .corner-photo{ aspect-ratio:auto; }
 .home-content .corner-photo img{ display:block; width:100%; height:auto; object-fit:contain; }
+.home-content .corner-photo.is-loading{ aspect-ratio:16 / 9; }
 .greeting{ padding-top:var(--space-3); padding-bottom:var(--space-5); }
 .greeting h1,.page-title h1,.notice-page-intro h1{
   color:var(--service-primary-blue);
@@ -672,6 +674,7 @@ body{ background:var(--ui-bg); }
    확정되면 해소된다. 임의의 max-height 상한은 두지 않는다. */
 .menu-detail-card .hero{ aspect-ratio:auto; }
 .menu-detail-card .hero img{ display:block; width:100%; height:auto; object-fit:contain; }
+.menu-detail-card .hero.is-loading{ aspect-ratio:16 / 10; }
 .hd-sub-date{ font-weight:600; }
 .hd-sub-meal{ background:var(--ui-bg); color:var(--ui-dark); font-weight:500; }
 .detail-corner{ color:var(--ui-dark); font-weight:500; }
