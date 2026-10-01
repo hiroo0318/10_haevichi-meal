@@ -146,6 +146,7 @@ body.is-splash-leaving .splash-content{ animation:splash-page-out .36s cubic-bez
   --auth-divider:#E6E9ED;
   --auth-bg:#F4F5F6;
   --auth-cta:#70747A;
+  --auth-fs-input:16px;
 }
 
 .splash-page,.splash-page .splash-content,
@@ -181,7 +182,7 @@ body.is-splash-leaving .splash-content{ animation:splash-page-out .36s cubic-bez
 .field{ margin-bottom:12px; }
 .signup-field{ margin-bottom:20px; }
 .signup-field > label{ margin-bottom:8px; color:var(--auth-ink); font-size:14px; font-weight:600; }
-.field .input{ min-height:44px; padding:0 12px; border:1px solid var(--auth-line); border-radius:10px; background:#fff; color:var(--auth-ink); font-size:14px; font-weight:400; }
+.field .input{ min-height:44px; padding:0 12px; border:1px solid var(--auth-line); border-radius:10px; background:#fff; color:var(--auth-ink); font-size:var(--auth-fs-input); font-weight:400; }
 .field .input::placeholder{ color:var(--auth-muted); }
 .field .input:focus{ border-color:var(--auth-cta); background:#fff; box-shadow:0 0 0 2px rgba(112,116,122,.14); }
 .verify-field{ gap:8px; }
@@ -198,7 +199,7 @@ body.is-splash-leaving .splash-content{ animation:splash-page-out .36s cubic-bez
 .btn,.btn-dark,.btn-primary{ min-height:44px; padding:0 16px; border-radius:26px; background:var(--auth-cta); box-shadow:none; color:#fff; font-size:14px; font-weight:600; }
 .btn:disabled{ background:var(--auth-line); color:var(--auth-muted); cursor:not-allowed; }
 .signup-profile-grid{ gap:0 10px; }
-.signup-profile-grid .input{ font-size:14px; }
+.signup-profile-grid .input{ font-size:var(--auth-fs-input); }
 .signup-profile-grid select.input{ min-height:44px; padding:0 31px 0 12px; border-color:var(--auth-line); border-radius:10px; background-position:right 11px center; }
 .signup-profile-grid select.input:focus{ border-color:var(--auth-cta); outline:0; box-shadow:0 0 0 2px rgba(112,116,122,.14); }
 /* 동의 문구는 12px에서 좁은 화면일 때 두 줄이 된다. 폰트를 줄이지 않고 두 줄을 전제로 배치한다. */

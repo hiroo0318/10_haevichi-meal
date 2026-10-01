@@ -750,9 +750,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{ outline:2px 
   --fs-title:17px;     /* 화면 제목, 상세 대표 메뉴명, 팝업 제목 */
   --fs-section:15px;   /* 섹션 제목 */
   --fs-label:14px;     /* 카드 제목, 입력 라벨, 버튼, 본문 강조 */
-  --fs-body:14px;      /* 본문, 입력값 */
+  --fs-body:14px;      /* 본문 */
   --fs-body-sm:13px;   /* 보조 본문, 탭 */
   --fs-caption:12px;   /* 캡션, 배지, 메타 */
+  --fs-input:16px;     /* 실제 입력값 — iOS WebView 자동 확대 방지 */
 }
 
 /* 화면 제목 */
@@ -794,7 +795,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{ outline:2px 
 .voc-field > label,.voc-field legend,.notice-section-label{ font-size:var(--fs-section); font-weight:600; }
 .voc-field > label span{ font-size:var(--fs-caption); font-weight:400; }
 .voc-field em{ font-size:var(--fs-caption); font-weight:400; }
-.voc-textarea{ font-size:var(--fs-body); font-weight:400; }
+.voc-textarea{ font-size:var(--fs-input); font-weight:400; }
 .voc-category-chip{ font-size:var(--fs-caption); font-weight:400; }
 .voc-field-meta span{ font-size:var(--fs-caption); font-weight:400; }
 .voc-help,.voc-file-count{ font-size:var(--fs-caption); font-weight:400; }
@@ -847,16 +848,16 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{ outline:2px 
 .legal-body section p{ font-size:var(--fs-body-sm); font-weight:400; }
 .legal-date{ font-size:var(--fs-caption); font-weight:400; }
 .privacy-version-picker label{ font-size:var(--fs-caption); font-weight:600; }
-.privacy-version-select{ font-size:var(--fs-body); font-weight:400; }
+.privacy-version-select{ font-size:var(--fs-input); font-weight:400; }
 .withdraw-description{ font-size:var(--fs-body-sm); font-weight:400; }
 .withdraw-notice strong{ font-size:var(--fs-label); font-weight:600; }
 .withdraw-notice ul{ font-size:var(--fs-body-sm); font-weight:400; }
-.withdraw-select{ font-size:var(--fs-body); font-weight:400; }
+.withdraw-select{ font-size:var(--fs-input); font-weight:400; }
 .withdraw-agree{ font-size:var(--fs-body-sm); font-weight:400; }
 .field-optional{ font-size:var(--fs-caption); font-weight:400; }
 
 /* 공통 입력 · 버튼 · 하단 네비 */
-.field .input{ font-size:var(--fs-body); font-weight:400; }
+.field .input{ font-size:var(--fs-input); font-weight:400; }
 .btn{ font-size:var(--fs-label); font-weight:600; }
 .tabbar a,.tabbar a.is-active{ font-size:var(--fs-caption); font-weight:400; }
 
