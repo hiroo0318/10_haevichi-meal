@@ -163,8 +163,8 @@
 .corner-detail-link{ display:block; color:inherit; }
 .corner-photo{ aspect-ratio:16/9; }
 .corner-photo img{ width:100%; height:100%; object-fit:cover; }
-.corner-photo.is-loading,.hero.is-loading{ display:grid; place-items:center; background:var(--ui-bg); }
-.corner-photo.is-loading{ aspect-ratio:16 / 9; }
+.corner-photo.is-loading,.hero.is-loading{ display:grid; place-items:center; background:#fff; }
+.corner-photo.is-loading{ aspect-ratio:16/9; }
 .meal-image-loading{
   display:block; padding:16px 20px; color:var(--ui-muted); background:transparent;
   text-align:center; font-size:var(--fs-caption); font-weight:400;
@@ -639,7 +639,7 @@ body{ background:var(--ui-bg); }
 .home-body{ padding-top:10px; }
 .home-content .corner-photo{ aspect-ratio:auto; }
 .home-content .corner-photo img{ display:block; width:100%; height:auto; object-fit:contain; }
-.home-content .corner-photo.is-loading{ aspect-ratio:16 / 9; }
+.home-content .corner-photo.is-loading{ aspect-ratio:16/9; }
 .greeting{ padding-top:var(--space-3); padding-bottom:var(--space-5); }
 .greeting h1,.page-title h1,.notice-page-intro h1{
   color:var(--service-primary-blue);
@@ -668,13 +668,11 @@ body{ background:var(--ui-bg); }
 .corner-list--grid2 .corner-voc-link{ font-size:12px; }
 
 /* 식단 상세 */
-/* 대표 식단 이미지는 PDF 02번 주석대로 원본 비율을 유지한다(홈 카드와 같은 규칙).
-   기반 규칙의 .hero는 16:10 고정 크롭이라, 정사각 원본은 위아래가 38% 잘린다.
-   끼니마다 이미지 높이가 달라지는 것은 의도된 결과이며, 운영 이미지의 권장 비율이
-   확정되면 해소된다. 임의의 max-height 상한은 두지 않는다. */
+/* 운영 이미지의 원본 비율을 유지한다. 로딩 중에는 임시 영역만 예약한다. */
 .menu-detail-card .hero{ aspect-ratio:auto; }
 .menu-detail-card .hero img{ display:block; width:100%; height:auto; object-fit:contain; }
-.menu-detail-card .hero.is-loading{ aspect-ratio:16 / 10; }
+.menu-detail-card .hero.is-loading{ aspect-ratio:16/10; }
+.home-content .corner-photo img[hidden],.menu-detail-card .hero img[hidden]{ display:none; }
 .hd-sub-date{ font-weight:600; }
 .hd-sub-meal{ background:var(--ui-bg); color:var(--ui-dark); font-weight:500; }
 .detail-corner{ color:var(--ui-dark); font-weight:500; }

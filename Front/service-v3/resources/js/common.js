@@ -9,7 +9,7 @@ var MEALS = {
     label: '조식', time: '07:30–09:00',
     corners: [
       {
-        id: 'a', type: '한식', name: '된장국 정식', photo: 'resources/images/menu/doenjangguk-photo.png',
+        id: 'a', type: '한식', name: '된장국 정식', photo: 'resources/images/menu/doenjangguk-photo-4x3.png',
         desc: '잡곡밥 · 계란말이 · 시금치나물',
         composition: [['주식','잡곡밥'], ['국','된장국'], ['반찬','계란말이 · 시금치나물']],
         items: [['잡곡밥',300], ['된장국',120], ['계란말이',150], ['시금치나물',40]],
@@ -18,7 +18,7 @@ var MEALS = {
         allergy: '대두 함유'
       },
       {
-        id: 'b', type: '한식', name: '비빔밥 코너', photo: 'resources/images/menu/bibimbap-photo.png',
+        id: 'b', type: '한식', name: '비빔밥 코너', photo: 'resources/images/menu/bibimbap-photo-4x3.png',
         desc: '흰쌀밥 · 나물 5종 · 계란후라이 · 고추장',
         composition: [['주식','흰쌀밥'], ['메인','나물 비빔 5종'], ['반찬','계란후라이 · 고추장']],
         items: [['흰쌀밥',300], ['나물 5종',150], ['계란후라이',110], ['고추장',30]],
@@ -32,7 +32,7 @@ var MEALS = {
     label: '중식', time: '11:30–13:30',
     corners: [
       {
-        id: 'a', type: '한식', name: '제육볶음 정식', photo: 'resources/images/menu/jeyuk-bokkeum-photo.png',
+        id: 'a', type: '한식', name: '제육볶음 정식', photo: 'resources/images/menu/jeyuk-bokkeum-photo-4x3.png',
         desc: '잡곡밥 · 계란찜 · 시금치나물 · 배추김치 · 된장국',
         composition: [['주식','잡곡밥'], ['메인','제육볶음'], ['반찬','계란찜 · 시금치나물 · 배추김치'], ['국','된장국']],
         items: [['잡곡밥',300], ['제육볶음',280], ['계란찜',120], ['시금치나물',40], ['배추김치',30], ['된장국',120]],
@@ -41,7 +41,7 @@ var MEALS = {
         allergy: '대두, 돼지고기 함유'
       },
       {
-        id: 'b', type: '한식', name: '비빔밥 코너', photo: 'resources/images/menu/bibimbap-photo.png',
+        id: 'b', type: '한식', name: '비빔밥 코너', photo: 'resources/images/menu/bibimbap-photo-4x3.png',
         desc: '흰쌀밥 · 나물 5종 · 계란후라이 · 고추장',
         composition: [['주식','흰쌀밥'], ['메인','나물 비빔 5종'], ['반찬','계란후라이 · 고추장']],
         items: [['흰쌀밥',300], ['나물 5종',150], ['계란후라이',110], ['고추장',30]],
@@ -55,7 +55,7 @@ var MEALS = {
     label: '석식', time: '17:30–19:00',
     corners: [
       {
-        id: 'a', type: '한식', name: '순두부찌개 정식', photo: 'resources/images/menu/sundubu-jjigae-photo-v2.png',
+        id: 'a', type: '한식', name: '순두부찌개 정식', photo: 'resources/images/menu/sundubu-jjigae-photo-4x3.png',
         desc: '흰쌀밥 · 계란후라이 · 어묵볶음',
         composition: [['주식','흰쌀밥'], ['메인','순두부찌개'], ['반찬','계란후라이 · 어묵볶음']],
         items: [['흰쌀밥',300], ['순두부찌개',210], ['계란후라이',110], ['어묵볶음',90]],
@@ -79,12 +79,37 @@ var MEAL_OPERATION_ENABLED = {
 /* 날짜별 식단 상태 — 퍼블리싱 검토용 샘플 데이터.
    null은 해당 끼니에 식단이 없는 상태이며, 값이 생략된 날짜는 세 끼 모두 제공한다. */
 var DATE_MEAL_STATUS = {
-  '9-3': { breakfast:null, lunch:'lunch', dinner:'dinner' },
+  '9-1': { breakfast:null, lunch:'lunch', dinner:'dinner' },
+  '9-3': { breakfast:'breakfast', lunch:'lunch', dinner:'dinner' },
   '9-4': { breakfast:null, lunch:null, dinner:null },
   /* 5일은 홈·상세의 이미지 로딩 기본 문구 확인용 샘플이다.
      실제 이미지 미등록 상태 UI가 아니라, 이미지 응답 전 상태를 고정해 둔다. */
   '9-5': { breakfast:'breakfast', lunch:'lunch', dinner:'dinner', thumbnailLoading:true }
 };
+
+/* 9월 3일 조식·중식 1번의 운영 이미지 표시 확인용 임시 샘플. */
+var DATE_MEAL_PHOTOS = {
+  '9-3': {
+    breakfast: { a: 'resources/images/menu/haevichi-07-breakfast.jpg' },
+    lunch: { a: 'resources/images/menu/haevichi-07-lunch1.png' }
+  }
+};
+
+var DATE_MEAL_CORNER_IDS = {
+  '9-3': { breakfast: ['a'] }
+};
+
+function mealPhotoForDate(date, mealKey, corner){
+  var photos = DATE_MEAL_PHOTOS[date];
+  return (photos && photos[mealKey] && photos[mealKey][corner.id]) || corner.photo;
+}
+
+function mealCornersForDate(date, mealKey){
+  var cornerIds = DATE_MEAL_CORNER_IDS[date] && DATE_MEAL_CORNER_IDS[date][mealKey];
+  return cornerIds
+    ? MEALS[mealKey].corners.filter(function(corner){ return cornerIds.indexOf(corner.id) !== -1; })
+    : MEALS[mealKey].corners;
+}
 
 /* -------------------------------------------------------
    테마 전환 (데모용) — ?theme=haevichi 쿼리로 회사별 테마를 미리볼 수 있다.
@@ -233,6 +258,29 @@ document.addEventListener('DOMContentLoaded', function(){
     var selectedMeal = 'lunch';
     var order = ['breakfast', 'lunch', 'dinner'];
     var selectedWeekdayIndex = 3;
+    var cornerAlignFrame = 0;
+
+    /* 원본 비율은 유지하고, 같은 행의 코너명 시작 높이만 맞춘다. */
+    function alignCornerPhotoRows(){
+      var photos = Array.prototype.slice.call(cornerList.querySelectorAll('.corner-card .corner-photo'));
+      photos.forEach(function(photo){ photo.style.minHeight = ''; });
+      for(var i = 0; i < photos.length; i += 2){
+        var row = photos.slice(i, i + 2);
+        if(row.length < 2) continue;
+        var rowHeight = Math.max(row[0].getBoundingClientRect().height, row[1].getBoundingClientRect().height);
+        row.forEach(function(photo){ photo.style.minHeight = rowHeight + 'px'; });
+      }
+    }
+
+    function scheduleCornerPhotoAlignment(){
+      if(cornerAlignFrame) cancelAnimationFrame(cornerAlignFrame);
+      cornerAlignFrame = requestAnimationFrame(function(){
+        cornerAlignFrame = 0;
+        alignCornerPhotoRows();
+      });
+    }
+
+    window.addEventListener('resize', scheduleCornerPhotoAlignment);
 
     function selectWeek(week){
       var group = weekStrip.querySelector('[data-week="' + week + '"]');
@@ -277,11 +325,12 @@ document.addEventListener('DOMContentLoaded', function(){
         return;
       }
       var meal = MEALS[mealKey];
-      meal.corners.forEach(function(corner){
+      mealCornersForDate(selectedDate, mealKey).forEach(function(corner){
         var card = document.createElement('article');
+        var photo = mealPhotoForDate(selectedDate, mealKey, corner);
         var thumbnail = isThumbnailLoading
           ? '<div class="corner-photo is-loading"><span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span></div>'
-          : '<div class="corner-photo is-loading"><span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span><img src="' + corner.photo + '" alt="' + corner.name + '" hidden></div>';
+          : '<div class="corner-photo is-loading"><span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span><img src="' + photo + '" alt="' + corner.name + '" hidden></div>';
         card.className = 'corner-card';
         card.innerHTML =
           '<a class="corner-detail-link" href="menu-detail.html?meal=' + mealKey + '&corner=' + corner.id + '&date=' + selectedDate + '">' +
@@ -293,9 +342,14 @@ document.addEventListener('DOMContentLoaded', function(){
             '</div>' +
           '</a>' +
           '<a class="corner-voc-link" href="voc.html?meal=' + mealKey + '&corner=' + corner.id + '">의견 쓰기</a>';
-        if(!isThumbnailLoading) loadMealImage(card.querySelector('.corner-photo img'));
+        if(!isThumbnailLoading){
+          var image = card.querySelector('.corner-photo img');
+          image.addEventListener('load', scheduleCornerPhotoAlignment, { once:true });
+          loadMealImage(image);
+        }
         cornerList.appendChild(card);
       });
+      scheduleCornerPhotoAlignment();
     }
 
     function selectMealTab(mealKey){
@@ -364,9 +418,10 @@ document.addEventListener('DOMContentLoaded', function(){
     var mealKey = getQueryParam('meal', 'lunch');
     if(!MEALS[mealKey]) mealKey = 'lunch';
     var meal = MEALS[mealKey];
-    var requestedCorner = getQueryParam('corner', meal.corners[0].id);
-    var activeCornerId = meal.corners.some(function(c){ return c.id === requestedCorner; }) ? requestedCorner : meal.corners[0].id;
     var requestedDate = getQueryParam('date', '');
+    var dateCorners = mealCornersForDate(requestedDate, mealKey);
+    var requestedCorner = getQueryParam('corner', dateCorners[0].id);
+    var activeCornerId = dateCorners.some(function(c){ return c.id === requestedCorner; }) ? requestedCorner : dateCorners[0].id;
     var isThumbnailLoading = !!(DATE_MEAL_STATUS[requestedDate] && DATE_MEAL_STATUS[requestedDate].thumbnailLoading);
 
     var elHdMeal = document.getElementById('hdMeal');
@@ -380,13 +435,13 @@ document.addEventListener('DOMContentLoaded', function(){
     var elVocLink = document.getElementById('detailVocLink');
 
     function render(){
-      var corner = meal.corners.filter(function(c){ return c.id === activeCornerId; })[0];
+      var corner = dateCorners.filter(function(c){ return c.id === activeCornerId; })[0];
 
       elHdMeal.textContent = meal.label;
 
       if(!isThumbnailLoading){
         loadMealImage(elHero);
-        elHero.src = corner.photo;
+        elHero.src = mealPhotoForDate(requestedDate, mealKey, corner);
         elHero.alt = corner.name;
       }
       elCorner.textContent = '코너 ' + corner.id.toUpperCase() + ' · ' + corner.type;
