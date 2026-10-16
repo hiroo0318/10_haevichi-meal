@@ -429,9 +429,12 @@ document.addEventListener('DOMContentLoaded', function(){
     var elCorner = document.getElementById('detailCorner');
     var elName = document.getElementById('detailName');
     var elItems = document.getElementById('nutritionItems');
+    /* 해비치 요청으로 비노출 - 영양성분/알레르기/원산지. HTML 주석 해제 시 함께 복원. */
+    /*
     var elMacro = document.getElementById('macroSummary');
     var elOrigin = document.getElementById('detailOrigin');
     var elAllergy = document.getElementById('detailAllergy');
+    */
     var elVocLink = document.getElementById('detailVocLink');
 
     function render(){
@@ -456,6 +459,8 @@ document.addEventListener('DOMContentLoaded', function(){
         elItems.appendChild(row);
       });
 
+      /* 해비치 요청으로 비노출 - 영양성분/알레르기/원산지. HTML 주석 해제 시 함께 복원. */
+      /*
       elMacro.innerHTML =
         '<div class="macro-cell"><span class="macro-label">탄수화물</span><span class="macro-value">' + corner.macro.carb + '<small>g</small></span></div>' +
         '<div class="macro-cell"><span class="macro-label">단백질</span><span class="macro-value">' + corner.macro.protein + '<small>g</small></span></div>' +
@@ -464,6 +469,7 @@ document.addEventListener('DOMContentLoaded', function(){
         '<div class="macro-cell macro-total"><span class="macro-label">총 칼로리</span><span class="macro-value">' + corner.macro.total + '<small>kcal</small></span></div>';
       elOrigin.textContent = corner.origin;
       elAllergy.textContent = corner.allergy;
+      */
     }
 
     render();

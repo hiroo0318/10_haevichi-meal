@@ -176,7 +176,9 @@ select.field{appearance:none;-webkit-appearance:none;-moz-appearance:none;paddin
 .mv2-comp-row .field{height:32px;font-size:12px}
 .mv2-comp-row .field:first-child{flex:2}
 .mv2-comp-row .field:nth-child(2){flex:1}
-.mv2-comp-remove{flex:0 0 auto;width:24px;height:24px;border:0;border-radius:4px;background:transparent;color:var(--red);font-size:14px;cursor:pointer}.mv2-comp-remove:hover{background:#fdecec}
+.mv2-comp-remove{flex:0 0 auto;width:24px;height:24px;border:0;border-radius:4px;background:transparent;color:var(--red);font-size:14px;cursor:pointer}button.mv2-comp-remove:hover{background:#fdecec}
+.mv2-menu-form .req{color:var(--red)}
+.mv2-menu-form .field:disabled,.mv2-menu-form .field[readonly]{background:#f5f5f6;color:#8a929b;cursor:not-allowed}
 .mv2-comp-add{margin-top:2px;padding:0;color:var(--admin-blue);font-size:11.5px;font-weight:700}
 .mv2-nutri-block{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff}
 .mv2-nutri-field{display:flex;flex-direction:column;gap:3px}

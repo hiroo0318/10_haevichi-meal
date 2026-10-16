@@ -326,6 +326,8 @@
 }
 .nutrition-detail .item-row b{ color:var(--ink); font-size:13px; font-weight:700; }
 
+/* 해비치 요청으로 비노출 - 영양성분/알레르기/원산지. HTML·JS 주석 해제 시 이 블록도 복원. */
+/*
 .macro-summary{
   display:grid; grid-template-columns:repeat(5,1fr); gap:0;
   background:transparent; border-radius:0;
@@ -343,6 +345,7 @@
 .detail-info-row{ display:flex; align-items:baseline; gap:12px; padding:4px 0; }
 .detail-info-row dt{ flex:0 0 52px; color:var(--sub); font-size:11px; font-weight:600; line-height:1.5; }
 .detail-info-row dd{ min-width:0; margin:0; color:var(--ink); font-size:12px; font-weight:500; line-height:1.5; }
+*/
 
 .detail-voc{ display:flex; justify-content:flex-end; padding:14px 0 0; }
 .detail-voc-link{
@@ -679,6 +682,8 @@ body{ background:var(--ui-bg); }
 .detail-name{ color:var(--ui-ink); font-weight:700; }
 .nutrition-detail .item-row{ color:var(--ui-ink); }
 .nutrition-detail .item-row b{ color:var(--ui-ink); font-weight:600; }
+/* 해비치 요청으로 비노출 - 영양성분/알레르기/원산지. HTML·JS 주석 해제 시 이 블록도 복원. */
+/*
 .macro-summary,.macro-cell + .macro-cell{ border-color:var(--ui-divider); }
 .macro-cell .macro-label{ color:var(--ui-muted); font-weight:400; }
 .macro-cell .macro-value{ font-weight:600; }
@@ -686,6 +691,7 @@ body{ background:var(--ui-bg); }
 .macro-cell .macro-value,.macro-cell .macro-value small,.macro-total .macro-label,.macro-total .macro-value,.macro-total .macro-value small{ color:var(--ui-ink); }
 .detail-info-row dt{ color:var(--ui-muted); font-weight:400; }
 .detail-info-row dd{ color:var(--ui-ink); font-weight:400; }
+*/
 /* 홈 카드의 의견 쓰기와 같은 컴포넌트이므로 배경도 같은 브랜드 파생색을 쓴다.
    이전 기반 규칙의 고정값 #F1F2F3은 홈만 정리하면서 상세에 남아 있던 값이다.
    글자색 #4B525A는 PDF 주석(홈 10번·식단 상세 10번)대로 고정 중립색을 유지한다. */
@@ -781,11 +787,14 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible{ outline:2px 
 .detail-name{ font-size:var(--fs-hero); font-weight:600; }
 .nutrition-detail .item-row{ font-size:var(--fs-body); font-weight:400; }
 .nutrition-detail .item-row b{ font-size:var(--fs-body); font-weight:600; }
+/* 해비치 요청으로 비노출 - 영양성분/알레르기/원산지. HTML·JS 주석 해제 시 이 블록도 복원. */
+/*
 .macro-cell .macro-label{ font-size:var(--fs-caption); font-weight:400; }
 .macro-cell .macro-value{ font-size:var(--fs-body); font-weight:600; }
 .macro-cell .macro-value small{ font-size:var(--fs-caption); font-weight:600; }
 .detail-info-row dt{ font-size:var(--fs-caption); font-weight:400; }
 .detail-info-row dd{ font-size:var(--fs-body); font-weight:400; }
+*/
 .detail-voc-link{ font-size:var(--fs-label); font-weight:600; }
 
 /* 나의 의견 */

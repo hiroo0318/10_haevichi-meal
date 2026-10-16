@@ -12,6 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
     timer = setTimeout(() => toast.classList.remove('show'), 2600);
   };
 
+  const alertModal = document.getElementById('mv2AlertModal');
+  const closeAlert = () => {
+    alertModal.classList.remove('show');
+    alertModal.setAttribute('aria-hidden', 'true');
+  };
+  const showAlert = (title, message) => {
+    document.getElementById('mv2AlertTitle').textContent = title;
+    document.getElementById('mv2AlertDesc').textContent = message;
+    alertModal.classList.add('show');
+    alertModal.setAttribute('aria-hidden', 'false');
+  };
+  document.getElementById('mv2AlertOk').addEventListener('click', closeAlert);
+  window.bindModalDismiss(alertModal, closeAlert);
+
   const MAX_ITEMS = 5;
   const MEALS = ['조식', '중식', '석식'];
   // 총열량(kcal)은 메뉴구성 항목들의 칼로리 합계로 자동 계산되며 직접 입력하지 않는다.
@@ -26,41 +40,49 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- 데모 데이터 ---------------------------------------------------------
   // 메뉴구성은 {name, kcal} 개별 항목 배열로, 영양성분은 고정 항목의 숫자값 객체로 관리한다.
   // (프론트 화면에서 항목별로 다시 조합해 쓸 수 있도록 구조화한 값 — 자유 텍스트 아님)
+  // [0.6.6] 메뉴1(이름)=메뉴명, 원산지·알레르기 '-', 영양성분 0 고정 규칙에 맞춘 데모 데이터.
+  const FIXED = { nutrition: { carb: 0, protein: 0, fat: 0, sodium: 0 }, origin: '-', allergy: '-' };
+  const menu = (name, corner, composition, image, exposed) => ({
+    name, corner, composition, image, exposed,
+    nutrition: { ...FIXED.nutrition, kcal: sumKcal(composition) }, origin: FIXED.origin, allergy: FIXED.allergy,
+  });
+  const DOENJANG = 'resources/images/menu/doenjangguk-photo.png';
+  const JEYUK = 'resources/images/menu/jeyuk-bokkeum-photo.png';
   const DATA = {
     '2026-09-07': {
       조식: [
-        { name: '된장국 정식', corner: '한식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '된장국', kcal: 120 }, { name: '계란말이', kcal: 150 }, { name: '시금치나물', kcal: 40 }], nutrition: { carb: 180, protein: 70, fat: 40, sodium: 1050, kcal: 540 }, origin: '된장(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
-        { name: '계란볶음밥', corner: '', composition: [{ name: '계란볶음밥', kcal: 380 }, { name: '채소볶음', kcal: 60 }], nutrition: { carb: 130, protein: 45, fat: 55, sodium: 780, kcal: 470 }, origin: '-', allergy: '계란', image: null, exposed: false },
+        menu('된장국 정식', '한식', [{ name: '된장국 정식', kcal: 120 }, { name: '잡곡밥', kcal: 300 }, { name: '계란말이', kcal: 150 }, { name: '시금치나물', kcal: 40 }], DOENJANG, true),
+        menu('계란볶음밥', '', [{ name: '계란볶음밥', kcal: 380 }, { name: '채소볶음', kcal: 60 }], null, false),
       ],
       중식: [
-        { name: '제육볶음 정식', corner: '일품', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '제육볶음', kcal: 280 }, { name: '계란찜', kcal: 120 }], nutrition: { carb: 210, protein: 120, fat: 90, sodium: 1480, kcal: 890 }, origin: '돼지고기(국내산)', allergy: '대두 · 돼지고기', image: 'resources/images/menu/jeyuk-bokkeum-photo.png', exposed: true },
+        menu('제육볶음 정식', '일품', [{ name: '제육볶음 정식', kcal: 280 }, { name: '잡곡밥', kcal: 300 }, { name: '계란찜', kcal: 120 }], JEYUK, true),
       ],
       석식: [
-        { name: '순두부찌개 정식', corner: '한식', composition: [{ name: '흰쌀밥', kcal: 300 }, { name: '순두부찌개', kcal: 210 }], nutrition: { carb: 185, protein: 95, fat: 80, sodium: 1390, kcal: 710 }, origin: '대두(국내산)', allergy: '대두', image: null, exposed: false },
+        menu('순두부찌개 정식', '한식', [{ name: '순두부찌개 정식', kcal: 210 }, { name: '흰쌀밥', kcal: 300 }], null, false),
       ],
     },
     '2026-09-08': {
       조식: [
-        { name: '된장국 정식', corner: '한식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '된장국', kcal: 120 }], nutrition: { carb: 180, protein: 70, fat: 40, sodium: 1050, kcal: 540 }, origin: '된장(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
+        menu('된장국 정식', '한식', [{ name: '된장국 정식', kcal: 120 }, { name: '잡곡밥', kcal: 300 }], DOENJANG, true),
       ],
       중식: [],
       석식: [
-        { name: '순두부찌개 정식', corner: '한식', composition: [{ name: '흰쌀밥', kcal: 300 }, { name: '순두부찌개', kcal: 210 }], nutrition: { carb: 185, protein: 95, fat: 80, sodium: 1390, kcal: 710 }, origin: '대두(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: false },
+        menu('순두부찌개 정식', '한식', [{ name: '순두부찌개 정식', kcal: 210 }, { name: '흰쌀밥', kcal: 300 }], DOENJANG, false),
       ],
     },
     '2026-09-09': {
       조식: [
-        { name: '된장국 정식', corner: '한식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '된장국', kcal: 120 }], nutrition: { carb: 180, protein: 70, fat: 40, sodium: 1050, kcal: 540 }, origin: '된장(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
-        { name: '계란볶음밥', corner: '', composition: [{ name: '계란볶음밥', kcal: 380 }], nutrition: { carb: 130, protein: 45, fat: 55, sodium: 780, kcal: 470 }, origin: '-', allergy: '계란', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
-        { name: '북엇국 정식', corner: '한식', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '북엇국', kcal: 110 }], nutrition: { carb: 170, protein: 65, fat: 35, sodium: 980, kcal: 500 }, origin: '황태(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
-        { name: '누룽지백숙', corner: '별미', composition: [{ name: '누룽지백숙', kcal: 450 }], nutrition: { carb: 90, protein: 80, fat: 30, sodium: 900, kcal: 450 }, origin: '닭고기(국내산)', allergy: '-', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
-        { name: '토스트 세트', corner: '', composition: [{ name: '토스트', kcal: 320 }, { name: '우유', kcal: 120 }], nutrition: { carb: 120, protein: 30, fat: 60, sodium: 620, kcal: 440 }, origin: '-', allergy: '우유·밀', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
+        menu('된장국 정식', '한식', [{ name: '된장국 정식', kcal: 120 }, { name: '잡곡밥', kcal: 300 }], DOENJANG, true),
+        menu('계란볶음밥', '', [{ name: '계란볶음밥', kcal: 380 }], DOENJANG, true),
+        menu('북엇국 정식', '한식', [{ name: '북엇국 정식', kcal: 110 }, { name: '잡곡밥', kcal: 300 }], DOENJANG, true),
+        menu('누룽지백숙', '별미', [{ name: '누룽지백숙', kcal: 450 }], DOENJANG, true),
+        menu('토스트 세트', '', [{ name: '토스트 세트', kcal: 320 }, { name: '우유', kcal: 120 }], DOENJANG, true),
       ],
       중식: [
-        { name: '제육볶음 정식', corner: '일품', composition: [{ name: '잡곡밥', kcal: 300 }, { name: '제육볶음', kcal: 280 }], nutrition: { carb: 210, protein: 120, fat: 90, sodium: 1480, kcal: 890 }, origin: '돼지고기(국내산)', allergy: '대두 · 돼지고기', image: 'resources/images/menu/jeyuk-bokkeum-photo.png', exposed: true },
+        menu('제육볶음 정식', '일품', [{ name: '제육볶음 정식', kcal: 280 }, { name: '잡곡밥', kcal: 300 }], JEYUK, true),
       ],
       석식: [
-        { name: '순두부찌개 정식', corner: '한식', composition: [{ name: '흰쌀밥', kcal: 300 }, { name: '순두부찌개', kcal: 210 }], nutrition: { carb: 185, protein: 95, fat: 80, sodium: 1390, kcal: 710 }, origin: '대두(국내산)', allergy: '대두', image: 'resources/images/menu/doenjangguk-photo.png', exposed: true },
+        menu('순두부찌개 정식', '한식', [{ name: '순두부찌개 정식', kcal: 210 }, { name: '흰쌀밥', kcal: 300 }], DOENJANG, true),
       ],
     },
   };
@@ -76,6 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const TODAY_WEEK_START = new Date(2026, 8, 6); // 데모 기준 "이번 주" 일요일
   let weekStart = new Date(TODAY_WEEK_START);
   let selectedDate = '2026-09-09';
+
+  // 노출 필수 정보: 메뉴명, 메뉴1 이름·Kcal, 이미지(일자·사업장·식사구분은 화면 조회 조건으로 항상 채워짐).
+  // 원산지·알레르기·영양성분은 고정값이라 체크 대상에서 제외한다.
+  const isPublishable = (item) => !!item.name && !!item.image
+    && item.composition.length > 0 && item.composition[0].name === item.name
+    && item.composition.every((c) => c.kcal !== '' && c.kcal !== null && c.kcal !== undefined);
 
   const mealStatus = (items) => {
     if (!items || items.length === 0) return 'empty';
@@ -93,10 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
     idx,
     name: item ? item.name : '',
     corner: item ? item.corner : '',
-    compositions: item ? item.composition.map((c) => ({ ...c })) : [{ name: '', kcal: '' }],
-    nutrition: item ? { ...item.nutrition } : { carb: '', protein: '', fat: '', sodium: '', kcal: '' },
-    origin: item ? item.origin : '',
-    allergy: item ? item.allergy : '',
+    // 메뉴1(이름)은 항상 메뉴명과 같고, Kcal 기본값은 0
+    compositions: item ? item.composition.map((c, i) => (i === 0 ? { ...c, name: item.name } : { ...c })) : [{ name: '', kcal: 0 }],
+    nutrition: { ...FIXED.nutrition },
+    origin: FIXED.origin,
+    allergy: FIXED.allergy,
     image: item ? item.image : null,
     exposed: item ? item.exposed : false,
   });
@@ -191,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="mv2-menu-item-actions">
           <label class="switch labeled">
-            <input type="checkbox" data-mv2-publish-toggle data-meal="${meal}" data-idx="${idx}" ${item.exposed ? 'checked' : ''} ${item.image ? '' : 'disabled'}>
+            <input type="checkbox" data-mv2-publish-toggle data-meal="${meal}" data-idx="${idx}" ${item.exposed ? 'checked' : ''}>
             <span class="switch-track" aria-hidden="true"></span>
             <span class="switch-track-label on">노출</span>
             <span class="switch-track-label off">임시저장</span>
@@ -219,39 +248,39 @@ document.addEventListener('DOMContentLoaded', () => {
             <input class="field" type="text" id="mv2FormCorner" value="${f.corner}" placeholder="예: 한식/일품 (입력값 그대로 노출, 미입력 시 코너명 없이 노출)">
           </div>
           <div class="mv2-form-field">
-            <label for="mv2FormName">메뉴명</label>
+            <label for="mv2FormName">메뉴명 <span class="req">*</span></label>
             <input class="field" type="text" id="mv2FormName" value="${f.name}" placeholder="메뉴명">
           </div>
           <div class="mv2-form-field">
             <label for="mv2FormOrigin">원산지</label>
-            <input class="field" type="text" id="mv2FormOrigin" value="${f.origin}" placeholder="예: 돼지고기(국내산)">
+            <input class="field" type="text" id="mv2FormOrigin" value="${f.origin}" disabled title="당분간 비노출 운영 항목으로 '-' 고정 저장됩니다.">
           </div>
           <div class="mv2-form-field">
             <label for="mv2FormAllergy">알레르기</label>
-            <input class="field" type="text" id="mv2FormAllergy" value="${f.allergy}" placeholder="예: 대두">
+            <input class="field" type="text" id="mv2FormAllergy" value="${f.allergy}" disabled title="당분간 비노출 운영 항목으로 '-' 고정 저장됩니다.">
           </div>
         </div>
         <div class="mv2-form-row">
           <div class="mv2-form-field">
-            <label>메뉴구성 (항목별 칼로리를 개별로 입력)</label>
+            <label>메뉴구성 (메뉴1 이름은 메뉴명이 자동 입력 · 칼로리 기본값 0)</label>
             <div class="mv2-comp-block" id="mv2CompBlock">
               <div class="mv2-comp-block-label">항목명 / 칼로리(kcal)</div>
               ${f.compositions.map((c, i) => `
                 <div class="mv2-comp-row" data-comp-idx="${i}">
-                  <input class="field" type="text" placeholder="항목명 (예: 잡곡밥)" data-comp-field="name" value="${c.name}">
-                  <input class="field" type="number" placeholder="kcal" data-comp-field="kcal" value="${c.kcal}">
-                  <button type="button" class="mv2-comp-remove" data-mv2-comp-remove data-idx="${i}" aria-label="구성 항목 삭제">✕</button>
+                  <input class="field" type="text" placeholder="${i === 0 ? '메뉴명 입력 시 자동 입력' : '항목명 (예: 잡곡밥)'}" data-comp-field="name" value="${i === 0 ? f.name : c.name}" ${i === 0 ? 'readonly title="메뉴1 이름은 메뉴명과 같으며 직접 수정할 수 없습니다."' : ''}>
+                  <input class="field" type="number" placeholder="0" data-comp-field="kcal" value="${c.kcal}">
+                  ${i === 0 ? '<span class="mv2-comp-remove" aria-hidden="true"></span>' : `<button type="button" class="mv2-comp-remove" data-mv2-comp-remove data-idx="${i}" aria-label="구성 항목 삭제">✕</button>`}
                 </div>`).join('')}
               <button type="button" class="mv2-comp-add" id="mv2CompAdd">+ 구성 추가</button>
             </div>
           </div>
           <div class="mv2-form-field" style="flex:2">
-            <label>영양성분 (고정 항목, 값만 입력 · 총열량은 메뉴구성 합계로 자동 계산)</label>
+            <label>영양성분 (당분간 비노출 운영 · 0 고정 저장 · 총열량은 메뉴구성 합계로 자동 계산)</label>
             <div class="mv2-nutri-block">
               ${NUTRI_FIELDS.map((nf) => `
                 <div class="mv2-nutri-field">
                   <label for="mv2Nutri-${nf.key}">${nf.label}(${nf.unit})</label>
-                  <input class="field" type="number" id="mv2Nutri-${nf.key}" data-nutri-field="${nf.key}" value="${f.nutrition[nf.key]}">
+                  <input class="field" type="number" id="mv2Nutri-${nf.key}" data-nutri-field="${nf.key}" value="${f.nutrition[nf.key]}" disabled>
                 </div>`).join('')}
               <div class="mv2-nutri-field">
                 <label>총열량(kcal)</label>
@@ -336,6 +365,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const item = data[meal][idx];
         if (!input.checked) {
           openPublishConfirm(meal, idx, item);
+        } else if (!isPublishable(item)) {
+          input.checked = false;
+          showAlert('노출할 수 없습니다', '필수 정보(일자, 사업장, 식사구분, 이미지, 메뉴명 및 입력한 메뉴의 Kcal)를 입력한 후 노출할 수 있습니다.');
         } else {
           item.exposed = true;
           showToast(item.name + ' 메뉴가 노출(으)로 변경되었습니다.');
@@ -363,9 +395,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const formEl = root.querySelector('.mv2-menu-form');
     if (formEl && form) {
       formEl.querySelector('#mv2FormCorner').addEventListener('input', (e) => { form.corner = e.target.value; });
-      formEl.querySelector('#mv2FormName').addEventListener('input', (e) => { form.name = e.target.value; });
-      formEl.querySelector('#mv2FormOrigin').addEventListener('input', (e) => { form.origin = e.target.value; });
-      formEl.querySelector('#mv2FormAllergy').addEventListener('input', (e) => { form.allergy = e.target.value; });
+      formEl.querySelector('#mv2FormName').addEventListener('input', (e) => {
+        form.name = e.target.value;
+        form.compositions[0].name = form.name;
+        const menu1Name = formEl.querySelector('[data-comp-idx="0"] [data-comp-field="name"]');
+        if (menu1Name) menu1Name.value = form.name;
+      });
 
       formEl.querySelectorAll('[data-comp-field]').forEach((input) => {
         input.addEventListener('input', (e) => {
@@ -380,17 +415,12 @@ document.addEventListener('DOMContentLoaded', () => {
       formEl.querySelectorAll('[data-mv2-comp-remove]').forEach((btn) => {
         btn.addEventListener('click', () => {
           form.compositions.splice(Number(btn.dataset.idx), 1);
-          if (form.compositions.length === 0) form.compositions.push({ name: '', kcal: '' });
           renderDayPanel();
         });
       });
       formEl.querySelector('#mv2CompAdd').addEventListener('click', () => {
-        form.compositions.push({ name: '', kcal: '' });
+        form.compositions.push({ name: '', kcal: 0 });
         renderDayPanel();
-      });
-
-      formEl.querySelectorAll('[data-nutri-field]').forEach((input) => {
-        input.addEventListener('input', (e) => { form.nutrition[e.target.dataset.nutriField] = e.target.value; });
       });
 
       const photoInput = formEl.querySelector('#mv2FormPhotoInput');
@@ -411,20 +441,20 @@ document.addEventListener('DOMContentLoaded', () => {
           showToast('메뉴명을 입력해주세요.');
           return;
         }
+        // 메뉴1 이름=메뉴명, 이름이 있는데 kcal이 비면 0, 원산지·알레르기 '-'·영양성분 0 고정 저장
+        form.compositions[0].name = form.name;
         const composition = form.compositions
           .filter((c) => c.name.trim() !== '')
           .map((c) => ({ name: c.name.trim(), kcal: Number(c.kcal) || 0 }));
-        const nutrition = {};
-        NUTRI_FIELDS.forEach((nf) => { nutrition[nf.key] = Number(form.nutrition[nf.key]) || 0; });
-        nutrition.kcal = sumKcal(composition); // 총열량은 메뉴구성 합계로 자동 계산(직접 입력값 아님)
+        const nutrition = { ...FIXED.nutrition, kcal: sumKcal(composition) };
 
         const record = {
           name: form.name.trim(),
           corner: form.corner.trim(),
           composition,
           nutrition,
-          origin: form.origin.trim(),
-          allergy: form.allergy.trim(),
+          origin: FIXED.origin,
+          allergy: FIXED.allergy,
           image: form.image,
           exposed: form.exposed,
         };
@@ -537,21 +567,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- 엑셀 업로드 (이미지 제외, 사업장 컬럼으로 복수 사업장 처리) -------------------
   const excelInput = document.getElementById('mv2ExcelInput');
-  const uploadResultModal = document.getElementById('mv2UploadResultModal');
-  const uploadResultDesc = document.getElementById('mv2UploadResultDesc');
-  const closeUploadResult = () => {
-    uploadResultModal.classList.remove('show');
-    uploadResultModal.setAttribute('aria-hidden', 'true');
-  };
-  document.getElementById('mv2UploadResultOk').addEventListener('click', closeUploadResult);
-  window.bindModalDismiss(uploadResultModal, closeUploadResult);
   if (excelInput) {
     excelInput.addEventListener('change', () => {
       const file = excelInput.files[0];
       if (!file) return;
-      uploadResultDesc.textContent = file.name + ' — 이미지를 제외한 메뉴 정보가 반영되었습니다. 이미지는 목록에서 개별 등록해주세요. (등록 완료 4건, 오류 1건)';
-      uploadResultModal.classList.add('show');
-      uploadResultModal.setAttribute('aria-hidden', 'false');
+      showAlert('식단 업로드 결과', file.name + ' — 이미지를 제외한 메뉴 정보가 반영되었습니다. 이미지는 목록에서 개별 등록해주세요. (등록 완료 4건, 오류 1건)');
       excelInput.value = '';
     });
   }
@@ -590,7 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       downloadModal.classList.remove('show');
       downloadModal.setAttribute('aria-hidden', 'true');
-      showToast(`${downloadSiteLabel.textContent} · ${downloadStart.value} ~ ${downloadEnd.value} 식단을 업로드 양식과 동일한 컬럼으로 다운로드했습니다.`);
+      showToast(`${downloadSiteLabel.textContent} · ${downloadStart.value} ~ ${downloadEnd.value} 식단을 다운로드했습니다. (일자, 사업장, 식사구분, 코너명, 메뉴명, 메뉴1(kcal), 메뉴2~10(이름), 게시상태)`);
     });
   }
 
