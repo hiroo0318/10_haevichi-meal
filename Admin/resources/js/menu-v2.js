@@ -73,10 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
     '2026-09-09': {
       조식: [
         menu('된장국 정식', '한식', [{ name: '된장국 정식', kcal: 120 }, { name: '잡곡밥', kcal: 300 }], DOENJANG, true),
-        menu('계란볶음밥', '', [{ name: '계란볶음밥', kcal: 380 }], DOENJANG, true),
+        menu('계란볶음밥', '', [{ name: '계란볶음밥', kcal: 380 }], null, true),
         menu('북엇국 정식', '한식', [{ name: '북엇국 정식', kcal: 110 }, { name: '잡곡밥', kcal: 300 }], DOENJANG, true),
         menu('누룽지백숙', '별미', [{ name: '누룽지백숙', kcal: 450 }], DOENJANG, true),
-        menu('토스트 세트', '', [{ name: '토스트 세트', kcal: 320 }, { name: '우유', kcal: 120 }], DOENJANG, true),
+        menu('토스트 세트', '', [{ name: '토스트 세트', kcal: 320 }, { name: '우유', kcal: 120 }], null, true),
       ],
       중식: [
         menu('제육볶음 정식', '일품', [{ name: '제육볶음 정식', kcal: 280 }, { name: '잡곡밥', kcal: 300 }], JEYUK, true),
@@ -99,15 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let weekStart = new Date(TODAY_WEEK_START);
   let selectedDate = '2026-09-09';
 
-  // 노출 필수 정보: 메뉴명, 메뉴1 이름·Kcal, 이미지(일자·사업장·식사구분은 화면 조회 조건으로 항상 채워짐).
-  // 원산지·알레르기·영양성분은 고정값이라 체크 대상에서 제외한다.
-  const isPublishable = (item) => !!item.name && !!item.image
+  // 노출 필수 정보: 메뉴명, 메뉴1 이름·Kcal(일자·사업장·식사구분은 화면 조회 조건으로 항상 채워짐).
+  // 이미지는 선택 입력이고, 원산지·알레르기·영양성분은 고정값이라 체크 대상에서 제외한다.
+  const isPublishable = (item) => !!item.name
     && item.composition.length > 0 && item.composition[0].name === item.name
     && item.composition.every((c) => c.kcal !== '' && c.kcal !== null && c.kcal !== undefined);
 
   const mealStatus = (items) => {
     if (!items || items.length === 0) return 'empty';
-    const allDone = items.every((i) => i.image && i.exposed);
+    const allDone = items.every((i) => i.exposed);
     return allDone ? 'ok' : 'warn';
   };
 
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
           openPublishConfirm(meal, idx, item);
         } else if (!isPublishable(item)) {
           input.checked = false;
-          showAlert('노출할 수 없습니다', '필수 정보(일자, 사업장, 식사구분, 이미지, 메뉴명 및 입력한 메뉴의 Kcal)를 입력한 후 노출할 수 있습니다.');
+          showAlert('노출할 수 없습니다', '필수 정보(일자, 사업장, 식사구분, 메뉴명 및 입력한 메뉴의 Kcal)를 입력한 후 노출할 수 있습니다.');
         } else {
           item.exposed = true;
           showToast(item.name + ' 메뉴가 노출(으)로 변경되었습니다.');

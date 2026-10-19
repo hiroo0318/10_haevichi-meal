@@ -82,16 +82,20 @@ var DATE_MEAL_STATUS = {
   '9-1': { breakfast:null, lunch:'lunch', dinner:'dinner' },
   '9-3': { breakfast:'breakfast', lunch:'lunch', dinner:'dinner' },
   '9-4': { breakfast:null, lunch:null, dinner:null },
-  /* 5일은 홈·상세의 이미지 로딩 기본 문구 확인용 샘플이다.
-     실제 이미지 미등록 상태 UI가 아니라, 이미지 응답 전 상태를 고정해 둔다. */
-  '9-5': { breakfast:'breakfast', lunch:'lunch', dinner:'dinner', thumbnailLoading:true }
+  '9-5': { breakfast:'breakfast', lunch:'lunch', dinner:'dinner' }
 };
 
-/* 9월 3일 조식·중식 1번의 운영 이미지 표시 확인용 임시 샘플. */
+/* 이미지 주소가 null인 코너도 메뉴는 노출하고 공통 준비중 이미지를 사용한다.
+   9월 5일은 이미지 미등록 상태 확인용 샘플이다. */
 var DATE_MEAL_PHOTOS = {
   '9-3': {
     breakfast: { a: 'resources/images/menu/haevichi-07-breakfast.jpg' },
     lunch: { a: 'resources/images/menu/haevichi-07-lunch1.png' }
+  },
+  '9-5': {
+    breakfast: { a:null, b:null },
+    lunch: { a:null, b:null },
+    dinner: { a:null }
   }
 };
 
@@ -101,7 +105,10 @@ var DATE_MEAL_CORNER_IDS = {
 
 function mealPhotoForDate(date, mealKey, corner){
   var photos = DATE_MEAL_PHOTOS[date];
-  return (photos && photos[mealKey] && photos[mealKey][corner.id]) || corner.photo;
+  var mealPhotos = photos && photos[mealKey];
+  return mealPhotos && Object.prototype.hasOwnProperty.call(mealPhotos, corner.id)
+    ? mealPhotos[corner.id]
+    : corner.photo;
 }
 
 function mealCornersForDate(date, mealKey){
@@ -128,22 +135,38 @@ function mealCornersForDate(date, mealKey){
 
 document.addEventListener('DOMContentLoaded', function(){
 
-  function revealMealImage(image){
-    var container = image.parentNode;
-    var loadingMessage = container.querySelector('.meal-image-loading');
-    image.hidden = false;
-    container.classList.remove('is-loading');
-    if(loadingMessage) loadingMessage.hidden = true;
+  /* 변경 포인트: 준비중 상태는 외부 이미지 요청 없이 HTML·CSS로 표시한다. */
+  function mealImagePlaceholderMarkup(){
+    return '<div class="meal-photo-placeholder" role="img" aria-label="이미지 준비중">' +
+      '<div class="meal-photo-placeholder-art" aria-hidden="true">' +
+        '<span class="meal-photo-placeholder-fork"></span>' +
+        '<span class="meal-photo-placeholder-plate"><span class="meal-photo-placeholder-icon"></span></span>' +
+        '<span class="meal-photo-placeholder-knife"></span>' +
+      '</div>' +
+      '<span class="meal-photo-placeholder-label">이미지 준비중</span>' +
+    '</div>';
   }
-
-  function loadMealImage(image){
+  function loadMealImage(image, photo, name, onSettled){
     var container = image.parentNode;
-    var loadingMessage = container.querySelector('.meal-image-loading');
+    var placeholder = container.querySelector('.meal-photo-placeholder');
     image.hidden = true;
-    container.classList.add('is-loading');
-    if(loadingMessage) loadingMessage.hidden = false;
-    image.addEventListener('load', function(){ revealMealImage(image); }, { once:true });
-    if(image.complete && image.naturalWidth) revealMealImage(image);
+    image.alt = '';
+    container.classList.add('is-placeholder');
+    if(!photo){
+      if(onSettled) onSettled();
+      return;
+    }
+    image.onload = function(){
+      image.alt = name;
+      image.hidden = false;
+      placeholder.hidden = true;
+      container.classList.remove('is-placeholder');
+      if(onSettled) onSettled();
+    };
+    image.onerror = function(){
+      if(onSettled) onSettled();
+    };
+    image.src = photo;
   }
 
   /* -------------------------------------------------------
@@ -249,10 +272,14 @@ document.addEventListener('DOMContentLoaded', function(){
      ------------------------------------------------------- */
   // 전주/이번 주/차주 데이터는 퍼블리싱 검토용 고정 마크업이다.
   // 기본 선택은 수요일이며, 선택한 요일은 주를 이동해도 계속 유지한다.
+  // 변경 포인트: 홈 이미지 표시 방식은 이 값만 바꿔 전환한다. 상세는 항상 원본 비율이다.
+  var HOME_IMAGE_MODE = 'cover'; // 'cover': 1600:1300 꽉 채우기 / 'original': 원본 비율
   var weekStrip = document.getElementById('weekStrip');
   if(weekStrip){
     var mealTabs = document.getElementById('mealTabs');
     var cornerList = document.getElementById('cornerList');
+    var homeContent = document.querySelector('.home-content');
+    homeContent.classList.toggle('home-image-cover', HOME_IMAGE_MODE === 'cover');
     var homeMealSection = mealTabs.closest('.home-meal-section');
     var selectedDate = '9-2';
     var selectedMeal = 'lunch';
@@ -260,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var selectedWeekdayIndex = 3;
     var cornerAlignFrame = 0;
 
-    /* 원본 비율은 유지하고, 같은 행의 코너명 시작 높이만 맞춘다. */
+    /* 원본 비율 모드에서만 같은 행의 코너명 시작 높이를 맞춘다. */
     function alignCornerPhotoRows(){
       var photos = Array.prototype.slice.call(cornerList.querySelectorAll('.corner-card .corner-photo'));
       photos.forEach(function(photo){ photo.style.minHeight = ''; });
@@ -273,6 +300,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function scheduleCornerPhotoAlignment(){
+      if(HOME_IMAGE_MODE !== 'original') return;
       if(cornerAlignFrame) cancelAnimationFrame(cornerAlignFrame);
       cornerAlignFrame = requestAnimationFrame(function(){
         cornerAlignFrame = 0;
@@ -315,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function(){
       button.addEventListener('click', function(){ selectWeek(button.getAttribute('data-week-nav')); });
     });
 
-    function renderCorners(mealKey, isAvailable, enabledMeals, isThumbnailLoading){
+    function renderCorners(mealKey, isAvailable, enabledMeals){
       cornerList.innerHTML = '';
       if(!isAvailable){
         cornerList.innerHTML =
@@ -328,9 +356,7 @@ document.addEventListener('DOMContentLoaded', function(){
       mealCornersForDate(selectedDate, mealKey).forEach(function(corner){
         var card = document.createElement('article');
         var photo = mealPhotoForDate(selectedDate, mealKey, corner);
-        var thumbnail = isThumbnailLoading
-          ? '<div class="corner-photo is-loading"><span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span></div>'
-          : '<div class="corner-photo is-loading"><span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span><img src="' + photo + '" alt="' + corner.name + '" hidden></div>';
+        var thumbnail = '<div class="corner-photo is-placeholder">' + mealImagePlaceholderMarkup() + '<img alt="" hidden></div>';
         card.className = 'corner-card';
         card.innerHTML =
           '<a class="corner-detail-link" href="menu-detail.html?meal=' + mealKey + '&corner=' + corner.id + '&date=' + selectedDate + '">' +
@@ -342,12 +368,8 @@ document.addEventListener('DOMContentLoaded', function(){
             '</div>' +
           '</a>' +
           '<a class="corner-voc-link" href="voc.html?meal=' + mealKey + '&corner=' + corner.id + '">의견 쓰기</a>';
-        if(!isThumbnailLoading){
-          var image = card.querySelector('.corner-photo img');
-          image.addEventListener('load', scheduleCornerPhotoAlignment, { once:true });
-          loadMealImage(image);
-        }
         cornerList.appendChild(card);
+        loadMealImage(card.querySelector('.corner-photo img'), photo, corner.name, scheduleCornerPhotoAlignment);
       });
       scheduleCornerPhotoAlignment();
     }
@@ -389,7 +411,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
       var availableMeals = availableMealsForDate(selectedDate, enabledMeals);
       var isDayEmpty = availableMeals.length === 0;
-      var isThumbnailLoading = !!(DATE_MEAL_STATUS[selectedDate] && DATE_MEAL_STATUS[selectedDate].thumbnailLoading);
       renderMealTabs(enabledMeals, isDayEmpty);
       if(isDayEmpty){
         cornerList.innerHTML =
@@ -398,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function(){
           '<p>다른 날짜의 식단을 확인해 주세요.</p></div>';
         return;
       }
-      renderCorners(selectedMeal, availableMeals.indexOf(selectedMeal) !== -1, enabledMeals, isThumbnailLoading);
+      renderCorners(selectedMeal, availableMeals.indexOf(selectedMeal) !== -1, enabledMeals);
     }
 
     renderHome();
@@ -422,8 +443,6 @@ document.addEventListener('DOMContentLoaded', function(){
     var dateCorners = mealCornersForDate(requestedDate, mealKey);
     var requestedCorner = getQueryParam('corner', dateCorners[0].id);
     var activeCornerId = dateCorners.some(function(c){ return c.id === requestedCorner; }) ? requestedCorner : dateCorners[0].id;
-    var isThumbnailLoading = !!(DATE_MEAL_STATUS[requestedDate] && DATE_MEAL_STATUS[requestedDate].thumbnailLoading);
-
     var elHdMeal = document.getElementById('hdMeal');
     var elHero = document.getElementById('heroPhoto');
     var elCorner = document.getElementById('detailCorner');
@@ -442,11 +461,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
       elHdMeal.textContent = meal.label;
 
-      if(!isThumbnailLoading){
-        loadMealImage(elHero);
-        elHero.src = mealPhotoForDate(requestedDate, mealKey, corner);
-        elHero.alt = corner.name;
-      }
+      loadMealImage(elHero, mealPhotoForDate(requestedDate, mealKey, corner), corner.name);
       elCorner.textContent = '코너 ' + corner.id.toUpperCase() + ' · ' + corner.type;
       elName.textContent = corner.name;
       elVocLink.href = 'voc.html?meal=' + mealKey + '&corner=' + corner.id;

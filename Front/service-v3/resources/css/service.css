@@ -133,7 +133,8 @@
    이 클래스만 추가로 붙여서 비교한다 */
 .corner-list.corner-list--grid2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .corner-list--grid2 .corner-card{ height:100%; }
-.corner-list--grid2 .corner-photo{ aspect-ratio:1/1; }
+/* 변경 포인트: 홈 목업의 2열 카드 이미지 영역도 1600:1300 비율로 통일한다. */
+.corner-list--grid2 .corner-photo{ aspect-ratio:16/13; }
 .corner-list--grid2 .corner-cardbody{ padding:10px 12px 12px; }
 .corner-list--grid2 .corner-label{ font-size:11px; }
 .corner-list--grid2 .corner-name{ font-size:15px; margin-bottom:3px; }
@@ -161,14 +162,32 @@
   box-shadow:0 4px 14px rgba(20,25,30,.05);
 }
 .corner-detail-link{ display:block; color:inherit; }
-.corner-photo{ aspect-ratio:16/9; }
+.corner-photo{ aspect-ratio:16/13; }
 .corner-photo img{ width:100%; height:100%; object-fit:cover; }
-.corner-photo.is-loading,.hero.is-loading{ display:grid; place-items:center; background:#fff; }
-.corner-photo.is-loading{ aspect-ratio:4/3; }
-.meal-image-loading{
-  display:block; padding:16px 20px; color:var(--ui-muted); background:transparent;
-  text-align:center; font-size:var(--fs-caption); font-weight:400;
+.corner-photo.is-placeholder,.hero.is-placeholder{ position:relative; aspect-ratio:16/13; overflow:hidden; background:#F6F8FA; }
+/* 변경 포인트: 준비중 화면은 이미지 파일이 아닌 HTML·CSS 일러스트로 즉시 표시한다. */
+.meal-photo-placeholder{ position:absolute; inset:0; overflow:hidden; background:radial-gradient(circle at 50% 42%, #FFFFFF 24%, #F2F5F8 100%); }
+.meal-photo-placeholder[hidden]{ display:none; }
+.meal-photo-placeholder-art{ position:absolute; top:12%; left:50%; width:72%; height:62%; transform:translateX(-50%); }
+.meal-photo-placeholder-plate{
+  position:absolute; top:50%; left:50%; width:62%; aspect-ratio:1; transform:translate(-50%,-50%);
+  border-radius:50%; background:radial-gradient(circle, #FFFFFF 0 39%, #E6EBF0 40% 44%, #FCFDFE 45% 68%, #E0E6EC 69% 72%, #FFFFFF 73%);
+  box-shadow:0 7px 14px rgba(69,83,99,.15), inset 0 2px 4px rgba(255,255,255,.9);
 }
+.meal-photo-placeholder-icon{
+  position:absolute; top:50%; left:50%; width:42%; height:32%; transform:translate(-50%,-50%) rotate(-7deg);
+  border:2px solid #B8C4D0; border-radius:5px; background:linear-gradient(145deg,#FFFFFF,#E4EAF0);
+  box-shadow:0 2px 5px rgba(78,92,107,.13);
+}
+.meal-photo-placeholder-icon::before{ content:""; position:absolute; top:16%; right:16%; width:17%; aspect-ratio:1; border-radius:50%; background:#78A4CE; }
+.meal-photo-placeholder-icon::after{ content:""; position:absolute; left:10%; right:10%; bottom:11%; height:48%; background:#9CACBC; clip-path:polygon(0 100%,33% 18%,56% 70%,72% 40%,100% 100%); }
+.meal-photo-placeholder-fork,.meal-photo-placeholder-knife{ position:absolute; top:16%; height:72%; filter:drop-shadow(1px 2px 2px rgba(70,80,90,.15)); }
+.meal-photo-placeholder-fork{ left:4%; width:8%; }
+.meal-photo-placeholder-fork::before{ content:""; position:absolute; top:0; left:8%; width:84%; height:31%; border-radius:1px 1px 4px 4px; background:repeating-linear-gradient(90deg,#8A98A7 0 2px,transparent 2px 4px); }
+.meal-photo-placeholder-fork::after{ content:""; position:absolute; top:28%; left:41%; width:18%; height:72%; border-radius:4px; background:linear-gradient(90deg,#738292,#C5CFD8,#7F8D9B); }
+.meal-photo-placeholder-knife{ right:4%; width:5%; border-radius:70% 65% 4px 4px; background:linear-gradient(90deg,#788897,#D4DCE4,#8292A0); }
+.meal-photo-placeholder-label{ position:absolute; right:0; bottom:12%; left:0; color:#465362; text-align:center; font-size:12px; font-weight:700; letter-spacing:-.02em; }
+.menu-detail-card .meal-photo-placeholder-label{ font-size:18px; }
 .corner-cardbody{ padding:14px 16px 16px; }
 .corner-label{ font-size:12px; font-weight:700; color:var(--brand-primary); margin-bottom:4px; }
 .corner-name{ font-size:17px; font-weight:800; margin-bottom:5px; }
@@ -642,7 +661,11 @@ body{ background:var(--ui-bg); }
 .home-body{ padding-top:10px; }
 .home-content .corner-photo{ aspect-ratio:auto; }
 .home-content .corner-photo img{ display:block; width:100%; height:auto; object-fit:contain; }
-.home-content .corner-photo.is-loading{ aspect-ratio:4/3; }
+.home-content .corner-photo.is-placeholder{ aspect-ratio:16/13; }
+.home-content .corner-photo.is-placeholder img{ width:100%; height:100%; object-fit:cover; }
+/* 변경 포인트: JS의 HOME_IMAGE_MODE='cover'일 때만 홈 이미지를 고정 비율로 채운다. */
+.home-content.home-image-cover .corner-photo{ position:relative; aspect-ratio:16/13; overflow:hidden; }
+.home-content.home-image-cover .corner-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
 .greeting{ padding-top:var(--space-3); padding-bottom:var(--space-5); }
 .greeting h1,.page-title h1,.notice-page-intro h1{
   color:var(--service-primary-blue);
@@ -671,10 +694,11 @@ body{ background:var(--ui-bg); }
 .corner-list--grid2 .corner-voc-link{ font-size:12px; }
 
 /* 식단 상세 */
-/* 운영 이미지의 원본 비율을 유지한다. 로딩 중에는 임시 영역만 예약한다. */
+/* 운영 이미지의 원본 비율은 유지하고, 이미지 미등록·실패 시에만 1600:1300 준비중 화면을 쓴다. */
 .menu-detail-card .hero{ aspect-ratio:auto; }
 .menu-detail-card .hero img{ display:block; width:100%; height:auto; object-fit:contain; }
-.menu-detail-card .hero.is-loading{ aspect-ratio:4/3; }
+.menu-detail-card .hero.is-placeholder{ aspect-ratio:16/13; }
+.menu-detail-card .hero.is-placeholder img{ width:100%; height:100%; object-fit:cover; }
 .home-content .corner-photo img[hidden],.menu-detail-card .hero img[hidden]{ display:none; }
 .hd-sub-date{ font-weight:600; }
 .hd-sub-meal{ background:var(--ui-bg); color:var(--ui-dark); font-weight:500; }

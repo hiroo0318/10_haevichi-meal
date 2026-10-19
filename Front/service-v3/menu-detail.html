@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="resources/css/reset.css">
 <link rel="stylesheet" href="resources/css/base.css?v=20260917-3">
 <link rel="stylesheet" href="resources/css/theme-haevichi.css?v=20260917-3" id="themeLink">
-<link rel="stylesheet" href="resources/css/service.css?v=20261016-1">
+<link rel="stylesheet" href="resources/css/service.css?v=20261019-3">
 <script src="resources/js/theme-oncolor.js?v=20260917-3"></script>
 </head>
 <body>
@@ -31,9 +31,16 @@
   <main class="content menu-detail-content">
 
     <article class="menu-detail-card" id="detailSheet">
-      <div class="hero is-loading">
-        <span class="meal-image-loading">식단 이미지를 불러오고 있어요.</span>
-        <img id="heroPhoto" src="" alt="" hidden>
+      <div class="hero is-placeholder">
+        <div class="meal-photo-placeholder" role="img" aria-label="이미지 준비중">
+          <div class="meal-photo-placeholder-art" aria-hidden="true">
+            <span class="meal-photo-placeholder-fork"></span>
+            <span class="meal-photo-placeholder-plate"><span class="meal-photo-placeholder-icon"></span></span>
+            <span class="meal-photo-placeholder-knife"></span>
+          </div>
+          <span class="meal-photo-placeholder-label">이미지 준비중</span>
+        </div>
+        <img id="heroPhoto" alt="" hidden>
       </div>
 
       <div class="sheet">
@@ -75,6 +82,6 @@
   </nav>
 
 </div>
-<script src="resources/js/common.js?v=20261016-1"></script>
+<script src="resources/js/common.js?v=20261019-3"></script>
 </body>
 </html>
