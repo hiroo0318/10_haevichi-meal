@@ -39,6 +39,7 @@ service-v3/
 ├─ terms.html / privacy.html  이용약관 / 개인정보처리방침
 ├─ app-version.html           앱 버전·오픈소스 라이선스
 ├─ withdraw.html              회원 탈퇴
+├─ account-deletion.html      계정 삭제 안내 (로그인 없이 열리는 공개 페이지)
 └─ resources/
    ├─ css/
    │  ├─ reset.css            최소 리셋
@@ -115,7 +116,7 @@ service-v3/
 
 | 노출 | `home` · `menu-detail` · `voc` · `voc-list` · `notice` · `notice-detail` · `my` |
 | --- | --- |
-| **미노출** | 인증 4개 화면, `my-password`, `my-policy`, `terms`, `privacy`, `app-version`, `withdraw`, 팝업 2개 |
+| **미노출** | 인증 4개 화면, `my-password`, `my-policy`, `terms`, `privacy`, `app-version`, `withdraw`, `account-deletion`, 팝업 2개 |
 
 식단 상세·공지 상세는 2뎁스지만 탭바를 노출합니다. PDF 주석(식단 상세 12번, 공지 12번)에 Bottom Navigation이 명시되어 있기 때문입니다.
 

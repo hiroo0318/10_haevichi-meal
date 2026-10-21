@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>계정 삭제 안내 | 오늘의 식사</title>
+<link rel="stylesheet" href="resources/css/reset.css">
+<link rel="stylesheet" href="resources/css/base.css?v=20260917-3">
+<link rel="stylesheet" href="resources/css/theme-haevichi.css?v=20260917-3" id="themeLink">
+<link rel="stylesheet" href="resources/css/service.css?v=20261001-2">
+<script src="resources/js/theme-oncolor.js?v=20260917-3"></script>
+<style>
+/* 변경 포인트: 공개 계정 삭제 안내의 목록·문의 문구만 기존 법률 안내 스타일에 보완 */
+.account-deletion-service{ margin:12px 0 28px; color:var(--sub); font-size:var(--fs-body-sm); line-height:1.75; word-break:keep-all; }
+.account-deletion-list{ margin:10px 0 0; padding-left:20px; list-style:disc; color:var(--sub); font-size:var(--fs-body-sm); line-height:1.75; word-break:keep-all; }
+.account-deletion-list li+li{ margin-top:8px; }
+.account-deletion-link{ color:var(--service-primary-blue); text-decoration:underline; text-underline-offset:2px; overflow-wrap:anywhere; }
+</style>
+</head>
+<body>
+<!-- 공개 페이지: 로그인이나 스크립트 실행 없이 계정 삭제 방법과 데이터 처리 내용을 제공 -->
+<div class="page">
+  <!-- 헤더 영역: 공개 페이지이므로 제목만 노출 -->
+  <header class="hd-sub">
+    <span class="hd-sub-date">계정 삭제 안내</span>
+  </header>
+  <main class="content legal-content">
+    <article class="legal-body">
+      <h1>계정 및 데이터 삭제 안내</h1>
+      <p class="account-deletion-service">서비스: 오늘의 식사 / 서비스 제공: 해비치호텔앤드리조트 (운영 위탁: SK엠앤서비스)</p>
+
+      <!-- 계정 삭제 방법 -->
+      <section aria-labelledby="deletion-method">
+        <h2 id="deletion-method">1. 계정 삭제 방법</h2>
+        <ul class="account-deletion-list">
+          <li>앱에서 로그인한 뒤 My &gt; 회원 탈퇴에서 안내에 따라 비밀번호를 입력하고 동의하면 탈퇴가 완료됩니다.</li>
+          <li>앱에 접속할 수 없는 경우 <a class="account-deletion-link" href="mailto:privacy@haevichi.com">privacy@haevichi.com</a> 으로 "오늘의 식사 계정 삭제 요청"이라는 제목과 가입한 이메일 주소를 보내 주세요. 본인 확인 후 삭제를 처리합니다.</li>
+        </ul>
+      </section>
+
+      <!-- 삭제되는 데이터 -->
+      <section aria-labelledby="deleted-data">
+        <h2 id="deleted-data">2. 삭제되는 데이터</h2>
+        <p>회원 탈퇴가 완료되면 아래 정보를 지체 없이 삭제합니다.</p>
+        <ul class="account-deletion-list">
+          <li>이메일(로그인 ID), 비밀번호, 소속 구분, 성별, 연령대, 소속 회사 및 사업장 정보</li>
+          <li>작성한 의견 내용 및 첨부 사진</li>
+        </ul>
+      </section>
+
+      <!-- 보관되는 데이터와 기간 -->
+      <section aria-labelledby="retained-data">
+        <h2 id="retained-data">3. 보관되는 데이터와 기간</h2>
+        <p>관계 법령에 따라 보관이 필요한 정보와 서비스 접속 기록은 해비치호텔앤드리조트 개인정보처리방침에서 정한 기간(접속 기록은 2년 이상) 동안 별도로 보관한 뒤 파기합니다.</p>
+      </section>
+
+      <!-- 문의 -->
+      <section aria-labelledby="deletion-contact">
+        <h2 id="deletion-contact">4. 문의</h2>
+        <p><a class="account-deletion-link" href="mailto:privacy@haevichi.com">privacy@haevichi.com</a></p>
+      </section>
+
+      <!-- 영문 안내 -->
+      <section lang="en" aria-label="Account and data deletion information in English">
+        <p>Account and data deletion for "오늘의 식사" (Today's Meal), provided by Haevichi Hotels &amp; Resorts. Open the app, go to My &gt; Withdraw, or email <a class="account-deletion-link" href="mailto:privacy@haevichi.com">privacy@haevichi.com</a> with the subject "Account deletion request" and your registered email address.</p>
+      </section>
+    </article>
+  </main>
+</div>
+</body>
+</html>
